@@ -1,0 +1,316 @@
+﻿<!-- start details-->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="search pull-left ">
+                <!--<div class="input-group pull-left">
+            <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box" ng-change="searched = false">
+            <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+
+        </div>-->
+                <div class="input-group pull-left ">
+                    <input type="text" ng-change="searched = false" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                    <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                        <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                    </span>
+
+                    <span class="search-icon"><i class="fa fa-search"></i></span>
+                    <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                        <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                    </span>
+                </div>
+
+            </div>
+            <div class="pull-left">
+                <div class="highlited-area">
+                    <label>Prospect ID:</label>
+                    <label class="hl-number">{{customer.CustomerID}}</label>
+                </div>
+                <div class="highlited-area">
+                    <label>Org ID:</label>
+                    <label class="hl-number">{{customer.OrgNo}}</label>
+                </div>
+            </div>
+            <!--<div class="search pull-left">
+                <div class="input-group pull-left">
+                    <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false">
+                    <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+
+                </div>
+            </div>-->
+            <div class="pull-right btn-pnl">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" ui-sref="^.list">Back</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12 detail-section">
+                    <h3 class="page-title"> Prospect Details</h3>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Name:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.Name}} </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Legal Name:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.LegalName}}</label>
+                            </div>
+                        </div>
+                      
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Company Name:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.CompanyGroup}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Store:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.Address}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Address:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.VisitAddress}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Telephone Type:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.Telephone}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Telephone:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.TelephoneNo}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Webpage:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.WebPage}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Our Reference:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.OurReference}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Brand Affiliation:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.BrandAffiliation}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Coperate Partner:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.CoperatePartner}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Organization Number:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.OrgNo}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Country:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.Country}}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>City:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.City}}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-5 col-sm-5" for=""><strong>Post Code:</strong></label>
+                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                <label for="">{{customer.PostCode}}</label>
+                            </div>
+                        </div>
+                    
+                    </form>
+                </div>
+            </div>
+
+
+            <!--<div class="form-group action-area">
+                <div class="col-lg-9 col-md-9 col-sm-8 col-lg-offset-3 col-md-offset-3 col-sm-offset-4 text-right">
+
+                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" ui-sref="^.list">Back</button>
+                </div>
+            </div>-->
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- end details-->
+
+
+<!-- accordian -->
+
+<div class="panel-group accordion" id="accordion3">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#product">
+                    Product Group
+                </a>
+            </h4>
+        </div>
+        <div id="product" class="panel-collapse in">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="">
+                        <thead>
+                            <tr>
+
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Key Plate</th>
+                                <th>Price ID</th>
+                                <th>Term ID</th>
+                                <th>Organization</th>
+
+                                <th class="text-center action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="click-row off-click">
+
+                                <td><a href="#" class="click-cell">1001</a></td>
+                                <td><a href="#" class="click-cell">A.D Cruger</a></td>
+                                <td><a href="#" class="click-cell">Active</a></td>
+                                <td><a href="#" class="click-cell">3232</a></td>
+                                <td><a href="#" class="click-cell">Oslo</a></td>
+                                <td><a href="#" class="click-cell">Norge</a></td>
+
+                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                            </tr>
+
+                            <tr class="click-row off-click">
+
+                                <td><a href="#" class="click-cell">1002</a></td>
+                                <td><a href="#" class="click-cell">Acer AS</a></td>
+                                <td><a href="#" class="click-cell">Active</a></td>
+                                <td><a href="#" class="click-cell">2392</a></td>
+                                <td><a href="#" class="click-cell">Jar</a></td>
+                                <td><a href="#" class="click-cell">Norge</a></td>
+
+                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                            </tr>
+                            <tr class="click-row off-click">
+
+                                <td><a href="#" class="click-cell">1003</a></td>
+                                <td><a href="#" class="click-cell">Adeko AS</a></td>
+                                <td><a href="#" class="click-cell">Disabled</a></td>
+                                <td><a href="#" class="click-cell">1472</a></td>
+                                <td><a href="#" class="click-cell">ALVSBYN</a></td>
+                                <td><a href="#" class="click-cell">Sverige</a></td>
+
+                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#persons">
+                    Persons
+                </a>
+            </h4>
+        </div>
+        <div id="persons" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="">
+                        <thead>
+                            <tr>
+
+                                <th>ID</th>
+                                <th>FirstName</th>
+                                <th>Surname</th>
+                                <th>Title</th>
+                                <th>MobileNo</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>Reasonable</th>
+                                <th class="text-center action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="click-row off-click">
+
+                                <td><a href="#" class="click-cell">1001</a></td>
+                                <td><a href="#" class="click-cell">A.D Cruger</a></td>
+                                <td><a href="#" class="click-cell">Active</a></td>
+                                <td><a href="#" class="click-cell">3232</a></td>
+                                <td><a href="#" class="click-cell">Oslo</a></td>
+                                <td><a href="#" class="click-cell">Norge</a></td>
+                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                <td><a href="#" class="click-cell">20</a></td>
+                                <td><a href="#" class="click-cell">320</a></td>
+                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                            </tr>
+
+                            <tr class="click-row off-click">
+
+                                <td><a href="#" class="click-cell">1002</a></td>
+                                <td><a href="#" class="click-cell">Acer AS</a></td>
+                                <td><a href="#" class="click-cell">Active</a></td>
+                                <td><a href="#" class="click-cell">2392</a></td>
+                                <td><a href="#" class="click-cell">Jar</a></td>
+                                <td><a href="#" class="click-cell">Norge</a></td>
+                                <td><a href="#" class="click-cell">End Customer</a></td>
+                                <td><a href="#" class="click-cell">26</a></td>
+                                <td><a href="#" class="click-cell">123</a></td>
+                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                            </tr>
+                            <tr class="click-row off-click">
+
+                                <td><a href="#" class="click-cell">1003</a></td>
+                                <td><a href="#" class="click-cell">Adeko AS</a></td>
+                                <td><a href="#" class="click-cell">Disabled</a></td>
+                                <td><a href="#" class="click-cell">1472</a></td>
+                                <td><a href="#" class="click-cell">ALVSBYN</a></td>
+                                <td><a href="#" class="click-cell">Sverige</a></td>
+                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                <td><a href="#" class="click-cell">2</a></td>
+                                <td><a href="#" class="click-cell">54</a></td>
+                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

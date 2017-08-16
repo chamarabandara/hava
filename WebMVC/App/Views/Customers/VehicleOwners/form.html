@@ -1,0 +1,418 @@
+﻿<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDeleteRepresntative'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete ' {{represntativeRow.represntativeName}} ', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteRepresntative(represntativeRow)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToList()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="app.customers.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+         <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>
+                    <a ng-click="proceedCancel(model)">Customer</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="update">Vehicle Owner - Add</span>
+                    <span class="sub-head" ng-show="update">Vehicle Owner - Edit</span>
+                </h3>
+            </div>
+             <div class="btn-pnl-btns">
+
+                 <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model)">Cancel</button>
+                 <button class="btn btn-primary" type="button" ng-click="saveVehicleOwner(model);" ng-hide="update">Save</button>
+                 <button class="btn btn-primary" type="button" ng-click="updateVehicleOwner(model);" ng-show="update">Update</button>
+             </div>
+        </div>
+        <div class="content">
+            <div class="row">
+
+
+                <form class="form-horizontal" novalidate name="vehicleForm">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group" ng-class="{'has-error' : (vehicleForm.status.$invalid && submitted)}">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Status:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                        <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="model.status">
+                                            <option value="">-- Select a Status --</option>
+
+                                        </select>
+                                        <div ng-show="vehicleForm.status.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="vehicleForm.status.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="h-space"></div>
+                                <div class="row">
+                                    <div class="col-sm-5 col-xs-6">
+                                        <input type="radio" id="rv1" name="radio-demo-v" ng-model="ownerType" value="vehicleOwner" ng-change="clearBillingAddress()"/><label for="rv1" class="font-gray italic">Single Owner</label>
+                                    </div>
+                                    <div class="col-sm-7 col-xs-6">
+                                        <input type="radio" id="rv2" name="radio-demo-v" ng-model="ownerType" value="organisation" ng-change="clearBillingAddress()" /><label for="rv2" class="font-gray italic">Organisation</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Vehicle Owner Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="update">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Customer Id:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.customerId" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.personalId.$invalid && submitted)}" ng-show="ownerType == 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Personal Id No:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" class="form-control" ng-model="model.personalId" name="personalId" ng-required="ownerType == 'vehicleOwner'">
+                                <div ng-show="vehicleForm.personalId.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.personalId.$error.required">Required.</span>
+                                </div>
+                                <span class="help-block error-label" ng-show="!vehicleForm.personalId.$error.required && persoalIdExsist">The Personal Id already exists, enter a valid signature.</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.personalId.$invalid && submitted)}" ng-show="ownerType != 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Organisation Reg No:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" class="form-control" ng-model="model.orgRegNo" name="orgRegNo" ng-required="ownerType != 'vehicleOwner'">
+                                <div ng-show="vehicleForm.orgRegNo.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.orgRegNo.$error.required">Required.</span>
+                                </div>
+                                <span class="help-block error-label" ng-show="!vehicleForm.personalId.$error.required && orgExsist">The Organization Name already exists, enter a valid signature.</span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.firstName.$invalid && submitted)}" ng-show="ownerType == 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>First Name:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.firstName" name="firstName" ng-required="ownerType == 'vehicleOwner'">
+                                <div ng-show="vehicleForm.firstName.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.firstName.$error.required">Required.</span>
+                                </div>
+                                <span class="help-block error-label" ng-show="!vehicleForm.personalId.$error.required && registrationNumberExsist">The Organization Registration Number already exists, enter a valid signature.</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.orgName.$invalid && submitted)}" ng-show="ownerType != 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org Name:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-required="ownerType != 'vehicleOwner'" ng-model="model.orgName" name="orgName">
+                                <div ng-show="vehicleForm.orgName.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.orgName.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ownerType == 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Last Name:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.lastName" name="lastName">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.address.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.address" name="address" required maxlength="500">
+                                <div ng-show="vehicleForm.address.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.address.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.city.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.city" name="city" required maxlength="200">
+                                <div ng-show="vehicleForm.city.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.city.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.country.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" required name="country" ng-options="ctry.CountryName for ctry in countryList track by ctry.Id" ng-model="model.country">
+                                    <option value="">-- Select a Country --</option>
+                                </select>
+                                <div ng-show="vehicleForm.country.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.country.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group uppercase-fix" ng-class="{'has-error' : (vehicleForm.postalCode.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal Code/ <span>Z</span>ip Code:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.postalCode" name="postalCode" required maxlength="100">
+                                <div ng-show="vehicleForm.postalCode.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.postalCode.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.billingAddress.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <textarea placeholder="" class="form-control" ng-model="model.billingAddress" name="billingAddress" required maxlength="500"></textarea>
+                                <div ng-show="vehicleForm.billingAddress.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.billingAddress.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.teleNumber.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone number:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.teleNumber" name="teleNumber" required maxlength="20">
+                                <div ng-show="vehicleForm.teleNumber.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="vehicleForm.teleNumber.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (vehicleForm.email.$error.email)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="email" placeholder="" class="form-control" ng-model="model.email" name="email">
+                                <span class="help-block error-label" ng-show="vehicleForm.email.$error.email">The email address is invalid.</span>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span> Co-Operation Partner Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Co-op Partner Name:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="partnerName" ng-options="pat.name for pat in partnerList track by pat.id" ng-model="model.partnerName" ng-change="setPartnerId(model.partnerName)">
+                                    <option value="">-- Select a Partner --</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>ID Number:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" readonly ng-model="model.partnerId">
+                            </div>
+                        </div>-->
+                        <div class="show-det" ng-show="ownerType != 'vehicleOwner'">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <h4><span class="sect-number">
+                                        <span ng-if="ownerType == 'vehicleOwner'">2</span>
+                                        <span ng-if="ownerType != 'vehicleOwner'">3</span>
+
+                                        </span> Dealer's Representative</h4>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative Name:<span class="red" ng-show="represntativeNameEmpty"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" class="form-control" ng-model="modelRepresntative.represntativeName" name="represntativeName" ng-change="represntativeNameEmpty = false;">
+                                    <span class="help-block error-label ng-hide" ng-show="represntativeNameEmpty">Required.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Title:<span class="red" ng-show="represntativeTitleEmpty"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" class="form-control" ng-model="modelRepresntative.represntativeTitle" name="represntativeTitle" ng-change="represntativeTitleEmpty = false;">
+                                    <span class="help-block error-label ng-hide" ng-show="represntativeTitleEmpty">Required.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone Number:<span class="red" ng-show="represntativeTeleNumberEmpty"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" class="form-control" ng-model="modelRepresntative.represntativeTeleNumber" name="represntativeTeleNumber" ng-change="represntativeTeleNumberEmpty = false;" maxlength="20">
+                                    <span class="help-block error-label ng-hide" ng-show="represntativeTeleNumberEmpty">Required.</span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile Number:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" class="form-control" ng-model="modelRepresntative.represntativeMobNumber" name="represntativeMobNumber" maxlength="20">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Web User ID:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" class="form-control" ng-model="modelRepresntative.represntativeWebUserId" name="represntativeWebUserId">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>User Name:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" class="form-control" ng-model="modelRepresntative.represntativeUserName" name="represntativeUserName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Password:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" class="form-control" ng-model="modelRepresntative.represntativePassword" name="represntativePassword">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="checkbox" id="ch1" name="checkbox-demo-h" ng-model="modelRepresntative.represntativeStatus" ng-checked="modelRepresntative.represntativeStatus" />
+                                    <label class="input-label" for="ch1">Active</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <button class="btn btn-primary" type="button" ng-click="addRepresntative(modelRepresntative)" ng-hide="modelRepresntative.id">Add Representative</button>
+                                    <button class="btn btn-primary" type="button" ng-click="updateRepresntative(modelRepresntative)" ng-show="modelRepresntative.id">Update Representative</button>
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ac-grid options="representativeGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="representativesDealer" action="action" class="ang-grid"></ac-grid>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">
+                                        <span ng-if="ownerType == 'vehicleOwner'">3</span>
+                                        <span ng-if="ownerType != 'vehicleOwner'">4</span>
+                                    </span> Dealer Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer's Name:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="representativeName" ng-options="rep.name for rep in dealersList track by rep.id" ng-model="model.dealerName" ng-change="setDealersId(model.dealerName)">
+                                    <option value="">-- Select a Dealer --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>ID Number:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" readonly ng-model="model.dealerId">
+                            </div>
+                        </div>-->
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">
+                                        <span ng-if="ownerType == 'vehicleOwner'">4</span>
+                                        <span ng-if="ownerType != 'vehicleOwner'">5</span>
+                                    </span> AutoConcept Representative for End Customer</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative's Name:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="representativeName" ng-options="rep.name for rep in representativeList track by rep.id" ng-model="model.representativeName" ng-change="setRepresentativeId(model.representativeName)">
+                                    <option value="">-- Select a Representative --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>ID Number:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" readonly ng-model="model.representativeId">
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Title:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" readonly ng-model="model.representativeTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile Number:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" readonly ng-model="model.representativeMobNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="email" placeholder="" class="form-control" readonly ng-model="model.representativeEmail" name="representativeEmail">
+                                <!-- <span class="help-block error-label" ng-show="prospectForm.representativeEmail.$error.email">The email address is invalid.</span>-->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">
+                                        <span ng-if="ownerType == 'vehicleOwner'">5</span>
+                                        <span ng-if="ownerType != 'vehicleOwner'">6</span>
+                                   </span> Payment Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.bank" name="bank">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.clearingNo" name="clearingNo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.accNo" name="accNo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6"> 
+                                <input type="text" placeholder="" class="form-control" ng-model="model.bankgiro" name="bankgiro">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.postgiro" name="postgiro">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

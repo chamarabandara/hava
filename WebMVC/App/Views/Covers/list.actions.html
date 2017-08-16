@@ -1,0 +1,5 @@
+﻿<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">
+    <a class="link-action" ng-click="action()(row,'edit')"><i class="access-link fa fa-pencil-square-o"></i></a>
+    <a class="link-action" ng-click="action()(row,'delete')" ng-show="row.status == 'Active'"><i class="fa fa-trash"></i></a>
+    <a class="link-action" ng-click="action()(row,'copy')"><i class="access-link fa fa-copy"></i></a>
+</div>

@@ -1,0 +1,106 @@
+﻿<div class="modal fade" data-backdrop="static" id="add-bundle-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancelCreate()"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Selection For Bundle Product</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form novalidate name="bundleProductCopyForm">
+                        <div class="col-sm-12 uppercase-fix">
+                             
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-lg-4 col-md-4 col-sm-5" for=""><strong>Dealer Product:</strong></label>
+                                    <div class="col-lg-8 col-md-8 col-sm-7">
+                                        <input type="text" placeholder="" readonly class="form-control" ng-model="model.dealerProduct" name="dealerProduct">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-class="{'has-error' : (bundleProductCopyForm.productForBundling.$invalid && submitted)}">
+                                <div class="row">
+                                    <label class="col-lg-4 col-md-4 col-sm-5" for=""><strong>Product for Bundling:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-8 col-md-8 col-sm-7">
+                                        <select class="form-control" required name="productForBundling" ng-options="pbl.name for pbl in productBundleList track by pbl.id" ng-model="model.productForBundling">
+                                            <option value="">-- Select a Product --</option>
+                                        </select>
+                                        <div ng-show="bundleProductCopyForm.productForBundling.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="bundleProductCopyForm.productForBundling.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error' : (bundleProductCopyForm.bundleProductName.$invalid && submitted)}">
+                                <div class="row">
+                                    <label class="col-lg-4 col-md-4 col-sm-5" for=""><strong>Name of Bundle Product:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-8 col-md-8 col-sm-7">
+                                        <input type="text" class="form-control" required name="bundleProductName" ng-model="model.bundleProductName" ng-change="productNameExsist=false;">
+                                        <div ng-show="bundleProductCopyForm.bundleProductName.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="bundleProductCopyForm.bundleProductName.$error.required">Required.</span>
+                                        </div>
+                                        <div ng-show="(submitted && !bundleProductCopyForm.productNameExsist) && (productNameExsist)" class="ng-hide">
+                                            <span class="help-block error-label">Bundle product already exist.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group action-area">
+                                <div class="row">
+                                    <div class="col-sm-12 ">
+                                        <button class="btn btn-primary pull-right" type="button" ng-click="addBundleProduct(model)">Create</button>
+                                        <button class="btn btn-default pull-right" type="button" data-dismiss="modal" ng-click="cancelCreate()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span ng-bind-html="infoMsg"></span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>Product Information</h3>
+            </div>
+            <div class="btn-pnl-btns">
+               <!-- <button class="btn btn-primary" type="button" ui-sref="^.form" ng-click="clearMsg()">Add New</button>-->
+
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="search pull-left">
+                    <div class="input-group pull-left ">
+                        <input type="text" ng-change="searched = false; infoMsg='';" class="form-control text-box page-search-box" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                        <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                            <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                        </span>
+
+                        <span class="search-icon"><i class="fa fa-search"></i></span>
+                        <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                            <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <ac-grid options="productGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->

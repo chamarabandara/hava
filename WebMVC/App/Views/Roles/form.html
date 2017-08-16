@@ -1,0 +1,96 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmLeave'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ng-click="leave()">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancel()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+
+            <!--<div class="search pull-left">
+                <div class="input-group pull-left">
+                    <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false">
+                    <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+
+                </div>
+
+            </div>-->
+            <div class="btn-pnl padding-fix">
+                <h3><a ng-click="askCancel('list', rolePermissions)">User Role </a> <span><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Edit</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" ng-click="askCancel('list', rolePermissions)">Cancel</button>
+                <button class="btn  btn-primary" type="button" ng-click="EditRole();">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12">
+                    <form class="form-horizontal" name="RoleForm" >
+                        <!--<div class="form-group">
+            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Role:</strong></label>
+            <div class="col-lg-9 col-md-9 col-sm-8">
+                <select class="form-control" ng-model="rolePermissions.Role" ng-options="role as role.name for role in roles" ng-change="GetRolePermissions()"></select>
+            </div>
+        </div>-->
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Role Name:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (RoleForm.roleName.$invalid && submitted)}">
+                                <input type="text" name="roleName" required placeholder="" class="form-control" ng-model="rolePermissions.RoleName">
+                                <span id="name-error" ng-show="submitted && RoleForm.roleName.$invalid && RoleForm.roleName.$error.required" class="help-block help-block-error">Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <select class="form-control" name="roleStatus" ng-model="rolePermissions.isActive">
+                                    <option value="1" class="">Active</option>
+                                    <option value="0" class="">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4 check-radio-group-label"><strong>Permission:</<strong></label>
+                            <div class=" col-lg-9 col-md-9 col-sm-8">
+                                <div class="panel-group accordion no-background" id="accordion3">
+                                    <div class="panel panel-default" ng-show="permission.permissionList.length > 0" ng-repeat="permission in permissions">
+                                        <h4 class="panel-title">
+                                            <a href="" class="accordion-toggle accordion-toggle-styled" ng-class="{collapsed:isOpenTab(permission.moduleName)}" ng-click="openTab(permission.moduleName)">{{permission.moduleName}}</a>
+                                        </h4>
+                                        <div id="product" class="panel-collapse in" ng-show="isOpenTab(permission.moduleName)">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <input ng-model="modules[permission.moduleId]" ng-click="toggle(permission.moduleId)" ng-checked="modules[permission.moduleId] || permission.permissionList.length == moduleCheckedPermissions[permission.moduleId].length" type="checkbox" id="{{permission.moduleName+$index}}">
+                                                    <label for="{{permission.moduleName+$index}}" class="input-label">Select All</label>
+                                                    <div ng-show="permission.permissionList.length" class="col-sm-12 checkbox-list">
+                                                        <div ng-repeat="singlepermission in permission.permissionList">
+                                                            <input type="checkbox" id="{{singlepermission.name+$index}}" ng-model="rolePermissions.Permissions[singlepermission.id]" ng-click="getClicked(permission.moduleId, singlepermission.id, permission.permissionList.length)" ng-checked="rolePermissions.Permissions[singlepermission.id] || modules[permission.moduleId] || permissioned(permission.moduleId, singlepermission.id)">
+                                                            <label class="input-label" for="{{singlepermission.name+$index}}">{{singlepermission.name}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show="!permission.permissionList.length">No Roles available for this module</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

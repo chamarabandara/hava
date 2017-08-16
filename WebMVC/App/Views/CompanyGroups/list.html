@@ -1,0 +1,373 @@
+﻿<div class="modal fade" id="view-company-group-modal" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancelCompanyGroupModal()"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Company Group - Edit</h3>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                    <div class="col-sm-12">
+                        <form class="form-horizontal" name="companyGroupForm">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group" ng-class="{'has-error' : (companyGroupForm.status.$invalid && submitted)}">
+                                            <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Partnership Status:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" required name="status" ng-options="stat.name for stat in statusList track by stat.id" ng-model="model.status">
+                                                    <option value="">-- Select a Status --</option>
+
+                                                </select>
+                                                <div ng-show="companyGroupForm.status.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="companyGroupForm.status.$error.required">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="panel-group accordion no-background" id="accordion3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading relative">
+                                            <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('copartner')"><span class="sect-number">1</span> Co-operation Partner Details</a> </h4>
+                                        </div>
+                                        <div id="copartnerId" class="panel-collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Org Name:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.orgName}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org.Registration Number:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.orgRegNumber}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Legal Name:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.legalName}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Store:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.store}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.address}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.city}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.country}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal code / Zip code:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.postalCode}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone Number:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.teleNumber}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.email}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Website:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.website}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading relative">
+                                            <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('copartnerRep')"><span class="sect-number">2</span> Co-operation Representative Partner Details</a> </h4>
+                                        </div>
+                                        <div id="copartnerRepId" class="panel-collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative Name:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.representativePartner.name}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Title:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.representativePartner.title}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone Number:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.representativePartner.teleNumber}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile Number:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.representativePartner.mobNumber}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="panel-group accordion no-background" id="accordion4">
+                                    <div class="panel panel-default relative">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion4" ng-click="collapsePannel('dealerDetails')"><span class="sect-number">3</span> Dealer Details</a> </h4>
+                                        </div>
+                                        <div id="dealerDetailsId" class="panel-collapse  in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org. Name:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.name}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org. Registration Number:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.regNumber}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Legal Name:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.legalName}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Store:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.store}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.address}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.city}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.country}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal code / Zip code:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.postalCode}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Tele Number:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.teleNumber}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.email}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Website:</strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <label>{{companyDetails.dealer.website}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading relative">
+                                            <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion4" ng-click="collapsePannel('dealerDetailsRep')"><span class="sect-number">4</span> Dealer Representative Details</a> </h4>
+                                        </div>
+                                        <div id="dealerDetailsRepId" class="panel-collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                 <ac-grid options="dealerRepresentativeGridOptions" filter-criteria="filterCriteriaDealer" filter-function="searchFunctionDealer" data="representativesDealer" action="action" class="ang-grid"></ac-grid>
+
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="panel-group accordion no-background" id="accordion7">
+                                    <div class="panel panel-default relative">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion7" ng-click="collapsePannel('commisionByDealer')"><span class="sect-number">5</span> Commission By Dealer Warranties</a> </h4>
+                                        </div>
+                                        <div id="commisionByDealerId" class="panel-collapse  in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-3">
+
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12" for=""><strong>Start Date:</strong></label>
+                                                                    <div class="col-sm-12" id="ddp3">
+                                                                        <div class="input-group input-append date date-picker">
+                                                                            <input class="form-control startDate" type="text" ng-model="model.startDate" id="startDate" name="startDate">
+                                                                            <span class="input-group-btn">
+                                                                                <button class="btn default" type="button" ng-click="selectDate('startDate')"><i class="fa fa-calendar"></i></button>
+                                                                            </span>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12" for=""><strong>End Date:</strong></label>
+                                                                    <div class="col-sm-12" id="ddp3">
+                                                                        <div class="input-group input-append date date-picker">
+                                                                            <input class="form-control endDate" type="text" ng-model="model.endDate" id="endDate" name="endDate">
+                                                                            <span class="input-group-btn">
+                                                                                <button class="btn default" type="button" ng-click="selectDate('endDate')"><i class="fa fa-calendar"></i></button>
+                                                                            </span>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+
+                                                                    <div class="col-sm-12 margin-label-height">
+                                                                        <button class="btn btn-primary" type="button" ng-click="filterCommitionDetails()">Filter</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <ac-grid options="dealerCommissionGridOptions" filter-criteria="filterCriteriaDealerCommission" filter-function="searchFunctionDealerCommission" data="commisionDealer" action="action" class="ang-grid"></ac-grid>
+
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <label><strong>Total Commision by Dealer Warranties for Period : </strong></label>
+                                                                <label> {{companyDetails.commission.dealerWarenties}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    <div class="form-group text-right">
+                                        <button class="btn btn-default" type="button" ng-click="cancelCompanyGroupModal()">Cancel</button>
+                                        <button class="btn btn-primary" type="button" ng-click="updateCompanyGroup(model)">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3>Company Groups</h3>
+            </div>
+
+            <!--<div class="pull-right btn-pnl">
+                <button class="btn btn-primary" type="button">View Commisions</button>
+            </div>-->
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="search pull-left">
+                        <div class="input-group pull-left ">
+                            <input type="text" ng-change="searched = false" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                            <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                                <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                            </span>
+
+                            <span class="search-icon"><i class="fa fa-search"></i></span>
+                            <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                                <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <select class="form-control" required name="country" ng-options="ctry.CountryName for ctry in countryList track by ctry.Id" ng-model="model.country" ng-change="filterCompanyGroup(model.country,model.partnerName)">
+                            <option value="">-- Select a Country --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <select class="form-control" name="partnerName" ng-options="pat.name for pat in partnerList track by pat.id" ng-model="model.partnerName" ng-change="filterCompanyGroup(model.country, model.partnerName)">
+                            <option value="">-- Select Co-Operation Partner --</option>
+                        </select>              
+                    </div>
+                </div>
+            </div>
+            <form>
+                <ac-grid options="companyGroupsGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete Role "{{firstName}}". Do you wish to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="DeleteRole(roleData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToList()">Cancel</button>                    
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>Role Management</h3>
+            </div>
+            <!--<div class="search pull-left">
+                <div class="input-group pull-left ">
+                <input type="text" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false" ng-model="searchText">
+                <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+
+            </div>
+                
+
+            </div>-->
+            <div class="btn-pnl-btns">
+                <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" ng-click="addNew()">Add New</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <div class="row ">
+                        <div class="search pull-left">
+                            <div class="input-group pull-left ">
+                                <input type="text" ng-change="searched = false; infoMsg='';" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                                <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                                    <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                                </span>
+
+                                <span class="search-icon"><i class="fa fa-search"></i></span>
+                                <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                                    <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <form>
+                        <ac-grid options="rolesGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+                    </form>
+                </div>
+            </div>
+        </div>

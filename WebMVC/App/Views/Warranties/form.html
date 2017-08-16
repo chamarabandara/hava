@@ -1,0 +1,958 @@
+﻿<div class="modal fade" id="import-product-modal" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancelCompanyGroupModal()"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Import Product for Warranty / Insurence</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="pull-left">
+                                    <div class="input-group pull-left">
+                                        <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false">
+                                        <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ac-grid options="productGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+                        <div class="form-group action-area">
+                            <div class="row">
+                                <div class="col-sm-12 ">
+
+                                    <button class="btn btn-default pull-right" type="button" ng-click="cancelImportProductModal()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="import-vehicle-owner-modal" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancelCompanyGroupModal()"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Import Vehicle Owner Details for Warranty / Insurence</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="pull-left">
+                                    <div class="input-group pull-left">
+                                        <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false">
+                                        <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ac-grid options="vehicleOwnerGridOptions" filter-criteria="vehiclefilterCriteria" filter-function="vehicleSearchFunction" data="vehicleGridData" action="actionVehicle" class="ang-grid"></ac-grid>
+
+                        <div class="form-group action-area">
+                            <div class="row">
+                                <div class="col-sm-12 ">
+                                    <button class="btn btn-default pull-right" type="button" ng-click="cancelVehicleOwnertModal()">Cancel</button>
+                                    <button class="btn btn-primary pull-right" type="button" ng-click="createNewVehicleOwner()">Create New Owner</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="^.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3><a ng-click="proceedCancel(model)">Warranty & Inssurance Information</a><span class="angle">
+                    <i class="fa fa-angle-double-right"></i></span> 
+                    <span class="sub-head" ng-hide="update">Add</span>
+                    <span class="sub-head" ng-show="update">Edit</span>
+                </h3>
+            </div>
+            <div class="pull-right btn-pnl">
+
+                <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model)">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="saveWarranty(model);" ng-hide="update">Save</button>
+                <button class="btn btn-primary" type="button" ng-click="updateWarranty(model);" ng-show="update">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal" name="warrantyForm">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.status.$invalid && submitted)}">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Status:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                        <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="model.status">
+                                            <option value="">-- Select a Status --</option>
+                                        </select>
+                                        <div ng-show="warrantyForm.status.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="warrantyForm.status.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="h-space"></div>
+                                            <div class="col-sm-5 col-xs-6">
+                                                <input type="radio" id="rv3" name="radio-demo-v" ng-model="clamType" value="warranty" /><label for="rv3" class="font-gray italic">Warranty</label>
+                                            </div>
+                                            <div class="col-sm-7 col-xs-6">
+                                                <input type="radio" id="rv4" name="radio-demo-v" ng-model="clamType" value="insurance" /><label for="rv4" class="font-gray italic">Insurance</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="h-space"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class=" col-sm-12">
+                                <button class="btn btn-primary" type="button" data-toggle="modal" ng-click="showProducts()">Import Product</button>
+                                <button class="btn btn-default" type="button" ng-click="clearProductData()">Clear</button>
+                            </div>
+                        </div>
+                        <div class="panel-group accordion no-background" id="accordion3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('productDetails')"><span class="sect-number">1</span> Product Details</a> </h4>
+                                </div>
+                                <div id="productDetailsId" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="error-cap" ng-hide="productImported">
+                                                <label class="error-label">Import a product to activate this section</label>
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="products_details_cap" ng-show="productImported">
+
+                                                <div class="form-group">
+                                                    <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Product Name:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.productName">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.country">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Language:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.language">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product Type:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.productType">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Cover:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.cover">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Under Writer:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.underWriter">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mileage:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.mileage">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Eligibility:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.eligibility">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Excess Amount:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.excessAmount">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Claim Limit:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.claimLimit">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Period:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.period">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title" ng-show="clamType == 'warranty'"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('warrantyDetails')"><span class="sect-number">2</span> Warranty Details</a> </h4>
+
+                                    <h4 class="panel-title" ng-show="clamType != 'warranty'"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('warrantyDetails')"><span class="sect-number">2</span> Insurance Details</a> </h4>
+                                </div>
+                                <div id="warrantyDetailsId" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="error-cap" ng-hide="productImported">
+                                                <label class="error-label">Import a product to activate this section</label>
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="warrantyDetails-caps" ng-show="productImported">
+
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.warrantyInsurenceKeyPlateNumber.$error.pattern && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Key Plate Number:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.warrantyInsurence.keyPlateNumber" name="warrantyInsurenceKeyPlateNumber" ng-pattern="/^[a-zA-Z0-9]*$/">
+                                                        <div ng-show="submitted && warrantyForm.warrantyInsurenceKeyPlateNumber.$error.pattern" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.warrantyInsurenceKeyPlateNumber.$error.pattern">Alphanumeric characters only.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Registered Through:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.warrantyInsurence.registeredThrough" name="warrantyInsurenceRegisteredThrough">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (createdDateRequired && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Created Date:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6" id="ddp3">
+                                                        <div class="input-group input-append date date-picker">
+                                                            <input class="form-control createdDate" type="text" ng-model="model.warrantyInsurence.createdDate" id="createdDate" name="warrantyInsurenceCreatedDate" ng-change="createdDateRequired=false;">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn default" type="button" ng-click="selectDate('createdDate')"><i class="fa fa-calendar"></i></button>
+                                                            </span>
+                                                        </div>
+                                                        <div ng-show="submitted && createdDateRequired" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="createdDateRequired">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (invoiceDateRequired && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Invoice/Start Date:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6" id="ddp3">
+                                                        <div class="input-group input-append date date-picker">
+                                                            <input class="form-control invoiceDate" type="text" ng-model="model.warrantyInsurence.invoiceDate" id="invoiceDate" name="warrantyInsurenceInvoiceDate" ng-change="invoiceDateRequired=false;">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn default" type="button" ng-click="selectDate('invoiceDate')"><i class="fa fa-calendar"></i></button>
+                                                            </span>
+
+                                                        </div>
+                                                        <div ng-show="submitted && invoiceDateRequired" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="invoiceDateRequired">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.warrantyInsurencePeriod.$error.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Period:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" required name="warrantyInsurencePeriod" ng-options="prd.name for prd in preriodList track by prd.id" ng-model="model.warrantyInsurence.period">
+                                                            <option value="">-- Select Period --</option>
+                                                        </select>
+                                                        <div ng-show="warrantyForm.warrantyInsurencePeriod.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.warrantyInsurencePeriod.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (endDateRequired && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>End Date:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6" id="ddp3">
+                                                        <div class="input-group input-append date date-picker">
+                                                            <input class="form-control endDate" type="text" ng-model="model.warrantyInsurence.endDate" id="endDate" name="warrantyInsurenceEndDate">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn default" type="button" ng-click="selectDate('endDate')"><i class="fa fa-calendar"></i></button>
+                                                            </span>
+
+                                                        </div>
+                                                        <div ng-show="submitted && endDateRequired" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="endDateRequired">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.warrantyInsurenceWarrantyStatus.$invalid && submitted)}" ng-show="clamType == 'warranty'">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Warranty Status:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" ng-required="clamType == 'warranty'" name="warrantyInsurenceWarrantyStatus" ng-options="warrst.name for warrst in warrantyStatusList track by warrst.id" ng-model="model.warrantyInsurence.warrantyStatus">
+                                                            <option value="">-- Warranty Status --</option>
+                                                        </select>
+                                                        <div ng-show="warrantyForm.warrantyInsurenceWarrantyStatus.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.warrantyInsurenceWarrantyStatus.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.warrantyInsurenceInsuranceStatus.$invalid && submitted)}" ng-show="clamType != 'warranty'">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Insurance Status:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" ng-required="clamType != 'warranty'" name="warrantyInsurenceInsuranceStatus" ng-options="insSt.name for insSt in insuranceStatusList track by insSt.id" ng-model="model.warrantyInsurence.insuranceStatus">
+                                                            <option value="">-- Insurance Status --</option>
+                                                        </select>
+                                                        <div ng-show="warrantyForm.warrantyInsurenceInsuranceStatus.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.warrantyInsurenceInsuranceStatus.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Extention:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6" id="ddp3">
+                                                        <div class="input-group input-append date date-picker">
+                                                            <input class="form-control extention" type="text" ng-model="model.warrantyInsurence.extention" id="extention" name="warrantyInsurenceExtention">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn default" type="button" ng-click="selectDate('extention')"><i class="fa fa-calendar"></i></button>
+                                                            </span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default relative">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('vehicleDetails')"><span class="sect-number">3</span> Vehicle Details</a> </h4>
+                                </div>
+                                <div id="vehicleDetailsId" class="panel-collapse  collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="error-cap" ng-hide="productImported">
+                                                <label class="error-label">Import a product to activate this section</label>
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="vehicleDetails_cap" ng-show="productImported">
+
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleRegNumber.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Reg. Number:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleDetails.regNumber" name="vehicleRegNumber" required>
+                                                        <div ng-show="warrantyForm.vehicleRegNumber.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleRegNumber.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleModelYear.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Model Year:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleDetails.modelYear" name="vehicleModelYear" required>
+                                                        <div ng-show="warrantyForm.vehicleModelYear.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleModelYear.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleEngineCapacity.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Engine Capacity:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleDetails.engineCapacity" name="vehicleEngineCapacity" required>
+                                                        <div ng-show="warrantyForm.vehicleEngineCapacity.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleEngineCapacity.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Brand Group:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.vehicleDetails.brandGroup" name="vehicleBrandGroup" required>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleRegNumber.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Brand Name:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" name="vehicleBrand" ng-options="vblist.name for vblist in model.vehicleDetails.vehicleBrandList track by vblist.id" ng-model="model.vehicleDetails.vehicleBrand" ng-change="setModelByBrand(model.vehicleDetails.vehicleBrand)" required>
+                                                            <option value="">-- Select Brand --</option>
+                                                        </select>
+
+                                                        <div ng-show="warrantyForm.vehicleBrand.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleBrand.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleModel.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Model:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" name="vehicleModel" required ng-options="vmlist.name for vmlist in vehicleModelList track by vmlist.id" ng-model="model.vehicleDetails.vehicleModel">
+                                                            <option value="">-- Select Model --</option>
+                                                        </select>
+                                                        <div ng-show="warrantyForm.vehicleModel.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleModel.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleMileage.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mileage:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleDetails.vehicleMileage" name="vehicleMileage" required>
+                                                        <div ng-show="warrantyForm.vehicleMileage.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleMileage.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Fuel Type:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" name="vehicleFuelType" ng-options="vflList.name for vflList in vehicleFuelTypeList track by vflList.id" ng-model="model.vehicleDetails.vehicleFuelType">
+                                                            <option value="">-- Select Fuel Type --</option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Transmission:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" name="vehicleTransmission" ng-options="vtrList.name for vtrList in vehicleTransmissionList track by vtrList.id" ng-model="model.vehicleDetails.vehicleTransmission">
+                                                            <option value="">-- Select Transmission --</option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Vehicle Type:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <select class="form-control" name="vehicleVehicleType" ng-options="vvtList.name for vvtList in vehicleVehicleTypeList track by vvtList.id" ng-model="model.vehicleDetails.vehicleVehicleType">
+                                                            <option value="">-- Select Vehicle Type --</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Purchase Price:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleDetails.vehiclePurchasePrice">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chassis Number:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleDetails.vehicleChassisNumber">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="productImported">
+                                <div class="h-space"></div>
+                                <div class="col-sm-12">
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" ng-click="showVehicleOwner()">Import Vehicle Owner</button>
+                                    <button class="btn btn-default" type="button">Clear</button>
+                                </div>
+                            </div>
+                            <div class="panel panel-default relative">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('vehicleOwnerDetails')"><span class="sect-number">4</span> Vehicle Owner Details</a> </h4>
+                                </div>
+                                <div id="vehicleOwnerDetailsId" class="panel-collapse  collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="h-space"></div>
+                                            <div class="error-cap" ng-hide="vehicleOwnerImported">
+                                                <label class="error-label" ng-if="!productImported && !vehicleOwnerImported">Import a product to activate this section</label>
+                                                <label class="error-label" ng-if="productImported && !vehicleOwnerImported">Import a vehicle Owner to activate this section</label>
+
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="vehicleOwnerDetails-cap" ng-show="vehicleOwnerImported">
+                                                <div class="row">
+                                                    <div class="col-sm-5 col-xs-6">
+                                                        <input type="radio" id="rv1" name="radio-demo-c" ng-model="ownerType" value="singleOwner" ng-disabled="ownerTypReadOnly" /><label for="rv1" class="font-gray italic">Single Owner</label>
+                                                    </div>
+                                                    <div class="col-sm-7 col-xs-6">
+                                                        <input type="radio" id="rv2" name="radio-demo-c" ng-model="ownerType" value="organisation" ng-disabled="ownerTypReadOnly" /><label for="rv2" class="font-gray italic">Organisation</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="single-div">
+                                                    <div class="form-group" ng-show="ownerType == 'singleOwner'" ng-class="{'has-error' : (warrantyForm.vehicleOwnerPersonalIdNo.$invalid && submitted)}">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Personal ID No:<span class="red"> *</span></strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerPersonalIdNo" name="vehicleOwnerPersonalIdNo" required ng-disabled="ownerTypReadOnly">
+                                                            <div ng-show="warrantyForm.vehicleOwnerPersonalIdNo.$invalid && submitted" class="ng-hide">
+                                                                <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerPersonalIdNo.$error.required">Required.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-show="ownerType == 'singleOwner'" ng-class="{'has-error' : (warrantyForm.vehicleOwnerfirstName.$invalid && submitted)}">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>First Name:<span class="red"> *</span></strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerfirstName" name="vehicleOwnerfirstName" required ng-disabled="ownerTypReadOnly">
+                                                            <div ng-show="warrantyForm.vehicleOwnerfirstName.$invalid && submitted" class="ng-hide">
+                                                                <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerfirstName.$error.required">Required.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-show="ownerType == 'singleOwner'" ng-class="{'has-error' : (warrantyForm.vehicleOwnerlastName.$invalid && submitted)}">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Last Name:<span class="red"> *</span></strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerlastName" name="vehicleOwnerlastName" required ng-disabled="ownerTypReadOnly">
+                                                            <div ng-show="warrantyForm.vehicleOwnerlastName.$invalid && submitted" class="ng-hide">
+                                                                <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerlastName.$error.required">Required.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="org-div" ng-show="ownerType != 'singleOwner'" ng-class="{'has-error' : (warrantyForm.vehicleOwnerOrgRegistrationNo.$invalid && submitted)}">
+                                                    <div class="form-group">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org. Registration No:<span class="red"> *</span></strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerOrgRegistrationNo" name="vehicleOwnerOrgRegistrationNo" required ng-disabled="ownerTypReadOnly">
+                                                            <div ng-show="warrantyForm.vehicleOwnerOrgRegistrationNo.$invalid && submitted" class="ng-hide">
+                                                                <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerOrgRegistrationNo.$error.required">Required.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-show="ownerType != 'singleOwner'" ng-class="{'has-error' : (warrantyForm.vehicleOwnerOrgName.$invalid && submitted)}">
+                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org Name:<span class="red"> *</span></strong></label>
+                                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                                            <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerOrgName" name="vehicleOwnerOrgName" required ng-disabled="ownerTypReadOnly">
+                                                            <div ng-show="warrantyForm.vehicleOwnerOrgName.$invalid && submitted" class="ng-hide">
+                                                                <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerOrgName.$error.required">Required.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleOwnerAddress.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerAddress" name="vehicleOwnerAddress" required ng-disabled="ownerTypReadOnly">
+                                                        <div ng-show="warrantyForm.vehicleOwnerAddress.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerAddress.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Post Code / Zip Code:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerPostCode" name="vehicleOwnerPostCode" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleOwnerCity.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerCity" name="vehicleOwnerCity" required ng-disabled="ownerTypReadOnly">
+                                                        <div ng-show="warrantyForm.vehicleOwnerCity.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerCity.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" ng-class="{'has-error' : (warrantyForm.vehicleOwnerTelNo.$invalid && submitted)}">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Tele No:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerTelNo" name="vehicleOwnerTelNo" required ng-disabled="ownerTypReadOnly">
+                                                        <div ng-show="warrantyForm.vehicleOwnerTelNo.$invalid && submitted" class="ng-hide">
+                                                            <span class="help-block error-label" ng-show="warrantyForm.vehicleOwnerTelNo.$error.required">Required.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile No:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerMobileNo" name="vehicleOwnerMobileNo" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>EMail:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="Email" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerEmail" name="vehicleOwnerEmail" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerBank" name="vehicleOwnerBank" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerClearingNo" name="vehicleOwnerClearingNo" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:<span class="red"> *</span></strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerAccountNo" name="vehicleOwnerAccountNo" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerBankgiro" name="vehicleOwnerBankgiro" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.vehicleOwner.vehicleOwnerPostgiro" name="vehicleOwnerPostgiro" ng-disabled="ownerTypReadOnly">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="panel-group accordion no-background" id="accordion4">
+                            <div class="panel panel-default relative">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion4" ng-click="collapsePannel('dealerDetails')"><span class="sect-number">5</span> Dealer Details</a> </h4>
+                                </div>
+                                <div id="dealerDetailsId" class="panel-collapse  collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="error-cap" ng-hide="productImported">
+                                                <label class="error-label">Import a product to activate this section</label>
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="dealerDetails-cap" ng-show="productImported">
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer Name:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.dealerDetails.dealerName">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Co-Op Partner:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.dealerDetails.coopPatner">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.dealerDetails.billingAddress">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer Tele No:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.dealerDetails.dealerTeleNo">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative Name:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.dealerDetails.representativeName">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>EMail:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.dealerDetails.email">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Rep Tele No:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" readonly ng-model="model.productDetails.dealerDetails.repTeleNo">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion4" ng-click="collapsePannel('financeCompanyDetails')"><span class="sect-number">6</span> Finance Company Details</a> </h4>
+                                </div>
+                                <div id="financeCompanyDetailsId" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="error-cap" ng-hide="productImported">
+                                                <label class="error-label">Import a product to activate this section</label>
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="financeCompanyDetails-cap" ng-show="productImported">
+
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Company Name:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financeCompanyName" name="financeCompanyName">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org. No:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financeOrgNo" name="financeOrgNo">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financeAddress" name="financeAddress">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Zip/Postal Code:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financePostalCode" name="financePostalCode">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financeCity" name="financeCity">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Tele No:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financeTeleNo" name="financeTeleNo">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile No:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financeMobileNo" name="financeMobileNo">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>EMail:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.financeDetails.financeEMail" name="financeEMail">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title" ng-show="clamType == 'warranty'"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion4" ng-click="collapsePannel('warrantyExpirationReminders')"><span class="sect-number">7</span> Warranty Expiration Reminders</a> </h4>
+                                    <h4 class="panel-title" ng-show="clamType != 'warranty'"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion4" ng-click="collapsePannel('warrantyExpirationReminders')"><span class="sect-number">7</span>Insurance Expiration Reminders</a> </h4>
+                                </div>
+                                <div id="warrantyExpirationRemindersId" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="error-cap" ng-hide="productImported">
+                                                <label class="error-label">Import a product to activate this section</label>
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="warrantyExpirationReminders-cap" ng-show="productImported">
+
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Expiration 1st Reminder:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.reminder.reminderExpiration1st" name="reminderExpiration1st">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Expiration 2nd Reminder:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.reminder.reminderExpiration2nd" name="reminderExpiration2nd">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Expiration 3rd Reminder:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="model.productDetails.reminder.reminderExpiration3rd" name="reminderExpiration3rd">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion4" ng-click="collapsePannel('price')"><span class="sect-number">8</span> Price</a> </h4>
+                                </div>
+                                <div id="priceId" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="error-cap" ng-hide="productImported">
+                                                <label class="error-label">Import a product to activate this section</label>
+                                                <div class="h-space"></div>
+                                            </div>
+                                            <div class="price-cap" ng-show="productImported">
+                                                <div class="row">
+
+                                                    <div class="col-sm-6">
+
+                                                        <h4>Amount</h4>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Product Price:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceProductPrice" name="priceProductPrice">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Discount:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceDiscount" name="priceDiscount">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>UW Premium:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceUWPremium" name="priceUWPremium">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Commission:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceCommission" name="priceCommission">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Insurance Tax:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceInsuranceTax" name="priceInsuranceTax">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>VAT:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceVAT" name="priceVAT">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <h4>Price Setting</h4>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Loading %:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceLoadingPercentage" name="priceLoadingPercentage">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Discount %:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceDiscountPercentage" name="priceDiscountPercentage">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>UW Premium %:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceUWPremiumPercentage" name="priceUWPremiumPercentage">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Commission %:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceCommissionPercentage" name="priceCommissionPercentage">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>Insurance Tax %:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceInsurancePercentage" name="priceInsurancePercentage">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12" for=""><strong>VAT:</strong></label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" readonly ng-model="model.productDetails.price.priceVATPercentage" name="priceVATPercentage">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="h-space"></div>
+                                                    <div class="row">
+                                                        <div class="form-group" ng-show="clamType != 'warranty'">
+                                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>VAT Invoice Amount to Dealer:</strong></label>
+                                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceVATInvoiceDealer" name="priceVATInvoiceDealer">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" ng-show="clamType != 'warranty'">
+                                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Insurance Invoice Amount to Dealer:</strong></label>
+                                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceVATInsuranceInvoiceDealer" name="priceVATInsuranceInvoiceDealer">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" ng-show="clamType != 'warranty'">
+                                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Profit Margin for AutoConcept:</strong></label>
+                                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceProfit" name="priceProfit">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" ng-show="clamType == 'warranty'">
+                                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Insurance Invoice Amount to Vehicle Owner:</strong></label>
+                                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceInvoiceVehicleOwner" name="priceInvoiceVehicleOwner">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" ng-show="clamType == 'warranty'">
+                                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>The Profit Margin for AutoConcept:</strong></label>
+                                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                                <input type="text" class="form-control" ng-model="model.productDetails.price.priceProfitMargin" name="priceProfitMargin">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

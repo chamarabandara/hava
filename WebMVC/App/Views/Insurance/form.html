@@ -1,0 +1,942 @@
+﻿<div class="row">
+<div class="col-sm-12">
+    <div class="action_panel">
+        <div class="pull-left btn-pnl padding-fix">
+            <h3><a ui-sref="^.list">Insurance Information</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> 
+                <span class="sub-head" ng-hide="update">Add</span>
+                <span class="sub-head" ng-show="update">Edit</span>
+            </h3>
+        </div>
+        <div class="pull-right btn-pnl">
+            <button class="btn btn-default" type="button" ui-sref="^.list">Cancel</button>
+            <button class="btn btn-primary" type="button" ui-sref="^.list" ng-hide="update">Save</button>
+            <button class="btn btn-primary" type="button" ui-sref="^.list" ng-show="update">Update</button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Status:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <select class="form-control">
+                                        <option value="">Active</option>
+                                        <option value="">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12">
+                    <div class="panel-group accordion no-background" id="accordion3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-placeholderent="#accordion3" href="#section0"><span class="sect-number">1</span>Product Details</a> </h4>
+                            </div>
+                            <div id="section0" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Product Name:<span class="red"> *</span></strong></label>
+                                            <div for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                                                <select class="form-control">
+                                                    <option value="">AB</option>
+                                                    <option value="">EF</option>
+                                                    <option value="">FÖ</option>
+                                                    <option value="">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product ID:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group uppercase-fix">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Language:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cover ID</th>
+                                                        <th>Insurer</th>
+                                                        <th>Name</th>
+                                                        <th>Period</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click">
+                                                        <td><a href="#" class="click-cell">001</a></td>
+                                                        <td><a href="#" class="click-cell">Lloyds</a></td>
+                                                        <td><a href="#" class="click-cell">Nybil Gold</a></td>
+                                                        <td><a href="#" class="click-cell">6-12-18-24</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Eligibility Km:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Eligibility Year:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mileage Cap:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Year Cap:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group uppercase-fix">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Excess:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Claim Limit:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group uppercase-fix">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product Description:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section1"><span class="sect-number">2</span>Insurance Details</a> </h4>
+                            </div>
+                            <div id="section1" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Key Plate No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Registered Through:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">Web Site</option>
+                                                    <option value="">AWIS</option>
+                                                    <option value="">Bilvision</option>
+                                                    <option value="">Honda</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Created Date:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Arrival Date:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Insurer Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">Lloyds</option>
+                                                    <option value="">Bilvision</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Invoice Recipient:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">Mike Isbister</option>
+                                                    <option value="">Steve Brooky</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Start Date:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Period:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">12</option>
+                                                    <option value="">18</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>End Date:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Invoice Date:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Paid Date:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Insurance Status:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">Active</option>
+                                                    <option value="">Paid</option>
+                                                    <option value="">Expeired</option>
+                                                    <option value="">Cancel</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section2"><span class="sect-number">3</span>Component Details</a> </h4>
+                            </div>
+                            <div id="section2" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Component Group Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">-- Select Component Group --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Component Group ID:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Systems & Components:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="col-md-7 col-sm-6 col-xs-12">
+                                                    <div class="selected-list">
+                                                        <ul class="items-selected">
+                                                            <li class="item1">
+                                                                Break
+                                                                <ul class="no-style-sub-list">
+                                                                    <li class="item2">item 02</li>
+                                                                    <li class="item3">item 03</li>
+                                                                </ul>
+                                                            </li>
+                                                            <li class="item4">
+                                                                Engine
+                                                                <ul class="no-style-sub-list">
+                                                                    <li class="item2">item 02</li>
+                                                                    <li class="item3">item 03</li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section1"><span class="sect-number">4</span>Vehicle Details</a> </h4>
+                            </div>
+                            <div id="section1" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Reg. No:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chassis No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group uppercase-fix">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong><span>DOFR:</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Engine Capacity:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Engine Power:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Vehicle Type:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">--Select Vehicle Type--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Brand Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">--Select Brand Name--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Model:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">--Select Vehicle Type--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mileage:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Fuel Type:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">--Select Fuel Type--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Gearbox:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">Manual</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>transmission:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">2WD</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Purchased Price:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section4"><span class="sect-number">5</span>Dealer Details</a> </h4>
+                            </div>
+                            <div id="section4" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer Name:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">--Select Dealer--</option>
+                                                    <option value="">Suntender</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Co-Op Partner:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <textarea placeholder="" class="form-control" readonly></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer Phone No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Rep's Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">--Select representative--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Rep. Tel. No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Rep. mobile No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section3"><span class="sect-number">6</span>Vehicle Owner Details</a> </h4>
+                            </div>
+                            <div id="section3" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Customer:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control">
+                                                    <option value="">--Select Customer--</option>
+                                                    <option value="">Suntender</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Customer ID:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Category:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>First Name:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Last Name:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal code / <span>Z</span>ip Code:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone Fax:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row hidden">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org. Name:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal code / <span>Z</span>ip Code:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone Fax:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgire:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section7"><span class="sect-number">7</span>Co-Operations Partner Details</a> </h4>
+                            </div>
+                            <div id="section7" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Company Name:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Company ID:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong><span>Z</span>ip Code / Post Code:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Tele No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telefax No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section5"><span class="sect-number">8</span>Insurance Expiration Reminders</a> </h4>
+                            </div>
+                            <div id="section5" class="panel-collapse in">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Expiring 1st Reminder:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Expiring 2st Reminder:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Expiring 3st Reminder:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="datepicker">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section10"><span class="sect-number">9</span>Price</a> </h4>
+                            </div>
+                            <div id="section10" class="panel-collapse in">
+                                <div class="row">
+                                    <!--<div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <h6><strong>Price Setting</strong></h6>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Loading %:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Discount%:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>UW:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Commission %:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Insurance Tax %:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>VAT %:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <div class="col-sm-6">                                       
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product Price:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Discount:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>UW Premium:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Commission:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Insurance Tax:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>VAT:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Customer to pay:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Gross Margin:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+          </div>

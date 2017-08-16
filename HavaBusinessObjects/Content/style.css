@@ -1,0 +1,127 @@
+﻿div.dataTables_wrapper div.dataTables_paginate {
+    margin-top: 5px;
+    white-space: nowrap;
+    text-align: right;
+}
+table .action-button {
+padding:5px;
+cursor: pointer;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /*min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;*/
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.accordion .panel .panel-heading {
+  padding: 0;
+}
+.accordion .panel .panel-title {
+  padding: 0;
+}
+.accordion .panel .panel-title .accordion-toggle {
+  display: block;
+  padding: 10px 15px;
+}
+.accordion .panel .panel-title .accordion-toggle.accordion-toggle-styled {
+  background: url("../img/accordion-plusminus.png") no-repeat;
+  background-position: right -19px;
+  margin-right: 15px;
+}
+.accordion .panel .panel-title .accordion-toggle.accordion-toggle-styled.collapsed {
+  background-position: right 12px;
+}
+.margin-top{
+    margin-top:15px;
+}
+
+.infobar {
+	align-items: center;
+	background-color: #f5f5f5;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.25);
+	color: #333;
+	display: flex;
+	padding: 14px 20px;
+}
+.grid-infobar
+{
+  padding: 4px 4px !important;
+  margin-top: 15px !important;
+} 
+.infobar.question {
+	background-color: #7c98a6;
+	color: #fff;
+}
+.infobar.warning {
+	background-color: #ffdb58;
+}
+.infobar.error {
+	background-color: #c24641;
+	color: #fff;
+}
+.infobar span {
+	/* display: table-cell; */
+	/* flex-grow: 1; */
+	/* vertical-align: middle; */
+}
+.infobar span:last-child {
+	flex-basis: 10%;
+	padding-left: 20px;
+	text-align: right;
+}
+.infobar span button {
+	border: none;
+    height: 30px;
+}
+
+.infobar span .btn-default 
+{
+	background: #eee;
+}
+
+.infobar > .row
+{
+	margin: 0;
+}
+@media (min-width:981px) and (max-width:1240px)
+{
+.infobar span
+{
+	width:60% !important;
+}
+}
+@media (min-width:768px) and (max-width:980px)
+{
+.infobar span
+{
+	width:60% !important;
+}
+}
+@media (min-width:310px) and (max-width:480px)
+{
+.infobar span
+{
+	width:100% !important;
+}
+}
+@media (min-width:481px) and (max-width:767px)
+{
+.infobar span
+{
+	  width: 20% !important;
+}
+}
+
+.info-btn {
+	float:right;
+}

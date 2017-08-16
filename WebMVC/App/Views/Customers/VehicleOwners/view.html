@@ -1,0 +1,286 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="app.customers.list">Customer</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Vehicle Owner - View </span></h3>
+            </div>
+
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" type="button" ui-sref="app.customers.list">Back</button>
+                <button class="btn btn-primary" type="button" ng-click="goToUpdate(model.id)">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Status:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.status}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Vehicle Owner Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Customer Id:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.customerId}}</label>
+                        </div>
+                        <div class="form-group" ng-show="ownerType == 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Personal Id No:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.personalId}}</label>
+                        </div>
+                        <div class="form-group" ng-show="ownerType != 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Organisation Reg No:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.orgRegNo}}</label>
+                        </div>
+                        <div class="form-group" ng-show="ownerType == 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>First Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.fristName}}</label>
+                        </div>
+                        <div class="form-group" ng-show="ownerType != 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Org Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.orgName}}</label>
+                        </div>
+                        <div class="form-group" ng-show="ownerType == 'vehicleOwner'">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Last Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.lastName}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Address:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.address}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>City:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.city}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Country:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.country}}</label>
+
+                        </div>
+                        <div class="form-group uppercase-fix">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal Code/ <span>Z</span>ip Code:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.postalCode}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Telephone number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.teleNumber}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Email:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.email}}</label>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span>Co-Operation Partner Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Co-op Partner Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.partnerName}}</label>
+
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>ID Number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.partnerId}}</label>
+
+                        </div>-->
+                        <div class="row" ng-show="ownerType != 'vehicleOwner'">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4>
+                                <span class="sect-number">3</span>
+                                 Dealer's Representative</h4>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="ownerType != 'vehicleOwner'">
+                            <div class="col-sm-12">
+                                <ac-grid options="representativeGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="representatives" action="action" class="ang-grid"></ac-grid>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4>
+                                    <span class="sect-number" ng-show="ownerType == 'vehicleOwner'">3</span>
+                                    <span class="sect-number" ng-show="ownerType != 'vehicleOwner'">4</span>
+
+                                 Dealer Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer's Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.dealerName}}</label>
+
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>ID Number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.dealerId}}</label>
+
+                        </div>-->
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4>
+                                    <span class="sect-number" ng-show="ownerType == 'vehicleOwner'">4</span>
+                                    <span class="sect-number" ng-show="ownerType != 'vehicleOwner'">5</span>
+
+                                AutoConcept Representative for End Customer</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Representative's Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.representativeName}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>ID Number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.representativeId}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Title:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.representativeTitle}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Mobile Number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.representativeMobNumber}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Email:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.representativeEmail}}</label>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4>
+                                    <span class="sect-number" ng-show="ownerType == 'vehicleOwner'">5</span>
+                                    <span class="sect-number" ng-show="ownerType != 'vehicleOwner'">6</span>
+
+                                Payment Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.bank}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.clearingNo}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.accNo}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.bankgiro}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.postgiro}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{vehicleOwner.billingAddress}}</label>
+
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="panel-group accordion no-background" id="accordion3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3"  ng-click="collapsePannel('prod')"> Products </a> </h4>
+                            </div>
+                            <div id="sectionProd" class="panel-collapse in">
+                                <div class="panel-body">
+                                    <ac-grid options="vehicleProductGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="vehicleProduct" action="action" class="ang-grid"></ac-grid>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default relative">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('warn')">Warranties</a> </h4>
+                            </div>
+                            <div id="sectionWarn" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ac-grid options="vehicleWarrantiesGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="vehicleWarranties" action="action" class="ang-grid"></ac-grid>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default relative">
+                            <div class="panel-heading">
+
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('clm')"> Claims</a> </h4>
+                            </div>
+                            <div id="sectionClm" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ac-grid options="vehicleClaimsGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="vehicleClaims" action="action" class="ang-grid"></ac-grid>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

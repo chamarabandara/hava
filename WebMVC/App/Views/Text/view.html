@@ -1,0 +1,65 @@
+﻿<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="^.list">Text</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">View</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" ng-click="leave()" type="button">Back</button>
+                <button class="btn btn-primary" ng-click="goToUpdate(viewData.id)" type="button">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12">
+                    <form class="form-horizontal uppercase-fix">
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Text <span>ID</span>:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input type="text" class="form-control" readonly ng-model="viewData.id">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Country:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+
+                                <input type="text" class="form-control" readonly ng-model="viewData.countryName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Language:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+
+                                <input type="text" class="form-control" readonly ng-model="viewData.languageName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Header:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+
+                                <input type="text" class="form-control" readonly ng-model="viewData.notificationHeaderName">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Text:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+
+                                <input type="text" class="form-control" readonly ng-model="viewData.notificationTextName">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Reminder:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <textarea class="form-control" ng-model="viewData.reminder" rows="3" readonly></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->

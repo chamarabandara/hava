@@ -1,0 +1,120 @@
+﻿
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDeleteComponent'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete ' {{componentRow.name}} ', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteCompData(componentRow)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToList()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="^.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3>
+                    <a ng-click="proceedCancel(model)">System & Components Management</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="update">Add</span>
+                    <span class="sub-head" ng-show="update">Edit</span>
+                </h3>
+            </div>
+            <div class="pull-right btn-pnl">
+                <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model)">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="saveSystemComponentsGroup(model);" ng-hide="update">Save</button>
+                <button class="btn btn-primary" type="button" ng-click="updateSystemComponentsGroup(model);" ng-show="update">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal" name="systemComponentsGroupForm">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group" ng-class="{'has-error' : (systemComponentsGroupForm.status.$invalid && submitted)}">
+                                    <label class="col-lg-3 col-md-4 col-sm-6"><strong>Status:</strong></label>
+                                    <div class="col-lg-6 col-md-5 col-sm-6">
+                                        <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="model.status">
+                                            <option value="">-- Select a Status --</option>
+
+                                        </select>
+                                        <div ng-show="systemComponentsGroupForm.status.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="systemComponentsGroupForm.status.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Company Group Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (systemComponentsGroupForm.componentGroupName.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-4 col-sm-6"><strong>Component Group Name:</strong></label>
+                            <div class="col-lg-6 col-md-5 col-sm-6">
+                                <input type="text" placeholder="Component Group Name" class="form-control" required ng-model="model.componentGroupName" name="componentGroupName">
+                                <div ng-show="systemComponentsGroupForm.componentGroupName.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="systemComponentsGroupForm.componentGroupName.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span>Sytem and Components for Component Group</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-4 col-sm-6"><strong>System and Components:</strong></label>
+                            <div class="col-lg-6 col-md-5 col-sm-6">
+                                <div class="check-selector">
+                                    <div class="section-check">
+                                        <div class="section-check" ng-repeat="parent in components">
+                                            <div class="main-check check-lists">
+                                                <input type="checkbox" id="{{parent.id}}" name="checkbox-demo-h" ng-model="model.parentItem[parent.id].haschecked" ng-checked="model.parentItem[parent.id].haschecked" ng-change="checkUncheckAllChild(parent.id,model.parentItem[parent.id].haschecked,parent.children)" />
+                                                <label class="input-label" for="{{parent.id}}">{{parent.name}}</label>
+                                            </div>
+                                            <div class="sub-check check-lists" ng-repeat="child in parent.children">
+                                                <input type="checkbox" id="{{parent.id}}-{{child.id}}" name="checkbox-demo-h" ng-model="model.parentItem[parent.id].childrenItem[child.id]" ng-change="checkUncheckParent(parent.id, model.parentItem[parent.id].childrenItem, model.parentItem[parent.id].childrenItem[child.id], parent.children)" />
+                                                <label class="input-label" for="{{parent.id}}-{{child.id}}">{{child.name}}</label>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div ng-show="!componentLengthValid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="!componentLengthValid">Atleast one System and Components Group required.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+       
+    </div>
+</div>

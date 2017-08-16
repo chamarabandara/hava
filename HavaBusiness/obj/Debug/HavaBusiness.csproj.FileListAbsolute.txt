@@ -1,0 +1,38 @@
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\HavaBusiness.dll.config
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\HavaBusiness.dll
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\HavaBusiness.pdb
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.dll
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.dll
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.xml
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.xml
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.dll
+C:\projects\AutoConceptWeb\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.pdb
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\HavaBusiness.dll.config
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\HavaBusiness.dll
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\HavaBusiness.pdb
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.dll
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.dll
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.xml
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.xml
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.dll
+D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.pdb
+E:\VISH\WorkStation\HavaApp\HavaBusiness\bin\HavaBusiness.dll.config
+E:\VISH\WorkStation\HavaApp\HavaBusiness\bin\HavaBusiness.dll
+E:\VISH\WorkStation\HavaApp\HavaBusiness\bin\HavaBusiness.pdb
+E:\VISH\WorkStation\HavaApp\HavaBusiness\bin\EntityFramework.dll
+E:\VISH\WorkStation\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.dll
+E:\VISH\WorkStation\HavaApp\HavaBusiness\bin\EntityFramework.xml
+E:\VISH\WorkStation\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.xml
+E:\VISH\WorkStation\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.csprojResolveAssemblyReference.cache
+E:\VISH\WorkStation\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.dll
+E:\VISH\WorkStation\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.pdb
+D:\havaapp\HavaApp\HavaBusiness\bin\HavaBusiness.dll.config
+D:\havaapp\HavaApp\HavaBusiness\bin\HavaBusiness.dll
+D:\havaapp\HavaApp\HavaBusiness\bin\HavaBusiness.pdb
+D:\havaapp\HavaApp\HavaBusiness\bin\EntityFramework.dll
+D:\havaapp\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.dll
+D:\havaapp\HavaApp\HavaBusiness\bin\EntityFramework.xml
+D:\havaapp\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.xml
+D:\havaapp\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.csprojResolveAssemblyReference.cache
+D:\havaapp\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.dll
+D:\havaapp\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.pdb

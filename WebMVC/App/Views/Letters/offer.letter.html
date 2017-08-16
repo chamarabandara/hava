@@ -1,0 +1,178 @@
+﻿
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="^.list">Letter Template</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span><span class="sub-head">Offer Letter</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button type="button" class="btn btn-default" data-placement="bottom" ui-sref="^.list">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="updateOfferLetter(model)">Update</button>
+                <button class="btn btn-primary" type="button">PDF Preview</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="row detail-section form">
+                                    <div class=" col-sm-offset-6">
+                                        <div class="row">
+                                            <div class="avatar avatar-possition-wrapper">
+                                                 <div class="default-circle" >
+                                                     <img ng-src="{{imageOfferLogo}}" ng-show="imageOfferLogo" />
+                                                     <img alt="user-avatar" class="profile-avatar" ng-src="{{webUrl}}assets/global/img/logo.png" ng-hide="imageOfferLogo">
+                                                    <span class="btn btn-primary btn-block btn-file">
+                                                        Browse <input type="file" ng-file-select="onFileSelect($files)" name="offerLogo">
+                                                    </span>
+                                                </div>
+                                               </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-md-push-6 col-sm-push-6">
+                                    <div class="row">
+                                        <label for="" class="col-sm-12"><strong>Owner Address:</strong></label>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <textarea class="form-control" rows="5" placeholder="Owner Address" ng-disabled="readOnly"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-md-pull-6 col-sm-pull-6">
+                                    <form class="form-horizontal uppercase-fix" name="FormOffer" novalidate>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong><span>ID</span> Number:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="ID Number" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Vehicle Number:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Vehicle Number" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <label for="" class="col-sm-12"><strong>Duration:</strong></label>
+                                                </div>
+                                                <div class="col-sm-6 two-text-field-padding-fix-left">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                                <input type="text" class="form-control" name="datepicker" ng-disabled="readOnly" placeholder="YYYY-MM-DD">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn default" type="button" ng-disabled="readOnly"><i class="fa fa-calendar"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 two-text-field-padding-fix-right">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                                <input type="text" class="form-control" name="datepicker" ng-disabled="readOnly" placeholder="YYYY-MM-DD">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn default" type="button" ng-disabled="readOnly"><i class="fa fa-calendar"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="" class="col-sm-12"><strong>User name:</strong></label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" placeholder="User Name" ng-disabled="readOnly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="" class="col-sm-12"><strong>Password:</strong></label>
+                                                    <div class="col-sm-12">
+                                                        <input type="password" class="form-control" placeholder="Password" ng-disabled="readOnly">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Subject:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Subject" maxlength="200" ng-model="model.subject">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="" class="col-sm-12"><strong>Mail Body:</strong></label>
+                                    <div class="col-sm-12">
+                                        <textarea class="ckeditor form-control" name="editor2" rows="6" data-error-container="#editor2_error" ng-model="model.bodyText"></textarea>
+                                        <div id="editor2_error"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="avatar avatar-possition-wrapper">
+                                        <div class="default-circle">
+                                            <img ng-src="{{imageSignature}}" ng-show="imageSignature" />
+                                            <img alt="user-avatar" class="profile-avatar" ng-src="{{webUrl}}assets/global/img/signatur.png" ng-hide="imageSignature">
+                                            <span class="btn btn-primary btn-block btn-file">
+                                                Browse <input type="file" ng-file-select="onFileSelect($files)" name="signature">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <div class="row">
+                                <div class="col-sm-3">
+
+                                    <label class="signeture-label">Charlie Brown</label>
+                                </div>
+                            </div>
+                            <h4>Add Images</h4>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="btn btn-primary btn-block btn-file">
+                                        Browse <input type="file" ng-file-select="onFileSelect($files)" name="imageFooter">
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 img-logo-area">
+                                    <div class="img-frame" ng-repeat="img in footerImages">
+                                        <img ng-src="{{img.image}}" width="100%" />
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <label class="company-name-label">
+                                        <textarea ng-model="model.footerText" class="form-control" rows="5" placeholder="Footer text"></textarea>
+                                        
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

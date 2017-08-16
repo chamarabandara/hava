@@ -1,0 +1,265 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="^.list">Country Information</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span><span class="sub-head">View</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" type="button" ui-sref="^.list">Back</button><button class="btn btn-primary" type="button" ng-click="goToUpdate(model.id)">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-md-push-9 col-sm-push-8">
+                    <div class="avatar avatar-possition-wrapper">
+                        <div class="default-circle hidden">
+                            <span class="fn">IU</span>
+                        </div>
+                        <div class="default-circle">
+                            <img alt="user-avatar" class="profile-avatar" src="{{model.url}}" ng-show="model.url">
+                            <img alt="user-avatar" class="profile-avatar" src="{{webUrl}}assets/global/img/logo.png" ng-hide="model.url">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 col-md-pull-3 col-sm-pull-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12 detail-section">
+                                    <form class="form-horizontal uppercase-fix">
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.country}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Status:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.status}}</label>
+
+                                            </div>
+                                        </div>
+                                        <h4>Company Information</h4>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Company Name:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.companyName}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Organization Number:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.organizationNumber}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.address}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Zip / Postal Code:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.zipCode}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><strong>City:</strong></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.city}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Telephone Number:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.telphoneNumber}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Tele Fax:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.telphoneFax}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Residence / Head Office:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.residence}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Email Address:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.emailAddress}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Website:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.website}}</label>
+
+                                            </div>
+                                        </div>
+                                        <h4>Country Specific Information</h4>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Language:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{getLanguageName(model.language)}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Time Zone:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.timeZone.display}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Currency:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.currency}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Insurance Tax:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.insuranceTax}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>VAT</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.vat}}</label>
+
+                                            </div>
+                                        </div>
+                                        <h4>Banking Information</h4>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Bank Account Number:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.accountNumber}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.bankgiro}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Direct Debit(Autogiro):</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.directDebit}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Plusgiro:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.plusgiro}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>IBAN</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.iban}}</label>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Foreign Currency Account <span>IBAN</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-lg-12 col-md-12 col-sm-4">{{model.foreignCurrencyAccount}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>Swift</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.swift}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>Bic</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.bic}}</label>
+
+                                            </div>
+                                        </div>
+                                        <h4>Next Billing Information</h4>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Current Date:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                
+                                                <label for="" class="col-sm-12">{{model.currentDate}}</label>
+
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="form-group lowercase-fix">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Date <span class="lower">of</span> Invoice - Invoice:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+
+                                                <label for="" class="col-sm-12">{{model.dateOfInvoice}}</label>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group lowercase-fix">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Date <span class="lower">of</span> Invoice - <span>VAT</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+
+                                                <label for="" class="col-sm-12">{{model.dateOfInvoiceVAT}}</label>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Our Reference:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <label for="" class="col-sm-12">{{model.ourReference}}</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Next Direct Debit Payment Date:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                
+                                                <label for="" class="col-sm-12">{{model.nextDirectDebitPaymentDate}}</label>
+
+                                                
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END of Sub Content -->
+    <div class="clearfix"> </div>
+</div>

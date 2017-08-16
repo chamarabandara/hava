@@ -1,0 +1,69 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete the Term '#{{termRowData.id}}', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="delete(termRowData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3><span class="sub-head">Terms Management</span></h3>
+            </div>
+
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-primary" ui-sref="app.terms.form" ng-click="infoMsg = ''; " type="button">Add</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-4 col-md-5 col-sm-6"><strong>Language:</strong></label>
+                                    <div class="col-lg-8 col-md-7 col-sm-6">
+                                        <select class="form-control" ng-change="setLanguage()" required name="lang" ng-options="lang.languageName for lang in langList track by lang.Id" ng-model="lang">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12">
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form>
+                                    <ac-grid options="termGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="termData" action="action" class="ang-grid"></ac-grid>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->

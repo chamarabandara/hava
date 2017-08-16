@@ -1,0 +1,1474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HAVA_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="BookingTypeId" Type="Int32" />
+    <Property Name="PickupDate" Type="DateTime" Precision="0" />
+    <Property Name="PickupTime" Type="Time" Precision="7" />
+    <Property Name="PickupLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ReturnTime" Type="Time" Precision="7" />
+    <Property Name="ReturnPickupLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DropLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ReturnDate" Type="DateTime" Precision="0" />
+    <Property Name="RefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="PartnerId" Type="Int32" />
+    <Property Name="NumberOfDays" Type="Int32" />
+    <Property Name="BookingStatusId" Type="Int32" />
+    <Property Name="TSPId" Type="Int32" />
+    <Property Name="PaymentTypeId" Type="Int32" />
+    <Property Name="PromotionId" Type="Int32" />
+    <Property Name="HasPromotions" Type="Boolean" />
+    <NavigationProperty Name="BookingStatu" Relationship="Self.FK_Booking_BookingStatus" FromRole="Booking" ToRole="BookingStatus" />
+    <NavigationProperty Name="BookingType" Relationship="Self.FK_Booking_BookingTypes" FromRole="Booking" ToRole="BookingTypes" />
+    <NavigationProperty Name="BookingProducts" Relationship="Self.FK_BookingProducts_Booking" FromRole="Booking" ToRole="BookingProducts" />
+  </EntityType>
+  <EntityType Name="BookingProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="BookingId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Booking" Relationship="Self.FK_BookingProducts_Booking" FromRole="BookingProducts" ToRole="Booking" />
+  </EntityType>
+  <EntityType Name="BookingStatu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_BookingStatus" FromRole="BookingStatus" ToRole="Booking" />
+  </EntityType>
+  <EntityType Name="BookingType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_BookingTypes" FromRole="BookingTypes" ToRole="Booking" />
+  </EntityType>
+  <EntityType Name="ContactType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_ContactTypes_Users" FromRole="ContactTypes" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_ContactTypes_Users1" FromRole="ContactTypes" ToRole="Users" />
+    <NavigationProperty Name="User2" Relationship="Self.FK_ContactTypes_Users2" FromRole="ContactTypes" ToRole="Users" />
+    <NavigationProperty Name="User3" Relationship="Self.FK_ContactTypes_Users3" FromRole="ContactTypes" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="CustomerPaymentRecord">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PaymentStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PaymentAmount" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PaymentCurrency" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PayerEmail" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ReceiverEmail" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TransactionID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="BookingId" Type="Int32" />
+    <Property Name="IPAddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DownloadStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CurrentDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FAQ">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Quection" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PartnerId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Partner" Relationship="Self.FK_FAQs_Partners" FromRole="FAQs" ToRole="Partners" />
+  </EntityType>
+  <EntityType Name="LocationDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PartnerId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Partner" Relationship="Self.FK_LocationDetails_Partners" FromRole="LocationDetails" ToRole="Partners" />
+  </EntityType>
+  <EntityType Name="Menue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="route" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MenuTypeId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="MenuType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="icon" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PartnerCommission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PartnerId" Type="Int32" />
+    <Property Name="IsMarkup" Type="Boolean" />
+    <Property Name="percentage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Partner" Relationship="Self.FK_PartnerCommissions_Partners" FromRole="PartnerCommissions" ToRole="Partners" />
+  </EntityType>
+  <EntityType Name="PartnerProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="PartnerId" Type="Int32" />
+    <Property Name="HavaPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MarketPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PartnerSellingPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IsMarkUp" Type="Boolean" />
+    <Property Name="Markup" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Percentage" Type="Decimal" Precision="6" Scale="2" />
+    <NavigationProperty Name="PartnerProducts1" Relationship="Self.FK_PartnerProducts_PartnerProducts" FromRole="PartnerProducts" ToRole="PartnerProducts1" />
+    <NavigationProperty Name="PartnerProduct1" Relationship="Self.FK_PartnerProducts_PartnerProducts" FromRole="PartnerProducts1" ToRole="PartnerProducts" />
+    <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts1" FromRole="PartnerProduct" ToRole="Partner" />
+  </EntityType>
+  <EntityType Name="PartnerRepresentative">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartnerId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="TelephoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Partner" FromRole="PartnerRepresentative" ToRole="Partner" />
+  </EntityType>
+  <EntityType Name="Partner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TelLandLine" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TelMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FullAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsCompany" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Ratings" Type="Int16" />
+    <NavigationProperty Name="FAQs" Relationship="Self.FK_FAQs_Partners" FromRole="Partners" ToRole="FAQs" />
+    <NavigationProperty Name="LocationDetails" Relationship="Self.FK_LocationDetails_Partners" FromRole="Partners" ToRole="LocationDetails" />
+    <NavigationProperty Name="PartnerCommissions" Relationship="Self.FK_PartnerCommissions_Partners" FromRole="Partners" ToRole="PartnerCommissions" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Partners_Users" FromRole="Partners" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Partners_Users1" FromRole="Partners" ToRole="Users" />
+    <NavigationProperty Name="PartnerSites" Relationship="Self.FK_PartnerSites_Partners" FromRole="Partners" ToRole="PartnerSites" />
+    <NavigationProperty Name="PartnerSites1" Relationship="Self.FK_PartnerSites_Partners1" FromRole="Partners" ToRole="PartnerSites" />
+    <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts1" FromRole="Partner" ToRole="PartnerProduct" />
+    <NavigationProperty Name="PartnerRepresentatives" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Partner" FromRole="Partner" ToRole="PartnerRepresentative" />
+  </EntityType>
+  <EntityType Name="PaymentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PermissionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ModuleDefID" Type="Int32" Nullable="false" />
+    <Property Name="PermissionKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PermissionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ViewOrder" Type="Int32" Nullable="false" />
+    <Property Name="CreatedByUserID" Type="Int32" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedByUserID" Type="Int32" />
+    <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="RolePermisions" Relationship="Self.FK_RolePermision_Permission" FromRole="Permission" ToRole="RolePermision" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsMainProduct" Type="Boolean" />
+    <Property Name="ProductImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ProductImageName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ProductImageSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TSPProducts" Relationship="HAVA_DBModel.FK_TSPProducts_Products" FromRole="Product" ToRole="TSPProduct" />
+    <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_Products" FromRole="Product" ToRole="TSPVehicle" />
+  </EntityType>
+  <EntityType Name="PromotionDiscount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PromoDiscountTypeId" Type="Int32" />
+    <Property Name="AmountOrPercentage" Type="Decimal" Precision="6" Scale="2" />
+    <NavigationProperty Name="PromotionDiscountType" Relationship="Self.FK_PromotionDiscounts_PromotionDiscountTypes" FromRole="PromotionDiscounts" ToRole="PromotionDiscountTypes" />
+    <NavigationProperty Name="Promotions" Relationship="Self.FK_Promotions_PromotionDiscounts" FromRole="PromotionDiscounts" ToRole="Promotions" />
+  </EntityType>
+  <EntityType Name="PromotionDiscountType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="PromotionDiscount" Relationship="Self.FK_PromotionDiscounts_PromotionDiscountTypes" FromRole="PromotionDiscountTypes" ToRole="PromotionDiscounts" />
+  </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsAvtive" Type="Boolean" />
+    <Property Name="PromosionTypeId" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="PromotionDiscountId" Type="Int32" />
+    <Property Name="PartnerId" Type="Int32" />
+    <NavigationProperty Name="PromotionDiscount" Relationship="Self.FK_Promotions_PromotionDiscounts" FromRole="Promotions" ToRole="PromotionDiscounts" />
+  </EntityType>
+  <EntityType Name="RolePermision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="PermisionId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Permission" Relationship="Self.FK_RolePermision_Permission" FromRole="RolePermision" ToRole="Permission" />
+    <NavigationProperty Name="UserRole" Relationship="Self.FK_RolePermision_UserRoles" FromRole="RolePermision" ToRole="UserRoles" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Roles_Users" FromRole="Roles" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Roles_Users1" FromRole="Roles" ToRole="Users" />
+    <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_Role" FromRole="Roles" ToRole="UserRoles" />
+  </EntityType>
+  <EntityType Name="Site">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="siteName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="siteAlias" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="SiteBannerPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="siteBannerName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="siteBannerSize" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="PartnerSites" Relationship="Self.FK_PartnerSites_Sites" FromRole="Sites" ToRole="PartnerSites" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Sites_Users" FromRole="Sites" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Sites_Users1" FromRole="Sites" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Term">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="RolePermisions" Relationship="Self.FK_RolePermision_UserRoles" FromRole="UserRoles" ToRole="RolePermision" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Role" FromRole="UserRoles" ToRole="Roles" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserRole_User" FromRole="UserRoles" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_UserRoles_Users" FromRole="UserRoles" ToRole="Users" />
+    <NavigationProperty Name="User2" Relationship="Self.FK_UserRoles_Users1" FromRole="UserRoles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TelLandLine" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TelMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FullAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordEncrypt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ContactTypes" Relationship="Self.FK_ContactTypes_Users" FromRole="Users" ToRole="ContactTypes" />
+    <NavigationProperty Name="ContactTypes1" Relationship="Self.FK_ContactTypes_Users1" FromRole="Users" ToRole="ContactTypes" />
+    <NavigationProperty Name="ContactTypes2" Relationship="Self.FK_ContactTypes_Users2" FromRole="Users" ToRole="ContactTypes" />
+    <NavigationProperty Name="ContactTypes3" Relationship="Self.FK_ContactTypes_Users3" FromRole="Users" ToRole="ContactTypes" />
+    <NavigationProperty Name="Partners" Relationship="Self.FK_Partners_Users" FromRole="Users" ToRole="Partners" />
+    <NavigationProperty Name="Partners1" Relationship="Self.FK_Partners_Users1" FromRole="Users" ToRole="Partners" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_Roles_Users" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="Roles1" Relationship="Self.FK_Roles_Users1" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="Sites" Relationship="Self.FK_Sites_Users" FromRole="Users" ToRole="Sites" />
+    <NavigationProperty Name="Sites1" Relationship="Self.FK_Sites_Users1" FromRole="Users" ToRole="Sites" />
+    <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_User" FromRole="Users" ToRole="UserRoles" />
+    <NavigationProperty Name="UserRoles1" Relationship="Self.FK_UserRoles_Users" FromRole="Users" ToRole="UserRoles" />
+    <NavigationProperty Name="UserRoles2" Relationship="Self.FK_UserRoles_Users1" FromRole="Users" ToRole="UserRoles" />
+    <NavigationProperty Name="UserTypes" Relationship="Self.FK_UserTypes_Users" FromRole="Users" ToRole="UserTypes" />
+    <NavigationProperty Name="UserTypes1" Relationship="Self.FK_UserTypes_Users1" FromRole="Users" ToRole="UserTypes" />
+    <NavigationProperty Name="VehicleTypes" Relationship="Self.FK_VehicleTypes_Users" FromRole="Users" ToRole="VehicleTypes" />
+    <NavigationProperty Name="VehicleTypes1" Relationship="Self.FK_VehicleTypes_Users1" FromRole="Users" ToRole="VehicleTypes" />
+    <NavigationProperty Name="TSPs" Relationship="HAVA_DBModel.FK_TSP_Users" FromRole="User" ToRole="TSP" />
+    <NavigationProperty Name="TSPs1" Relationship="HAVA_DBModel.FK_TSP_Users1" FromRole="User" ToRole="TSP" />
+    <NavigationProperty Name="TSPProducts" Relationship="HAVA_DBModel.FK_TSPProducts_Users" FromRole="User" ToRole="TSPProduct" />
+    <NavigationProperty Name="TSPProducts1" Relationship="HAVA_DBModel.FK_TSPProducts_Users1" FromRole="User" ToRole="TSPProduct" />
+    <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_Users" FromRole="User" ToRole="TSPVehicle" />
+    <NavigationProperty Name="TSPVehicles1" Relationship="HAVA_DBModel.FK_TSPVehicles_Users1" FromRole="User" ToRole="TSPVehicle" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserTypes_Users" FromRole="UserTypes" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_UserTypes_Users1" FromRole="UserTypes" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="VehicleType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MaxPasengers" Type="Int32" />
+    <Property Name="MaxLuggages" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="Self.FK_VehicleTypes_Users" FromRole="VehicleTypes" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_VehicleTypes_Users1" FromRole="VehicleTypes" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Currency">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="currency1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="symbol" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PartnerSite">
+    <Key>
+      <PropertyRef Name="PartnerId" />
+      <PropertyRef Name="SiteId" />
+    </Key>
+    <Property Name="PartnerId" Type="Int32" Nullable="false" />
+    <Property Name="SiteId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Partner" Relationship="Self.FK_PartnerSites_Partners" FromRole="PartnerSites" ToRole="Partners" />
+    <NavigationProperty Name="Partner1" Relationship="Self.FK_PartnerSites_Partners1" FromRole="PartnerSites" ToRole="Partners" />
+    <NavigationProperty Name="Site" Relationship="Self.FK_PartnerSites_Sites" FromRole="PartnerSites" ToRole="Sites" />
+  </EntityType>
+  <Association Name="FK_Booking_BookingStatus">
+    <End Role="BookingStatus" Type="Self.BookingStatu" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookingStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="BookingStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_BookingTypes">
+    <End Role="BookingTypes" Type="Self.BookingType" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookingTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="BookingTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookingProducts_Booking">
+    <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+    <End Role="BookingProducts" Type="Self.BookingProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingProducts">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContactTypes_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="ContactTypes" Type="Self.ContactType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContactTypes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContactTypes_Users1">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="ContactTypes" Type="Self.ContactType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContactTypes">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContactTypes_Users2">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="ContactTypes" Type="Self.ContactType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContactTypes">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContactTypes_Users3">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="ContactTypes" Type="Self.ContactType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContactTypes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAQs_Partners">
+    <End Role="Partners" Type="Self.Partner" Multiplicity="0..1" />
+    <End Role="FAQs" Type="Self.FAQ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAQs">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LocationDetails_Partners">
+    <End Role="Partners" Type="Self.Partner" Multiplicity="0..1" />
+    <End Role="LocationDetails" Type="Self.LocationDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LocationDetails">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerCommissions_Partners">
+    <End Role="Partners" Type="Self.Partner" Multiplicity="0..1" />
+    <End Role="PartnerCommissions" Type="Self.PartnerCommission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerCommissions">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerProducts_PartnerProducts">
+    <End Role="PartnerProducts" Type="Self.PartnerProduct" Multiplicity="1" />
+    <End Role="PartnerProducts1" Type="Self.PartnerProduct" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PartnerProducts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerProducts1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Partners_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Partners" Type="Self.Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Partners">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Partners_Users1">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Partners" Type="Self.Partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Partners">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerSites_Partners">
+    <End Role="Partners" Type="Self.Partner" Multiplicity="1" />
+    <End Role="PartnerSites" Type="Self.PartnerSite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerSites">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerSites_Partners1">
+    <End Role="Partners" Type="Self.Partner" Multiplicity="1" />
+    <End Role="PartnerSites" Type="Self.PartnerSite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerSites">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermision_Permission">
+    <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+    <End Role="RolePermision" Type="Self.RolePermision" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="PermissionID" />
+      </Principal>
+      <Dependent Role="RolePermision">
+        <PropertyRef Name="PermisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PromotionDiscounts_PromotionDiscountTypes">
+    <End Role="PromotionDiscountTypes" Type="Self.PromotionDiscountType" Multiplicity="1" />
+    <End Role="PromotionDiscounts" Type="Self.PromotionDiscount" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PromotionDiscountTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PromotionDiscounts">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotions_PromotionDiscounts">
+    <End Role="PromotionDiscounts" Type="Self.PromotionDiscount" Multiplicity="0..1" />
+    <End Role="Promotions" Type="Self.Promotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PromotionDiscounts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Promotions">
+        <PropertyRef Name="PromotionDiscountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermision_UserRoles">
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="1" />
+    <End Role="RolePermision" Type="Self.RolePermision" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RolePermision">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Roles_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Roles_Users1">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerSites_Sites">
+    <End Role="Sites" Type="Self.Site" Multiplicity="1" />
+    <End Role="PartnerSites" Type="Self.PartnerSite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sites">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerSites">
+        <PropertyRef Name="SiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sites_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Sites" Type="Self.Site" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sites">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sites_Users1">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Sites" Type="Self.Site" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sites">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_User">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users1">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTypes_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="UserTypes" Type="Self.UserType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserTypes">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTypes_Users1">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="UserTypes" Type="Self.UserType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserTypes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehicleTypes_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="VehicleTypes" Type="Self.VehicleType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VehicleTypes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehicleTypes_Users1">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="VehicleTypes" Type="Self.VehicleType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VehicleTypes">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HAVA_DBModelEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bookings" EntityType="Self.Booking" />
+    <EntitySet Name="BookingProducts" EntityType="Self.BookingProduct" />
+    <EntitySet Name="BookingStatus" EntityType="Self.BookingStatu" />
+    <EntitySet Name="BookingTypes" EntityType="Self.BookingType" />
+    <EntitySet Name="ContactTypes" EntityType="Self.ContactType" />
+    <EntitySet Name="CustomerPaymentRecords" EntityType="Self.CustomerPaymentRecord" />
+    <EntitySet Name="FAQs" EntityType="Self.FAQ" />
+    <EntitySet Name="LocationDetails" EntityType="Self.LocationDetail" />
+    <EntitySet Name="Menues" EntityType="Self.Menue" />
+    <EntitySet Name="MenuTypes" EntityType="Self.MenuType" />
+    <EntitySet Name="PartnerCommissions" EntityType="Self.PartnerCommission" />
+    <EntitySet Name="PartnerProducts" EntityType="Self.PartnerProduct" />
+    <EntitySet Name="PartnerRepresentatives" EntityType="Self.PartnerRepresentative" />
+    <EntitySet Name="Partners" EntityType="Self.Partner" />
+    <EntitySet Name="PaymentTypes" EntityType="Self.PaymentType" />
+    <EntitySet Name="Permissions" EntityType="Self.Permission" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="PromotionDiscounts" EntityType="Self.PromotionDiscount" />
+    <EntitySet Name="PromotionDiscountTypes" EntityType="Self.PromotionDiscountType" />
+    <EntitySet Name="Promotions" EntityType="Self.Promotion" />
+    <EntitySet Name="RolePermisions" EntityType="Self.RolePermision" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Sites" EntityType="Self.Site" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Terms" EntityType="Self.Term" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+    <EntitySet Name="VehicleTypes" EntityType="Self.VehicleType" />
+    <EntitySet Name="Currencies" EntityType="Self.Currency" />
+    <EntitySet Name="PartnerSites" EntityType="Self.PartnerSite" />
+    <AssociationSet Name="FK_Booking_BookingStatus" Association="Self.FK_Booking_BookingStatus">
+      <End Role="BookingStatus" EntitySet="BookingStatus" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_BookingTypes" Association="Self.FK_Booking_BookingTypes">
+      <End Role="BookingTypes" EntitySet="BookingTypes" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookingProducts_Booking" Association="Self.FK_BookingProducts_Booking">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="BookingProducts" EntitySet="BookingProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContactTypes_Users" Association="Self.FK_ContactTypes_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ContactTypes" EntitySet="ContactTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContactTypes_Users1" Association="Self.FK_ContactTypes_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ContactTypes" EntitySet="ContactTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContactTypes_Users2" Association="Self.FK_ContactTypes_Users2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ContactTypes" EntitySet="ContactTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContactTypes_Users3" Association="Self.FK_ContactTypes_Users3">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ContactTypes" EntitySet="ContactTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAQs_Partners" Association="Self.FK_FAQs_Partners">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="FAQs" EntitySet="FAQs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LocationDetails_Partners" Association="Self.FK_LocationDetails_Partners">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="LocationDetails" EntitySet="LocationDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerCommissions_Partners" Association="Self.FK_PartnerCommissions_Partners">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="PartnerCommissions" EntitySet="PartnerCommissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerProducts_PartnerProducts" Association="Self.FK_PartnerProducts_PartnerProducts">
+      <End Role="PartnerProducts" EntitySet="PartnerProducts" />
+      <End Role="PartnerProducts1" EntitySet="PartnerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Partners_Users" Association="Self.FK_Partners_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Partners" EntitySet="Partners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Partners_Users1" Association="Self.FK_Partners_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Partners" EntitySet="Partners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerSites_Partners" Association="Self.FK_PartnerSites_Partners">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="PartnerSites" EntitySet="PartnerSites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerSites_Partners1" Association="Self.FK_PartnerSites_Partners1">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="PartnerSites" EntitySet="PartnerSites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermision_Permission" Association="Self.FK_RolePermision_Permission">
+      <End Role="Permission" EntitySet="Permissions" />
+      <End Role="RolePermision" EntitySet="RolePermisions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="Self.FK_PromotionDiscounts_PromotionDiscountTypes">
+      <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />
+      <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotions_PromotionDiscounts" Association="Self.FK_Promotions_PromotionDiscounts">
+      <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
+      <End Role="Promotions" EntitySet="Promotions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermision_UserRoles" Association="Self.FK_RolePermision_UserRoles">
+      <End Role="UserRoles" EntitySet="UserRoles" />
+      <End Role="RolePermision" EntitySet="RolePermisions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Roles_Users" Association="Self.FK_Roles_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Roles_Users1" Association="Self.FK_Roles_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerSites_Sites" Association="Self.FK_PartnerSites_Sites">
+      <End Role="Sites" EntitySet="Sites" />
+      <End Role="PartnerSites" EntitySet="PartnerSites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sites_Users" Association="Self.FK_Sites_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Sites" EntitySet="Sites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sites_Users1" Association="Self.FK_Sites_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Sites" EntitySet="Sites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users" Association="Self.FK_UserRoles_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users1" Association="Self.FK_UserRoles_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTypes_Users" Association="Self.FK_UserTypes_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserTypes" EntitySet="UserTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTypes_Users1" Association="Self.FK_UserTypes_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserTypes" EntitySet="UserTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehicleTypes_Users" Association="Self.FK_VehicleTypes_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehicleTypes_Users1" Association="Self.FK_VehicleTypes_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(HAVA_DBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(HAVA_DBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <AssociationSet Name="FK_PartnerProducts_PartnerProducts1" Association="HAVA_DBModel.FK_PartnerProducts_PartnerProducts1">
+      <End Role="Partner" EntitySet="Partners" />
+      <End Role="PartnerProduct" EntitySet="PartnerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerRepresentative_Partner" Association="HAVA_DBModel.FK_PartnerRepresentative_Partner">
+      <End Role="Partner" EntitySet="Partners" />
+      <End Role="PartnerRepresentative" EntitySet="PartnerRepresentatives" />
+    </AssociationSet>
+    <EntitySet Name="TSPs" EntityType="HAVA_DBModel.TSP" />
+    <EntitySet Name="TSPProducts" EntityType="HAVA_DBModel.TSPProduct" />
+    <EntitySet Name="TSPVehicles" EntityType="HAVA_DBModel.TSPVehicle" />
+    <AssociationSet Name="FK_TSPProducts_Products" Association="HAVA_DBModel.FK_TSPProducts_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="TSPProduct" EntitySet="TSPProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSPVehicles_Products" Association="HAVA_DBModel.FK_TSPVehicles_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="TSPVehicle" EntitySet="TSPVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSP_Users" Association="HAVA_DBModel.FK_TSP_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TSP" EntitySet="TSPs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSP_Users1" Association="HAVA_DBModel.FK_TSP_Users1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TSP" EntitySet="TSPs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSPProducts_TSP" Association="HAVA_DBModel.FK_TSPProducts_TSP">
+      <End Role="TSP" EntitySet="TSPs" />
+      <End Role="TSPProduct" EntitySet="TSPProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSPProducts_Users" Association="HAVA_DBModel.FK_TSPProducts_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TSPProduct" EntitySet="TSPProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSPProducts_Users1" Association="HAVA_DBModel.FK_TSPProducts_Users1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TSPProduct" EntitySet="TSPProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSPVehicles_Users" Association="HAVA_DBModel.FK_TSPVehicles_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TSPVehicle" EntitySet="TSPVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSPVehicles_Users1" Association="HAVA_DBModel.FK_TSPVehicles_Users1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TSPVehicle" EntitySet="TSPVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSPVehicles_TSP" Association="HAVA_DBModel.FK_TSPVehicles_TSP">
+      <End Role="TSP" EntitySet="TSPs" />
+      <End Role="TSPVehicle" EntitySet="TSPVehicles" />
+    </AssociationSet>
+    <EntitySet Name="C__MigrationHistory" EntityType="HAVA_DBModel.C__MigrationHistory" />
+    <EntitySet Name="ApplicationGroups" EntityType="HAVA_DBModel.ApplicationGroup" />
+    <EntitySet Name="AspNetClients" EntityType="HAVA_DBModel.AspNetClient" />
+    <EntitySet Name="AspNetRefreshTokens" EntityType="HAVA_DBModel.AspNetRefreshToken" />
+    <EntitySet Name="AspNetRoles" EntityType="HAVA_DBModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="HAVA_DBModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="HAVA_DBModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="HAVA_DBModel.AspNetUser" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HAVA_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="HAVA_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="ApplicationRoleGroups" Association="HAVA_DBModel.ApplicationRoleGroups">
+      <End Role="ApplicationGroup" EntitySet="ApplicationGroups" />
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+    </AssociationSet>
+    <AssociationSet Name="ApplicationUserGroups" Association="HAVA_DBModel.ApplicationUserGroups">
+      <End Role="ApplicationGroup" EntitySet="ApplicationGroups" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="HAVA_DBModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK_PartnerProducts_PartnerProducts1">
+    <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerProduct">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerRepresentative_Partner">
+    <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HAVA_DBModel.PartnerRepresentative" Role="PartnerRepresentative" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerRepresentative">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TSP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="TelLandLine" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TelMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FullAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsCompany" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Ratings" Type="Int16" />
+    <NavigationProperty Name="User" Relationship="HAVA_DBModel.FK_TSP_Users" FromRole="TSP" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="HAVA_DBModel.FK_TSP_Users1" FromRole="TSP" ToRole="User" />
+    <NavigationProperty Name="TSPProducts" Relationship="HAVA_DBModel.FK_TSPProducts_TSP" FromRole="TSP" ToRole="TSPProduct" />
+    <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_TSP" FromRole="TSP" ToRole="TSPVehicle" />
+  </EntityType>
+  <EntityType Name="TSPProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="TspId" Type="Int32" />
+    <Property Name="ProductPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_TSPProducts_Products" FromRole="TSPProduct" ToRole="Product" />
+    <NavigationProperty Name="TSP" Relationship="HAVA_DBModel.FK_TSPProducts_TSP" FromRole="TSPProduct" ToRole="TSP" />
+    <NavigationProperty Name="User" Relationship="HAVA_DBModel.FK_TSPProducts_Users" FromRole="TSPProduct" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="HAVA_DBModel.FK_TSPProducts_Users1" FromRole="TSPProduct" ToRole="User" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TSPVehicle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsAcive" Type="Boolean" Nullable="false" />
+    <Property Name="VehicleNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RegistrationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DriverName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DriverIdOrDLNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaxPasengers" Type="Int32" />
+    <Property Name="MaxLuggages" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_TSPVehicles_Products" FromRole="TSPVehicle" ToRole="Product" />
+    <NavigationProperty Name="User" Relationship="HAVA_DBModel.FK_TSPVehicles_Users" FromRole="TSPVehicle" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="HAVA_DBModel.FK_TSPVehicles_Users1" FromRole="TSPVehicle" ToRole="User" />
+    <Property Name="TSPId" Type="Int32" />
+    <NavigationProperty Name="TSP" Relationship="HAVA_DBModel.FK_TSPVehicles_TSP" FromRole="TSPVehicle" ToRole="TSP" />
+  </EntityType>
+  <Association Name="FK_TSPProducts_Products">
+    <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPProduct" Role="TSPProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPProduct">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSPVehicles_Products">
+    <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPVehicle" Role="TSPVehicle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPVehicle">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSP_Users">
+    <End Type="HAVA_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSP" Role="TSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSP">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSP_Users1">
+    <End Type="HAVA_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSP" Role="TSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSP">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSPProducts_TSP">
+    <End Type="HAVA_DBModel.TSP" Role="TSP" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPProduct" Role="TSPProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSP">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPProduct">
+        <PropertyRef Name="TspId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSPProducts_Users">
+    <End Type="HAVA_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPProduct" Role="TSPProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPProduct">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSPProducts_Users1">
+    <End Type="HAVA_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPProduct" Role="TSPProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPProduct">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSPVehicles_Users">
+    <End Type="HAVA_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPVehicle" Role="TSPVehicle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPVehicle">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSPVehicles_Users1">
+    <End Type="HAVA_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPVehicle" Role="TSPVehicle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPVehicle">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSPVehicles_TSP">
+    <End Type="HAVA_DBModel.TSP" Role="TSP" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.TSPVehicle" Role="TSPVehicle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSP">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TSPVehicle">
+        <PropertyRef Name="TSPId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ApplicationGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetRoles" Relationship="HAVA_DBModel.ApplicationRoleGroups" FromRole="ApplicationGroup" ToRole="AspNetRole" />
+    <NavigationProperty Name="AspNetUsers" Relationship="HAVA_DBModel.ApplicationUserGroups" FromRole="ApplicationGroup" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetClient">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Secret" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ApplicationType" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="RefreshTokenLifeTime" Type="Int32" Nullable="false" />
+    <Property Name="AllowedOrigin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRefreshToken">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ClientId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IssuedUtc" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExpiresUtc" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProtectedTicket" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ApplicationGroups" Relationship="HAVA_DBModel.ApplicationRoleGroups" FromRole="AspNetRole" ToRole="ApplicationGroup" />
+    <NavigationProperty Name="AspNetUsers" Relationship="HAVA_DBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="HAVA_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="HAVA_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="HAVA_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="HAVA_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="ApplicationGroups" Relationship="HAVA_DBModel.ApplicationUserGroups" FromRole="AspNetUser" ToRole="ApplicationGroup" />
+    <NavigationProperty Name="AspNetRoles" Relationship="HAVA_DBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="HAVA_DBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HAVA_DBModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="HAVA_DBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HAVA_DBModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ApplicationRoleGroups">
+    <End Type="HAVA_DBModel.ApplicationGroup" Role="ApplicationGroup" Multiplicity="*" />
+    <End Type="HAVA_DBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+  </Association>
+  <Association Name="ApplicationUserGroups">
+    <End Type="HAVA_DBModel.ApplicationGroup" Role="ApplicationGroup" Multiplicity="*" />
+    <End Type="HAVA_DBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="HAVA_DBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="HAVA_DBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+</Schema>

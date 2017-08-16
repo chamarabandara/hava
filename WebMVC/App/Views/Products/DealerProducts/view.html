@@ -1,0 +1,429 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="app.product.list">Product</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Dealer Product - View </span></h3>
+            </div>
+
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" type="button" ui-sref="app.product.list">Back</button><button class="btn btn-primary" type="button" ng-click="goToUpdate(model.id)">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Status:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.status}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Dealer Product Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Product Name:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.productName}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Country:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.country}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Language:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.language}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Cover:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.coverName}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Cover Note:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.coverNote}}</label>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Period:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.preriod}}</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Mileage:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.mileage}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Eligibility:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.eligibility}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Excess Amount:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.excessAmount}}</label>
+                        </div>
+                        <div class="form-group uppercase-fix">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Claim Limit:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.claimLimit}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Product Description:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.productDescription}}</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span> Customer Details</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Co-Op Partner Name:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.partnerName}}</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Dealer Name:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.dealerName}}</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <h4><span class="sect-number">3</span> Content Details</h4>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Systems and Components:{{selectedTrems}}</strong></label>
+                                    <div class="col-md-7 col-sm-6 col-xs-12">
+                                        <div class="selected-list">
+                                            <ul class="items-selected">
+                                                <li class="item1" ng-repeat="parent in model.selectedTrems | filter: componentTracking">
+                                                    {{parent.name}}
+                                                    <ul class="no-style-sub-list">
+                                                        <li class="item2" ng-repeat="child in parent.children | filter: componentTracking">{{child.name}}</li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">4</span> Terms & Conditions Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="selected-list">
+                                    <ol>
+                                        <li class="item1" ng-repeat="terms in model.termsData"> {{terms.name}} </li>
+                                       
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">5</span> Price</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-5 col-sm-6 col-xs-12" for=""><strong>Set Price By:</strong></label>
+                            <label for="" class="col-lg-9 col-md-7 col-sm-6 col-xs-12">{{model.priceBy}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-5 col-sm-6 col-xs-12" for=""><strong>Set Brand Group:</strong></label>
+                            <label for="" class="col-lg-9 col-md-7 col-sm-6 col-xs-12">{{model.brandGroup}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-5 col-sm-6 col-xs-12" for=""><strong>Comission:</strong></label>
+                            <label for="" class="col-lg-9 col-md-7 col-sm-6 col-xs-12">{{model.comission}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 col-xs-12" for=""><strong>UW Premium:</strong></label>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered " id="">
+
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Months</strong></td>
+                                        <td><strong>0.5</strong></td>
+                                        <td><strong>1</strong></td>
+                                        <td><strong>6</strong></td>
+                                        <td><strong>12</strong></td>
+                                        <td><strong>18</strong></td>
+                                        <td><strong>24</strong></td>
+                                        <td><strong>36</strong></td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>Percentage</strong></td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="custom-width-matrix"><strong>Engine Capacity - cc</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong><= 1000</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1001-1400</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1401-1600</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1601-1800</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1801-2000</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>2001-2500</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>2501-3000</strong></td>
+                                        <td>528</td>
+                                        <td>1320</td>
+                                        <td>1848</td>
+                                        <td>2640</td>
+                                        <td>3960</td>
+                                        <td>5016</td>
+                                        <td>7128</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>3001<=</strong></td>
+                                        <td>528</td>
+                                        <td>1320</td>
+                                        <td>1848</td>
+                                        <td>2640</td>
+                                        <td>3960</td>
+                                        <td>5016</td>
+                                        <td>7128</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12 col-xs-12" for=""><strong>Dealer Product Price:</strong></label>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered " id="">
+
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Months</strong></td>
+                                        <td><strong>0.5</strong></td>
+                                        <td><strong>1</strong></td>
+                                        <td><strong>6</strong></td>
+                                        <td><strong>12</strong></td>
+                                        <td><strong>18</strong></td>
+                                        <td><strong>24</strong></td>
+                                        <td><strong>36</strong></td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>Percentage</strong></td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+                                        <td>20%</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="custom-width-matrix"><strong>Engine Capacity - cc</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong><= 1000</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1001-1400</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1401-1600</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1601-1800</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>1801-2000</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>2001-2500</strong></td>
+                                        <td>462</td>
+                                        <td>1155</td>
+                                        <td>1617</td>
+                                        <td>2310</td>
+                                        <td>3465</td>
+                                        <td>4389</td>
+                                        <td>6237</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>2501-3000</strong></td>
+                                        <td>528</td>
+                                        <td>1320</td>
+                                        <td>1848</td>
+                                        <td>2640</td>
+                                        <td>3960</td>
+                                        <td>5016</td>
+                                        <td>7128</td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>3001<=</strong></td>
+                                        <td>528</td>
+                                        <td>1320</td>
+                                        <td>1848</td>
+                                        <td>2640</td>
+                                        <td>3960</td>
+                                        <td>5016</td>
+                                        <td>7128</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmLeave'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ng-click="leave()">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancel()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3><a href="#" ng-click="askCancel('list', priceLoading)">Price Setup</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="editMode">Loading Percentage by Brand Models - Add</span>
+                    <span class="sub-head" ng-show="editMode">Loading Percentage by Brand Models - Update</span>
+                </h3>
+            </div>
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-default" ng-click="askCancel('list', priceLoading)" type="button">Cancel</button>
+                <button class="btn btn-primary" ng-hide="editMode" type="button" ng-click="create()">Save</button>
+                <button class="btn btn-primary" ng-show="editMode" type="button">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12 detail-section">
+                                    <form class="form-horizontal uppercase-fix" name="priceLoadingForm">
+                                        <div class="form-group" ng-class="{'has-error' : (priceLoadingForm.status.$invalid && submitted)}">
+                                            <label for="" class="col-lg-4 col-md-5 col-sm-6"><strong>Status:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-change="priceLoading.status = status.id" ng-model="status">
+                                                    <option value="">-- Select a Status --</option>
+
+                                                </select>
+                                                <div ng-show="priceLoadingForm.status.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="priceLoadingForm.status.$error.required">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-xs-12">
+                                                <h4><span class="sect-number">1</span> Brand and Model Details</h4>
+                                            </div>
+                                        </div>                                        
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" ng-class="{'has-error' : (priceLoadingForm.brandGroupCountry.$invalid && submitted)}">
+                                                <select class="form-control" required name="brandGroupCountry" ng-change="initBrandGroups()" ng-options="country.CountryName for country in countries track by country.Id" ng-model="data.brandGroupCountry">
+                                                    <option value="">-- Select a Country --</option>
+                                                </select>
+                                                <span id="name-error" ng-show="submitted && priceLoadingForm.brandGroupCountry.$invalid && priceLoadingForm.brandGroupCountry.$error.required" class="help-block help-block-error">Required.</span>
+                                            </div>
+                                        </div>   
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Brand Group:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" ng-class="{'has-error' : (priceLoadingForm.brandGroup.$invalid && submitted)}">
+                                                <select class="form-control" name="brandGroup" required ng-change="loadBrands()" ng-options="currentBrandGroup.name for currentBrandGroup in currentBrandGroups track by currentBrandGroup.id" ng-model="data.brandGroup">
+                                                    <option value="">-- Select a Brand Group --</option>
+                                                </select>
+                                                <span id="name-error" ng-show="submitted && priceLoadingForm.brandGroup.$invalid && priceLoadingForm.brandGroup.$error.required" class="help-block help-block-error">Required.</span>
+                                            </div>
+                                        </div>            
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Brand Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" ng-class="{'has-error' : (priceLoadingForm.brand.$invalid && submitted)}">
+                                                <select class="form-control" required name="brand" ng-change="setNewBrand(data.brand)" ng-options="brand.name for brand in data.brands track by brand.id" ng-model="data.brand">
+                                                    <option value="">-- Select a Brand Name --</option>
+                                                </select>
+                                                <span id="name-error" ng-show="submitted && priceLoadingForm.brand.$invalid && priceLoadingForm.brand.$error.required" class="help-block help-block-error">Required.</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Model Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" ng-class="{'has-error' : (priceLoadingForm.model.$invalid && submitted)}">
+                                                <select class="form-control" required name="model" ng-change="priceLoading.model = data.model.id" ng-options="brand.name for brand in models track by brand.id" ng-model="data.model">
+                                                    <option value="">-- Select a Model Name --</option>
+                                                </select>
+                                                <span id="name-error" ng-show="submitted && priceLoadingForm.model.$invalid && priceLoadingForm.model.$error.required" class="help-block help-block-error">Required.</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-xs-12">
+                                                <h4><span class="sect-number">2</span> Set Loading Percentage</h4>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Loading Percentage:<span class="red"> *</span></strong></label>                                            
+                                            <div class="col-lg-8 col-md-7 col-sm-6" ng-class="{'has-error' : (priceLoadingForm.loadingPrice.$invalid && submitted)}">
+                                                <input type="text" class="form-control" required name="loadingPrice" ng-model="priceLoading.loadingPrice" ng-pattern="/^[0-9]{1,7}$/">
+                                                <span id="name-error" ng-show="submitted && priceLoadingForm.loadingPrice.$invalid && priceLoadingForm.loadingPrice.$error.required" class="help-block help-block-error">Required.</span>
+                                                <span id="name-error" ng-show="submitted && priceLoadingForm.loadingPrice.$invalid && priceLoadingForm.loadingPrice.$error.pattern" class="help-block help-block-error">Enter only numbers.</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END of Sub Content -->

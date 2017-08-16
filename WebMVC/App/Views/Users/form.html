@@ -1,0 +1,106 @@
+﻿<div class="row">
+    <div class="col-sm-4">
+
+            <h3>Edit User</h3>
+
+
+            <!--<div class="form-group">
+                <label>User Name</label>
+                <label class="form-control">{{user.userName}}</label>
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" type="text" ng-model="user.Name" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="text" ng-model="user.Email" />
+            </div>-->
+
+            <h4>Account details</h4>
+            <div class="form-group">
+                <label>User Name</label>
+                <label class="form-control">{{user.userName}}</label>
+            </div>
+
+            <h4>Personal details</h4>
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" type="text" ng-model="user.Name" />
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input class="form-control" type="text" ng-model="user.LastName" />
+            </div>
+            <!--<div class="form-group">
+                <label>Designation</label>
+                <input class="form-control" type="text" ng-model="user.Designation" />
+            </div>-->
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="text" ng-model="user.Email" />
+            </div>
+            <div class="form-group">
+                <label>Work Tel</label>
+                <input class="form-control" type="text" ng-model="user.TelWork" />
+            </div>
+            <div class="form-group">
+                <label>Mobile</label>
+                <input class="form-control" type="text" ng-model="user.TelMobile" />
+            </div>
+            <div class="form-group">
+                <label>Tel</label>
+                <input class="form-control" type="text" ng-model="user.TelHome" />
+            </div>
+
+            <h4>Private details</h4>
+            <!--<div class="form-group">
+                <label>tel</label>
+                <input class="form-control" type="text" ng-model="user.PrivateTel" />
+            </div>-->
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="text" ng-model="user.EmailPrivate" />
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input class="form-control" type="text" ng-model="user.Address" />
+            </div>
+            <div class="form-group">
+                <label>Zip Code</label>
+                <input class="form-control" type="text" ng-model="user.ZipCode" />
+            </div>
+
+            <h4>Other Information</h4>
+            <div class="form-group">
+                <label>Birthday</label>
+                <input class="form-control" type="text"  ng-model="model.Birthday"/>
+            </div>
+            <div class="form-group">
+                <label>Employement Date</label>
+                <input class="form-control" type="text" ng-model="model.EmploymentDate" /> 
+            </div>
+            <div class="form-group">
+                <label>End Date</label>
+                <input class="form-control" type="text" ng-model="model.EndDate" />
+            </div>
+
+            <h4>Relative Details</h4>
+
+            Table here...
+            <br /><br />
+
+            <div class="form-group">
+                <label>Roles</label>
+                <!--<select class="form-control" ng-model="role" ng-options="role as role.name for role in roles"></select>-->
+                <label ng-repeat="role in roles">
+                    <input type="checkbox" ng-model="user.roles[role.id]" ng-checked="user.roles[role.id]" />
+                    <span>{{role.name}}</span>
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default" ng-click="UpdateUser();">Save{{existingRoles}}</button>
+            </div>
+
+    </div>
+</div>

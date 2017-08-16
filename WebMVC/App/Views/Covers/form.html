@@ -1,0 +1,307 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmLeave'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ng-click="leave()">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancel()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a href="" ng-click="askCancel('app.cover.list', cover)">Customer</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> 
+                    <span ng-hide="editMode" class="sub-head">Cover - Add</span>
+                    <span ng-show="editMode" class="sub-head">Cover - Update</span>
+                </h3>
+            </div>
+
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" ng-click="askCancel('app.cover.list', cover)" type="button">Cancel</button>
+                <button class="btn btn-primary" ng-hide="editMode" ng-click="save()" type="button">Save</button>
+                <button class="btn btn-primary" ng-show="editMode" ng-click="update()" type="button">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal" name="coverForm">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Status:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.status.$invalid && submitted)}">
+                                        <select required class="form-control" ng-change="cover.isActive = data.status.id" name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="data.status">
+                                            <option value="">-- Select a Status --</option>
+                                        </select>
+                                        <div ng-show="coverForm.status.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="coverForm.status.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Cover Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Cover Name:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.coverName.$invalid && submitted)}">
+                                <input type="text" required placeholder="" class="form-control" name="coverName" ng-model="cover.coverName">
+                                <div ng-show="coverForm.coverName.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.coverName.$error.required">Required.</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Cover Note:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.coverNote.$invalid && submitted)}">
+                                <input type="text" required placeholder="" class="form-control" name="coverNote" ng-model="cover.coverNote">
+                                <div ng-show="coverForm.coverNote.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.coverNote.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.country.$invalid && submitted)}">
+                                <select class="form-control" required ng-options="country.CountryName for country in data.countries track by country.Id" name="country" ng-change="setCountryFunc()" ng-model="countries">
+                                    <option value="">Select a Country</option>
+                                </select>
+                                <div ng-show="coverForm.country.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.country.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Language:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.language.$invalid && submitted)}">
+                                <select class="form-control" required ng-options="lang.languageName for lang in data.langs track by lang.Id" name="language" ng-change="cover.langId = langs.Id; getTermsByLanguage(langs.Id)" ng-model="langs">
+                                    <option value="">Select a Language</option>
+                                </select>
+                                <div ng-show="coverForm.language.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.language.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Period:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.period.$invalid && submitted)}">
+                                <select required class="form-control" ng-change="setPeriodFunc()" name="period" ng-options="peri.name for peri in periodData track by peri.id" ng-model="data.period">
+                                    <option value="">Select Period</option>
+                                </select>
+                                <div ng-show="coverForm.period.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.period.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mileage:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.mileage.$invalid && submitted)}">
+                                <input required type="text" placeholder="" class="form-control" ng-pattern="/^[0-9]{1,7}$/" name="mileage" ng-model="cover.mileage">
+                                <div ng-show="coverForm.mileage.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.mileage.$error.required">Required.</span>
+                                </div>
+                                <div ng-show="coverForm.mileage.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.mileage.$error.pattern">Enter only numbers.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Eligibility:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.eligibility.$invalid && submitted)}">
+                                <input required type="text" placeholder="" class="form-control" ng-pattern="/^[0-9]{1,7}$/" name="eligibility" ng-model="cover.eligibility">
+                                <div ng-show="coverForm.eligibility.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.eligibility.$error.required">Required.</span>
+                                </div>
+                                <div ng-show="coverForm.eligibility.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.eligibility.$error.pattern">Enter only numbers.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Excess Amount:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.excessAmount.$invalid && submitted)}">
+                                <input type="text" placeholder="" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" class="form-control" name="excessAmount" ng-model="cover.excessAmount">
+                                <div ng-show="coverForm.excessAmount.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.excessAmount.$error.pattern">Price must be entered in numeric with decimals</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Claim Limit:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.claimLimit.$invalid && submitted)}">
+                                <input required type="text" placeholder="" class="form-control" name="claimLimit" ng-model="cover.claimLimit">
+                                <div ng-show="coverForm.claimLimit.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.claimLimit.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group uppercase-fix">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Under Writer:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.underWrite.$invalid && submitted)}">
+                                <input required type="text" placeholder="" class="form-control" name="underWrite" ng-model="cover.underWrite">
+                                <div ng-show="coverForm.underWrite.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.underWrite.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Cover Description:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (coverForm.coverDescription.$invalid && submitted)}">
+                                <textarea required class="form-control" name="coverDescription" ng-model="cover.coverDescription"></textarea>
+                                <div ng-show="coverForm.coverDescription.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="coverForm.coverDescription.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span> Content Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Systems and Components:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <div class="check-selector">
+                                    <div class="section-check" ng-repeat="parent in parents">
+                                        <div class="main-check check-lists">
+                                            <input type="checkbox" id="{{parent.id}}" name="checkbox-demo-h" ng-model="cover.parentItem[parent.id].haschecked" ng-checked="cover.parentItem[parent.id].haschecked" ng-change="checkUncheckAllChild(parent.id,cover.parentItem[parent.id].haschecked,parent.children)" />
+                                            <label class="input-label" for="{{parent.id}}">{{parent.name}}</label>
+                                        </div>
+                                        <div class="sub-check check-lists" ng-repeat="child in parent.children">
+                                            <input type="checkbox" id="{{parent.id}}-{{child.id}}" name="checkbox-demo-h" ng-model="cover.parentItem[parent.id].childrenItem[child.id]" ng-change="checkUncheckParent(parent.id, cover.parentItem[parent.id].childrenItem, cover.parentItem[parent.id].childrenItem[child.id], parent.children)" />
+                                            <label class="input-label" for="{{parent.id}}-{{child.id}}">{{child.name}}</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">3</span> Terms & Conditions Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label><strong>All Terms</strong></label>
+                                <div class="select-list-back">
+
+                                    <ul class="items-selecteble" id='non-attached'>
+                                        <li ng-repeat="terms in termsData" ng-click="updateAssignedTerms(terms)">
+
+                                            {{terms.name}}
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 double-arrow-indicator">
+                                <label><strong>Selected Terms</strong></label>
+                                <div class="select-list-back">
+                                    <ul ui-sortable class="items-selected" id='attached' ng:model="selectedForms">
+                                        <li ng-repeat="opt in selectedForms | filter:query as results" ng-click="updateAssignedTerms(opt)"> {{ opt.name }} </li>
+
+                                    </ul>
+                                </div>
+                                <div class="pull-right"><label><strong> Selected Terms Count : {{results.length}}</strong></label></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form class="form-horizontal" name="umForm">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <h4><span class="sect-number">4</span> UW Premium</h4>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Set Brand Group:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (umForm.brandGroup.$invalid && submitted)}">
+                                            <select required class="form-control" ng-change="setBrandGroupFunc()" name="brandGroup" ng-options="brandGroup.name for brandGroup in brandGroups track by brandGroup.id" ng-model="data.brandGroup">
+                                                <option value="">-- Select a Brand Group --</option>
+                                            </select>
+                                            <div ng-show="umForm.brandGroup.$invalid && submitted" class="ng-hide">
+                                                <span class="help-block error-label" ng-show="umForm.brandGroup.$error.required">Required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Set Price By:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (umForm.enginCap.$invalid && submitted)}">
+                                            <select required class="form-control" ng-change="setPriceByFunc()" name="enginCap" ng-options="engine.name for engine in enginCaps track by engine.id" ng-model="data.enginCap">
+                                                <option value="">-- Select a Engine Capacity --</option>
+                                            </select>
+                                            <div ng-show="umForm.enginCap.$invalid && submitted" class="ng-hide">
+                                                <span class="help-block error-label" ng-show="umForm.enginCap.$error.required">Required.</span>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </form>
+                            <div class="col-sm-12" ng-show="showMetrix || editMode">
+                                <form class="form-horizontal metrix" name="metrix">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered " id="">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Months</strong></td>
+                                                    <td ng-repeat="month in months"><strong>{{month}}</strong></td>
+                                                </tr>
+                                                <tr class="click-row off-click">
+                                                    <td><strong>Percentage (%)</strong></td>
+                                                    <td ng-repeat="month in months"><input ng-readonly="viewtMode" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="presentages[month]" type="text" placeholder="" class="form-control" value="20%"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="custom-width-matrix"><strong>Engine Capacity - {{engineType}}</strong></td>
+                                                    <td ng-repeat="month in months"></td>
+                                                </tr>
+                                                <tr ng-repeat="engineCapacity in engineCapacities" class="click-row off-click">
+                                                    <td><strong>{{engineCapacity}}</strong></td>
+                                                    <td ng-repeat="month in months">
+                                                        <!--{{prices[engineCapacity][month]}} {{generatedPriceMetrix[engineCapacity][month]}}-->
+                                                        <input ng-readonly="viewtMode" ng-class="(((prices[engineCapacity][month] != generatedPriceMetrix[engineCapacity][month]) && generatedPriceMetrix[engineCapacity][month] && month != '12') || (customPrices[engineCapacity][month])) ? 'metrix-touched' : ''" ng-change="trackEdited(engineCapacity, month)" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="prices[engineCapacity][month]" type="text" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </form>
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-group text-right">
+                                        <button class="btn btn-primary" ng-hide="viewtMode" ng-click="generate()" type="button">Genarate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->

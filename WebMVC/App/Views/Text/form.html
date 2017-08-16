@@ -1,0 +1,97 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmLeave'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ng-click="leave()">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancel()">No</button>                    
+                </span>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ng-click="askCancel()">Text </a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">{{mode}}</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" ng-click="askCancel()" type="button">Cancel</button>
+                <button class="btn btn-primary" ng-show="!editMode" ng-click="create()" type="button">Save</button>
+                <button class="btn btn-primary" ng-show="editMode" ng-click="edit()" type="button">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12">
+                    <form class="form-horizontal uppercase-fix" name="textForm">
+                        <div class="form-group" ng-show="editMode">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Text <span>ID</span>:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input ng-model="text.id" readonly type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Country:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (textForm.textCountry.$invalid && submitted)}">
+                                <select class="form-control" required name="textCountry" ng-click="setCountry()" ng-options="country.CountryName for country in static.countries track by country.Id" ng-model="data.textCountry">
+                                    <option value="">-- Select a Country --</option>
+                                </select>
+                                <span id="name-error" ng-show="submitted && textForm.textCountry.$invalid && textForm.textCountry.$error.required" class="help-block help-block-error">Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Language:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (textForm.lang.$invalid && submitted)}">
+                                <select class="form-control" required name="lang" ng-click="setLang()" ng-options="lang.languageName for lang in static.langList track by lang.Id" ng-model="data.lang">
+                                    <option value="">-- Select a Language --</option>
+                                </select>
+                                <span id="name-error" ng-show="submitted && textForm.lang.$invalid && textForm.lang.$error.required" class="help-block help-block-error">Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Header:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (textForm.header.$invalid && submitted)}">
+                                <select class="form-control" required name="header" ng-click="setNotificationHeader()" ng-options="header.name for header in static.headerList track by header.id" ng-model="data.header">
+                                    <option value="">-- Select a Header --</option>
+                                </select>
+                                <span id="name-error" ng-show="submitted && textForm.header.$invalid && textForm.header.$error.required" class="help-block help-block-error">Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Text:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (textForm.text.$invalid && submitted)}">
+                                <select class="form-control" required name="text" ng-click="setText()" ng-options="text.name for text in static.textList track by text.id" ng-model="data.text">
+                                    <option value="">-- Select a Text --</option>
+                                </select>
+                                <span id="name-error" ng-show="submitted && textForm.text.$invalid && textForm.text.$error.required" class="help-block help-block-error">Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Reminder:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (textForm.reminder.$invalid && submitted)}">
+                                <textarea ng-model="text.reminder" required name="reminder" class="form-control" rows="3"></textarea>
+                                <span id="name-error" ng-show="submitted && textForm.reminder.$invalid && textForm.reminder.$error.required" class="help-block help-block-error">Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="editMode">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <select class="form-control" name="brandGroupStatus" ng-model="text.isActive">
+                                    <option value="1" class="">Active</option>
+                                    <option value="0" class="">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->

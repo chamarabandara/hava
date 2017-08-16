@@ -1,0 +1,243 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="app.customers.list">Customer</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Workshop - View </span></h3>
+            </div>
+
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" type="button" ui-sref="app.customers.list">Back</button>
+                <button class="btn btn-primary" type="button" ng-click="goToUpdate(model.id)">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+
+                <form class="form-horizontal">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Status:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.status}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Workshop Company Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Customer Id:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.customerId}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Org Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.orgName}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Org Registration Number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.orgRegNo}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Legal Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.legalName}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Store:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.store}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Address:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.address}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>City:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.city}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Country:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.country}}</label>
+
+                        </div>
+                        <div class="form-group uppercase-fix">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal Code/ <span>Z</span>ip Code:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.postalCode}}</label>
+
+                        </div>
+                        <div class="form-group uppercase-fix">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.billionAddress}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Telephone number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.teleNumber}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Email:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.email}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Web Site:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.webSite}}</label>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span> Workshop's Representative</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ac-grid options="representativeGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="representativesWorkshop" action="action" class="ang-grid"></ac-grid>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">3</span> Dealer Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Dealer Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.dealerName}}</label>
+
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">4</span> AutoConcept Representative for Dealer</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Representative's Name:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.representativeName}}</label>
+
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>ID Number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">0111245</label>
+
+                        </div>-->
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Title:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.representativeTitle}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Mobile Number:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.representativeMobNumber}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Email:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.representativeEmail}}</label>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">5</span> Payment Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.bank}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.clearingNo}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.accNo}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.bankgiro}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.postgiro}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{workshop.billingAddress}}</label>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="panel-group accordion no-background" id="accordion3">
+                        <div class="panel panel-default">
+                            
+                        <div class="panel panel-default relative">
+                            <div class="panel-heading">
+
+                                <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" ng-click="collapsePannel('clm')"> Claims</a> </h4>
+                            </div>
+                            <div id="sectionClm" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ac-grid options="vehicleClaimsGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="vehicleClaims" action="action" class="ang-grid"></ac-grid>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

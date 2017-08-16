@@ -1,0 +1,231 @@
+﻿z<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="^.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDeleteLogo'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete current logo, do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="removeLogo()">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancelRemove()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDeleteSignature'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete current Signature, do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="removeSignature()">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancelRemove()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDeleteFooter'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete footer image, do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="removeFooterImage(footerImageName,indexFooter)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancelRemove()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="view-pdf-modal" data-backdrop="static">
+    <div class="modal-dialog pdf-viewer">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancelPDFModal()"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">{{pdfName}}</h3>
+            </div>
+            <div class="modal-body">
+                <ng-pdf template-url="App/views/Directives/viewer.html" canvasid="pdf" scale="1.5"></ng-pdf>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ng-click="proceedCancel(model);">Letter Template</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span><span class="sub-head">{{model.name}}</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model);">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="updateOfferLetter(model,1);clearMsg();">Update</button>
+                <button class="btn btn-primary pdf_modal_btn" type="button" ng-click="updateOfferLetter(model,2);clearMsg();">PDF Preview</button>
+                <!--<button class="btn btn-primary" type="button" ng-click="preview()">PDF Preview</button>-->
+
+            </div>
+        </div>
+        <div class="content">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="detail-section form">
+                            <div class=" col-sm-offset-10">
+                                <div class="row">
+                                    <div class="avatar avatar-possition-wrapper" ng-show="model.isLogo">
+                                        <div class="default-circle margin-left-auto ">
+                                            <img ng-src="{{imageLogo}}" ng-show="imageLogo" />
+                                            <img alt="user-avatar" class="profile-avatar" ng-src="{{webUrl}}assets/global/img/logo.png" ng-hide="imageLogo">
+                                            <span class="btn btn-primary btn-block btn-file" ng-hide="imageLogo">
+                                                Browse Logo <input type="file" ng-file-select="onFileSelect($files)" name="imageLogo">
+                                            </span>
+                                            <div class="col-sm-12 col-xs-12 text-center margin-top-10" ng-show="imageLogo">
+                                                <a href="" class="link-warning" ng-click="confirmClearLogo()">Clear Current Logo</a>
+                                            </div>
+
+                                            <!--ng-hide="imageLogo"-->
+                                        </div>
+                                        <p class="indication-text padding-top-20 ">
+                                            Image width less than 150px and height less than 75px.
+                                            <br />
+                                            Max file size - 3MB
+                                            <br />
+                                            File types - jpg, gif, png, bmp.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- <ng-pdf template-url="App/views/Directives/viewer.html" canvasid="pdf" scale="1.5"></ng-pdf>-->
+                            <div class="row">
+                                <form class="form-horizontal" name="FormOffer" novalidate>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Subject:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Subject" maxlength="200" ng-model="model.subject">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="" class="col-sm-12"><strong>Mail Body:</strong></label>
+                                    <div class="col-sm-12">
+                                        <textarea class="ckeditor form-control" name="editor2" rows="6" data-error-container="#editor2_error" ng-model="model.bodyText"></textarea>
+                                        <div id="editor2_error"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="model.isSignature">
+                                <div class="col-sm-3">
+
+                                    <div class="avatar avatar-possition-wrapper margin-top-20">
+                                        <div class="default-circle margin-left-0-lg">
+                                            <img ng-src="{{imageSignature}}" ng-show="imageSignature" class="img-signature" />
+                                            <img alt="user-avatar" class="profile-avatar" ng-src="{{webUrl}}assets/global/img/signatur.png" ng-hide="imageSignature">
+                                            <span class="btn btn-primary btn-block btn-file" ng-hide="imageSignature">
+                                                Browse Signature <input type="file" ng-file-select="onFileSelect($files)" name="signature">
+                                            </span>
+                                            <div class="col-sm-12 col-xs-12 text-center spacing-fix" ng-show="imageSignature">
+                                                <a href="" class="link-warning" ng-click="confirmClearSignature()">Clear Current Signature</a>
+                                            </div>
+                                            <!--ng-hide="imageSignature"-->
+                                        </div>
+                                        <p class="indication-text indication-text-left padding-top-20 padding-right-50-fix">
+                                            Image width less than 150px and height less than 75px.
+                                            <br />
+                                            Max file size - 3MB
+                                            <br />
+                                            File types - jpg, gif, png, bmp.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row" ng-show="model.isSignature">
+                                <div class="col-sm-3 text-left">
+
+
+                                </div>
+                            </div>
+                            <h4 ng-show="model.isFooter">Add Images</h4>
+                            <div class="row" ng-show="model.isFooter">
+                                <div class="col-sm-3">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse Footer Image <input type="file" ng-file-select="onFileSelect($files)" name="imageFooter">
+                                    </span>
+                                    <p class="indication-text indication-text-left padding-right-50-fix padding-top-20 padding-left-0">
+                                        Image width less than 150px and height less than 75px.
+                                        <br />
+                                        Max file size - 3MB
+                                        <br />
+                                        File types - jpg, gif, png, bmp.
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="row" ng-show="model.isFooter">
+                                <div class="col-sm-12 img-logo-area">
+                                    <div class="img-frame" ng-repeat="img in footerImages track by $index">
+                                        <img ng-src="{{img.image}}" width="100%" />
+                                        <a href="" class="link-warning" ng-click="confirmClearFooterImage(img.image,$index)">Clear</a>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="company-name-label "><strong> Footer Text</strong></label>
+                                        <textarea ng-model="model.footerText" class="form-control" rows="5" placeholder="Footer text"></textarea>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

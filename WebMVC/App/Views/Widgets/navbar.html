@@ -1,0 +1,106 @@
+﻿
+<div class="icon-bar ">
+    <ul>
+        <li><i class="fa fa-user"></i></li>
+        <li><i class="fa fa-user-plus"></i></li>
+        <li><i class="fa fa-user-times"></i></li>
+        <li><i class="fa fa-search"></i></li>
+        <li><i class="fa fa-print"></i></li>
+        <li class="ham-burger-menu">
+            <a href="javascript:;" class="menu-toggler pull-right responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<nav class="navbar ">
+    <div class="collapse navbar-collapse" id="">
+        <ul class="nav navbar-nav main-navbar">
+            <li class="dropdown file">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">File <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="">Print</a></li>
+                    <!--<li class="divider"></li>-->
+                    <!--<li><a href="">Lock Screen</a></li>-->
+                    <li><a ng-click='LogOut();' ng-controller="CommonController">Log Out</a></li>
+                </ul>
+            </li>
+            <li class="dropdown sales">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sales <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a ui-sref="app.customers.list">Customers</a></li>
+                    <li><a ui-sref="app.product.list">Products</a></li>
+                    <li class="dropdown-submenu">
+                        <a ng-click="$event.stopPropagation();">Terms Managment</a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="app.terms.list">Terms</a></li>
+                            <li><a ui-sref="app.terms.paragraph">Paragraph</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Content</a></li>
+                    <li class="divider"></li>
+                    <li><a ui-sref="app.prospects.list" >Prospects</a></li>
+                    <li><a ui-sref="app.systemcomponents.list">Components</a></li>
+                    
+                    <!--<li class="dropdown-submenu">
+                        <a ng-click="$event.stopPropagation();">Content Managment</a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="app.systemcomponents.list">Systems & Components</a></li>
+                            <li><a ui-sref="app.systemcomponentsgroups.list">Component Groups</a></li>
+
+                        </ul>
+                    </li>-->
+                    <li><a ui-sref="app.companygroups.list">Company Groups</a></li>
+                    <li><a ui-sref="app.warranty.list">Warranty</a></li>
+                    <li class="dropdown-submenu">
+                        <a ng-click="$event.stopPropagation();">Price Setup</a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="app.priceList.list">Price List</a></li>
+                            <li><a ui-sref="app.priceLoading.list">Loading Percentage for Model</a></li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="app.insurance.list">Insurance</a></li>
+                    <li><a ui-sref="app.salesletter.list">Letter</a></li>
+                </ul>
+            </li>
+
+            <li class="claims"><a href="">Claims </a></li>
+            <li class="economy"><a href="">Economy </a></li>
+            <li class="dropdown admin active">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="clickMenu()" ui-sref="app.users.list">Users</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.roles.list">Roles</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.countries.list">Country Information</a></li>
+                    <!--<li class="divider"></li>-->
+                    <li><a ng-click="clickMenu()" ui-sref="app.brands.list">Brands</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.periods.list">Periods</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.yoa.list">YOA</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.text.list">Text</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.letters.list">Letter Management</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.adminPriceList.list">Price List</a></li>
+                    <li><a ng-click="clickMenu()" ui-sref="app.cover.list" >Covers</a></li>
+
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="hidden-xs">
+                <div class="page-toolbar">
+                    <div id="dashboard-report-range" class="tooltips btn btn-fit-height grey-salt" data-placement="bottom" data-original-title="Change dashboard date range">
+                        <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+            </li>
+            <li class="toggle-stat">
+
+               
+                <a class="tooltips collapse" ng-class="hideStats?'collapse':'expand'" ng-click="toggleStatics()" data-placement="right" data-original-title="Collapse/Expand Statistics"></a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+

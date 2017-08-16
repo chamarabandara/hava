@@ -1,0 +1,138 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<!--upload YOA-->
+<div class="modal fade" data-backdrop="static" id="add-yoa-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancelCreate()"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel" ng-hide="update">YOA - Add</h3>
+                <h3 class="modal-title" id="myModalLabel" ng-show="update">YOA - Edit</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form novalidate name="YOAForm">
+                        <div class="col-sm-12 uppercase-fix">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong><span>YOA</span>:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-9 col-md-9 col-sm-8">
+                                        <input type="text" placeholder="" class="form-control" ng-model="model.YOA" required name="YOA" ng-pattern="/^[0-9]{4}$/" maxlength="4" ng-change="uniqueYOA = false;">
+                                        <div ng-show="YOAForm.YOA.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="YOAForm.YOA.$error.required">Required.</span>
+                                        </div>
+                                        <span class="help-block error-label" ng-show="YOAForm.YOA.$error.pattern && submitted">Enter only numbers and 4 digits required.</span>
+                                        <div ng-show="(submitted && !YOAForm.UMR.$error.required) && (!YOAForm.YOA.$error.pattern && uniqueYOA)" class="ng-hide from-date">
+                                            <span class="help-block error-label">YOA code already exist.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong><span>YOA</span> Date From:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-9 col-md-9 col-sm-8" id="ddp3">
+                                        <div class="input-group input-append date date-picker">
+                                            <input class="form-control fromDate" type="text" ng-model="model.fromDate" id="fromDate" name="fromDate">
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button" ng-click="selectDate('fromDate')"><i class="fa fa-calendar"></i></button>
+                                            </span>
+
+                                        </div>
+                                        <div ng-show="fromDateRequired && submitted" class="ng-hide from-date">
+                                            <span class="help-block error-label">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong><span>YOA</span> Date To:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-9 col-md-9 col-sm-8" id="ddp3">
+                                        <div class="input-group input-append date date-picker">
+                                            <input class="form-control toDate" type="text" ng-model="model.toDate" id="toDate" name="toDate">
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button" ng-click="selectDate('toDate')"><i class="fa fa-calendar"></i></button>
+                                            </span>
+
+
+                                        </div>
+                                        <div ng-show="toDateRequired && submitted" class="ng-hide to-date">
+                                            <span class="help-block error-label">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong><span>UMR</span>:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-9 col-md-9 col-sm-8">
+                                        <input type="text" placeholder="" class="form-control" ng-model="model.UMR" name="UMR" required ng-change="clearUnique()">
+                                        <div ng-show="YOAForm.UMR.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="YOAForm.UMR.$error.required">Required.</span>
+                                        </div>
+                                        <div ng-show="(submitted && !YOAForm.UMR.$error.required) && uniqueUMR" class="ng-hide from-date">
+                                            <span class="help-block error-label">UMR code already exsist.</span>
+                                        </div>
+                                        <div ng-show="((submitted && !YOAForm.UMR.$error.required) && invalidDuration)" class="ng-hide from-date">
+                                            <span class="help-block error-label">Enter a valid duration for the YOA ‘from’ and ‘to’ dates.</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="form-group action-area">
+                                <div class="row">
+                                    <div class="col-sm-12 ">
+                                        <button class="btn btn-primary pull-right" type="button" ng-click="addYOA(model)" ng-hide="update">Save</button>
+                                        <button class="btn btn-primary pull-right" type="button" ng-click="updateYOA(model)" ng-show="update">Update</button>
+                                        <button class="btn btn-default pull-right" type="button" data-dismiss="modal" ng-click="cancelCreate()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>YOA Management</h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add-yoa-modal" ng-click="showAdd()">Add New</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="search pull-left">
+                    <div class="input-group pull-left ">
+                        <input type="text" ng-change="searched = false;infoMsg = '';" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                        <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                            <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                        </span>
+
+                        <span class="search-icon"><i class="fa fa-search"></i></span>
+                        <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                            <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <form>
+                <ac-grid options="yoaGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+            </form>
+        </div>
+    </div>
+</div>

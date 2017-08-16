@@ -1,0 +1,457 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmClearImage'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to remove the image, do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="clearCurrentImage(uploadedFilePath)">Remove</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancelPopUp()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="^.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--upload image popup-->
+<div class="modal fade" id="add-picture" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" id="close-picture" ng-click="closePictureDlg()">&times;</span></button>
+                <h3>Select <span class="lower">a</span> file</h3>
+            </div>
+            <div class="border-bottom-solid"></div>
+            <div class="modal-body padding-top-15">
+                <div class="row margin-bottom-15">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4-custom col-md-4 col-sm-4 col-xs-12 btn-label-mid-align"><strong>Select <span class="lower">an image file</span>:</strong></label>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="fileinput fileinput-new pull-left" data-provides="fileinput">
+                                <span class="btn btn-default btn-file">
+                                    <span class="fileinput-new">Choose File</span>
+                                    <!--<span class="fileinput-exists">Choose File</span>-->
+                                    <input type="file" name="..." id="fileInput" accept="image/*">
+                                </span><span class="fileinput-filename"></span>
+                                <!--<a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none"></a>-->
+                            </div>
+                            
+                        </div>
+                        <div id="image-validate-msg">
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-6 text-center">
+                        <strong>Selected Image:</strong>
+                        <div class="cropArea col-sm-12">
+                            <img-crop image="myImage" result-image="myCroppedImage" on-load-done="completedUpload"></img-crop>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-6 text-center">
+                        <strong>Cropped Image:</strong>
+                        <div class="cropedArea col-sm-12"><img class="cropped-image" ng-src="{{myCroppedImage}}" /></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeFileDlg()">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="saveCropedImage(myCroppedImage)" id="save-croped-image">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ng-click="proceedCancel(model)">Country Information</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="update">Add</span>
+                    <span class="sub-head" ng-show="update">Edit</span>
+                </h3>
+            </div>
+            <div class="btn-pnl-btns">
+
+                <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model)">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="saveCountry(model);" ng-hide="update">Save</button>
+                <button class="btn btn-primary" type="button" ng-click="updateCountry(model);" ng-show="update">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-md-push-9 col-sm-push-8">
+                    <div class="avatar avatar-possition-wrapper">
+                        <div class="default-circle hidden">
+                            <span class="fn">IU</span>
+                        </div>
+                         <div class="default-circle" ng-show="uploadedFilePath">
+                                <img ng-src="{{uploadedFilePath}}" alt="user-avatar" class="profile-avatar" />
+                          </div>
+                        <div class="default-circle" ng-hide="uploadedFilePath">
+                            <img alt="user-avatar" class="profile-avatar" ng-src="{{webUrl}}assets/global/img/logo.png">
+                            <a href="" data-toggle="modal" data-target="#add-picture" class="btn btn-primary btn-block" ng-click="uploadImagePopup()" ng-hide="uploadedFilePath">Upload new logo</a>
+
+                        </div>
+                        
+                         </div>
+                    <div class="col-sm-12 col-xs-12 text-center margin-top-10">
+                        
+                    </div>
+                    <div class="col-sm-12 col-xs-12 text-center margin-top-10" ng-show="uploadedFilePath">
+                        <a href="" class="link-warning" ng-click="confirmClearImage()">Clear current logo</a>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 col-md-pull-3 col-sm-pull-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12 detail-section">
+                                    <form class="form-horizontal uppercase-fix" name="countryForm">
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.country.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" required name="country" ng-options="ctry.CountryName for ctry in countryList track by ctry.Id" ng-model="model.country">
+                                                    <option value="">-- Select a Country --</option>
+                                                </select>
+                                                <div ng-show="countryForm.country.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.country.$error.required">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.status.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="model.status">
+                                                    <option value="">-- Select a Status --</option>
+
+                                                </select>
+                                                <div ng-show="countryForm.status.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.status.$error.required">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4>Company Information</h4>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.companyName.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Company Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" required ng-model="model.companyName" name="companyName" ng-maxlength="300" maxlength="300">
+                                                <div ng-show="countryForm.companyName.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.companyName.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="countryForm.companyName.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.organizationNumber.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Organization Number:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" required ng-model="model.organizationNumber" name="organizationNumber" ng-maxlength="50" maxlength="50">
+                                                <div ng-show="countryForm.organizationNumber.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.organizationNumber.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="countryForm.organizationNumber.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.address.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Address:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" required ng-model="model.address" name="address" ng-maxlength="500" maxlength="500">
+                                                <div ng-show="countryForm.address.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.address.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="countryForm.address.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.zipCode.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Zip / <span>P</span>ostal Code:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" required ng-model="model.zipCode" name="zipCode" ng-maxlength="100" maxlength="100">
+                                                <div ng-show="countryForm.zipCode.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.zipCode.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="countryForm.zipCode.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.city.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>City:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" required ng-model="model.city" name="city" ng-maxlength="50" maxlength="20">
+                                                <div ng-show="countryForm.city.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.city.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="countryForm.city.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.telphoneNumber.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6"><strong>Telephone Number:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" required ng-model="model.telphoneNumber" name="telphoneNumber" ng-maxlength="20" maxlength="20">
+                                                <div ng-show="countryForm.telphoneNumber.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.telphoneNumber.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="countryForm.telphoneNumber.$error.maxlength">The maximum length for this field has been exceeded.</span>
+                                                    
+                                                </div>
+                                              <!--  <span class="help-block error-label" ng-show="countryForm.telphoneNumber.$error.pattern">Enter only numbers.</span>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.telphoneFax.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Tele Fax:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" ng-model="model.telphoneFax" name="telphoneFax" ng-maxlength="20" maxlength="20">
+                                               
+                                                <span class="help-block error-label" ng-show="submitted && countryForm.telphoneFax.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.residence.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Residence / Head Office:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" ng-model="model.residence" name="residence" ng-maxlength="50" maxlength="50">
+                                                <span class="help-block error-label" ng-show="submitted && countryForm.residence.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                               
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.emailAddress.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Email Address:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="email" class="form-control" placeholder="" required ng-model="model.emailAddress" name="emailAddress" ng-maxlength="256" maxlength="256">
+                                                <div ng-show="countryForm.emailAddress.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.emailAddress.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="submitted && countryForm.emailAddress.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                                </div>
+                                                <span class="help-block error-label" ng-show="countryForm.emailAddress.$error.email">The email address is invalid.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.website.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Website:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" placeholder="" ng-model="model.website" name="website" http-prefix ng-maxlength="256" maxlength="256">
+                                               <!-- <div ng-show="countryForm.website.$invalid && submitted" class="ng-hide">-->
+                                                  <!--  <span class="help-block error-label" ng-show="countryForm.website.$error.required">Required.</span>-->
+                                                    <span class="help-block error-label" ng-show="submitted && countryForm.website.$error.maxlength">The maximum length for this field has been exceeded.</span>                 
+                                               <!--  --> </div>
+                                            </div>
+
+                                       
+                                        
+                                       
+                                        <h4>Country Specific Information</h4>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.language.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Language:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" required name="language" ng-options="tiz.languageName for tiz in languageList track by tiz.Id" ng-model="model.language">
+                                                    <option value="">-- Select a Language --</option>
+                                                </select>
+                                                <div ng-show="countryForm.language.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.language.$error.required">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                                                
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.timeZone.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Time Zone:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" required name="timeZone" ng-options="tiz.display for tiz in timeZoneList track by tiz.id" ng-model="model.timeZone">
+                                                    <option value="">-- Select a Time Zone --</option>
+                                                </select>
+                                                <div ng-show="countryForm.timeZone.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.timeZone.$error.required">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.currency.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Currency:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.currency" required name="currency">
+                                                <!--<select class="form-control" required name="currency" ng-options="cur.name for cur in currencyList track by cur.id" ng-model="model.currency">
+                                                    <option value="">-- Select a Currency --</option>
+                                                </select>-->
+                                                <div ng-show="countryForm.currency.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.currency.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="submitted && countryForm.currency.$error.maxlength">The maximum length for this field has been exceeded.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group" ng-class="{'has-error' : (countryForm.currency.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Currency:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.currency" name="currency" ng-maxlength="50" maxlength="50" required>
+                                                <div ng-show="countryForm.currency.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.currency.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="submitted && countryForm.currency.$error.maxlength">The maximum length for this field has been exceeded.</span>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Insurance Tax:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.insuranceTax" name="insuranceTax" ng-maxlength="50" maxlength="50">
+                                                <span class="help-block error-label" ng-show="submitted && countryForm.insuranceTax.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>VAT</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.vat" name="vat" ng-maxlength="50" maxlength="50">
+                                                <span class="help-block error-label" ng-show="submitted && countryForm.vat.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                            </div>
+                                        </div>
+                                        <h4>Banking Information</h4>
+                                        <div class="form-group" ng-class="{'has-error' : (countryForm.accountNumber.$invalid && submitted)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Bank Account Number:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.accountNumber" name="accountNumber" required ng-maxlength="50" maxlength="50">
+                                                <div ng-show="countryForm.accountNumber.$invalid && submitted" class="ng-hide">
+                                                    <span class="help-block error-label" ng-show="countryForm.accountNumber.$error.required">Required.</span>
+                                                    <span class="help-block error-label" ng-show="submitted && countryForm.accountNumber.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.bankgiro" name="bankgiro" ng-maxlength="50" maxlength="50">
+                                                <span class="help-block error-label" ng-show="submitted && countryForm.accountNumber.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Direct Debit(Autogiro):</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.directDebit" name="directDebit" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Plusgiro:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.plusgiro" name="plusgiro" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>IBAN</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.iban" name="iban" maxlength="50">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Foreign Currency Account <span>IBAN</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.foreignCurrencyAccount" name="foreignCurrencyAccount" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>SWIFT</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.swift" name="swift" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong><span>BIC</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.bic" name="bic" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <h4>Next Billing Information</h4>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Current Date:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" id="ddp3">
+                                                <div class="input-group input-append date date-picker">
+                                                    <input class="form-control currentDate" type="text" ng-model="model.currentDate" id="currentDate" name="currentDate" ng-change="validateDate()">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button" ng-click="selectDate('currentDate')"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group lowercase-fix">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Date <span class="lower">of</span> Invoice - Invoice:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" id="ddp3">
+                                                <div class="input-group input-append date date-picker">
+                                                    <input class="form-control dateOfInvoice" type="text" ng-model="model.dateOfInvoice" id="dateOfInvoice" name="dateOfInvoice" ng-change="validateDate()">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button" ng-click="selectDate('dateOfInvoice')"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group lowercase-fix">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Date <span class="lower">of</span> Invoice - <span>VAT</span>:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" id="ddp3">
+                                                <div class="input-group input-append date date-picker">
+                                                    <input class="form-control dateOfInvoiceVAT" type="text" ng-model="model.dateOfInvoiceVAT" id="dateOfInvoiceVAT" name="dateOfInvoiceVAT" ng-change="validateDate()">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button" ng-click="selectDate('dateOfInvoiceVAT')"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Our Reference:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="model.ourReference" name="ourReference" maxlength="500">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Next Direct Debit Payment Date:</strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6" id="ddp3">
+                                                <div class="input-group input-append date date-picker">
+                                                    <input class="form-control nextDirectDebitPaymentDate" type="text" ng-model="model.nextDirectDebitPaymentDate" id="nextDirectDebitPaymentDate" name="nextDirectDebitPaymentDate" ng-change="validateDate()">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button" ng-click="selectDate('nextDirectDebitPaymentDate')"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

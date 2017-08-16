@@ -1,0 +1,99 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span ng-bind-html="infoMsg"></span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf" ng-show="infoMsgDelete">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsgDelete}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete the customer '{{rowData.customerType}} - {{rowData.customerName}}', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="delete(rowData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>Customer Information</h3>
+            </div>
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-primary" type="button" ui-sref="^.new">Add</button>
+            </div>  
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <select class="form-control">
+                        <option value="India">CoPartner</option>
+                        <option value="India">Dealer</option>
+                        <option value="India">Vehicle Owner</option>
+                        <option value="India">Workshop</option>
+                        <option value="India">Prospect</option>
+                        <option value="India">Supplier</option>
+                        <option value="India">Store</option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class="btn-pnl-btns">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Add <i class="fa fa-angle-down"></i></button>
+                <ul class="dropdown-menu dropdown-menu-btn">
+                    <!--<li>
+                        <a href="#" data-toggle="modal" data-target="#brand-group-modal">Add Customer</a>
+                    </li>-->
+                    <!--<li>
+                        <a ui-sref="app.workshop.form">Add Workshop</a>
+                    </li>
+                    <li>
+                        <a ui-sref="app.vehicle.form">Add Vehicle Owner</a>
+                    </li>
+                    <li>
+                        <a ui-sref="app.cooppartner.form">Add Co-operation Partner</a>
+                    </li>
+                    <li>
+                        <a ui-sref="app.dealer.form">Add Dealer</a>
+                    </li>-->
+                    <!--<li>
+                        <a href="#" data-toggle="modal" data-target="#add-modal-modal">End-Customer</a>
+                    </li>-->
+                <!--</ul>
+            </div>-->
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="search pull-left">
+                    <div class="input-group pull-left ">
+                        <input type="text" ng-change="searched = false; infoMsg='';" class="form-control text-box page-search-box" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                        <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                            <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                        </span>
+
+                        <span class="search-icon"><i class="fa fa-search"></i></span>
+                        <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                            <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <ac-grid options="customersGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->

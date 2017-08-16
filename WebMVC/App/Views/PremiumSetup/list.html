@@ -1,0 +1,87 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span ng-bind-html="infoMsg"></span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf" ng-show="infoMsgDelete">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsgDelete}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete premium list details, do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="delete(termRowData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3>Premium List Information</h3>
+            </div>
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-primary" type="button" ui-sref="^.form">Add</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="pull-left">
+                        <div class="input-group pull-left">
+
+                            <input type="text" ng-change="searched = false; infoMsg='';" class="form-control text-box page-search-box" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                            <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                                <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                            </span>
+
+                            <span class="search-icon"><i class="fa fa-search"></i></span>
+                            <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                                <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <select class="form-control" ng-change="searchFunction(true, country.id)" ng-options="country.name for country in countries track by country.id" ng-model="country">
+                                <option value="">-- Select a Country --</option>
+                            </select> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6 pull-right">
+                    <div class="form-group">
+                        <div class="col-sm-6 col-xs-6">
+                            <input type="radio" id="rv1" name="radio-demo-v" ng-model="filterCriteria.isActive" ng-value="true" ng-change="searchFunction()">
+                            <label for="rv1" class="font-gray italic">Active</label>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <input type="radio" id="rv2" name="radio-demo-v" ng-model="filterCriteria.isActive" ng-value="false" ng-change="searchFunction()">
+                            <label for="rv2" class="font-gray italic">Inactive</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form>
+                <ac-grid options="premiumsetupGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+            </form>
+        </div>
+    </div>
+</div>

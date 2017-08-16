@@ -1,0 +1,189 @@
+﻿<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3><a href="" ui-sref="^.list">Customer</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Cover - View </span></h3>
+            </div>
+
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-default" ui-sref="^.list" type="button">Back</button>
+                <button class="btn btn-primary" ng-click="toEditPage()" type="button">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Status:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12" ng-show="cover.isActive == 1">Active</label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12" ng-show="cover.isActive == 0">Inactive</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Cover Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Cover Name:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.coverName}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Cover ID:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.id}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Cover Note:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.coverNote}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Country:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.country}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Language:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.lang}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Period:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.periodName}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Period ID:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Toyota</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Mileage:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.mileage}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Eligibility:</strong></label>
+
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.eligibility}}</label>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Exess Amount:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.excessAmount}}</label>
+                        </div>
+                        <div class="form-group uppercase-fix">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Claim Limit:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.claimLimit}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Under Writer:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.underWrite}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Cover Description:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{cover.coverDescription}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span> Content Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Systems and Components:</strong></label>
+                            <div class="col-md-7 col-sm-6 col-xs-12">
+                                <div class="selected-list">
+                                    <ul class="items-selected">
+                                        <li class="item1" ng-repeat="rootItem in cover.systemComponentItems">
+                                            {{rootItem.parent}}
+                                            <ul class="no-style-sub-list">
+                                                <li class="item2" ng-repeat="childItem in rootItem.childItems">{{childItem}}</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">3</span> Terms & Conditions Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="selected-list">
+                                    <ol>
+                                        <li ng-repeat="term in cover.selectedTerms"> {{term.name}} </li>                                        
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">4</span> UW Premium</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-5 col-sm-6 col-xs-12" for=""><strong>Set Price By:</strong></label>
+                            <label for="" class="col-lg-9 col-md-7 col-sm-6 col-xs-12">{{cover.setPriceBy}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-5 col-sm-6 col-xs-12" for=""><strong>Set Brand Group:</strong></label>
+
+                            <label for="" class="col-lg-9 col-md-7 col-sm-6 col-xs-12">{{cover.brandGroup}}</label>
+
+                        </div>
+
+                            
+                        <div class="table-responsive">
+                            <table class="table table-bordered " id="">
+
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Months</strong></td>
+                                        <td ng-repeat="month in months"><strong>{{month}}</strong></td>
+                                    </tr>
+                                    <tr class="click-row off-click">
+                                        <td><strong>Percentage (%)</strong></td>
+                                        <td ng-repeat="month in months">{{presentages[month]}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="custom-width-matrix"><strong>Engine Capacity - cc</strong></td>
+                                        <td ng-repeat="month in months"></td>
+                                    </tr>
+                                    <tr ng-repeat="engineCapacity in engineCapacities" class="click-row off-click">
+                                        <td><strong>{{engineCapacity}}</strong></td>
+                                        <td ng-repeat="month in months">
+                                            {{prices[engineCapacity][month]}}
+                                        </td>
+                                    </tr>                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->

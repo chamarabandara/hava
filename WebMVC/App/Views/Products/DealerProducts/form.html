@@ -1,0 +1,330 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="app.product.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>
+                    <a ng-click="proceedCancel(model)">Product</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="update">Dealer Product - Add</span>
+                    <span class="sub-head" ng-show="update">Dealer Product - Edit</span>
+                </h3>
+            </div>
+            <div class="btn-pnl-btns">
+
+                <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model)">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="saveDealerProduct(model);" ng-hide="update">Save</button>
+                <button class="btn btn-primary" type="button" ng-click="saveDealerProduct(model);" ng-show="update">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal" name="delaerProductForm">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Dealer Product Details</h4>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error' : (delaerProductForm.productName.$invalid && submitted)}">
+                            <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Product Name:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control"  ng-model="model.productName" name="productName">
+                                <div ng-show="delaerProductForm.productName.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="delaerProductForm.productName.$error.required">Required.</span>
+                                </div>
+                                <div ng-show="(submitted && !delaerProductForm.productName) && (!uniqueDealerProduct)">
+                                    <span class="help-block error-label">Dealer product name already exist.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (delaerProductForm.country.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="country" ng-options="ctry.CountryName for ctry in countryList track by ctry.Id" ng-model="model.country" ng-change="setBrandGroup(model.country)" ng-disabled="true">
+                                    <option value="">-- Select a Country --</option>
+                                </select>
+                                <div ng-show="delaerProductForm.country.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="delaerProductForm.country.$error.required">Required.</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (delaerProductForm.language.$invalid && submitted)}">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Language:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="language" ng-options="tiz.languageName for tiz in languageList track by tiz.Id" ng-model="model.language" ng-change="getTermsByLanguage(model.language)" ng-disabled="true">
+                                    <option value="">-- Select a Language --</option>
+                                </select>
+                                <div ng-show="delaerProductForm.language.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="delaerProductForm.language.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Cover:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.coverName" name="coverName" ng-disabled="true">
+                                <!--<select class="form-control"  name="coverName" ng-options="cov.name for cov in coverList track by cov.id" ng-model="model.coverName" ng-disabled="true">
+                                    <option value="">-- Select a Cover --</option>
+                                </select>-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Cover Note:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.coverNote" name="coverNote" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Period:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="preriod" ng-change="setPeriodFunc()" ng-options="peridItem.name for peridItem in periodList track by peridItem.id" ng-model="model.preriod" ng-disabled="true">
+                                    <option value="">-- Select Period --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mileage:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" name="mileage" ng-model="model.mileage" ng-disabled="true"> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Eligibility:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" name="eligibility" ng-model="model.eligibility" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Excess Amount:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" name="excessAmount" ng-model="model.excessAmount">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Claim Limit:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <input type="text" placeholder="" class="form-control" name="claimLimit" ng-model="model.claimLimit" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product Description:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <textarea class="form-control" ng-model="model.productDescription" name="productDescription"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span> Customer Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Co-op Partner Name:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="partnerName" ng-options="pat.name for pat in partnerList track by pat.id" ng-model="model.partnerName" ng-change="setPartnerId(model.partnerName)">
+                                    <option value="">-- Select a Partner --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer Name:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <select class="form-control" name="dealerName" ng-options="rep.name for rep in dealersList track by rep.id" ng-model="model.dealerName" ng-change="setDealersId(model.dealerName)">
+                                    <option value="">-- Select a Dealer --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    <div class="col-sm-12">
+                        <form class="form-horizontal">
+
+                            <div class="row" ng-show="parents.length > 0">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <h4><span class="sect-number">3</span> Content Details</h4>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Systems and Components:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <div class="check-selector">
+
+                                                <div class="section-check" ng-repeat="parent in parents">
+                                                    <div class="main-check check-lists">
+                                                        <input type="checkbox" id="{{parent.id}}" name="checkbox-demo-h" ng-model="model.parentItem[parent.id].haschecked" ng-checked="model.parentItem[parent.id].haschecked" ng-change="checkUncheckAllChild(parent.id,model.parentItem[parent.id].haschecked,parent.children)" />
+                                                        <label class="input-label" for="{{parent.id}}">{{parent.name}}</label>
+                                                    </div>
+                                                    <div class="sub-check check-lists" ng-repeat="child in parent.children">
+                                                        <input type="checkbox" id="{{parent.id}}-{{child.id}}" name="checkbox-demo-h" ng-model="model.parentItem[parent.id].childrenItem[child.id]" ng-change="checkUncheckParent(parent.id, model.parentItem[parent.id].childrenItem, model.parentItem[parent.id].childrenItem[child.id], parent.children)" />
+                                                        <label class="input-label" for="{{parent.id}}-{{child.id}}">{{child.name}}</label>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <h4><span class="sect-number">4</span> Terms & Conditions Details</h4>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <label><strong>All Terms</strong></label>
+                                    <div class="select-list-back">
+
+                                        <ul class="items-selecteble" id='non-attached'>
+                                            <li ng-repeat="terms in termsData" ng-click="updateAssignedTerms(terms)">
+
+                                                {{terms.name}}
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 double-arrow-indicator">
+                                    <label><strong>Selected Terms</strong></label>
+                                    <div class="select-list-back">
+                                        <ul ui-sortable class="items-selected" id='attached' ng:model="selectedForms">
+                                            <li ng-repeat="opt in selectedForms | filter:query as results" ng-click="updateAssignedTerms(opt)"> {{ opt.name }} </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" ng-show="parents.length > 0"><label><strong> Selected Terms Count : {{results.length}}</strong></label></div>
+                       
+                        <div class="row">
+                            <form class="form-horizontal">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <h4 ng-show="parents.length > 0"><span class="sect-number">5</span> Price</h4>
+                                            <h4 ng-show="parents.length <= 0"><span class="sect-number">3</span> Price</h4>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Set Price By:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <select class="form-control" name="priceBy" ng-change="setPriceByFunc();" ng-options="pc.name for pc in priceList track by pc.id" ng-model="model.priceBy" ng-disabled="true">
+                                                <option value="">-- Select a Engine Capacity --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Set Brand Group:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <select class="form-control" name="brandGroup" ng-change="setBrandGroupFunc();" ng-options="brd.name for brd in brandList track by brd.id" ng-model="model.brandGroup" ng-disabled="true">
+                                                <option value="">-- Select a Brand Group --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Comission:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" class="form-control" ng-model="model.comission" name="comission">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                                <div class="col-sm-12">
+                                    <label><strong>UW Premium</strong></label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered " id="">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Months</strong></td>
+                                                    <td ng-repeat="month in months"><strong>{{month}}</strong></td>
+                                                </tr>
+                                                <tr class="click-row off-click">
+                                                    <td><strong>Percentage (%)</strong></td>
+                                                    <td ng-repeat="month in months"><input readonly ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="presentages[month]" type="text" placeholder="" class="form-control" value="20%"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="custom-width-matrix"><strong>Engine Capacity - cc</strong></td>
+                                                    <td ng-repeat="month in months"></td>
+                                                </tr>
+                                                <tr ng-repeat="engineCapacity in engineCapacities" class="click-row off-click">
+                                                    <td><strong>{{engineCapacity}}</strong></td>
+                                                    <td ng-repeat="month in months">
+                                                        <!--{{prices[engineCapacity][month]}} {{generatedPriceMetrix[engineCapacity][month]}}-->
+                                                        <input readonly ng-class="(((prices[engineCapacity][month] != generatedPriceMetrix[engineCapacity][month]) && generatedPriceMetrix[engineCapacity][month] && month != '12') || (customPrices[engineCapacity][month])) ? 'metrix-touched' : ''" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="prices[engineCapacity][month]" type="text" class="form-control">
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <label ng-show="showMetrix || editMode"><strong>Dealer Product Price</strong></label>
+                                    <form class="form-horizontal metrix" name="metrix" ng-show="showMetrix || editMode">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>Months</strong></td>
+                                                        <td ng-repeat="month in product.months"><strong>{{month}}</strong></td>
+                                                    </tr>
+                                                    <tr class="click-row off-click">
+                                                        <td><strong>Percentage (%)</strong></td>
+                                                        <td ng-repeat="month in product.months"><input ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="product.presentages[month]" type="text" placeholder="" class="form-control" value="20%"></td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="custom-width-matrix"><strong>Engine Capacity - {{engineType}}</strong></td>
+                                                        <td ng-repeat="month in product.months"></td>
+                                                    </tr>
+                                                    <tr ng-repeat="engineCapacity in product.engineCapacities" class="click-row off-click">
+                                                        <td><strong>{{engineCapacity}}</strong></td>
+                                                        <td ng-repeat="month in product.months">
+                                                            <!--{{prices[engineCapacity][month]}} {{generatedPriceMetrix[engineCapacity][month]}}-->
+                                                            <input ng-class="((product.prices[engineCapacity][month] != product.generatedPriceMetrix[engineCapacity][month]) && product.generatedPriceMetrix[engineCapacity][month] && month != '12') ? 'metrix-touched' : ''" ng-change="trackEdited(engineCapacity, month)" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="product.prices[engineCapacity][month]" type="text" class="form-control">
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-group text-right">
+                                            <button class="btn btn-primary" ng-show="showMetrix || editMode" ng-click="generate()" type="button">Generate</button>
+                                        </div>
+                                    </div>
+                                </div>
+</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

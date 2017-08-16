@@ -1,0 +1,165 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Add Product</h2>
+                @*<ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">Settings 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>*@
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display: block;">
+                <br>
+                <form id="productForm" name="productForm" class="form-horizontal form-label-left" novalidate>
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" ng-model="model.name" name="name" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (productForm.name.$invalid && submitted)}">
+                                    <ul ng-show="productForm.name.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required" ng-show="productForm.name.$error.required">This value is required.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Code <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" ng-model="model.code" name="code" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (productForm.code.$invalid && submitted)}">
+                                    <ul ng-show="productForm.code.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required" ng-show="productForm.code.$error.required">This value is required.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                    Description<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea class="form-control" rows="3" placeholder="" ng-model="model.description" name="description" required ng-class="{'parsley-error' : (productForm.description.$invalid && submitted)}"></textarea>
+                                    <ul ng-show="productForm.description.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required" ng-show="productForm.description.$error.required">This value is required.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                    Is Main Product<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="js-switch" checked="checked" ng-model="model.isMainProduct">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong><span style="color: #666666" ng-click="showToolTip()" data-toggle="tooltip" title="Logo must be 150px X 90px."><i class="fa fa-info-circle" aria-hidden="true"></i></span> Logo : </strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new"><i class="fa fa-plus-circle font-gray"></i> Add Logo</span>
+                                        <input type="file" ng-file-select="onFileSelectLogo($files, $event, b)" id="productLogoId">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table upload-table no-action-btn result-list">
+                                    <thead>
+                                        <tr ng-show="productLogoImage.length > 0 || productLogoImageUploaded.length > 0">
+                                            <th width="50%">Name</th>
+                                            <th>Size</th>
+                                            <th>Progress</th>
+                                            <th>Status</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="item in productLogoImage track by $index" ng-show="productLogoImage">
+                                            <td ng-hide="item.docUpdated">
+                                                <strong><a ng-click="showDoc(item.documentPath)">{{ item.name }}</a></strong>
+                                            </td>
+                                            <td ng-show="item.docUpdated"><strong>{{ item.name }}</strong></td>
+                                            <td nowrap>{{ item.size/1024|number:2 }} KB</td>
+                                            <td>
+                                                <div class="progress" style="margin-bottom: 0;">
+                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                            </td>
+                                            <td nowrap class="text-center action pull-right">
+                                                <a class="link-warning" data-toggle="tooltip" data-original-title="Remove" data-placement="top"><i class="warning-link fa fa-times-circle" ng-click="removeProductLogoImage(0)"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="item in productLogoImageUploaded track by $index" ng-show="productLogoImageUploaded">
+
+                                            <td>
+                                                <strong><a ng-click="showImage(item.imagePath)">{{ item.imageName }}</a></strong>
+                                            </td>
+                                            <td nowrap>{{ item.imageSize/1024|number:2 }} KB</td>
+                                            <td>
+                                                <div class="progress" style="margin-bottom: 0;">
+                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': 100 + '%' }"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span><i class="glyphicon glyphicon-ok"></i></span>
+                                            </td>
+                                            <td nowrap class="text-center action pull-right">
+                                                <a class="link-warning" data-toggle="tooltip" data-original-title="Remove" data-placement="top"><i class="warning-link fa fa-times-circle" ng-click="removeProductLogoImage(product.id)"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button class="btn btn-primary" type="button" ui-sref="^.list">Cancel</button>
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                            <button type="submit" class="btn btn-success" ng-click="create(model)">Save</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

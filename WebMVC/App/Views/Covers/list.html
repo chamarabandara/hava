@@ -1,0 +1,116 @@
+﻿<div class="modal fade" data-backdrop="static" id="add-dealer-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancelCreate()"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Create Dealer Product</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form novalidate name="dealerProductCopyForm">
+                        <div class="col-sm-12 uppercase-fix">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Cover:</strong></label>
+                                    <div class="col-lg-9 col-md-9 col-sm-8">
+                                        <input type="text" placeholder="" class="form-control" ng-model="model.cover" readonly name="cover">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-class="{'has-error' : (dealerProductCopyForm.dealerProduct.$invalid && submitted)}">
+                                <div class="row">
+                                    <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Dealer product:</strong></label>
+                                    <div class="col-lg-9 col-md-9 col-sm-8">
+                                        <input type="text" placeholder="" class="form-control" ng-model="model.dealerProduct" required name="dealerProduct" ng-change="uniqueDealerProduct = false;">
+                                        <div ng-show="dealerProductCopyForm.dealerProduct.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="dealerProductCopyForm.dealerProduct.$error.required">Required.</span>
+                                        </div>
+                                        <div ng-show="(submitted && !dealerProductCopyForm.dealerProduct) && (!uniqueDealerProduct)">
+                                            <span class="help-block error-label">Dealer product code already exist.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group action-area">
+                                <div class="row">
+                                    <div class="col-sm-12 ">
+                                        <button class="btn btn-primary pull-right" type="button" ng-click="addDealerProduct(model)">Create</button>
+                                        <button class="btn btn-default pull-right" type="button" data-dismiss="modal" ng-click="cancelCreate()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="infobar cf" ng-show="infoMsgDelete">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsgDelete}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span ng-bind-html="infoMsg"></span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete '{{prospectData.name}}' details, do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="removeProspect(prospectData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToList()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>Cover Information</h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-primary" type="button" ui-sref="^.form" ng-click="clearMsg()">Add New</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="search pull-left">
+                    <div class="input-group pull-left ">
+                        <input type="text" ng-change="searched = false;infoMsg = '';" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                        <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                            <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                        </span>
+
+                        <span class="search-icon"><i class="fa fa-search"></i></span>
+                        <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                            <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <form>
+                <ac-grid options="coverGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>

@@ -1,0 +1,4 @@
+﻿<div class="ngCellText" ng-cell-text ng-class="col.colIndex()" ng-hide="row.isDeleted">
+    <a class="link-action" ng-click="action()(row,'edit')"><i class="access-link fa fa-pencil-square-o"></i></a>
+    <a ng-show="row.status=='Active'"  class="link-action" ng-click="action()(row,'delete')"><i class="fa fa-trash"></i></a>
+</div>

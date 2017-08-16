@@ -1,0 +1,430 @@
+﻿<!-- Start of Sub Content -->
+<form name="customerForm" class="form-horizontal" ng-submit="createProspect()" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="action_panel">
+                <a class="search-btn pull-left">
+                    <i class="fa fa-search "></i>
+                </a>
+                <div class="search pull-left hide">
+                    <div class="input-group pull-left">
+                        <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false">
+                        <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+
+                    </div>
+                    <label class="main-checkbox">
+                        <input type="checkbox"> Organization
+                    </label>
+                </div>
+                
+                <div class="pull-right btn-pnl">
+                    <div class="chk-pnl pull-left">
+                        <label class="main-checkbox">
+                            <i class="fa fa-file-text "></i> <input ng-model="customer.IsNoInvoice" type="checkbox">
+                        </label>
+                        <label class="main-checkbox">
+                            <i class="fa  fa-envelope "></i>  <input ng-model="customer.IsMail" type="checkbox"></span>
+                        </label>
+                        <label class="main-checkbox">
+                            <i class="fa   fa-bullhorn "></i>  <input ng-model="customer.IsCampaign" type="checkbox">
+                        </label>
+                    </div>
+                    <a class="btn btn-default" ui-sref="^.list" >Back</a>
+                    <!--<button class="btn btn-default" ui-sref="^.new" type="button">Add New</button>-->
+                    <button class="btn btn-primary" type="button" ng-click="updateProspect(customer);" ng-show="update">Update</button>
+                    <input class="btn btn-primary" ng-show="!update" type="submit" value="Save" name="createCustomer" />
+                </div>
+                <div class="col-sm-12">
+                    <div class="highlited-area">
+                        <label>Customer ID:</label>
+                        <label class="hl-number">208045</label>
+                    </div>
+                    <div class="highlited-area">
+                        <label>Org ID:</label>
+                        <label class="hl-number">559-9034-09</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="content">
+
+                <h3 class="page-title">
+                    Prospect Details
+                </h3>
+                <div class="row">
+
+                    <div class="col-sm-10 col-xs-12">
+                            <!--<div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Customer Type:</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8 inline-checkbox">
+                                    <label class="main-checkbox">
+                                        <input ng-model="customer.CustomerType" ng-true-value="'Dealer'" ng-false-value="'null'" name="CustomerType" type="checkbox"> Dealer
+                                    </label>
+                                    <label class="main-checkbox">
+                                        <input ng-model="customer.CustomerType" ng-true-value="'End customer'" ng-false-value="'null'" name="CustomerType" type="checkbox"> End Customer
+                                    </label>
+                                    <label class="main-checkbox">
+                                        <input ng-model="customer.CustomerType" ng-true-value="'Supplier'" ng-false-value="'null'" name="CustomerType" type="checkbox"> Supplier
+                                    </label>
+                                    <span id="name-error" ng-show="submitted && customerForm.CustomerType.$invalid && customerForm.CustomerType.$error.required" class="help-block error-label">This field is required.</span>
+                                </div>
+                            </div>-->
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Prospect Name:</strong></label>
+                            <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (customerForm.Name.$invalid && submitted)}">
+                                <input type="text" class="form-control" ng-model="customer.Name" required name="Name" placeholder="Prospect Name">
+                                <span id="name-error" ng-show="submitted && customerForm.Name.$invalid && customerForm.Name.$error.required" class="help-block error-labelr">This field is required.</span>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-3 col-sm-4"><strong>Legal Name:</strong></label>
+                                <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (customerForm.LegalName.$invalid && submitted)}">
+                                    <input type="text" class="form-control" ng-model="customer.LegalName" required name="LegalName" placeholder="Legal Name">
+                                    <span id="name-error" ng-show="submitted && customerForm.LegalName.$invalid && customerForm.LegalName.$error.required" class="help-block error-labelr">This field is required.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-3 col-sm-4"><strong>Company Name:</strong></label>
+                                <div class="col-md-9 col-sm-8" ng-class="{'has-error' : (customerForm.CompanyGroup.$invalid && submitted)}">
+                                    <input type="text" class="form-control" name="CompanyGroup" ng-model="customer.CompanyGroup" required placeholder=" company name">
+                                    <span id="name-error" ng-show="submitted && customerForm.CompanyGroup.$invalid && customerForm.CompanyGroup.$error.required" class="help-block help-block-error">This field is required.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-3 col-sm-4"><strong>Store:</strong></label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" class="form-control" ng-model="customer.Store" placeholder="Store Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-3 col-sm-4"><strong>Address:</strong></label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" class="form-control" ng-model="customer.Address" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-3 col-sm-4"><strong>Visit Address:</strong></label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" class="form-control" ng-model="customer.VisitAddress" placeholder="Visit Address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-3 col-sm-4"><strong>Telephone:</strong></label>
+                                <div class="col-md-9 col-sm-8">
+                                    <div class="col-sm-6 two-text-field-padding-fix-left" ng-class="{'has-error' : (customerForm.Telephone.$invalid && submitted)}">
+                                        <select required ng-model="customer.Telephone" name="Telephone" class="form-control">
+                                            <option value="">Type</option>
+                                            <option value="Mobile">Mobile</option>
+                                            <option value="Work">Work</option>
+                                        </select>
+                                        <span id="name-error" ng-show="submitted && customerForm.Telephone.$invalid && customerForm.Telephone.$error.required" class="help-block help-block-error">This field is required.</span>
+                                    </div>
+                                    <div class="col-sm-6 two-text-field-padding-fix-right" ng-class="{'has-error' : (customerForm.TelephoneNo.$invalid && submitted)}">
+                                        <input type="text" class="form-control" ng-model="customer.TelephoneNo" ng-required="customer.Telephone" name="TelephoneNo" placeholder="Number">
+                                        <span id="name-error" ng-show="submitted && customerForm.TelephoneNo.$invalid && customerForm.TelephoneNo.$error.required" class="help-block help-block-error">This field is required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Web Page:</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (customerForm.WebPage.$invalid && submitted)}">
+                                    <input type="url" url name="WebPage" ng-model="customer.WebPage" placeholder="Web Page" class="form-control">
+                                    <span id="name-error" ng-show="submitted && customerForm.WebPage.$invalid && customerForm.WebPage.$error.url" class="help-block help-block-error">Invalid Web Page URL.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Our reference:</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    <input type="text" ng-model="customer.OurReference" name="OurReference" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Affiliations:</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    <input type="text" ng-model="customer.BrandAffiliation" name="BrandAffiliation" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Coperate Partner:</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    <input type="text" ng-model="customer.CoperatePartner" name="CoperatePartner" placeholder="" class="form-control">
+                                </div>
+                            </div>             
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Orgenization No:</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    <input type="text" ng-model="customer.OrgNo" name="OrgNo" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Country</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    <input type="text" ng-model="customer.Country" name="Country" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>City</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    <input type="text" ng-model="customer.City" name="City" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Post No</strong></label>
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    <input type="text" ng-model="customer.PostCode" name="PostCode" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                        <!--<div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Products</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" ng-model="customer.Products" name="Products" placeholder="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Warrenties</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" ng-model="customer.Warrenties" name="Warrenties" placeholder="" class="form-control">
+                            </div>
+                        </div>-->
+
+                    </div>
+                </div>
+                <!--<div class="panel-group accordion" id="accordion3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#product">
+                                    Product Group
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="product" class="panel-collapse in">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered " id="">
+                                        <thead>
+                                            <tr>
+
+                                                <th>ID</th>
+                                                <th>Customer Name</th>
+                                                <th>Status</th>
+                                                <th>Post-No</th>
+                                                <th>City</th>
+                                                <th>Country</th>
+                                                <th>Customer Type</th>
+                                                <th>Products</th>
+                                                <th>Warrenties</th>
+                                                <th class="text-center action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1001</a></td>
+                                                <td><a href="#" class="click-cell">A.D Cruger</a></td>
+                                                <td><a href="#" class="click-cell">Active</a></td>
+                                                <td><a href="#" class="click-cell">3232</a></td>
+                                                <td><a href="#" class="click-cell">Oslo</a></td>
+                                                <td><a href="#" class="click-cell">Norge</a></td>
+                                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                                <td><a href="#" class="click-cell">20</a></td>
+                                                <td><a href="#" class="click-cell">320</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1002</a></td>
+                                                <td><a href="#" class="click-cell">Acer AS</a></td>
+                                                <td><a href="#" class="click-cell">Active</a></td>
+                                                <td><a href="#" class="click-cell">2392</a></td>
+                                                <td><a href="#" class="click-cell">Jar</a></td>
+                                                <td><a href="#" class="click-cell">Norge</a></td>
+                                                <td><a href="#" class="click-cell">End Customer</a></td>
+                                                <td><a href="#" class="click-cell">26</a></td>
+                                                <td><a href="#" class="click-cell">123</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1003</a></td>
+                                                <td><a href="#" class="click-cell">Adeko AS</a></td>
+                                                <td><a href="#" class="click-cell">Disabled</a></td>
+                                                <td><a href="#" class="click-cell">1472</a></td>
+                                                <td><a href="#" class="click-cell">ALVSBYN</a></td>
+                                                <td><a href="#" class="click-cell">Sverige</a></td>
+                                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                                <td><a href="#" class="click-cell">2</a></td>
+                                                <td><a href="#" class="click-cell">54</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#warrenties">
+                                    Warrenties
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="warrenties" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered " id="">
+                                        <thead>
+                                            <tr>
+
+                                                <th>ID</th>
+                                                <th>Customer Name</th>
+                                                <th>Status</th>
+                                                <th>Post-No</th>
+                                                <th>City</th>
+                                                <th>Country</th>
+                                                <th>Customer Type</th>
+                                                <th>Products</th>
+                                                <th>Warrenties</th>
+                                                <th class="text-center action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1001</a></td>
+                                                <td><a href="#" class="click-cell">A.D Cruger</a></td>
+                                                <td><a href="#" class="click-cell">Active</a></td>
+                                                <td><a href="#" class="click-cell">3232</a></td>
+                                                <td><a href="#" class="click-cell">Oslo</a></td>
+                                                <td><a href="#" class="click-cell">Norge</a></td>
+                                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                                <td><a href="#" class="click-cell">20</a></td>
+                                                <td><a href="#" class="click-cell">320</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1002</a></td>
+                                                <td><a href="#" class="click-cell">Acer AS</a></td>
+                                                <td><a href="#" class="click-cell">Active</a></td>
+                                                <td><a href="#" class="click-cell">2392</a></td>
+                                                <td><a href="#" class="click-cell">Jar</a></td>
+                                                <td><a href="#" class="click-cell">Norge</a></td>
+                                                <td><a href="#" class="click-cell">End Customer</a></td>
+                                                <td><a href="#" class="click-cell">26</a></td>
+                                                <td><a href="#" class="click-cell">123</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1003</a></td>
+                                                <td><a href="#" class="click-cell">Adeko AS</a></td>
+                                                <td><a href="#" class="click-cell">Disabled</a></td>
+                                                <td><a href="#" class="click-cell">1472</a></td>
+                                                <td><a href="#" class="click-cell">ALVSBYN</a></td>
+                                                <td><a href="#" class="click-cell">Sverige</a></td>
+                                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                                <td><a href="#" class="click-cell">2</a></td>
+                                                <td><a href="#" class="click-cell">54</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#persons">
+                                    Persons
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="persons" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered " id="">
+                                        <thead>
+                                            <tr>
+
+                                                <th>ID</th>
+                                                <th>Customer Name</th>
+                                                <th>Status</th>
+                                                <th>Post-No</th>
+                                                <th>City</th>
+                                                <th>Country</th>
+                                                <th>Customer Type</th>
+                                                <th>Products</th>
+                                                <th>Warrenties</th>
+                                                <th class="text-center action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1001</a></td>
+                                                <td><a href="#" class="click-cell">A.D Cruger</a></td>
+                                                <td><a href="#" class="click-cell">Active</a></td>
+                                                <td><a href="#" class="click-cell">3232</a></td>
+                                                <td><a href="#" class="click-cell">Oslo</a></td>
+                                                <td><a href="#" class="click-cell">Norge</a></td>
+                                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                                <td><a href="#" class="click-cell">20</a></td>
+                                                <td><a href="#" class="click-cell">320</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1002</a></td>
+                                                <td><a href="#" class="click-cell">Acer AS</a></td>
+                                                <td><a href="#" class="click-cell">Active</a></td>
+                                                <td><a href="#" class="click-cell">2392</a></td>
+                                                <td><a href="#" class="click-cell">Jar</a></td>
+                                                <td><a href="#" class="click-cell">Norge</a></td>
+                                                <td><a href="#" class="click-cell">End Customer</a></td>
+                                                <td><a href="#" class="click-cell">26</a></td>
+                                                <td><a href="#" class="click-cell">123</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+                                            <tr class="click-row off-click">
+
+                                                <td><a href="#" class="click-cell">1003</a></td>
+                                                <td><a href="#" class="click-cell">Adeko AS</a></td>
+                                                <td><a href="#" class="click-cell">Disabled</a></td>
+                                                <td><a href="#" class="click-cell">1472</a></td>
+                                                <td><a href="#" class="click-cell">ALVSBYN</a></td>
+                                                <td><a href="#" class="click-cell">Sverige</a></td>
+                                                <td><a href="#" class="click-cell">Dealer</a></td>
+                                                <td><a href="#" class="click-cell">2</a></td>
+                                                <td><a href="#" class="click-cell">54</a></td>
+                                                <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-pencil"></i></a><a class="link-action" href="#"><i class="access-link fa fa-trash"></i></a></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+</form>
+    <!-- END of Sub Content -->

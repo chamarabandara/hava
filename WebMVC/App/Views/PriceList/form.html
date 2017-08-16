@@ -1,0 +1,150 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3><a ui-sref="^.list">Price List</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="update">Add</span>
+                    <span class="sub-head" ng-show="update">Edit</span>
+                </h3>
+            </div>
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-default" type="button" ui-sref="^.list">Cancel</button>
+                
+                <button class="btn btn-primary" type="button" ng-click="save(priceList)" ng-hide="update">Save</button>
+                <button class="btn btn-primary" type="button" ng-click="save(priceList)" ng-show="update">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12 detail-section">
+                                    <form class="form-horizontal uppercase-fix" name="priceForm">
+                                        <div class="form-group" ng-class="{'has-error':(submit && !priceList.statusType)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="statusType.name for statusType in status track by statusType.id" ng-model="priceList.statusType">
+                                                    <option value="">-- Select a Status --</option>
+                                                </select>
+                                                <div ng-show="(submit && (!priceList.statusType || (!priceList.statusType.id && priceList.statusType.id != 0)))" class="">
+                                                    <span class="help-block error-label">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':(submit && !priceList.country)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-change="countryChange(priceList.country.id)" ng-options="country.countryName for country in countries track by country.id" ng-model="priceList.country">
+                                                    <option value="">-- Select a Country --</option>
+                                                </select>
+                                                <div ng-show="(submit && !priceList.country)" class="">
+                                                    <span class="help-block error-label">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':(submit && !priceList.priceType)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Price Type:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="priceType.Type for priceType in priceTypes track by priceType.id" ng-model="priceList.priceType"></select>
+                                                <div ng-show="(submit && !priceList.priceType)" class="">
+                                                    <span class="help-block error-label">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':(submit && !priceList.priceListName)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Price List Name:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <input type="text" class="form-control" ng-model="priceList.priceListName" />
+                                                <div ng-show="(submit && !priceList.priceListName)" class="">
+                                                    <span class="help-block error-label">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':(submit && !priceList.period)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Period:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="period.periodName for period in periods track by period.id" ng-model="priceList.period"></select>
+                                                <div ng-show="(submit && !priceList.period)" class="">
+                                                    <span class="help-block error-label">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':(submit && !priceList.setPriceBy)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Set Price By:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-change="priceChange(priceList.vehicleType.id, priceList.setPriceBy.id )" ng-options="setPriceBy.Type for setPriceBy in priceSetupTypes track by setPriceBy.id" ng-model="priceList.setPriceBy"></select>
+                                                <div ng-show="(submit && !priceList.setPriceBy)" class="">
+                                                    <span class="help-block error-label">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':(submit && !priceList.vehicleType)}">
+                                            <label class="col-lg-4 col-md-5 col-sm-6" for=""><strong>Vehicle Type:<span class="red"> *</span></strong></label>
+                                            <div class="col-lg-8 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-change="priceChange(priceList.vehicleType.id, priceList.setPriceBy.id )" ng-options="vehicleType.Type for vehicleType in vehicleTypeTypes track by vehicleType.id" ng-model="priceList.vehicleType"></select>
+                                                <div ng-show="(submit && !priceList.vehicleType)" class="">
+                                                    <span class="help-block error-label">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" ng-show="priceList.setPriceBy.Type">
+                            <div class="table-responsive">
+                                <table class="table table-bordered " id="">
+
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Months</strong></td>
+                                            <td><strong>0.5</strong></td>
+                                            <td><strong>1</strong></td>
+                                            <td><strong>6</strong></td>
+                                            <td><strong>12</strong></td>
+                                            <td><strong>18</strong></td>
+                                            <td><strong>24</strong></td>
+                                            <td><strong>36</strong></td>
+                                        </tr>
+                                        <tr class="click-row off-click">
+                                            <td><strong>Percentage</strong></td>
+                                            <td ng-repeat="key in notSorted(priceList.priceMatrix.presentages)">
+                                                <input type="text" placeholder="" class="form-control" ng-model="priceList.priceMatrix.presentages[key]" format="percentage" ng-readonly="key == 3" ng-required="true" ng-class="{'input-validation-error': (generated && !priceList.priceMatrix.presentages[key])}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="custom-width-matrix"><strong>Engine Capacity - {{priceList.setPriceBy.Type}}</strong></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="click-row off-click" ng-repeat="price in notSorted(priceList.priceMatrix.prices)">
+                                            <td><strong>{{price}}</strong></td>
+                                            <td ng-repeat="key in notSorted(priceList.priceMatrix.presentages)">
+                                                <input type="text" ng-change="priceList.priceMatrix.prices[price][key].isModified = true" placeholder="" class="form-control" ng-model="priceList.priceMatrix.prices[price][key].price" format="number" arg="0" ng-required="true" ng-class="{'input-validation-error': ((generated && key == 3 || submit) && !priceList.priceMatrix.prices[price][3].price), 'modified':(priceList.priceMatrix.prices[price][key].isModified && generated)}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-group text-right">
+                                    <button class="btn btn-primary" type="button" ng-click="generate(priceList)">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END of Sub Content -->
+    <div class="clearfix"> </div>
+</div>

@@ -1,0 +1,372 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmLeave'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ng-click="leave()">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancel()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete the representative '{{rowData.repName}}', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="deleteRepresentative(rowData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ng-click="askCancel('app.customer.list', partner)">Customer</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> 
+                    <span ng-hide="editMode" class="sub-head">Co-operation Partner - Add</span>
+                    <span ng-show="editMode" class="sub-head">Co-operation Partner - Update</span>
+                </h3>
+            </div>
+
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" ng-click="askCancel('app.customer.list', partner)" type="button">Cancel</button>
+                <button class="btn btn-primary" ng-hide="editMode" ng-click="create()" type="button">Save</button>
+                <button class="btn btn-primary" ng-show="editMode" ng-click="update()" type="button">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal" name="formPartnerActive">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Status:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartnerActive.status.$invalid && submitted)}">
+                                        <select required class="form-control" ng-change="partner.isActive = data.status.id" name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="data.status">
+                                            <option value="">-- Select a Status --</option>
+                                        </select>
+                                        <div ng-show="formPartnerActive.status.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="formPartnerActive.status.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <form class="form-horizontal" name="formPartner">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <h4><span class="sect-number">1</span> Dealer Company Details</h4>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org Name:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.orgName.$invalid && submitted)}">
+                                    <input type="text" placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.orgName" name="orgName" class="form-control">
+                                    <div ng-show="formPartner.orgName.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.orgName.$error.required">Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org Registration Number:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.registrationNumber.$invalid && submitted)}">
+                                    <input type="text" placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.registrationNumber" name="registrationNumber" class="form-control">
+                                    <div ng-show="formPartner.registrationNumber.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.registrationNumber.$error.required">Required.</span>
+                                    </div>
+                                    <div ng-show="isOrgRegNoExistsStatus && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="isOrgRegNoExistsStatus">The Organisation Registration number '{{dealer.companyDetails.registrationNumber}}' already exists.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Legal Name:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.legalName.$invalid && submitted)}">
+                                    <input type="text" placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.legalName" name="legalName" class="form-control">
+                                    <div ng-show="formPartner.legalName.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.legalName.$error.required">Required.</span>
+                                    </div>
+                                    <div ng-show="isLegelNameExistStatus && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="isLegelNameExistStatus">The Organisation name '{{dealer.companyDetails.legalName}}' already exists.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Store:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <input type="text" placeholder="" ng-readonly="imported" ng-model="partner.companyDetails.store" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.address.$invalid && submitted)}">
+                                    <input type="text" placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.address" name="address" class="form-control">
+                                    <div ng-show="formPartner.address.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.address.$error.required">Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.address.$invalid && submitted)}">
+                                    <input type="text" placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.city" name="city" class="form-control">
+                                    <div ng-show="formPartner.city.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.city.$error.required">Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.country.$invalid && submitted)}">
+                                    <select class="form-control" required ng-options="country.CountryName for country in data.countries track by country.Id" ng-disabled="imported" name="country" ng-change="partner.companyDetails.countryId = selectedCountry.Id" ng-model="selectedCountry">
+                                        <option value="">Select a Country</option>
+                                    </select>
+                                    <div ng-show="formPartner.country.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.country.$error.required">Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group uppercase-fix">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal Code/ <span>Z</span>ip Code:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.postalCode.$invalid && submitted)}">
+                                    <input type="text" placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.postalCode" name="postalCode" class="form-control">
+                                    <div ng-show="formPartner.postalCode.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.postalCode.$error.required">Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.billingAddress.$invalid && submitted)}">
+                                    <textarea placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.billingAddress" name="billingAddress" class="form-control"></textarea>
+                                    <div ng-show="formPartner.billingAddress.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.billingAddress.$error.required">Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone number:<span class="red"> *</span></strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.teleNumber.$invalid && submitted)}">
+                                    <input type="text" placeholder="" ng-readonly="imported" required ng-model="partner.companyDetails.teleNumber" name="teleNumber" class="form-control">
+                                    <div ng-show="formPartner.teleNumber.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.teleNumber.$error.required">Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.email.$invalid && submitted)}">
+                                    <input type="email" placeholder="" ng-readonly="imported" name="email" ng-model="partner.companyDetails.email" class="form-control">
+                                    <div ng-show="formPartner.email.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.email.$error.email">The email address is invalid.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Web Site:</strong></label>
+                                <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formPartner.website.$invalid && submitted)}">
+                                    <input type="url" placeholder="" ng-readonly="imported" ng-model="partner.companyDetails.webSite" name="website" class="form-control">
+                                    <div ng-show="formPartner.website.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="formPartner.website.$error.url">The web address is invalid.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                <form class="form-horizontal" name="formRepresentative">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <h4><span class="sect-number">2</span> Co-operation Partner Representative</h4>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative Name:<span class="red"> *</span></strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formRepresentative.repName.$invalid && repSubmitted)}">
+                            <input type="text" placeholder="" class="form-control" ng-model="data.representative.repName" required name="repName">
+                            <div ng-show="formRepresentative.repName.$invalid && repSubmitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="formRepresentative.repName.$error.required">Required.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Title:<span class="red"> *</span></strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formRepresentative.repTitle.$invalid && repSubmitted)}">
+                            <input type="text" placeholder="" class="form-control" required ng-model="data.representative.repTitle" name="repTitle">
+                            <div ng-show="formRepresentative.repTitle.$invalid && repSubmitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="formRepresentative.repTitle.$error.required">Required.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone Number:<span class="red"> *</span></strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formRepresentative.repTel.$invalid && repSubmitted)}">
+                            <input type="text" placeholder="" class="form-control" ng-model="data.representative.repTel" required name="repTel">
+                            <div ng-show="formRepresentative.repTel.$invalid && repSubmitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="formRepresentative.repTel.$error.required">Required.</span>
+                            </div>
+                            <!--<div ng-show="formRepresentative.repTel.$invalid && repSubmitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="formRepresentative.repTel.$error.number">Enter only numbers.</span>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile Number:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formRepresentative.repMobile.$invalid && repSubmitted)}">
+                            <input type="text" placeholder="" class="form-control" name="repMobile" ng-model="data.representative.repMobile">
+                            <!--<div ng-show="formRepresentative.repMobile.$invalid && repSubmitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="formRepresentative.repMobile.$error.number">Enter only numbers.</span>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Web User ID:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" class="form-control" ng-model="data.representative.webuserId">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>User Name:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" class="form-control" ng-model="data.representative.username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Password:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="password" placeholder="" class="form-control" ng-model="data.representative.password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (formRepresentative.repreActive.$invalid && repSubmitted)}">
+                            <input type="checkbox" id="ch1" required ng-model="data.representative.isActive" name="repreActive" />
+                            <label class="input-label" for="ch1">Active<span class="red"> *</span></label>
+                            <div ng-show="formRepresentative.repreActive.$invalid && repSubmitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="formRepresentative.repreActive.$error.required">Required.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <button class="btn btn-primary" ng-hide="repEditMode" ng-click="createRep()" type="button">Add Representative</button>
+                            <button class="btn btn-primary" ng-show="repEditMode" ng-click="updateRep()" type="button">Update Representative</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ac-grid options="representativeGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="representativeData" action="action" class="ang-grid"></ac-grid>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <form class="form-horizontal" name="formAutoConceptRepresentative">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <h4><span class="sect-number">3</span> AutoConcept Representative for Co-operation Partner</h4>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative's Name:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <select class="form-control" ng-model="data.accRepresentative" ng-change="loadAccRepresentatives()" ng-options="rep.name for rep in data.accRepresentatives track by rep.id">
+                                <option value="">Select a AutoConcept Representative</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Title:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" ng-model="data.accRepresentativeData.title" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile Number:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" ng-model="data.accRepresentativeData.mobileNo" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" ng-model="data.accRepresentativeData.email" class="form-control" readonly>
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" name="formPayment">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <h4><span class="sect-number">4</span> Payment Details</h4>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" class="form-control" name="bank" ng-model="partner.bankDetails.bank">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" class="form-control" name="clearingNo" ng-model="partner.bankDetails.clearingNo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" class="form-control" name="accNo" ng-model="partner.bankDetails.accNo">
+                            <div ng-show="isAccExistStatus && submitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="isAccExistStatus">The Bank Account Number '{{dealer.bankDetails.bank}}' already exists.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" class="form-control" ng-model="partner.bankDetails.bankgiro">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+                        <div class="col-lg-7 col-md-7 col-sm-6">
+                            <input type="text" placeholder="" class="form-control" ng-model="partner.bankDetails.postgiro">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- END of Sub Content -->

@@ -1,0 +1,118 @@
+﻿<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmLeave'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ng-click="leave()">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="cancel()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start of Sub Content -->
+<form class="form-horizontal" name="termForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="action_panel">
+                <div class="pull-left btn-pnl padding-fix">
+                    <h3><a href="" ng-click="askCancel('app.terms.list', term)">Terms Management</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> 
+                        <span ng-hide="editMode" class="sub-head">Term Add</span>
+                        <span ng-show="editMode" class="sub-head">Term View</span>
+                    </h3>
+                </div>
+                <div class="btn-pnl">
+                    <button class="btn btn-default" ng-click="askCancel('app.terms.list', term)" type="button">Cancel</button>
+                    <button class="btn btn-primary" ng-hide="editMode" ng-click="save()" type="button">Save</button>
+                    <button class="btn btn-primary" ng-show="editMode" ng-click="update()" type="button">Update</button>
+                </div>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-group" ng-class="{'has-error' : (termForm.status.$invalid && submitted)}">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Status:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                        <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-change="term.status = status.id" ng-model="status">
+                                            <option value="">-- Select a Status --</option>
+
+                                        </select>
+                                        <div ng-show="termForm.status.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="termForm.status.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-space"></div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+
+                        <div class="panel-group accordion no-background" id="accordion3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href=""><span class="sect-number">1</span> Term Details</a> </h4>
+                                </div>
+                                <div id="section0" class="panel-collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Term Languages</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (notChecked && submitted)}">
+                                                        <div class="check-selector">
+                                                            <div class="section-check languages">
+                                                                <div class="main-check check-lists" ng-repeat="termItem in langList">
+                                                                    <input type="checkbox" ng-model="term.languages[termItem.Id]" id="sch-{{termItem.Id}}" name="checkbox-demo-h" ng-change="setLanguageData(termItem,term.languages[termItem.Id])">
+                                                                    <label class="input-label" for="sch-{{termItem.Id}}">{{termItem.languageName}}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span id="name-error" ng-show="submitted && notChecked" class="help-block help-block-error">Required</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for="" ng-show="langFields"><strong>Term Description</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" ng-repeat="langField in langFields">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>{{langField.languageName}}:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (termForm.term{{langField.Id}}.$invalid && submitted)}">
+                                                        <textarea name="term{{langField.Id}}" class="form-control" required ng-model="term.terms[langField.Id]">  </textarea>
+                                                        <span id="name-error" ng-show="submitted && termForm.term{{langField.Id}}.$invalid && termForm.term{{langField.Id}}.$error.required" class="help-block help-block-error">Required</span>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>XX:</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <textarea class="form-control" ng-model="term.terms[1]">  </textarea>
+                                                    </div>
+                                                </div>-->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- END of Sub Content -->

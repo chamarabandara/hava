@@ -1,0 +1,475 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3><a ui-sref="app.customers.list">Customer</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Customer - View</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" type="button" ui-sref="app.customers.list">Back</button>
+                <button class="btn btn-primary" type="button" ng-click="goToUpdate(model.id)">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Status:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Active</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Customer Type:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Co-Op Partner</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Other Types:</strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                                        <div class="selected-list">
+                                            <ul class="items-selected">
+                                                <li class="item1">Dealer</li>
+                                                <li class="item1">Prospect</li>
+                                                <li class="item1">Workshop</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="panel-group accordion no-background" id="accordion3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-placeholderent="#accordion3" href="#section0"><span class="sect-number">1</span>Company Details</a> </h4>
+                                </div>
+                                <div id="section0" class="panel-collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Category:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Company</label>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="" class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><strong>Type of Company:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">AB</label>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Customer ID:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">1021</label>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Segment:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">1</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org. Registration Number:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">542185</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Org. Name:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Allion</label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Address:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Nawala</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group uppercase-fix">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postal Code/ <span>Z</span>ip Code:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">10290</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>City:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Colombo</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Sri Lanka</label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Billing Address:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12"></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone number:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">120452</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telefax number:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">521255</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">test@test.com</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Web Site:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section1"><span class="sect-number">2</span>Store Details</a> </h4>
+                                </div>
+                                <div id="section1" class="panel-collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered " id="">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Store</th>
+                                                            <th>Address</th>
+                                                            <th>City</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="click-row off-click">
+                                                            <td><a href="#" class="click-cell">ABC Store</a></td>
+                                                            <td><a href="#" class="click-cell">Street</a></td>
+                                                            <td><a href="#" class="click-cell">Colombo</a></td>
+                                                            <td style="width:15%;" class="action"><a class="link-action" href="#" data-toggle="modal" data-target="#edit-store-modal66"><i class="access-link fa fa-eye"></i></a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section2"><span class="sect-number">3</span>Representative Details</a> </h4>
+                                </div>
+                                <div id="section2" class="panel-collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered " id="">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Representative ID</th>
+                                                            <th>Name</th>
+                                                            <th>Telephone Number</th>
+                                                            <th>Mobile Number</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="click-row off-click">
+                                                            <td><a href="#" class="click-cell">001</a></td>
+                                                            <td><a href="#" class="click-cell">Ulf Coxner</a></td>
+                                                            <td><a href="#" class="click-cell">0112-145-457-14</a></td>
+                                                            <td><a href="#" class="click-cell">077-157-154-10</a></td>
+                                                            <td style="width:15%;" class="action"><a class="link-action" href="#" data-toggle="modal" data-target=""><i class="access-link fa fa-eye"></i></a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section3"><span class="sect-number">4</span>Co-operation Partner Details</a> </h4>
+                                </div>
+                                <div id="section3" class="panel-collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Co-op Partner:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">AutoConcept</label>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>ID:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">1452</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partnership Status:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Active</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative's Name:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">Simon</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative's ID:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">4102</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered " id="">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Representative ID</th>
+                                                            <th>Name</th>
+                                                            <th>Telephone Number</th>
+                                                            <th>Mobile Number</th>
+                                                            <th>E-Mail</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="click-row off-click">
+                                                            <td><a href="#" class="click-cell">001</a></td>
+                                                            <td><a href="#" class="click-cell">Ulf Coxner</a></td>
+                                                            <td><a href="#" class="click-cell">0112-145-457-14</a></td>
+                                                            <td><a href="#" class="click-cell">077-157-154-10</a></td>
+                                                            <td><a href="#" class="click-cell">abc@hotmail.com</a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section4"><span class="sect-number">5</span>AutoConcept Representative for Dealer</a> </h4>
+                                </div>
+                                <div id="section4" class="panel-collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Rep's Name:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">John Paul</label>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>ID:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">785545</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Telephone No:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">98652</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile No:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">98652</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">test@test.com</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section7"><span class="sect-number">6</span>Financial Details</a> </h4>
+                                </div>
+                                <div id="section7" class="panel-collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bank:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12"></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Clearing No:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">44525</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Account No:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">785545</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Bankgiro:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12"></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Postgiro:</strong></label>
+                                                <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#section5"><span class="sect-number">7</span>Products To Sell</a> </h4>
+                                </div>
+                                <div id="section5" class="panel-collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <h5>Product Price</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered " id="">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product ID</th>
+                                                            <th>Name</th>
+                                                            <th>Cover</th>
+                                                            <th>Period</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="click-row off-click">
+                                                            <td><a href="#" class="click-cell">001</a></td>
+                                                            <td><a href="#" class="click-cell">Gold BC</a></td>
+                                                            <td><a href="#" class="click-cell">Gold</a></td>
+                                                            <td><a href="#" class="click-cell">12-9-10</a></td>
+                                                            <td style="width:15%;" class="action"><a class="link-action" href="#"><i class="access-link fa fa-eye"></i></a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><strong>Months</strong></td>
+                                                            <td><strong>0.5</strong></td>
+                                                            <td><strong>1</strong></td>
+                                                            <td><strong>6</strong></td>
+                                                            <td><strong>12</strong></td>
+                                                            <td><strong>18</strong></td>
+                                                            <td><strong>24</strong></td>
+                                                            <td><strong>36</strong></td>
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>Percentage</strong></td>
+                                                            <td>20%</td>
+                                                            <td>50%</td>
+                                                            <td>70%</td>
+                                                            <td>100%</td>
+                                                            <td>150%</td>
+                                                            <td>190%</td>
+                                                            <td>270%</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="custom-width-matrix"><strong>Engine Capacity - cc</strong></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong><= 1000</strong></td>
+                                                            <td>462</td>
+                                                            <td>1155</td>
+                                                            <td>1617</td>
+                                                            <td>2310</td>
+                                                            <td>3465</td>
+                                                            <td>4389</td>
+                                                            <td>6237</td>
+
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>1001-1400</strong></td>
+                                                            <td>462</td>
+                                                            <td>1155</td>
+                                                            <td>1617</td>
+                                                            <td>2310</td>
+                                                            <td>3465</td>
+                                                            <td>4389</td>
+                                                            <td>6237</td>
+
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>1401-1600</strong></td>
+                                                            <td>462</td>
+                                                            <td>1155</td>
+                                                            <td>1617</td>
+                                                            <td>2310</td>
+                                                            <td>3465</td>
+                                                            <td>4389</td>
+                                                            <td>6237</td>
+
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>1601-1800</strong></td>
+                                                            <td>462</td>
+                                                            <td>1155</td>
+                                                            <td>1617</td>
+                                                            <td>2310</td>
+                                                            <td>3465</td>
+                                                            <td>4389</td>
+                                                            <td>6237</td>
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>1801-2000</strong></td>
+                                                            <td>462</td>
+                                                            <td>1155</td>
+                                                            <td>1617</td>
+                                                            <td>2310</td>
+                                                            <td>3465</td>
+                                                            <td>4389</td>
+                                                            <td>6237</td>
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>2001-2500</strong></td>
+                                                            <td>462</td>
+                                                            <td>1155</td>
+                                                            <td>1617</td>
+                                                            <td>2310</td>
+                                                            <td>3465</td>
+                                                            <td>4389</td>
+                                                            <td>6237</td>
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>2501-3000</strong></td>
+                                                            <td>528</td>
+                                                            <td>1320</td>
+                                                            <td>1848</td>
+                                                            <td>2640</td>
+                                                            <td>3960</td>
+                                                            <td>5016</td>
+                                                            <td>7128</td>
+                                                        </tr>
+                                                        <tr class="click-row off-click">
+                                                            <td><strong>3001<=</strong></td>
+                                                            <td>528</td>
+                                                            <td>1320</td>
+                                                            <td>1848</td>
+                                                            <td>2640</td>
+                                                            <td>3960</td>
+                                                            <td>5016</td>
+                                                            <td>7128</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

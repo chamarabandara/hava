@@ -1,0 +1,163 @@
+﻿
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDeleteComponent'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete ' {{componentRow.name}} ', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteCompData(componentRow)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToList()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="^.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3>
+                    <a ng-click="proceedCancel(model)">System & Components Management</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="update">Add</span>
+                    <span class="sub-head" ng-show="update">Edit</span>
+                </h3>
+            </div>
+            <div class="pull-right btn-pnl">
+                <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model)">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="saveSystemComponents(model);" ng-hide="update">Save</button>
+                <button class="btn btn-primary" type="button" ng-click="updateSystemComponents(model);" ng-show="update">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <form class="form-horizontal" name="systemComponentsForm">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group" ng-class="{'has-error' : (systemComponentsForm.status.$invalid && submitted)}">
+                                    <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Status:<span class="red"> *</span></strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                        <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="model.status">
+                                            <option value="">-- Select a Status --</option>
+
+                                        </select>
+                                        <div ng-show="systemComponentsForm.status.$invalid && submitted" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="systemComponentsForm.status.$error.required">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">1</span> Language Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6"><strong>Languages:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <div class="check-selector">
+                                    <div class="section-check">
+                                        <div class="main-check check-lists" ng-repeat="langData in languageData">
+                                            <input type="checkbox" id="{{langData.Id}}" name="checkbox-demo-h" ng-model="model.langItem[langData.Id]" ng-change="setSystemData(langData,model.langItem[langData.Id])" ng-disabled="updateComp" />
+                                            <label class="input-label" for="{{langData.Id}}">{{langData.languageName}}</label>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div ng-show="languageRequired && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="languageRequired">Atleast one language required.</span>
+                                </div>
+                                <span class="help-block error-label" ng-show="updateComp">While updating a component, a new language cannot be added.</span>
+
+                            </div>
+                        </div>
+                        <div class="row" ng-show="languageInputs.length > 0">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">2</span> System Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="languageInputs.length > 0">
+                            <label class="col-sm-12"><strong>System Name:</strong></label>
+                            <div class="col-sm-12">
+                                <div ng-repeat="langIpt in languageInputs" class=" hspace-3 row">
+                                    <label class="col-lg-5 col-md-5 col-sm-6"><strong>{{langIpt.languageName}}</strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                        <input type="text" placeholder="{{langIpt.languageName}}" class="form-control" ng-model="model.langTextSys[langIpt.Id]" ng-change="systemRequired[langIpt.Id]=false;">
+                                        <input type="hidden" ng-model="model.langTextSysId[langIpt.Id]" ng-init="model.langTextSysId[langIpt.Id]=(langIpt.sysId != 0)?langIpt.sysId:0" ng-update-hidden>
+                                        <div ng-show="systemRequired[langIpt.Id]" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="systemRequired[langIpt.Id]">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6 col-sm-12" ng-show="languageInputs.length > 0">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4><span class="sect-number">3</span> Component Details</h4>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="languageInputs.length > 0">
+                            <label class="col-lg-12 col-md-12 col-sm-12"><strong>Component Name:</strong></label>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div ng-repeat="langIpt in languageInputs" class="hspace-3 row">
+                                    <label class="col-lg-5 col-md-5 col-sm-6"><strong>{{langIpt.languageName}}</strong></label>
+                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                        <input type="text" placeholder="{{langIpt.languageName}}" class="form-control" ng-model="model.langTextComp[langIpt.Id]" name="model.langTextComp[langIpt.Id]" ng-change="componentRequired[langIpt.Id]=false;">
+                                        <div ng-show="componentRequired[langIpt.Id]" class="ng-hide">
+                                            <span class="help-block error-label" ng-show="componentRequired[langIpt.Id]">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="languageInputs.length > 0">
+                            <div class="pull-right btn-pnl">
+                                <button class="btn btn-primary" type="button" ng-click="addNewComponent(model.langTextComp)" ng-hide="updateComp">Add New Component</button>
+                                <button class="btn btn-primary" type="button" ng-click="updateComponent(model.langTextComp,rowId)" ng-show="updateComp">Update Component</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <ac-grid options="componentGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="compontentsData" action="action" class="ang-grid"></ac-grid>
+                                
+                            </div>
+                            <div ng-show="compontentsLengthInvalid" class="ng-hide">
+                                <span class="help-block error-label" ng-show="compontentsLengthInvalid && compontentsData.length <= 0">Atleast one component required.</span>
+                            </div>
+                            <div ng-show="!validComponentList && submitted" class="ng-hide">
+                                <span class="help-block error-label" ng-show="!validComponentList && (compontentsData.length > 0 && submitted)">Previously added components requires to be edited with new added languages.</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

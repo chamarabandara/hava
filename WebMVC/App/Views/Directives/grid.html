@@ -1,0 +1,84 @@
+﻿<div class="content  padding-0">
+    <div class="acgrid table-responsive dataTables_wrapper">
+        <table class="table table-bordered no-action-btn" id="datatable">
+            <thead>
+                <tr>
+                    <!-- th class="check">
+                        <input type="checkbox" id="ch0" name="checkbox-demo-h" />
+                        <label for="ch0"></label>
+                    </th -->
+                    <th ng-repeat="th in options.columnDefs" class="{{getThClass(th)}}" width="{{th.width}}">
+                        <a href="" ng-click="onSort(th);" ng-show="th.allowSort">{{th.displayName}}</a>
+                        {{th.allowSort ? '' : th.displayName }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="odd gradeX" ng-repeat="row in data" ng-class="{'deleted-items':(row['isDeleted'] || row['status']=='Deleted'), 'deactivated-items': (row['status']=='Deactivated')}">
+                    <!-- td>
+                        <input type="checkbox" id="ch1" name="checkbox-demo-h" ng-model="cb.i1" />
+                        <label for="ch1"></label>   
+                    </!--td -->
+                    <td ng-repeat="td in options.columnDefs" class="{{getTdClass(row,td.field=='id' || td.field=='ID')}}">
+                       <!-- {{td.enableCellEdit}}-->
+                        <a ng-hide="td.cellTemplate || td.cellTemplateUrl" ng-class="{'disable-linking':(td.enableCellEdit == false)}" class="{{getTdClass(row, false)}}" ng-href=" " ng-click="viewDetails(row)">{{row[td.field]}}</a>
+                        <ng-include src="td.cellTemplateUrl" ng-show="td.cellTemplateUrl"></ng-include>
+                    </td>
+                </tr>
+                <tr class="odd gradeX" ng-hide="data.length > 0">
+                    <td colspan="{{options.columnDefs.length + 1}}">
+                        <center>No results found.</center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row" ng-hide="options.hidePagination">
+        <div class="col-sm-12 col-xs-12 text-center">
+            <div class="dataTables_info" id="tbl-institute-id_info">{{paginationSummary()}}</div>
+        </div>
+    </div>
+    <div class="row" ng-hide="options.hidePagination">
+        <div class="col-sm-12 col-xs-12 text-center align-center">
+            <div class="dataTables_paginate paging_bs_normal">
+                <ul class="pagination">
+                    <li class="first"><a href="" ng-click="firstPage()"><span class="fa fa-angle-double-left"></span>&nbsp;First</a></li>
+                    <li class="prev" ng-class="{'disabled':filterCriteria.pageNumber==1}"><a href="" ng-click="prevPage()"><span class="fa fa-angle-left"></span>&nbsp;Previous</a></li>
+                    <li ng-class="{'active':(n == filterCriteria.pageNumber)}" ng-repeat="n in pageRange(10)"><a href="" ng-click="selectPage(n)">{{n}}</a></li>
+                    <li class="next" ng-class="{'disabled':filterCriteria.pageNumber >= (filterCriteria.totalRows / filterCriteria.pageSize)}"><a href="" ng-click="nextPage()">Next&nbsp;<span class="fa fa-angle-right"></span></a></li>
+                    <li class="last"><a href="" ng-click="lastPage()">Last&nbsp;<span class="fa fa-angle-double-right"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.chk-grid-main').click(function (event) {
+        if (this.haschecked) {
+            $('tbody .click-row').addClass('selected-tr');
+
+            $("input[type=checkbox]").each(function () {
+                this.haschecked = true;
+            });
+        } else {
+            $("input[type=checkbox]").each(function () {
+
+                $('tbody .click-row').removeClass('selected-tr');
+                this.haschecked = false;
+            });
+        }
+    });
+
+    $("input[type='checkbox']").change(function (e) {
+        if ($(this).is(":haschecked")) {
+
+            $(this).closest('tbody tr').removeClass("selected-tr");
+
+        } else {
+            $(this).closest('tbody tr').addClass("selected-tr");
+
+        }
+    });
+
+</script>

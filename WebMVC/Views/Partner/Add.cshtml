@@ -1,0 +1,464 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Add Partner</h2>
+                @*<ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>*@
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display: block;">
+                <br>
+                <form id="partnerForm" name="partnerForm" class="form-horizontal form-label-left" novalidate>
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Partner Details</a> </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.name" name="name" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (partnerForm.name.$invalid && submitted)}">
+                                            <ul ng-show="partnerForm.name.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                                <li class="parsley-required" ng-show="partnerForm.name.$error.required">This value is required.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Code <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.code" name="code" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (partnerForm.code.$invalid && submitted)}">
+                                            <ul ng-show="partnerForm.code.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                                <li class="parsley-required" ng-show="partnerForm.code.$error.required">This value is required.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Full Address <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control" rows="3" placeholder="" ng-model="model.address" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
+                                            <ul ng-show="partnerForm.address.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                                <li class="parsley-required" ng-show="partnerForm.address.$error.required">This value is required.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Email <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="email" ng-model="model.email" name="email" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (partnerForm.email.$invalid && submitted)}">
+                                            <ul ng-show="partnerForm.email.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                                <li class="parsley-required" ng-show="partnerForm.email.$error.required">This value is required.</li>
+                                                <li class="parsley-required" ng-show="partnerForm.email.$error.email">Invalid Email.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 col-sm-6 margin-top">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Telephone Landline <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.telephoneLand" name="telephoneLand" required class="form-control col-md-7 col-xs-12" data-parsley-id="7" ng-class="{'parsley-error' : (partnerForm.telephoneLand.$invalid && submitted)}">
+                                            <ul ng-show="partnerForm.telephoneLand.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                                <li class="parsley-required" ng-show="partnerForm.telephoneLand.$error.required">This value is required.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Telephone Mobile</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.telephoneMobile" name="telephoneMobile" required class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        </div>
+                    <div class="row">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Representative Details</a> </h4>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group" ng-class="{'has-error' : (representativeNameRequired && submittedRep)}">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Name:<span class="red" ng-show="representativeNameRequired && submittedRep"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="representative.name" maxlength="300" ng-keypress="representativeNameRequired = false;">
+                                                <div ng-show="representativeNameRequired && submittedRep" class="ng-hide ng-cloak">
+                                                    <span class="help-block error-label ng-cloak ng-hide" ng-show="representativeNameRequired">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Tele No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="representative.teleNo" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="representative.mobileNo" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error' : (partnerForm.representativeEmail.$error.email)}">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Email:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="email" placeholder="" class="form-control" ng-model="representative.email" name="representativeEmail" maxlength="100">
+                                                <span class="help-block error-label ng-cloak" ng-show="partnerForm.representativeEmail.$error.email">The email address is invalid.</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 margin-top">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>User Name:<span class="red" ng-show="representativeUserNameRequired && submittedRep"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (representativeUserNameRequired)}">
+                                                <input type="text" placeholder="" class="form-control" ng-model="representative.userName" ng-keypress="representativeUserNameRequired = false;">
+                                                <div ng-show="representativeUserNameRequired && submittedRep" class="ng-hide ng-cloak">
+                                                    <span class="help-block error-label ng-cloak ng-hide" ng-show="representativeUserNameRequired">Required.</span>
+                                                </div>
+                                                <div ng-show="userExist && submittedRep" class="ng-hide ng-cloak">
+                                                    <span class="help-block error-label ng-cloak ng-hide" ng-show="userExist">username & password already exists.</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Password<span class="optional-feild"></span>:<span class="red" ng-show="representativePasswordRequired && submittedRep"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6" ng-class="{'has-error' : (representativePasswordRequired || pswMinLength)}">
+                                                <input type="password" placeholder="" class="form-control" name="representativePassword" ng-model="representative.password" ng-maxlength="256" ng-keypress="representativePasswordRequired = false;pswMinLength=false;">
+                                                <div ng-show="representativePasswordRequired && submittedRep" class="ng-hide ng-cloak">
+                                                    <span class="help-block error-label ng-cloak ng-hide" ng-show="representativePasswordRequired">Required.</span>
+                                                </div>
+                                                <span class="help-block error-label ng-cloak ng-hide" ng-show="!representativePasswordRequired && pswMinLength && submittedRep">Password length should be minimum 3 characters.</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative Status:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="representative.status">
+                                                    @* <option value="">-- Select a Status --</option>*@
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addRepresentative(representative)" ng-hide="updateRep">Save</button>
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="updateRepresentative(representative)" ng-show="updateRep">Update</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteRepresentative'">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <span>
+                                                            You are about to delete ' {{repRow.name}} ', do you want to proceed?
+                                                        </span>
+                                                        <span class="info-btn">
+                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteRep(repRow)">Delete</button>
+                                                            <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteRep">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <span>{{infoMsgDeleteRep}}</span>
+                                                    <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Representative ID</th>
+                                                        <th>Name</th>
+                                                        <th>Tele No</th>
+                                                        <th>Mobile Number</th>
+                                                        <th>Mail</th>
+                                                        <th>Status</th>
+                                                        <th>User Name</th>
+                                                        <th>Password</th>
+                                                        <th ng-if="superUserEnabled">Is Super User</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click" ng-repeat="cData in representativeGridData">
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.repId">{{cData.repId}}</a><span ng-hide="cData.repId"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.name">{{cData.name}}</a><span ng-hide="cData.name"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.teleNo">{{cData.teleNo}}</a><span ng-hide="cData.teleNo"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.mobileNo">{{cData.mobileNo}}</a><span ng-hide="cData.mobileNo"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.email">{{cData.email}}</a><span ng-hide="cData.email"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.status">{{cData.status}}</a><span ng-hide="cData.status"><left>-</left></span></td>
+                                                        <td style="width:8%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.userName">{{cData.userName}}</a><span ng-hide="cData.userName"><left>-</left></span></td>
+                                                        <td style="width:8%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.password">{{cData.password}}</a><span ng-hide="cData.password"><left>-</left></span></td>
+                                                        <td ng-if="superUserEnabled" style="width:9%;">
+                                                            <input type="checkbox" id="rvh{{cData.id}}" ng-model="cData.isSuperuser" name="checkbox-demo-v"><label for="rvh{{cData.id}}" class="font-gray italic"></label>
+                                                        </td>
+                                                        <td style="width:5%;" class="action">
+                                                            <a class="link-action" ng-click="repGridAction(cData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>
+                                                            <a class="link-action" ng-click="repGridAction(cData, 'delete')" id="test_action_product"><i class="access-link fa fa-trash"></i></a>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="odd gradeX" ng-hide="representativeGridData.length > 0">
+                                                        <td colspan="10">
+                                                            <center>No results found.</center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
+
+                                        <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Products Details</a> </h4>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="prod.name for prod in productList track by prod.id" ng-model="product.product">
+                                                     <option value="">-- Select a Product --</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="product.havaPrice" maxlength="300">
+                                               
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="product.marketPrice" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="product.partnerSellingPrice" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv222">
+                                                <strong>
+                                                    Is MarkUp
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="rv222" name="checkbox-demo-v" ng-model="product.isMarkup" />
+
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-show="product.isMarkup==true">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Markup:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="product.partnerMarkup" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Percentage:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="product.partnerPercentage" maxlength="20">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 margin-top">
+
+                                        <div class="form-group">
+                                            <div>
+                                                <img src="{{product.product.imagePath}}"></div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProducts(product)" ng-hide="updateRep">Save</button>
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProducts(representative)" ng-show="updateRep">Update</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteRepresentative'">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <span>
+                                                            You are about to delete ' {{repRow.name}} ', do you want to proceed?
+                                                        </span>
+                                                        <span class="info-btn">
+                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteRep(repRow)">Delete</button>
+                                                            <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteRep">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <span>{{infoMsgDeleteRep}}</span>
+                                                    <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Hava Price</th>
+                                                        <th>Market Price</th>
+                                                        <th>Partner Selling Price</th>
+                                                        <th>Is Markup</th>
+                                                        <th>Partner Percentage</th>
+                                                        <th>Partner Markup</th>
+                                                        
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click" ng-repeat="pData in productGridData">
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.product.name">{{pData.product.name}}</a><span ng-hide="pData.product.name"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.havaPrice">{{pData.havaPrice}}</a><span ng-hide="pData.havaPrice"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.marketPrice">{{pData.marketPrice}}</a><span ng-hide="pData.marketPrice"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.partnerSellingPrice">{{pData.partnerSellingPrice}}</a><span ng-hide="pData.partnerSellingPrice"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.isMarkup">{{pData.isMarkup}}</a><span ng-hide="pData.isMarkup"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.partnerPercentage">{{pData.partnerPercentage}}</a><span ng-hide="pData.partnerPercentage"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.partnerMarkup">{{pData.partnerMarkup}}</a><span ng-hide="pData.partnerMarkup"><left>-</left></span></td>
+                                                        
+                                                        <td style="width:5%;" class="action">
+                                                            <a class="link-action" ng-click="priductViewAction(pData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>
+                                                            <a class="link-action" ng-click="priductViewAction(pData, 'delete')" id="test_action_product"><i class="access-link fa fa-trash"></i></a>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="odd gradeX" ng-hide="productGridData.length > 0">
+                                                        <td colspan="8">
+                                                            <center>No results found.</center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
+
+                                        <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button class="btn btn-primary" type="button" ui-sref="^.list">Cancel</button>
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                            <button type="submit" class="btn btn-success" ng-click="create(model)">Save</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿                    <!-- Start of Sub Content -->
+                    <div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="input-group pull-left ">
+                <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false">
+                <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+
+            </div>
+            <label class="main-checkbox">                
+                <div class="checker"><span><input type="checkbox"></span></div> Organization
+            </label>
+            <button class="btn btn-default pull-right hide" type="button">Default</button>
+            <button class="btn btn-primary pull-right" type="button">Add New</button>
+        </div>
+        <div class="support_panel">
+        </div>
+        <div class="content">
+
+            <h3 class="page-title">
+                Customer Management
+            </h3>
+
+
+
+            <ac-grid options="institutionsGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action"></ac-grid>
+        </div>
+    </div>
+</div>
+                    <!-- END of Sub Content -->
+                   

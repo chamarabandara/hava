@@ -1,0 +1,258 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="^.list">Letter Template</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span><span class="sub-head">Insurance Certificate Letter</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button type="button" class="btn btn-default" data-placement="bottom" ui-sref="^.list">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="updateInsuranceLetter(model)">Update</button>
+                <button class="btn btn-primary" type="button">PDF Preview</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-md-push-6 col-sm-push-6">
+                                    <div class="row">
+                                        <div class="avatar avatar-possition-wrapper">
+                                            <div class="default-circle">
+                                                <img ng-src="{{imageWelcomeInsuranceLogo}}" ng-show="imageWelcomeInsuranceLogo" />
+                                                <img alt="user-avatar" class="profile-avatar" ng-src="{{webUrl}}assets/global/img/logo.png" ng-hide="imageWelcomeInsuranceLogo">
+                                                <span class="btn btn-primary btn-block btn-file">
+                                                    Browse <input type="file" ng-file-select="onFileSelect($files)" name="insuranceLogo">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-md-pull-6 col-sm-pull-6">
+                                    <form class="form-horizontal uppercase-fix" name="FormInsurance" novalidate>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Letter Header:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Letter Header" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong><span>ID</span> Number:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="ID Number" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <label for="" class="col-sm-12"><strong>Duration:</strong></label>
+                                                </div>
+                                                <div class="col-sm-6 two-text-field-padding-fix-left">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                                <input type="text" class="form-control" name="datepicker" placeholder="YYYY-MM-DD" ng-disabled="readOnly">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn default" type="button" ng-disabled="readOnly"><i class="fa fa-calendar"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 two-text-field-padding-fix-right">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                                                <input type="text" class="form-control" name="datepicker" placeholder="YYYY-MM-DD" ng-disabled="readOnly">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn default" type="button" ng-disabled="readOnly"><i class="fa fa-calendar"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Product description:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Product description" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr>
+                                <div class="col-sm-4">
+
+                                    <h4>Buyer Details</h4>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Name:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Name" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Company:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Company" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Address:</label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Address" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Post Address:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Post Address" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>E-Mail:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="E-Mail" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Telephone:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Telephone" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Mobile:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Mobile" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+
+                                    <h4>Co-Operation</h4>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Partner Details:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Partner Details" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Seller Name:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Seller Name" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Company:</label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Company" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Address:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Address" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Post Address:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Post Address" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>E-Mail:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="E-Mail" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+
+                                    <h4>Vehicle Details</h4>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Brand Group:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Brand Group" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Group:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Group" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Model:</label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Model" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Reg No:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Reg No" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Year:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Year" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Engine Capacity:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Engine Capacity" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-12"><strong>Kilometers:</strong></label>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" placeholder="Kilometers" ng-disabled="readOnly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <hr>
+                               
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group">
+                                    <label for="" class="col-sm-12"><strong>Mail Body:</strong></label>
+                                    <div class="col-sm-12">
+                                        <textarea class="ckeditor form-control" name="editor2" rows="6" data-error-container="#editor2_error" ng-model="model.bodyText"></textarea>
+                                        <div id="editor2_error"> </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <hr>
+                                <div class="col-sm-12 text-center">
+                                    <label class="company-name-label">
+                                        <textarea ng-model="model.footerText" class="form-control" rows="5" placeholder="Footer text"></textarea>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,189 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    The Brand ‘{{data.name}}’ will be deleted. Do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="deleteBrand(delBrandData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>                    
+                </span>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="^.list">Brand Groups</a> <span><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Edit</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-primary" ng-click="leave()" type="button">Back</button>
+                <button class="btn btn-primary" ng-click="gotaBrandEdit()" type="button">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12">
+                    <form class="form-horizontal" ng-submit="addBrand()" name="brandGroupEditForm">
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Brand Group ID:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input type="text" ng-model="brandGroup.id" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Brand Group Name:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input type="text" name="name" readonly required ng-model="brandGroup.name" class="form-control">
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Country:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input type="text" class="form-control" ng-model="brandGroup.countryName" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Engine Capacity:<span class="red"> *</span></strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input type="text" class="form-control" ng-model="brandGroup.enginCapacityname" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input ng-show="brandGroup.isActive==1" type="text" class="form-control" value="Active" readonly>
+                                <input ng-show="brandGroup.isActive==0" type="text" class="form-control" value="Inactive" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group action-area">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form>
+                        <ac-grid options="brandGridOptions" filter-criteria="filterBrandCriteria" filter-function="searchBrandFunction" data="brandData" action="action" class="ang-grid"></ac-grid>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->
+<div class="modal fade" id="add-brand-modal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Brand - Add</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="brandForm" class="form-horizontal" ng-submit="addBrand()">
+                            <div class="col-sm-12 uppercase-fix">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Group:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <input type="text" placeholder="" ng-model="brandGroup.name" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Name:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandForm.name.$invalid && submitted)}">
+                                            <input type="text" placeholder="" data-ac-unique="{conditions:{brandGroupId: brandGroup.id }, field:'name', url:'/api/Brand/Validate'}" required name="name" ng-model="brand.name" class="form-control">
+                                            <span id="name-error" ng-show="submitted && brandForm.name.$invalid && brandForm.name.$error.required" class="help-block help-block-error">Required.</span>
+                                            <span id="name-error" ng-show="submitted && brandForm.name.$invalid && brandForm.name.$error.unique" class="help-block help-block-error">The brand – “{{brand.name}}” already exists, enter another one.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group action-area">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <button class="btn btn-default pull-right" data-dismiss="modal" ng-click="closeAddBrand()" type="button">Cancel</button>
+                                            <button class="btn btn-primary pull-right" ng-click="addBrand()" type="button">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit-brand-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Brand - Edit</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="brandEditForm" class="form-horizontal" ng-submit="editBrand()">
+                            <div class="col-sm-12 uppercase">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Group:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <input type="text" placeholder="" ng-model="brandGroup.name" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Name:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandEditForm.name.$invalid && submitted)}">
+                                            <input type="text" placeholder="" data-ac-unique="{conditions:{brandGroupId: brandGroup.id, id: brand.id}, field:'name', url:'/api/Brand/Validate'}" required name="name" ng-model="brand.name" class="form-control">
+                                            <span id="name-error" ng-show="submitted && brandEditForm.name.$invalid && brandEditForm.name.$error.required" class="help-block help-block-error">Required.</span>
+                                            <span id="name-error" ng-show="submitted && brandEditForm.name.$invalid && brandEditForm.name.$error.unique" class="help-block help-block-error">The brand – “{{brand.name}}” already exists, enter another one.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <select class="form-control" name="brandStatus" ng-model="brand.isActive">
+                                                <option value="1" class="">Active</option>
+                                                <option value="0" class="">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group action-area">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <button class="btn btn-default pull-right" data-dismiss="modal" ng-click="closeAddBrand()" type="button">Cancel</button>
+                                            <button class="btn btn-primary pull-right" ng-click="editBrand()" type="button">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

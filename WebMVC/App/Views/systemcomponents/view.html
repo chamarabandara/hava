@@ -1,0 +1,59 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+       
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3><a ui-sref="^.list">System & Components Management</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span><span class="sub-head">View</span></h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-default" type="button" ui-sref="^.list">Back</button><button class="btn btn-primary" type="button" ng-click="goToUpdate(model.id)">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Status:</strong></label>
+                            <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{model.status}}</label>
+                        </div>
+
+                        <div class="col-sm-12 col-xs-12">
+                            <h4><span class="sect-number">1</span> System Details</h4>
+                        </div>
+                        <div ng-repeat="sysDetails in model.systemDetails">
+                            <div class="form-group">
+                                <h5 for="" class="col-sm-12"><strong>{{sysDetails.language}}</strong></h5>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>Systems Language Id:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{sysDetails.systemId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="col-lg-5 col-md-5 col-sm-6 col-xs-12" for=""><strong>System Name:</strong></label>
+                                    <label for="" class="col-lg-7 col-md-7 col-sm-6 col-xs-12">{{sysDetails.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4><span class="sect-number">2</span> Components for System</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <ac-grid options="componentGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="compontentsData" action="action" class="ang-grid"></ac-grid>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

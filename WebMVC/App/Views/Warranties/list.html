@@ -1,0 +1,93 @@
+﻿<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete the warranty '{{warrantyData.productName}}', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="removeWarranty(warrantyData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToList()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span ng-bind-html="infoMsg"></span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf" ng-show="infoMsgDelete">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsgDelete}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3>Warranty & Insurance Information</h3>
+            </div>
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-primary" type="button" ui-sref="^.form" ng-click="clearMsg()">Add New</button>
+
+            </div>
+        </div>
+         <div class="content">
+             <div class="row">
+                 <div class="col-sm-3">
+                     <div class="row">
+                        
+                             <div class="search pull-left multiple-input-search">
+                                 <div class="input-group pull-left width-100-per">
+                                     <input type="text" ng-change="searched = false; infoMsg='';" class="form-control text-box page-search-box" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                                     <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                                         <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                                     </span>
+
+                                     <span class="search-icon"><i class="fa fa-search"></i></span>
+                                     <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                                         <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                                     </span>
+                                 </div>
+                             </div>
+                       
+                     </div>
+                 </div>
+                 <div class="col-sm-3">
+                     <div class="form-group">
+                         <select class="form-control" required name="country" ng-options="ctry.CountryName for ctry in countryList track by ctry.Id" ng-model="model.country" ng-change="filterWarranty(model.country,model.dealerName,model.representativeName)">
+                             <option value="">-- Select a Country --</option>
+                         </select>
+                     </div>
+                 </div>
+                 <div class="col-sm-3">
+                     <div class="form-group">
+                         <select class="form-control" name="dealerName" ng-options="rep.name for rep in dealersList track by rep.id" ng-model="model.dealerName" ng-change="filterWarranty(model.country,model.dealerName,model.representativeName)">
+                             <option value="">-- Select a Dealer --</option>
+                         </select>
+                     </div>
+                 </div>
+                 <div class="col-sm-3">
+                     <div class="form-group">
+                         <select class="form-control" name="representativeName" ng-options="rep.name for rep in representativeList track by rep.id" ng-model="model.representativeName" ng-change="filterWarranty(model.country,model.dealerName,model.representativeName)">
+                             <option value="">-- Select a Representative --</option>
+                         </select>
+                     </div>
+                 </div>
+             </div>
+            <ac-grid options="systemGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="data" action="action" class="ang-grid"></ac-grid>
+            
+        </div>
+
+
+    </div>
+</div>
+<!-- END of Sub Content -->

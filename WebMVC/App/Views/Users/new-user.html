@@ -1,0 +1,383 @@
+﻿<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDeleteRelation'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete ' {{relationRow.name}} ', do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteRelation(relationRow)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToList()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="infobar cf warning dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmCancel'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    Are you sure you want to leave this page without saving?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-warning" type="button" ui-sref="^.list">Yes</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="backToPage()">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="search pull-left hidden">
+                <div class="input-group pull-left">
+                    <input type="text" ng-model="search" placeholder="Search" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" ng-change="searched = false">
+                    <span ng-class="{'show':search &amp;&amp; !searched}" class="go-search hide"> <a ng-click="searched = true" href=""><i class="fa fa-arrow-circle-right"></i></a> </span><span class="search-icon"><i class="fa fa-search"></i></span> <span ng-class="{'show':search &amp;&amp; searched}" class="clear-txt hide"> <a ng-click="searched = false; search = '' " href=""><i class="fa fa-times-circle font-gray"></i></a> </span>
+
+                </div>
+            </div>
+            <div class="pull-left btn-pnl padding-fix">
+                <h3>
+                    <a ng-click="proceedCancel(model)">User</a><span class="angle"> <i class="fa fa-angle-double-right"></i></span>
+                    <span class="sub-head" ng-hide="update">ERP User Registration</span>
+                    <span class="sub-head" ng-show="update">Edit ERP User Registration</span>
+                </h3>
+              
+            </div>
+            <div class="pull-right btn-pnl">
+                <!--//ui-sref="^.list"-->
+                <button type="button" class="btn btn-default" data-placement="bottom" ng-click="proceedCancel(model)">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="Register(model);" ng-hide="update">Register</button>
+                <button class="btn btn-primary" type="button" ng-click="updateUser(model);" ng-show="update">Update</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12">
+                    
+                   
+                    <form class="form-horizontal horizontal uppercase-fix" name="registrationForm">
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.status.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <select class="form-control" required name="status" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="model.status">
+                                    <option value="">-- Select a Status --</option>
+                                    <!--<option value="Sri Lanka">Active</option>
+                <option value="India">Disabled</option>-->
+                                </select>
+                                <div ng-show="registrationForm.status.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.status.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h4>Employment details</h4>
+                        <div class="form-group">
+                            <label for="" class="col-lg-3 col-md-3 col-sm-4"><strong>First Name:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <div class="" ng-class="{'has-error' : (registrationForm.firstName.$invalid && submitted)}">
+                                    <input type="text" class="form-control" placeholder="" ng-model="model.firstName" name="firstName" required ng-maxlength="300" maxlength="300">
+                                    <div ng-show="registrationForm.firstName.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="registrationForm.firstName.$error.required">Required.</span>
+                                        <span class="help-block error-label" ng-show="registrationForm.firstName.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-3 col-md-3 col-sm-4"><strong>Last Name:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <div class="" ng-class="{'has-error' : (registrationForm.lastName.$invalid && submitted)}">
+                                    <input type="text" class="form-control" placeholder="" ng-model="model.lastName" name="lastName" required ng-maxlength="300" maxlength="300">
+                                    <div ng-show="registrationForm.lastName.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="registrationForm.lastName.$error.required">Required.</span>
+                                        <span class="help-block error-label" ng-show="registrationForm.lastName.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-3 col-md-3 col-sm-4"><strong>Title:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <div class="" ng-class="{'has-error' : (registrationForm.title.$invalid && submitted)}">
+                                    <input type="text" class="form-control" placeholder="" ng-model="model.title" name="title" required ng-maxlength="50" maxlength="50">
+                                    <div ng-show="registrationForm.title.$invalid && submitted" class="ng-hide">
+                                        <span class="help-block error-label" ng-show="registrationForm.title.$error.required">Required.</span>
+                                        <span class="help-block error-label" ng-show="registrationForm.title.$error.maxlength">The maximum length for this field has been exceeded.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.email.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>E-mail:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="email" placeholder="" class="form-control" ng-model="model.email" name="email" required ng-maxlength="256" maxlength="256">
+                                <div ng-show="registrationForm.email.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.email.$error.required">Required.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.email.$error.email && !registrationForm.email.$error.required">The email address is invalid.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.email.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.country.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <select class="form-control" required name="country" ng-options="ctry.CountryName for ctry in countryList track by ctry.Id" ng-model="model.country">
+                                    <option value="">-- Select a Country --</option>
+                                </select>
+                                <div ng-show="registrationForm.country.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.country.$error.required">Required.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.telMobile.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Mobile number:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.telMobile" name="telMobile" required ng-maxlength="50" maxlength="20">
+                                <div ng-show="registrationForm.telMobile.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.telMobile.$error.required">Required.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.telMobile.$error.maxlength">The maximum length for this field has been exceeded.</span>
+                                    <!-- <span class="help-block error-label" ng-show="!registrationForm.telMobile.$error.required && registrationForm.telMobile.$error.number">Not valid number!.</span>-->
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.telephone.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Telephone number:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.telephone" name="telephone" required ng-maxlength="50" maxlength="20">
+                                <div ng-show="registrationForm.telephone.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.telephone.$error.required">Required.</span>
+                                    <!-- <span class="help-block error-label" ng-show="registrationForm.telephone.$error.pattern">Enter only numbers.</span>-->
+                                    <span class="help-block error-label" ng-show="registrationForm.telephone.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                    <!--  <span class="help-block error-label" ng-show="!registrationForm.telWork.$error.required && registrationForm.telWork.$error.number">Not valid number!.</span>-->
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (empDateRequired && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Employement Date:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8" id="ddp3">
+                                <div class="input-group input-append date date-picker">
+                                    <input class="form-control empDate" type="text" ng-model="model.employmentDate" id="date" name="empDate" ng-change="empDateRequired = false;">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button" ng-click="selectDate('date')"><i class="fa fa-calendar"></i></button>
+                                    </span>
+
+                                </div>
+                                <span class="help-block error-label" ng-show="empDateRequired && submitted">Required.</span>
+
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error' : (endDateRequired && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>End Date:</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8" id="ddp3">
+                                <div class="input-group input-append date date-picker">
+                                    <input class="form-control endDate" size="16" type="text" ng-model="model.endDate" id="enddate" name="endDate" ng-change="endDateRequired = false;">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button" ng-click="selectDate('enddate')"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                                <!--<span class="help-block error-label" ng-show="endDateRequired && submitted">Required.</span>-->
+                                <span class="help-block error-label" ng-show="invalidDuration && submitted">The 'Employment Date' cannot be older than the 'End Date'.</span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.userName.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Signature:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.userName" name="userName" required ng-maxlength="256" maxlength="256" ng-change="userExsist = false;">
+                                <div ng-show="registrationForm.userName.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.userName.$error.required">Required.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.userName.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                </div>
+                                <span class="help-block error-label" ng-show="!registrationForm.userName.$error.required && userExsist">The signature already exists, enter a valid signature.</span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.password.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Password:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.password" name="password" required ng-minlength="9" ng-pattern="/((?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).{9,})/" ng-maxlength="256" maxlength=256">
+                                <div ng-show="registrationForm.password.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.password.$error.required">Required.</span>
+                                    <span class="help-block error-label" ng-show="!registrationForm.password.$error.required && registrationForm.password.$error.pattern">Password should be minimum 9 characters and should include at least one lower case, upper case and a special character.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>Private Details</h4>
+
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.address.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Address:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.address" name="address" required ng-maxlength="500" maxlength="500">
+                                <div ng-show="registrationForm.address.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.address.$error.required">Required.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.address.$error.maxlength">The maximum length for this field has been exceeded.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.telHome.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Home Tele No:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.telHome" name="telHome" required ng-maxlength="20" maxlength="20">
+                                <div ng-show="registrationForm.telHome.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.telHome.$error.required">Required.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.telHome.$error.pattern">Enter only numbers.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.telHome.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                    <!--<span class="help-block error-label" ng-show="!registrationForm.telHome.$error.required && registrationForm.telHome.$error.number">Not valid number!.</span>-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.emailPrivate.$error.email && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Email:</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="email" placeholder="" class="form-control" ng-model="model.emailPrivate" name="emailPrivate" maxlength="256">
+                                <div ng-show="registrationForm.emailPrivate.$invalid && submitted" class="ng-hide">
+                                    <!-- <span class="help-block error-label" ng-show="registrationForm.email.$error.required">Required.</span>-->
+                                    <span class="help-block error-label" ng-show="registrationForm.emailPrivate.$error.email">The email address is invalid.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+
+                        <div class="form-group  ">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Zip Code / <span>p</span>ost code:</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.zipCode" name="zipCode" ng-maxlength="100" maxlength="100">
+                                <div ng-show="registrationForm.zipCode.$invalid && submitted" class="ng-hide">
+                                    <!-- <span class="help-block error-label" ng-show="registrationForm.zipCode.$error.required">Required.</span>-->
+                                    <span class="help-block error-label" ng-show="registrationForm.zipCode.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error' : (registrationForm.city.$invalid && submitted)}">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>City:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="model.city" name="city" ng-maxlength="100" maxlength="100" required>
+                                <div ng-show="registrationForm.city.$invalid && submitted" class="ng-hide">
+                                    <span class="help-block error-label" ng-show="registrationForm.city.$error.required">Required.</span>
+                                    <span class="help-block error-label" ng-show="registrationForm.city.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group lowercase-fix">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Date <span class="lower">of</span> birth:<span class="red"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8" id="ddp3">
+                                <div class="input-group input-append date date-picker">
+                                    <input class="form-control birthDate" size="16" type="text" ng-model="model.birthday" id="birthdate" name="birthDate" ng-change="birthDateRequired = false;">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button" ng-click="selectDate('birthdate')"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                                <span class="help-block error-label" ng-show="birthDateRequired && submitted">Required.</span>
+
+                            </div>
+                            <!--<div class="col-lg-9 col-md-9 col-sm-8">
+            <input type="text" class="form-control" ng-model="model.OtherBirthday" pick-a-date="date" pick-a-date-options="{ format: 'yyyy-mm-dd' }">
+
+        </div>-->
+                        </div>
+
+                        <h4>Relations details</h4>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Relationship:<span class="red" ng-show="relationshipEmpty"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="modelRelation.relationship" name="relationship" ng-maxlength="200" maxlength="200" ng-change="relationshipEmpty = false;">
+                                <span class="help-block error-label ng-hide" ng-show="relationshipEmpty">Required.</span>
+                                <span class="help-block error-label" ng-show="submitted && registrationForm.relationship.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Name:<span class="red" ng-show="relationshipNameEmpty"> *</span></strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="modelRelation.name" name="relName" ng-maxlength="200" maxlength="200" ng-change="relationshipNameEmpty = false;">
+                                <span class="help-block error-label ng-hide" ng-show="relationshipNameEmpty">Required.</span>
+                                <span class="help-block error-label" ng-show="submitted && registrationForm.relationship.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Home tele No:</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="modelRelation.telHome" name="relHomePhone" ng-maxlength="20" maxlength="20">
+                                <span class="help-block error-label" ng-show="submitted && registrationForm.relHomePhone.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Office tele no:</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="modelRelation.telOffice" name="relOfficePhone" ng-maxlength="20" maxlength="20">
+                                <span class="help-block error-label" ng-show="submitted && registrationForm.relOfficePhone.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Mobile:</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input type="text" placeholder="" class="form-control" ng-model="modelRelation.mobile" name="relMobile" ng-maxlength="20" maxlength="20">
+                                <span class="help-block error-label" ng-show="submitted && registrationForm.relMobile.$error.maxlength">The maximum length for this field has been exceeded.</span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group action-area">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-lg-offset-3 col-md-offset-3 col-sm-offset-4 text-right">
+                                <button class="btn btn-primary" type="button" ng-click="addRelation(modelRelation)" ng-hide="modelRelation.id">Add Relation</button>
+                                <button class="btn btn-primary" type="button" ng-click="updateRelation(modelRelation)" ng-show="modelRelation.id">Update Relation</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <ac-grid options="userGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="relations" action="action" class="ang-grid"></ac-grid>
+                            </div>
+                        </div>
+                        <h4>Roles<span class="red"> *</span></h4>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="row" ng-repeat="roleDataCol in roles track by $index">
+                                        <div class="checkbox-list col-lg-4 col-md-4 col-sm-4" ng-repeat="roleData in roleDataCol track by $index">
+                                            <input type="checkbox" ng-model="model.role[roleData.id]" ng-checked="model.role[roleData.id]" ng-change="rolechangeStatus()" name="checkbox-demo-h" id="{{$parent.$index}}_{{$index}}" />
+                                            <label class="input-label" for="{{$parent.$index}}_{{$index}}">{{roleData.name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-show="roleEmpty && submitted" class="ng-hide">
+                                    <span class="help-block error-label">at least on role Required.</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

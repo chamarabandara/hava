@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavaBusinessObjects", "HavaBusinessObjects\HavaBusinessObjects.csproj", "{58EA31C8-F875-4142-8840-740D7881C2C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavaBusiness", "HavaBusiness\HavaBusiness.csproj", "{466AC6EF-7065-4C9B-9862-FFA069E1A247}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMVC", "WebMVC\WebMVC.csproj", "{BB88D62C-94CC-4D17-BB35-0EB770E5FB48}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58EA31C8-F875-4142-8840-740D7881C2C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58EA31C8-F875-4142-8840-740D7881C2C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58EA31C8-F875-4142-8840-740D7881C2C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58EA31C8-F875-4142-8840-740D7881C2C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466AC6EF-7065-4C9B-9862-FFA069E1A247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466AC6EF-7065-4C9B-9862-FFA069E1A247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466AC6EF-7065-4C9B-9862-FFA069E1A247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466AC6EF-7065-4C9B-9862-FFA069E1A247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB88D62C-94CC-4D17-BB35-0EB770E5FB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB88D62C-94CC-4D17-BB35-0EB770E5FB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB88D62C-94CC-4D17-BB35-0EB770E5FB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB88D62C-94CC-4D17-BB35-0EB770E5FB48}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

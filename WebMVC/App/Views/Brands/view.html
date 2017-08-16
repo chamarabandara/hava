@@ -1,0 +1,197 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    The Model ‘{{data.name}}’ will be deleted. Do you want to proceed?
+                </span>
+                <span class="info-btn">                    
+                    <button id="action2" class="btn-danger" type="button" ng-click="deleteModel(delModleData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>Brands and Models</h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-primary" ng-click="backToBrands()" type="button">Back</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add-modal-modal">Add Model</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Country:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input ng-model="brandGroup.countryName" class="form-control" type="text" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Brand Group:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input ng-model="brandGroup.name" class="form-control" type="text" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-3 col-sm-4"><strong>Brand:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input ng-model="brand.name" class="form-control" type="text" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Status:</strong></label>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <input ng-show="brandGroup.isActive==1" type="text" class="form-control" value="Active" readonly>
+                                <input ng-show="brandGroup.isActive==0" type="text" class="form-control" value="Inactive" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form>
+                        <ac-grid options="modelGridOptions" filter-criteria="filterModelCriteria" filter-function="searchModelFunction" data="modelData" action="action" class="ang-grid"></ac-grid>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->
+<div class="modal fade" id="add-modal-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Model - {{modelMode}}<button type="button" ng-click="closeModel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="modelForm" class="form-horizontal" ng-submit="addModel()">
+                            <div class="col-sm-12 uppercase-fix">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Group:</strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <input type="text" class="form-control" ng-model="brandGroup.name" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Name:</strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <input type="text" class="form-control" ng-model="brand.name" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Model Name:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (modelForm.name.$invalid && submitted)}">
+                                            <input type="text" class="form-control" name="name" data-ac-unique="{conditions:{brandId: brand.id, brandGroupId: brandGroup.id, id: model.id }, field:'name', url:'/api/Model/Validate'}" required ng-model="model.name">
+                                            <span id="name-error" ng-show="submitted && modelForm.name.$invalid && modelForm.name.$error.required" class="help-block help-block-error">Required.</span>
+                                            <span id="name-error" ng-show="submitted && modelForm.name.$invalid && modelForm.name.$error.unique" class="help-block help-block-error">The model – "{{model.name}}" already exists, enter another one.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group action-area">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <button class="btn btn-default pull-right" data-dismiss="modal" ng-click="closeModel()" type="button">Cancel</button>
+                                            <button class="btn btn-primary pull-right" ng-click="addModel()" type="button">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="edit-modal-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-modal" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Model - Edit<button type="button" ng-click="closeModel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="modelEditForm" class="form-horizontal">
+                            <div class="col-sm-12 uppercase-fix">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Group:</strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <input type="text" class="form-control" ng-model="data.brandGroup" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Name:</strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <input type="text" class="form-control" ng-model="data.brand" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Model Name:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (modelEditForm.name.$invalid && submitted)}">
+                                            <input type="text" class="form-control" data-ac-unique="{conditions:{brandId: data.brandId, brandGroupId: data.brandGroupId, id: model.id }, field:'name', url:'/api/Model/Validate'}" name="name" required ng-model="model.name">
+                                            <span id="name-error" ng-show="submitted && modelEditForm.name.$invalid && modelEditForm.name.$error.required" class="help-block help-block-error">Required.</span>
+                                            <span id="name-error" ng-show="submitted && modelEditForm.name.$invalid && modelEditForm.name.$error.unique" class="help-block help-block-error">The model – "{{model.name}}" already exists, enter another one.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Status:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8">
+                                            <select class="form-control" name="brandStatus" ng-model="model.isActive">
+                                                <option value="1" class="">Active</option>
+                                                <option value="0" class="">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group action-area">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <button class="btn btn-default pull-right" data-dismiss="modal" ng-click="closeModel()" type="button">Cancel</button>
+                                            <button class="btn btn-primary pull-right" ng-click="editModel();" type="button">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

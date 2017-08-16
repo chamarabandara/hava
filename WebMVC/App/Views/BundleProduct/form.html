@@ -1,0 +1,390 @@
+﻿<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="pull-left btn-pnl padding-fix">
+                <h3><a href="">Product</a><span class="angle"><i class="fa fa-angle-double-right"></i></span> <span class="sub-head">Bundle Product - Add</span></h3>
+            </div>
+
+            <div class="pull-right btn-pnl">
+                <button class="btn btn-default" type="button">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="create();">Save</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <!--{{bundle}}-->
+                <form class="form-horizontal">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="panel-group accordion no-background" id="accordion3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" ng-class="{collapsed:isOpenTab('bundleProductDetails')}" ng-click="openTab('bundleProductDetails')" data-toggle="collapse" data-parent="#accordion3" href=""><span class="sect-number">1</span> Bundle Product Details</a> </h4>
+                                </div>
+                                <div id="section0" ng-show="isOpenTab('bundleProductDetails')">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="" class="col-lg-5 col-md-5 col-sm-6"><strong>Bundle Product Name:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.bundleProduct.bundleProductName" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Country:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.bundleProduct.country" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Language:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.bundleProduct.language" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mileage:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.bundleProduct.mileage" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Eligibility:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.bundleProduct.eligibility">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Excess Amount:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" maxlength="3" ng-model="bundle.bundleProduct.excessAmount">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Claim Limit:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.bundleProduct.claimLimit">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product Description:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <textarea class="form-control" ng-model="bundle.bundleProduct.description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="" ng-class="{collapsed:isOpenTab('customerDetails')}" ng-click="openTab('customerDetails')"><span class="sect-number">2</span> Customer Details</a> </h4>
+                                </div>
+                                <div id="section1" ng-show="isOpenTab('customerDetails')" class="panel-collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Co-Op Partner Name:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <select class="form-control" name="cooppartner" required ng-model="bundle.customerDetails.partner" ng-options="stat.name for stat in coPartners track by stat.id">
+                                                        <option value="">Select a Co-op Partner</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Dealer Name:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <select class="form-control" name="dealer" required ng-model="bundle.customerDetails.dealer" ng-options="stat.name for stat in delaters track by stat.id">
+                                                        <option value="">Select a Dealer Name</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default relative">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="" ng-class="{collapsed:isOpenTab('autoConceptRepresentatives')}" ng-click="openTab('autoConceptRepresentatives')"><span class="sect-number">3</span> AutoConcept Representative Details</a> </h4>
+                                </div>
+                                <div id="section2" ng-show="isOpenTab('autoConceptRepresentatives')" class="panel-collapse  in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Representative's Name:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6"><select class="form-control" ng-model="bundle.acRepresentation" ng-change="" ng-options="rep.name for rep in accRepresentatives track by rep.id">
+    <option value="">Select Representative's Name</option>
+</select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>ID Number:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" ng-model="bundle.acRepresentation.id" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Title:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" ng-model="bundle.acRepresentation.title" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Mobile Number:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" ng-model="bundle.acRepresentation.mobileNo" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>EMail:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" ng-model="bundle.acRepresentation.email" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel-group accordion no-background" id="accordion4">
+                            <div class="panel panel-default relative">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" ng-class="{collapsed:isOpenTab('contentDetails')}" ng-click="openTab('contentDetails')" data-toggle="collapse" data-parent="#accordion3" href=""><span class="sect-number">4</span> Content Details</a> </h4>
+                                </div>
+                                <div id="section3" class="panel-collapse  in" ng-show="isOpenTab('contentDetails')">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+
+                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                                                                    <h5>System & Components From - {{bundle.contentDetails.product1.name}}</h5>
+
+                                                                    <div class="selected-list">
+                                                                        <ul class="items-selected">
+                                                                            <li class="item1" ng-repeat="(key, val) in bundle.contentDetails.product1.components">
+                                                                                {{key}}
+                                                                                <ul class="no-style-sub-list">
+                                                                                    <li class="item2" ng-repeat="subCom in val">{{subCom}}</li>
+                                                                                </ul>
+                                                                            </li>
+
+                                                                            
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                                                                    <h5>System & Components From - {{bundle.contentDetails.product2.name}}</h5>
+
+                                                                    <div class="selected-list">
+                                                                        <ul class="items-selected">
+                                                                            <li class="item1" ng-repeat="(key, val) in bundle.contentDetails.product2.components">
+                                                                                {{key}}
+                                                                                <ul class="no-style-sub-list">
+                                                                                    <li class="item2" ng-repeat="subCom in val">{{subCom}}</li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading relative">
+                                    <h4 class="panel-title"> <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion4" href="" ng-class="{collapsed:isOpenTab('termDetails')}" ng-click="openTab('termDetails')"><span class="sect-number">5</span> Terms and Conditions</a> </h4>
+                                </div>
+                                <div id="section4" ng-show="isOpenTab('termDetails')" class="panel-collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                                                    <h5>Terms From - {{bundle.termDetails.product1.name}}</h5>
+
+                                                    <div class="selected-list">
+                                                        <ol>
+                                                            <li class="item1" ng-repeat="term in bundle.termDetails.product1.terms">{{term}}</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <h5>Terms From - {{bundle.termDetails.product2.name}}</h5>
+
+                                                    <div class="selected-list">
+                                                        <ol>
+                                                            <li class="item1" ng-repeat="term in bundle.termDetails.product2.terms">{{term}}</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="form-group action-area">
+                                <div class="col-sm-12 ">
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#price-modal">View Price Matrix</button>
+                                </div>
+                            </div>                           
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->
+<div class="modal fade" id="price-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Price Matrix</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Set Price By:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.price.priceBy" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Set Brand Group:</strong></label>
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <input type="text" placeholder="" class="form-control" ng-model="bundle.price.brandGroup" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5>Price - {{bundle.price.priceProduct1Data.name}}</h5>
+                                <div class="table-responsive">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered " id="">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Months</strong></td>
+                                                    <td ng-repeat="month in months"><strong>{{month}}</strong></td>
+                                                </tr>
+                                                <tr class="click-row off-click">
+                                                    <td><strong>Percentage (%)</strong></td>
+                                                    <td ng-repeat="month in months"><input ng-readonly="priceProduct1.viewtMode" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="priceProduct1.presentages[month]" type="text" placeholder="" class="form-control" value="20%"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="custom-width-matrix"><strong>Engine Capacity - {{engineType}}</strong></td>
+                                                    <td ng-repeat="month in months"></td>
+                                                </tr>
+                                                <tr ng-repeat="engineCapacity in engineCapacities" class="click-row off-click">
+                                                    <td><strong>{{engineCapacity}}</strong></td>
+                                                    <td ng-repeat="month in months">
+                                                        <!--{{prices[engineCapacity][month]}} {{generatedPriceMetrix[engineCapacity][month]}}-->
+                                                        <input ng-readonly="priceProduct1.viewtMode" ng-class="(((priceProduct1.prices[engineCapacity][month] != priceProduct1.generatedPriceMetrix[engineCapacity][month]) && priceProduct1.generatedPriceMetrix[engineCapacity][month] && month != '12') || (priceProduct1.customPrices[engineCapacity][month])) ? 'metrix-touched' : ''" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="priceProduct1.prices[engineCapacity][month]" type="text" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>   
+                                    <h5>Price - {{bundle.price.priceProduct2Data.name}}</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered " id="">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Months</strong></td>
+                                                    <td ng-repeat="month in months"><strong>{{month}}</strong></td>
+                                                </tr>
+                                                <tr class="click-row off-click">
+                                                    <td><strong>Percentage (%)</strong></td>
+                                                    <td ng-repeat="month in months"><input ng-readonly="priceProduct2.viewtMode" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="priceProduct2.presentages[month]" type="text" placeholder="" class="form-control" value="20%"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="custom-width-matrix"><strong>Engine Capacity - {{engineType}}</strong></td>
+                                                    <td ng-repeat="month in months"></td>
+                                                </tr>
+                                                <tr ng-repeat="engineCapacity in engineCapacities" class="click-row off-click">
+                                                    <td><strong>{{engineCapacity}}</strong></td>
+                                                    <td ng-repeat="month in months">
+                                                        <!--{{prices[engineCapacity][month]}} {{generatedPriceMetrix[engineCapacity][month]}}-->
+                                                        <input ng-readonly="priceProduct2.viewtMode" ng-class="(((priceProduct2.prices[engineCapacity][month] != priceProduct2.generatedPriceMetrix[engineCapacity][month]) && priceProduct2.generatedPriceMetrix[engineCapacity][month] && month != '12') || (priceProduct2.customPrices[engineCapacity][month])) ? 'metrix-touched' : ''" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="priceProduct2.prices[engineCapacity][month]" type="text" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <h5>Bundle Product - Price-Product 1 - Price</h5>
+                                    
+                                        <div class="row margin-0">
+                                            <div class="form-group">
+                                                <div class="col-sm-6">
+
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Comission(%):</strong></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <input type="text" placeholder="" class="form-control" ng-model="bundle.price.commission">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered " id="">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Months</strong></td>
+                                                    <td ng-repeat="month in months"><strong>{{month}}</strong></td>
+                                                </tr>
+                                                <tr class="click-row off-click">
+                                                    <td><strong>Percentage (%)</strong></td>
+                                                    <td ng-repeat="month in months"><input ng-readonly="true" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="priceProduct3.presentages[month]" type="text" placeholder="" class="form-control" value="20%"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="custom-width-matrix"><strong>Engine Capacity - {{engineType}}</strong></td>
+                                                    <td ng-repeat="month in months"></td>
+                                                </tr>
+                                                <tr ng-repeat="engineCapacity in engineCapacities" class="click-row off-click">
+                                                    <td><strong>{{engineCapacity}}</strong></td>
+                                                    <td ng-repeat="month in months">
+                                                        <!--{{prices[engineCapacity][month]}} {{generatedPriceMetrix[engineCapacity][month]}}-->
+                                                        <input ng-readonly="priceProduct3.viewtMode" ng-class="(((priceProduct3.prices[engineCapacity][month] != priceProduct3.generatedPriceMetrix[engineCapacity][month]) && priceProduct3.generatedPriceMetrix[engineCapacity][month] && month != '12') || (priceProduct2.customPrices[engineCapacity][month])) ? 'metrix-touched' : ''" ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" ng-model="priceProduct3.prices[engineCapacity][month]" ng-change="trackEdited(engineCapacity, month)" type="text" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,285 @@
+﻿<div class="infobar cf" ng-show="infoMsg">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsg}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    The Brand '{{data.name}}' will be deleted. Do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="delete(brandGroupRowData)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>                    
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start of Sub Content -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="action_panel">
+            <div class="btn-pnl padding-fix">
+                <h3>Brand Groups</h3>
+            </div>
+            <div class="btn-pnl-btns">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Add <i class="fa fa-angle-down"></i></button>
+                <ul class="dropdown-menu dropdown-menu-btn">
+                    <li>
+                        <a href="" ng-click="openBrandGroup()" data-toggle="modal" data-target="#brand-group-modal">Add brand group</a>
+                    </li>
+                    <li>
+                        <a href="" data-toggle="modal" data-target="#add-brand-modal">Add brand</a>
+                    </li>
+                    <li>
+                        <a href="" data-toggle="modal" data-target="#add-modal-modal">Add Model</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-10 col-xs-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <!--{{data.country}}-->
+                            <!--{{brandGroup.countryList}}-->
+                            <label for="" class="col-md-3 col-sm-4"><strong>Country:</strong></label>
+                            <div class="col-md-9 col-sm-8">
+                                <select class="form-control" ng-change="setCountry()" ng-options="country.CountryName for country in countries track by country.Id" ng-model="data.country">
+                                    <option value="">-- Select a Country --</option>
+                                </select>   
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="search pull-left">
+                            <div class="input-group pull-left ">
+                                <input type="text" ng-change="searched = false; infoMsg='';" class="form-control text-box page-search-box ng-valid ng-touched ng-dirty ng-valid-parse" placeholder="Search" ng-model="filterCriteria.searchData" ng-keyup="$event.keyCode == 13 && searchFunction(true)">
+                                <span class="go-search hide" ng-class="{'show':filterCriteria.searchData && !searched}" id="go-searchId">
+                                    <a href="" ng-click="searchFunction(true)"><i class="fa fa-arrow-circle-right"></i></a>
+                                </span>
+
+                                <span class="search-icon"><i class="fa fa-search"></i></span>
+                                <span class="clear-txt hide" ng-class="{'show':filterCriteria.searchData && searched}" id="search-clar-text-id">
+                                    <a href="" ng-click="clearSearch()"><i class="fa fa-times-circle font-gray"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <form>
+                        <ac-grid options="brandGroupGridOptions" filter-criteria="filterCriteria" filter-function="searchFunction" data="brandGroupData" action="action" class="ang-grid"></ac-grid>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END of Sub Content -->
+<div class="modal fade" id="add-brand-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Brand - Add <button type="button" ng-click="closeAddBrand()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="brandForm" class="form-horizontal" ng-submit="create()">
+                            <div class="col-sm-12 uppercase-fix">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandForm.brandGroupCountry.$invalid && submitted)}">
+                                            <select class="form-control" required name="brandGroupCountry" ng-change="initBrandGroups()" ng-options="country.CountryName for country in countries track by country.Id" ng-model="data.brandGroupCountry">
+                                                <option value="">-- Select a Country --</option>
+                                            </select>
+                                            <span id="name-error" ng-show="submitted && brandForm.brandGroupCountry.$invalid && brandForm.brandGroupCountry.$error.required" class="help-block help-block-error">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Group:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandForm.brandGroup.$invalid && submitted)}">
+                                            <select class="form-control" required name="brandGroup" ng-change="setBrandGroup()" ng-options="currentBrandGroup.name for currentBrandGroup in currentBrandGroups track by currentBrandGroup.id" ng-model="data.brandGroup">
+                                                <option value="">-- Select a Brand Group --</option>
+                                            </select>
+                                            <span id="name-error" ng-show="submitted && brandForm.brandGroup.$invalid && brandForm.brandGroup.$error.required" class="help-block help-block-error">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Name:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandForm.name.$invalid && submitted)}">
+                                            <input type="text" placeholder="" data-ac-unique="{conditions:{brandGroupId: data.brandGroup.id}, field:'name', url:'/api/Brand/Validate'}" required name="name" ng-model="brand.name" class="form-control">
+                                            <span id="name-error" ng-show="submitted && brandForm.name.$invalid && brandForm.name.$error.required" class="help-block help-block-error">Required.</span>
+                                            <span id="name-error" ng-show="submitted && brandForm.name.$invalid && brandForm.name.$error.unique" class="help-block help-block-error">The brand –"{{brand.name}}" already exists, enter another one.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group action-area">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <button class="btn btn-primary pull-right" ng-click="addBrand()" type="button">Save</button>
+                                            <button class="btn btn-default pull-right" data-dismiss="modal" ng-click="closeAddBrand()" type="button">Cancel</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="brand-group-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Brand Group - Add <button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="brandGroupForm" class="form-horizontal" ng-submit="create()">
+                            <div class="col-sm-12 uppercase-fix">
+                                <!--{{brandGroup.countryList}}-->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Group:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandGroupForm.name.$invalid && submitted)}">
+                                            <input type=" text" placeholder="" required name="name" ng-model="brandGroup.name" class="form-control">
+                                            <span id="name-error" ng-show="submitted && brandGroupForm.name.$invalid && brandGroupForm.name.$error.required" class="help-block help-block-error">Required.</span>
+                                            <span id="name-error" ng-show="submitted && brandGroupForm.name.$invalid && brandGroupForm.name.$error.unique" class="help-block help-block-error">The brand group – “{{brandGroup.name}}” already exists, enter another one.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <!--{{brandGroup.countryList}}
+                                        {{brandGroup}}-->
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandGroupForm.countryId.$invalid && submitted)}">
+                                            <select chosen options="countries" class="chosen-select" data-placeholder="Select one or more Country" style="width:100%;" required name="countryId" multiple ng-options="country.CountryName for country in countries track by country.Id" ng-model="brandGroup.countryList">
+                                                <option value="">-- Select a Country --</option>
+                                            </select>
+                                            <!-- <input type=" text" placeholder="" required class="form-control" name="countryName" ng-model="brandGroup.countryName" readonly> -->
+                                            <span id="name-error" ng-show="submitted && brandGroupForm.countryId.$invalid && brandGroupForm.countryId.$error.required" class="help-block help-block-error">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Engine Capacity:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (brandGroupForm.engineCapacity.$invalid && submitted)}">
+                                            <select class="form-control" style="width:100%;" required name="engineCapacity" ng-options="cap.range for cap in enginCapacities track by cap.id" ng-change="brandGroup.enginCapacityId = data.enginCapacities.id" ng-model="data.enginCapacities">
+                                                <option value="">-- Select a Engine Capacity --</option>
+                                            </select>
+                                           
+                                            <span id="name-error" ng-show="submitted && brandGroupForm.engineCapacity.$invalid && brandGroupForm.engineCapacity.$error.required" class="help-block help-block-error">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group action-area">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <button class="btn btn-primary pull-right" ng-click="create()" type="button">Save</button>
+                                            <button data-dismiss="modal" class="btn btn-default pull-right" ng-click="close()" type="button">Cancel</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-backdrop="static" class="modal fade" id="add-modal-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Model - {{modelMode}}<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeModel()"><span aria-hidden="true">&times;</span></button></h3>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="modelForm" class="form-horizontal" ng-submit="addModel()">
+                            <div class="col-sm-12 uppercase-fix">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Country:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (modelForm.brandGroupCountry.$invalid && submitted)}">
+                                            <select class="form-control" required name="brandGroupCountry" ng-change="initBrandGroups()" ng-options="country.CountryName for country in countries track by country.Id" ng-model="data.brandGroupCountry">
+                                                <option value="">-- Select a Country --</option>
+                                            </select>
+                                            <span id="name-error" ng-show="submitted && modelForm.brandGroupCountry.$invalid && modelForm.brandGroupCountry.$error.required" class="help-block help-block-error">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Group:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (modelForm.brandGroup.$invalid && submitted)}">
+                                            <select class="form-control" name="brandGroup" required ng-change="loadBrands()" ng-options="currentBrandGroup.name for currentBrandGroup in currentBrandGroups track by currentBrandGroup.id" ng-model="data.brandGroup">
+                                                <option value="">-- Select a Brand Group --</option>
+                                            </select>
+                                            <span id="name-error" ng-show="submitted && modelForm.brandGroup.$invalid && modelForm.brandGroup.$error.required" class="help-block help-block-error">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Brand Name:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (modelForm.brand.$invalid && submitted)}">
+                                            <select class="form-control" required name="brand" ng-change="setNewBrand()" ng-options="brand.name for brand in data.brands track by brand.id" ng-model="data.brand">
+                                                <option value="">-- Select a Brand --</option>
+                                            </select>
+                                            <span id="name-error" ng-show="submitted && modelForm.brand.$invalid && modelForm.brand.$error.required" class="help-block help-block-error">Required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-lg-3 col-md-3 col-sm-4" for=""><strong>Model Name:<span class="red"> *</span></strong></label>
+                                        <div class="col-lg-9 col-md-9 col-sm-8" ng-class="{'has-error' : (modelForm.name.$invalid && submitted)}">
+                                            <input type="text" class="form-control" data-ac-unique="{conditions:{brandId: data.brand.id, brandGroupId: data.brandGroup.id }, field:'name', url:'/api/Model/Validate'}" name="name" required ng-model="model.name">
+                                            <span id="name-error" ng-show="submitted && modelForm.name.$invalid && modelForm.name.$error.required" class="help-block help-block-error">Required.</span>
+                                            <span id="name-error" ng-show="submitted && modelForm.name.$invalid && modelForm.name.$error.unique" class="help-block help-block-error">Model name already exists</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group action-area">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+
+                                            <button class="btn btn-primary pull-right" ng-click="addModel()" type="button">Save</button>
+                                            <button class="btn btn-default pull-right" data-dismiss="modal" ng-click="closeModel()" type="button">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
