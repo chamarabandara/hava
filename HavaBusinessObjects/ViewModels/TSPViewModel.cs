@@ -28,6 +28,7 @@ namespace HavaBusinessObjects.ViewModels
         public int maxLuggages { get; set; }
         public int productId { get; set; }
         public bool isActive { get; set; }
+        public int rowId { get; set; }
     }
 
     public class ProductsViewModel
@@ -36,5 +37,6 @@ namespace HavaBusinessObjects.ViewModels
         public int productId { get; set; }
         public decimal productPrice { get; set; }
         public bool isActive { get; set; }
+        public int rowId { get; set; }
     }
 }

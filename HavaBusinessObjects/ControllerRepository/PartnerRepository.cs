@@ -2,6 +2,9 @@
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace HavaBusinessObjects.ControllerRepository
 {
@@ -75,10 +78,29 @@ namespace HavaBusinessObjects.ControllerRepository
         #endregion
 
 
-        //public JArray GetPartnerProducts(int partnerId)
-        //{
+        public JObject GetPartnerProducts(int partnerId, int locationId)
+        {
+            JObject obj = new JObject();
+            JArray returnArr = new JArray();
+            var partnerProducts = this.ObjContext.PartnerProductRates
+                .Include(x=>x.LocationDetail)
+                .Include(x=>x.PartnerProduct)
+                .Where(a=>a.PartnerId==partnerId && a.LocationId == locationId);
 
-        //}
+            //foreach (var prdRate in partnerProducts)
+            //{
+            //    JObject productObj = new JObject();
+            //    productObj.Add("id", part.Id);
+            //    productObj.Add("name", part.Name);
+            //    productObj.Add("telephone", part.TelLandLine);
+            //    productObj.Add("address", part.FullAddress);
+            //    productObj.Add("email", part.Email);
+            //    returnArr.Add(productObj);
+            //}
+            //obj.Add("data", returnArr);
+
+            return obj;
+        }
 
 
         public bool SavePartner(PartnerViewModel partnerViewModel)

@@ -39,12 +39,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                            Email <span class="required">*</span>
+                                            Email 
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="email" ng-model="tsp.details.email" name="email" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (tspForm.email.$invalid && submitted)}">
+                                            <input type="email" ng-model="tsp.details.email" name="email" class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (tspForm.email.$invalid && submitted)}">
                                             <ul ng-show="tspForm.email.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
-                                                <li class="parsley-required" ng-show="tspForm.email.$error.required">This value is required.</li>
+                                                @*<li class="parsley-required" ng-show="tspForm.email.$error.required">This value is required.</li>*@
                                                 <li class="parsley-required" ng-show="tspForm.email.$error.email">Invalid Email.</li>
                                             </ul>
                                         </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Telephone Mobile</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" ng-model="tsp.details.telephoneMobile" name="telephoneMobile" required class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                            <input type="text" ng-model="tsp.details.telephoneMobile" name="telephoneMobile" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
                                         </div>
                                     </div>
                                 </div>
@@ -232,8 +232,8 @@
                                         </div>
                                         @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
 
-                                        <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
-                                            <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
+                                        <div ng-show="vehicleRequired && submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="vehicleRequired && tsp.vehiclesGridData.length <= 0">Please select at least one vehicle.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -339,8 +339,8 @@
                                         </div>
                                         @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
 
-                                        <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
-                                            <span class="help-block error-label ng-cloak" ng-show="repRequired && tsp.representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
+                                        <div ng-show="productRequired && submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="productRequired && tsp.productGridData.length <= 0">Please select at least one product.</span>
                                         </div>
                                     </div>
                                 </div>

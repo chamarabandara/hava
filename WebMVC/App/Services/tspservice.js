@@ -1,7 +1,7 @@
 ﻿var partnerService = angular.module('tspService', ['ngResource']);
 
 partnerService.factory('HavaTSPService', ['$resource', function ($resource) {
-    return $resource(apiUrl + '/Product', {}, {
+    return $resource(apiUrl + '/TSP', {}, {
         query: { method: 'GET', url: apiUrl + 'api/Invoice/GetAllAdminInvoices', params: { pageNumber: '@pageNumber', sortOrder: '@sortOrder', sortColumn: '@sortColumn', searchData: '@searchData', isActive: '@isActive', pageSize: '@pageSize', isInvoiced: '@isInvoiced', invoiceDate: '@invoiceDate', period: '@period' }, isArray: false },
         queryToBeInvoice: { method: 'GET', url: apiUrl + 'api/Invoice/GetAllAdminInvoices', params: { pageNumber: '@pageNumber', sortOrder: '@sortOrder', sortColumn: '@sortColumn', searchData: '@searchData', isActive: '@isActive', pageSize: '@pageSize', isInvoiced: '@isInvoiced', invoiceDate: '@invoiceDate', period: '@period' }, isArray: false },
         changeInvoicedAdminInvoice: { method: 'POST', url: apiUrl + 'api/Invoice/ChangeInvoicedAdminInvoice' },
@@ -12,6 +12,8 @@ partnerService.factory('HavaTSPService', ['$resource', function ($resource) {
         createProduct: { method: 'POST', url: appUrl + 'Product/Post' },
         create: { method: 'POST', url: appUrl + 'TSP/AddTSP' },
         getProduct: { method: 'GET', url: appUrl + 'TSP/GetProducts' },
+        getTSP: { method: 'GET', url: appUrl + 'TSP/GetTSPById', params: { id: '@id' } },
+        updateTSP:{ method: 'POST', url: appUrl + 'TSP/EditTSP' }
     });
 }]);
 

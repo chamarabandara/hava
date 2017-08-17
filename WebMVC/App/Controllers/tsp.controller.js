@@ -11,9 +11,9 @@
 *
 */
 
-var partnerControllers = angular.module('TSPControllers', ['ngCookies', 'tspService']);
+var tspControllers = angular.module('TSPControllers', ['ngCookies', 'tspService']);
 
-partnerControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout) {
+tspControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout) {
     $scope.create = function () {
         $scope.submitted = true;
         if ($scope.tspForm.$invalid == false) {
@@ -48,7 +48,7 @@ partnerControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '
         //  "processing": true,
         //  "serverSide": true,
         'ajax': {
-            'url': appUrl + 'Partner/GetList',
+            'url': appUrl + 'TSP/GetList',
             'type': 'GET',
             //'beforeSend': function (request) {
             //    //  $("#loadingWidget").css({ display: 'block' });
@@ -149,7 +149,7 @@ partnerControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '
     });
 }]);
 
-partnerControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout, filterFilter) {
+tspControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout, filterFilter) {
 
     $scope.tsp = {};
     $scope.tsp.vehicle = {};
@@ -158,11 +158,21 @@ partnerControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPServi
     $scope.tsp.vehiclesGridData = [];
 
     // intial data
-    HavaTSPService.getProduct().$promise.then(
+         HavaTSPService.getProduct().$promise.then(
               function (result) {
                   $scope.masterProductList = result.masterProducts;
                   $scope.nonMasterProductList = result.nonMasterProducts;
+
+                  if ($stateParams.id) {
+                      HavaTSPService.getTSP({ id: $stateParams.id }).$promise.then(
+                       function (res) {
+                           $scope.tsp.details = res.details;
+                           $scope.tsp.vehiclesGridData = res.vehiclesGridData;
+                           $scope.tsp.productGridData = res.productGridData;
+                       });
+                  }
               });
+
     $scope.userStatus = [
      { 'id': 1, 'name': 'Active' }, { 'id': 0, 'name': 'Inactive' }
     ];
@@ -173,22 +183,24 @@ partnerControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPServi
             $scope.vehicleNoRequired = false;
         else
             $scope.vehicleNoRequired = true;
-
-        $scope.tsp.vehiclesGridData.push({
-            'vehicleNo': (vehicleData.vehicleNo) ? vehicleData.vehicleNo : null,
-            'regNo': (vehicleData.regNo) ? vehicleData.regNo : null,
-            'driverName': vehicleData.driverName,
-            'driverIDDLNo': (vehicleData.driverIDDLNo) ? vehicleData.driverIDDLNo : null,
-            'maxPassengers': vehicleData.maxPassengers,
-            'maxLuggages': vehicleData.maxLuggages,
-            'product': (vehicleData.product) ? vehicleData.product.name : null,
-            'status': (vehicleData.status) ? vehicleData.status.name : null,
-            'productId': (vehicleData.product) ? vehicleData.product.id : null,
-            'id': 0,
-            'rowId': Math.random()
-        });
-        $scope.tsp.vehicle = {};
-        $scope.tsp.vehicle.status = { 'id': 1, 'name': 'Active' };
+        if (!$scope.vehicleNoRequired && vehicleData.regNo) {
+            $scope.tsp.vehiclesGridData.push({
+                'vehicleNo': (vehicleData.vehicleNo) ? vehicleData.vehicleNo : null,
+                'regNo': (vehicleData.regNo) ? vehicleData.regNo : null,
+                'driverName': vehicleData.driverName,
+                'driverIDDLNo': (vehicleData.driverIDDLNo) ? vehicleData.driverIDDLNo : null,
+                'maxPassengers': vehicleData.maxPassengers,
+                'maxLuggages': vehicleData.maxLuggages,
+                'product': (vehicleData.product) ? vehicleData.product.name : null,
+                'status': (vehicleData.status) ? vehicleData.status.name : null,
+                'productId': (vehicleData.product) ? vehicleData.product.id : null,
+                'id': 0,
+                'rowId': Math.random(),
+                'isActive': vehicleData.status.name == "Active" ? true : false,
+            });
+            $scope.tsp.vehicle = {};
+            $scope.tsp.vehicle.status = { 'id': 1, 'name': 'Active' };
+        }
     }
 
     $scope.vehicleGridAction = function (row, task) {
@@ -264,7 +276,8 @@ partnerControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPServi
                 $scope.tsp.productGridData.push({
                     'productPrice': product.productPrice,
                     'productName': product.product.name,
-                    'productId': product.product.id
+                    'productId': product.product.id,
+                    'isActive':true
                 });
             }
             alreadyAdded = false;
@@ -328,26 +341,59 @@ partnerControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPServi
 
     $scope.create = function (tsp) {
         $scope.submitted = true;
-        if ($scope.tspForm.$invalid == false && $scope.tsp.vehiclesGridData.length > 0 && $scope.tsp.productGridData.length > 0) {
-            var tspOBJ = {
-                name: tsp.details.name,
-                address: tsp.details.address,
-                email: tsp.details.email,
-                telephoneLand: tsp.details.telephoneLand,
-                telephoneMobile: tsp.details.telephoneMobile,
-                isActive: true,
-                vehicles: $scope.tsp.vehiclesGridData,
-                products: $scope.tsp.productGridData
+        if ($scope.tspForm.$invalid == false) {
+            if ($scope.tsp.vehiclesGridData.length > 0) {
+                if ($scope.tsp.productGridData.length > 0) {
+                    
+                    if ($stateParams.id) {
+                        var tspOBJ = {
+                            id: $stateParams.id,
+                            name: tsp.details.name,
+                            address: tsp.details.address,
+                            email: tsp.details.email,
+                            telephoneLand: tsp.details.telephoneLand,
+                            telephoneMobile: tsp.details.telephoneMobile,
+                            isActive: true,
+                            vehicles: $scope.tsp.vehiclesGridData,
+                            products: $scope.tsp.productGridData
+                        };
 
-            };
+                        delete tsp.vehiclesGridData;
+                        delete tsp.productGridData
+                        HavaTSPService.updateTSP(tspOBJ).$promise.then(function (data) {
+                            if (data.status == true) {
+                            }
+                        }); 
+                    }
+                    else {
+                        var tspOBJ = {
+                            name: tsp.details.name,
+                            address: tsp.details.address,
+                            email: tsp.details.email,
+                            telephoneLand: tsp.details.telephoneLand,
+                            telephoneMobile: tsp.details.telephoneMobile,
+                            isActive: true,
+                            vehicles: $scope.tsp.vehiclesGridData,
+                            products: $scope.tsp.productGridData
+                        };
 
-            delete tsp.vehiclesGridData;
-            delete tsp.productGridData
-            HavaTSPService.create(tspOBJ).$promise.then(function (data) {
-                if (data.status == true) {
+                        delete tsp.vehiclesGridData;
+                        delete tsp.productGridData
+                        HavaTSPService.create(tspOBJ).$promise.then(function (data) {
+                            if (data.status == true) {
+                            }
+                        });
+                    }
                 }
-            });
-
+                else
+                {
+                    $scope.productRequired = true;
+                }
+            }
+            else {
+                $scope.vehicleRequired = true;
+            }
         }
     }
+
 }]);
