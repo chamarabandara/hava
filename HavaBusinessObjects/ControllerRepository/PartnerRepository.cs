@@ -75,10 +75,10 @@ namespace HavaBusinessObjects.ControllerRepository
         #endregion
 
 
-        public JArray GetPartnerProducts(int partnerId)
-        {
+        //public JArray GetPartnerProducts(int partnerId)
+        //{
 
-        }
+        //}
 
 
         public bool SavePartner(PartnerViewModel partnerViewModel)
