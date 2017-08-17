@@ -14,11 +14,21 @@ namespace HavaBusiness
     
     public partial class LocationDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LocationDetail()
+        {
+            this.PartnerProductRates = new HashSet<PartnerProductRate>();
+        }
+    
         public int Id { get; set; }
         public string name { get; set; }
         public Nullable<int> PartnerId { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string FromLocation { get; set; }
+        public string ToLocation { get; set; }
     
         public virtual Partner Partner { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerProductRate> PartnerProductRates { get; set; }
     }
 }

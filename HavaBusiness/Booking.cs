@@ -18,6 +18,8 @@ namespace HavaBusiness
         public Booking()
         {
             this.BookingProducts = new HashSet<BookingProduct>();
+            this.BookingOptions = new HashSet<BookingOption>();
+            this.BookingPayments = new HashSet<BookingPayment>();
         }
     
         public int Id { get; set; }
@@ -41,10 +43,16 @@ namespace HavaBusiness
         public Nullable<int> PaymentTypeId { get; set; }
         public Nullable<int> PromotionId { get; set; }
         public Nullable<bool> HasPromotions { get; set; }
+        public bool UserConfirmed { get; set; }
+        public Nullable<int> UserId { get; set; }
     
         public virtual BookingStatu BookingStatu { get; set; }
         public virtual BookingType BookingType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingProduct> BookingProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingOption> BookingOptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingPayment> BookingPayments { get; set; }
     }
 }

@@ -23,6 +23,15 @@ namespace HavaBusiness
         public Nullable<bool> IsMarkUp { get; set; }
         public Nullable<decimal> Markup { get; set; }
         public Nullable<decimal> Percentage { get; set; }
+        public Nullable<decimal> AirportRate { get; set; }
+        public Nullable<decimal> HavaPriceReturn { get; set; }
+        public Nullable<decimal> MarketPriceReturn { get; set; }
+        public Nullable<decimal> PartnerSellingPriceReturn { get; set; }
+        public Nullable<decimal> AdditionaDayRate { get; set; }
+        public Nullable<decimal> AdditionaHourRate { get; set; }
+        public Nullable<decimal> ChufferDailyRate { get; set; }
+        public Nullable<decimal> ChufferKMRate { get; set; }
+        public Nullable<decimal> ChildSeatRate { get; set; }
     
         public virtual PartnerProduct PartnerProducts1 { get; set; }
         public virtual PartnerProduct PartnerProduct1 { get; set; }

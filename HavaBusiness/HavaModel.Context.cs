@@ -62,6 +62,10 @@ namespace HavaBusiness
         public virtual DbSet<TSPProduct> TSPProducts { get; set; }
         public virtual DbSet<TSPVehicle> TSPVehicles { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<BookingOption> BookingOptions { get; set; }
+        public virtual DbSet<BookingPayment> BookingPayments { get; set; }
+        public virtual DbSet<Common> Commons { get; set; }
+        public virtual DbSet<PartnerProductRate> PartnerProductRates { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

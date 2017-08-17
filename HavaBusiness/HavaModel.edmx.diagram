@@ -84,6 +84,15 @@
         <AssociationConnector Association="HAVA_DBModel.FK_TSPVehicles_Users1" />
         <AssociationConnector Association="HAVA_DBModel.FK_TSPVehicles_TSP" />
         <EntityTypeShape EntityType="HAVA_DBModel.C__MigrationHistory" Width="1.5" PointX="14.375" PointY="8.75" />
+        <EntityTypeShape EntityType="HAVA_DBModel.BookingOption" Width="1.5" PointX="10.25" PointY="18.875" />
+        <EntityTypeShape EntityType="HAVA_DBModel.BookingPayment" Width="1.5" PointX="10.25" PointY="0.75" />
+        <EntityTypeShape EntityType="HAVA_DBModel.Common" Width="1.5" PointX="15.375" PointY="1.5" />
+        <EntityTypeShape EntityType="HAVA_DBModel.PartnerProductRate" Width="1.5" PointX="17" PointY="8.25" />
+        <AssociationConnector Association="HAVA_DBModel.FK_BookingOptions_Booking" />
+        <AssociationConnector Association="HAVA_DBModel.FK_BookingPayment_Booking" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProductRate_Location" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProductRate_Partner" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProductRate_Product" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

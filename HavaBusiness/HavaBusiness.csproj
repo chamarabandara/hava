@@ -98,6 +98,12 @@
     <Compile Include="Booking.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BookingOption.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookingPayment.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BookingProduct.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
@@ -105,6 +111,9 @@
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BookingType.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ContactType.cs">
@@ -153,6 +162,9 @@
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PartnerProduct.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerProductRate.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PartnerRepresentative.cs">

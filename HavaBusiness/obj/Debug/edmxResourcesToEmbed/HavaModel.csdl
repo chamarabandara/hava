@@ -28,6 +28,10 @@
     <NavigationProperty Name="BookingStatu" Relationship="Self.FK_Booking_BookingStatus" FromRole="Booking" ToRole="BookingStatus" />
     <NavigationProperty Name="BookingType" Relationship="Self.FK_Booking_BookingTypes" FromRole="Booking" ToRole="BookingTypes" />
     <NavigationProperty Name="BookingProducts" Relationship="Self.FK_BookingProducts_Booking" FromRole="Booking" ToRole="BookingProducts" />
+    <Property Name="UserConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="BookingOptions" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="Booking" ToRole="BookingOption" />
+    <NavigationProperty Name="BookingPayments" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="Booking" ToRole="BookingPayment" />
   </EntityType>
   <EntityType Name="BookingProduct">
     <Key>
@@ -112,6 +116,9 @@
     <Property Name="PartnerId" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Partner" Relationship="Self.FK_LocationDetails_Partners" FromRole="LocationDetails" ToRole="Partners" />
+    <Property Name="FromLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ToLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Location" FromRole="LocationDetail" ToRole="PartnerProductRate" />
   </EntityType>
   <EntityType Name="Menue">
     <Key>
@@ -159,6 +166,15 @@
     <NavigationProperty Name="PartnerProducts1" Relationship="Self.FK_PartnerProducts_PartnerProducts" FromRole="PartnerProducts" ToRole="PartnerProducts1" />
     <NavigationProperty Name="PartnerProduct1" Relationship="Self.FK_PartnerProducts_PartnerProducts" FromRole="PartnerProducts1" ToRole="PartnerProducts" />
     <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts1" FromRole="PartnerProduct" ToRole="Partner" />
+    <Property Name="AirportRate" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HavaPriceReturn" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MarketPriceReturn" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PartnerSellingPriceReturn" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AdditionaDayRate" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AdditionaHourRate" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ChufferDailyRate" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ChufferKMRate" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ChildSeatRate" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
   <EntityType Name="PartnerRepresentative">
     <Key>
@@ -204,6 +220,7 @@
     <NavigationProperty Name="PartnerSites1" Relationship="Self.FK_PartnerSites_Partners1" FromRole="Partners" ToRole="PartnerSites" />
     <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts1" FromRole="Partner" ToRole="PartnerProduct" />
     <NavigationProperty Name="PartnerRepresentatives" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Partner" FromRole="Partner" ToRole="PartnerRepresentative" />
+    <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="Partner" ToRole="PartnerProductRate" />
   </EntityType>
   <EntityType Name="PaymentType">
     <Key>
@@ -243,6 +260,7 @@
     <Property Name="ProductImageSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TSPProducts" Relationship="HAVA_DBModel.FK_TSPProducts_Products" FromRole="Product" ToRole="TSPProduct" />
     <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_Products" FromRole="Product" ToRole="TSPVehicle" />
+    <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Product" FromRole="Product" ToRole="PartnerProductRate" />
   </EntityType>
   <EntityType Name="PromotionDiscount">
     <Key>
@@ -1086,6 +1104,30 @@
       <End Role="TSPVehicle" EntitySet="TSPVehicles" />
     </AssociationSet>
     <EntitySet Name="C__MigrationHistory" EntityType="HAVA_DBModel.C__MigrationHistory" />
+    <EntitySet Name="BookingOptions" EntityType="HAVA_DBModel.BookingOption" />
+    <EntitySet Name="BookingPayments" EntityType="HAVA_DBModel.BookingPayment" />
+    <EntitySet Name="Commons" EntityType="HAVA_DBModel.Common" />
+    <EntitySet Name="PartnerProductRates" EntityType="HAVA_DBModel.PartnerProductRate" />
+    <AssociationSet Name="FK_BookingOptions_Booking" Association="HAVA_DBModel.FK_BookingOptions_Booking">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="BookingOption" EntitySet="BookingOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookingPayment_Booking" Association="HAVA_DBModel.FK_BookingPayment_Booking">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="BookingPayment" EntitySet="BookingPayments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerProductRate_Location" Association="HAVA_DBModel.FK_PartnerProductRate_Location">
+      <End Role="LocationDetail" EntitySet="LocationDetails" />
+      <End Role="PartnerProductRate" EntitySet="PartnerProductRates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerProductRate_Partner" Association="HAVA_DBModel.FK_PartnerProductRate_Partner">
+      <End Role="Partner" EntitySet="Partners" />
+      <End Role="PartnerProductRate" EntitySet="PartnerProductRates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerProductRate_Product" Association="HAVA_DBModel.FK_PartnerProductRate_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="PartnerProductRate" EntitySet="PartnerProductRates" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -1319,4 +1361,113 @@
     <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="BookingOption">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookingId" Type="Int32" Nullable="false" />
+    <Property Name="FlightNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FlyerProgramId" Type="Int32" />
+    <Property Name="FlyerReffNo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PickupSign" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="PickupSignReffNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NoteToDriver" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="BookingOption" ToRole="Booking" />
+  </EntityType>
+  <EntityType Name="BookingPayment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookingId" Type="Int32" Nullable="false" />
+    <Property Name="CardHolderName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ExpireDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CardNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="BookingPayment" ToRole="Booking" />
+  </EntityType>
+  <EntityType Name="Common">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PartnerProductRate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartnerId" Type="Int32" Nullable="false" />
+    <Property Name="LocationId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="LocationDetail" Relationship="HAVA_DBModel.FK_PartnerProductRate_Location" FromRole="PartnerProductRate" ToRole="LocationDetail" />
+    <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="PartnerProductRate" ToRole="Partner" />
+    <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_PartnerProductRate_Product" FromRole="PartnerProductRate" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_BookingOptions_Booking">
+    <End Type="HAVA_DBModel.Booking" Role="Booking" Multiplicity="1" />
+    <End Type="HAVA_DBModel.BookingOption" Role="BookingOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingOption">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookingPayment_Booking">
+    <End Type="HAVA_DBModel.Booking" Role="Booking" Multiplicity="1" />
+    <End Type="HAVA_DBModel.BookingPayment" Role="BookingPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingPayment">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerProductRate_Location">
+    <End Type="HAVA_DBModel.LocationDetail" Role="LocationDetail" Multiplicity="1" />
+    <End Type="HAVA_DBModel.PartnerProductRate" Role="PartnerProductRate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LocationDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerProductRate">
+        <PropertyRef Name="LocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerProductRate_Partner">
+    <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="1" />
+    <End Type="HAVA_DBModel.PartnerProductRate" Role="PartnerProductRate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerProductRate">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerProductRate_Product">
+    <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="HAVA_DBModel.PartnerProductRate" Role="PartnerProductRate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerProductRate">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
