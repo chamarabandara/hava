@@ -75,6 +75,12 @@ namespace HavaBusinessObjects.ControllerRepository
         #endregion
 
 
+        public JArray GetPartnerProducts(int partnerId)
+        {
+
+        }
+
+
         public bool SavePartner(PartnerViewModel partnerViewModel)
         {
             bool isSuccess = false;

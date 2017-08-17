@@ -22,8 +22,8 @@ namespace HavaBusiness
             this.PartnerCommissions = new HashSet<PartnerCommission>();
             this.PartnerSites = new HashSet<PartnerSite>();
             this.PartnerSites1 = new HashSet<PartnerSite>();
-            this.PartnerProducts = new HashSet<PartnerProduct>();
             this.PartnerRepresentatives = new HashSet<PartnerRepresentative>();
+            this.PartnerProducts = new HashSet<PartnerProduct>();
             this.PartnerProductRates = new HashSet<PartnerProductRate>();
         }
     
@@ -55,9 +55,9 @@ namespace HavaBusiness
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerSite> PartnerSites1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerRepresentative> PartnerRepresentatives { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProductRate> PartnerProductRates { get; set; }
     }

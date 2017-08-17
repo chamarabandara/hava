@@ -17,11 +17,26 @@ namespace HavaBusiness
         public int Id { get; set; }
         public int PartnerId { get; set; }
         public int LocationId { get; set; }
-        public int ProductId { get; set; }
+        public int PartnerProductId { get; set; }
         public Nullable<decimal> Rate { get; set; }
+        public Nullable<decimal> HavaPrice { get; set; }
+        public Nullable<decimal> MarketPrice { get; set; }
+        public Nullable<decimal> PartnerSellingPrice { get; set; }
+        public Nullable<bool> IsMarkUp { get; set; }
+        public Nullable<decimal> Markup { get; set; }
+        public Nullable<decimal> Percentage { get; set; }
+        public Nullable<decimal> AirportRate { get; set; }
+        public Nullable<decimal> HavaPriceReturn { get; set; }
+        public Nullable<decimal> MarketPriceReturn { get; set; }
+        public Nullable<decimal> PartnerSellingPriceReturn { get; set; }
+        public Nullable<decimal> AdditionaDayRate { get; set; }
+        public Nullable<decimal> AdditionaHourRate { get; set; }
+        public Nullable<decimal> ChufferDailyRate { get; set; }
+        public Nullable<decimal> ChufferKMRate { get; set; }
+        public Nullable<decimal> ChildSeatRate { get; set; }
     
         public virtual LocationDetail LocationDetail { get; set; }
         public virtual Partner Partner { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual PartnerProduct PartnerProduct { get; set; }
     }
 }
