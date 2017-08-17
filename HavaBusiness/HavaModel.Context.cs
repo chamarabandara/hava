@@ -62,13 +62,6 @@ namespace HavaBusiness
         public virtual DbSet<TSPProduct> TSPProducts { get; set; }
         public virtual DbSet<TSPVehicle> TSPVehicles { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<ApplicationGroup> ApplicationGroups { get; set; }
-        public virtual DbSet<AspNetClient> AspNetClients { get; set; }
-        public virtual DbSet<AspNetRefreshToken> AspNetRefreshTokens { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -95,27 +95,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationGroup.cs">
-      <DependentUpon>HavaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetClient.cs">
-      <DependentUpon>HavaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetRefreshToken.cs">
-      <DependentUpon>HavaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetRole.cs">
-      <DependentUpon>HavaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUser.cs">
-      <DependentUpon>HavaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>HavaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>HavaModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Booking.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>

@@ -36,3 +36,13 @@ D:\havaapp\HavaApp\HavaBusiness\bin\EntityFramework.SqlServer.xml
 D:\havaapp\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.csprojResolveAssemblyReference.cache
 D:\havaapp\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.dll
 D:\havaapp\HavaApp\HavaBusiness\obj\Debug\HavaBusiness.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\HavaBusiness.dll.config
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\HavaBusiness.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\HavaBusiness.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\EntityFramework.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\EntityFramework.SqlServer.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\EntityFramework.xml
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\EntityFramework.SqlServer.xml
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.csprojResolveAssemblyReference.cache
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.pdb

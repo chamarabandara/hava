@@ -44,3 +44,17 @@ D:\havaapp\HavaApp\HavaBusinessObjects\bin\System.Web.Http.xml
 D:\havaapp\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
 D:\havaapp\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
 D:\havaapp\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusiness.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\Newtonsoft.Json.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Web.Http.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusiness.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\Newtonsoft.Json.xml
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Web.Http.xml
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
