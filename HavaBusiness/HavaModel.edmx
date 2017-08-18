@@ -167,7 +167,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="500" />
           <Property Name="PartnerId" Type="int" />
           <Property Name="IsActive" Type="bit" />
@@ -232,7 +232,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" />
           <Property Name="PartnerId" Type="int" />
           <Property Name="HavaPrice" Type="money" />
@@ -384,7 +384,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary 
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="siteName" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="siteAlias" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
