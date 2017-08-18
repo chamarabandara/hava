@@ -27,7 +27,6 @@ namespace HavaBusiness
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BookingProduct> BookingProducts { get; set; }
         public virtual DbSet<BookingStatu> BookingStatus { get; set; }
         public virtual DbSet<BookingType> BookingTypes { get; set; }
         public virtual DbSet<ContactType> ContactTypes { get; set; }
@@ -66,6 +65,7 @@ namespace HavaBusiness
         public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<PartnerProductRate> PartnerProductRates { get; set; }
+        public virtual DbSet<BookingProduct> BookingProducts { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

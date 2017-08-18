@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
+using HavaBusinessObjects.Utilities;
+using AutoMapper;
 
 namespace HavaBusinessObjects.ControllerRepository
 {
@@ -78,28 +80,26 @@ namespace HavaBusinessObjects.ControllerRepository
         #endregion
 
 
-        public JObject GetPartnerProducts(int partnerId, int locationId)
+        public List<PartnerProductRateViewModel> GetPartnerProducts(int partnerId, int locationId)
         {
-            JObject obj = new JObject();
-            JArray returnArr = new JArray();
-            var partnerProducts = this.ObjContext.PartnerProductRates
-                .Include(x=>x.LocationDetail)
-                .Include(x=>x.PartnerProduct)
-                .Where(a=>a.PartnerId==partnerId && a.LocationId == locationId);
+            try
+            {
+                JObject obj = new JObject();
+                JArray returnArr = new JArray();
+                var partnerProducts = this.ObjContext.PartnerProductRates
+                    .Include(x => x.LocationDetail)
+                    .Include(x => x.PartnerProduct)
+                    .Where(a => a.PartnerId == partnerId && a.LocationId == locationId).ToList();
 
-            //foreach (var prdRate in partnerProducts)
-            //{
-            //    JObject productObj = new JObject();
-            //    productObj.Add("id", part.Id);
-            //    productObj.Add("name", part.Name);
-            //    productObj.Add("telephone", part.TelLandLine);
-            //    productObj.Add("address", part.FullAddress);
-            //    productObj.Add("email", part.Email);
-            //    returnArr.Add(productObj);
-            //}
-            //obj.Add("data", returnArr);
+                var partnerRouteProducts = Mapper.Map<List<PartnerProductRate>, List<PartnerProductRateViewModel>>(partnerProducts);
 
-            return obj;
+                return partnerRouteProducts;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
 

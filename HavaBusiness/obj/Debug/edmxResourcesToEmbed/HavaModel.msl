@@ -1,16 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="HAVA_DBModelStoreContainer" CdmEntityContainer="HAVA_DBModelEntities">
-    <EntitySetMapping Name="BookingProducts">
-      <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
-        <MappingFragment StoreEntitySet="BookingProducts">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="BookingStatus">
       <EntityTypeMapping TypeName="HAVA_DBModel.BookingStatu">
         <MappingFragment StoreEntitySet="BookingStatus">
@@ -567,6 +557,23 @@
           <ScalarProperty Name="PartnerProductId" ColumnName="PartnerProductId" />
           <ScalarProperty Name="LocationId" ColumnName="LocationId" />
           <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingProducts">
+      <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
+        <MappingFragment StoreEntitySet="BookingProducts">
+          <ScalarProperty Name="ChildSeatDays" ColumnName="ChildSeatDays" />
+          <ScalarProperty Name="NoOfChildSeats" ColumnName="NoOfChildSeats" />
+          <ScalarProperty Name="AdditionalChufferHours" ColumnName="AdditionalChufferHours" />
+          <ScalarProperty Name="AdditionalChufferDate" ColumnName="AdditionalChufferDate" />
+          <ScalarProperty Name="AdditionalHours" ColumnName="AdditionalHours" />
+          <ScalarProperty Name="AdditionalDays" ColumnName="AdditionalDays" />
+          <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

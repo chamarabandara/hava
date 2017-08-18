@@ -204,3 +204,5 @@ E:\Udayangana\Per\Hava APP\HAVA_Live\hava\WebMVC\bin\Microsoft.Owin.Security.Twi
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\WebMVC\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\WebMVC\obj\Debug\WebMVC.dll
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\WebMVC\obj\Debug\WebMVC.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\WebMVC\bin\AutoMapper.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\WebMVC\bin\AutoMapper.xml

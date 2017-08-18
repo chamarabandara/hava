@@ -46,3 +46,5 @@ E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\EntityFramework.SqlSe
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.csprojResolveAssemblyReference.cache
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.dll
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\AutoMapper.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\AutoMapper.xml

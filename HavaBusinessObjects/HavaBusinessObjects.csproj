@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\HAVA\ChessMaster\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -75,6 +79,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -86,14 +91,19 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerRepository\BookingRepository.cs" />
     <Compile Include="ControllerRepository\PartnerRepository.cs" />
     <Compile Include="ControllerRepository\SitesRepository.cs" />
     <Compile Include="ControllerRepository\ProductRepository.cs" />
     <Compile Include="ControllerRepository\TSPRepository.cs" />
     <Compile Include="ControllerRepository\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\AutoMapperMap.cs" />
     <Compile Include="Utilities\FileUploadService.cs" />
     <Compile Include="Utilities\Utility.cs" />
+    <Compile Include="ViewModels\BookingViewModel.cs" />
+    <Compile Include="ViewModels\LocationDetailViewModel.cs" />
+    <Compile Include="ViewModels\PartnerProductRateViewModel.cs" />
     <Compile Include="ViewModels\SitesViewModel.cs" />
     <Compile Include="ViewModels\PartnerViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />

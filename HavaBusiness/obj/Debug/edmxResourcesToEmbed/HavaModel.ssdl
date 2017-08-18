@@ -72,6 +72,13 @@
     <Property Name="BookingId" Type="int" />
     <Property Name="ProductId" Type="int" />
     <Property Name="Price" Type="money" />
+    <Property Name="IsAirPortTour" Type="bit" Nullable="false" />
+    <Property Name="AdditionalDays" Type="int" />
+    <Property Name="AdditionalHours" Type="int" />
+    <Property Name="AdditionalChufferDate" Type="int" />
+    <Property Name="AdditionalChufferHours" Type="int" />
+    <Property Name="NoOfChildSeats" Type="int" />
+    <Property Name="ChildSeatDays" Type="int" />
   </EntityType>
   <EntityType Name="BookingStatus">
     <Key>
@@ -230,14 +237,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Property Name="Markup" Type="money" />
     <Property Name="Percentage" Type="decimal" Precision="6" Scale="2" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'HAVA_DB.dbo.PartnerProductTerms' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="PartnerProductTerms">
-          <Property Name="ProductId" Type="int" />
-          <Property Name="PartnerId" Type="int" />
-          <Property Name="IsActive" Type="nchar" MaxLength="10" />
-          <Property Name="TermId" Type="int" />
-        </EntityType>-->
   <EntityType Name="PartnerRepresentative">
     <Key>
       <PropertyRef Name="Id" />

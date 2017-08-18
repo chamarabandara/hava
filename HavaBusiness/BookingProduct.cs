@@ -18,6 +18,13 @@ namespace HavaBusiness
         public Nullable<int> BookingId { get; set; }
         public Nullable<int> ProductId { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public bool IsAirPortTour { get; set; }
+        public Nullable<int> AdditionalDays { get; set; }
+        public Nullable<int> AdditionalHours { get; set; }
+        public Nullable<int> AdditionalChufferDate { get; set; }
+        public Nullable<int> AdditionalChufferHours { get; set; }
+        public Nullable<int> NoOfChildSeats { get; set; }
+        public Nullable<int> ChildSeatDays { get; set; }
     
         public virtual Booking Booking { get; set; }
     }

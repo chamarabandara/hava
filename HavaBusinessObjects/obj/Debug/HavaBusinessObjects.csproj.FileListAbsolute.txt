@@ -58,3 +58,5 @@ E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Web.Htt
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\AutoMapper.dll
+E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\AutoMapper.xml
