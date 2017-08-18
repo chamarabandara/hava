@@ -445,6 +445,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 {
                     JObject product = new JObject();
                     product.Add("isActive" , prod.IsActive);
+                    product.Add("status" , prod.IsActive == true ? "Active" : "Inactive");
                     product.Add("productPrice" , prod.ProductPrice == null ? 0 : prod.ProductPrice);
                     product.Add("productId" , prod.ProductId);
                     product.Add("productName" , prod.ProductId == null ? string.Empty : prod.Product.Name);

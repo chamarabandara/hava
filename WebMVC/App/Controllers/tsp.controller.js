@@ -101,8 +101,9 @@ tspControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$sta
             $state.go('^.update', { 'id': row.id });
 
         } else if (task == 'view') {
-            var url = $state.href('app.site', { 'id': row.id });
-            $window.open(url, '_blank');
+            //var url = $state.href('app.tsp', { 'id': row.id });
+            //$window.open(url, '_blank');
+            $state.go('^.view', { 'id': row.id });
 
 
         } else if (task == 'copy') {
@@ -397,3 +398,21 @@ tspControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPService',
     }
 
 }]);
+
+tspControllers.controller('TSPViewCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout) {
+    $scope.tsp = {};
+    $scope.tsp.vehicle = {};
+    $scope.tsp.product = {};
+    if ($stateParams.id) {
+        HavaTSPService.getTSP({ id: $stateParams.id }).$promise.then(
+         function (res) {
+             $scope.tsp.details = res.details;
+             $scope.tsp.vehiclesGridData = res.vehiclesGridData;
+             $scope.tsp.productGridData = res.productGridData;
+         });
+    }
+    $scope.goToUpdate = function () {
+        $state.go('^.update', { 'id': $stateParams.id });
+    }
+}]);
+

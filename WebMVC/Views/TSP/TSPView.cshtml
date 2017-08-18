@@ -3,5 +3,355 @@
     ViewBag.Title = "PartnerView";
 }
 
-<h2>PartnerView</h2>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Transport Service Provider</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display: block;">
+                <br>
+                <form id="tspForm" name="tspForm" class="form-horizontal form-label-left" novalidate>
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">TSP Details</a> </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <label>{{tsp.details.name}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Full Address <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <label>{{tsp.details.address}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Email
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <label>{{tsp.details.email}}</label>
+                                        </div>
+                                    </div>
 
+                                </div>
+                                <div class="col-md-6 col-sm-6 margin-top">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Telephone Landline <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <label>{{tsp.details.telephoneLand}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Telephone Mobile</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <label>{{tsp.details.telephoneMobile}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Vehicle Details</a> </h4>
+                            </div>
+                            <div>
+                                @*<div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group" ng-class="{'has-error' : (vehicleNoRequired && submittedRep)}">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Vehicle No:<span class="red" ng-show="vehicleNoRequired && submittedRep"> *</span></strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="tsp.vehicle.vehicleNo" maxlength="300" ng-keypress="vehicleNoRequired = false;">
+                                                <div ng-show="vehicleNoRequired && submittedRep" class="ng-hide ng-cloak">
+                                                    <span class="help-block error-label ng-cloak ng-hide" ng-show="vehicleNoRequired">Required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Registration No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="tsp.vehicle.regNo" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Driver Name:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="tsp.vehicle.driverName" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Driver ID/ DL No:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="tsp.vehicle.driverIDDLNo" maxlength="20">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 margin-top">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Max Pasengers:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="number" placeholder="" class="form-control" ng-model="tsp.vehicle.maxPassengers" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Max Luggages:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="number" placeholder="" class="form-control" ng-model="tsp.vehicle.maxLuggages" maxlength="20">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="prod.name for prod in masterProductList track by prod.id" ng-model="tsp.vehicle.product">
+                                                    <option value="">-- Select a Product --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Status:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="stat.name for stat in userStatus track by stat.id" ng-model="tsp.vehicle.status">
+                                                     <option value="">-- Select a Status --</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addVehicle(tsp.vehicle)" ng-hide="updateVehicle">Save</button>
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="updateVehicleFunc(tsp.vehicle)" ng-show="updateVehicle">Update</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteVehicle'">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <span>
+                                                            You are about to delete ' {{vehicleRow.vehicleNo}} ', do you want to proceed?
+                                                        </span>
+                                                        <span class="info-btn">
+                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteVehicle(vehicleRow)">Delete</button>
+                                                            <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteVehicle">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <span>{{infoMsgDeleteVehicle}}</span>
+                                                    <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Vehicle No</th>
+                                                        <th>Registration No</th>
+                                                        <th>Driver Name</th>
+                                                        <th>Driver ID/ DL No</th>
+                                                        <th>Max Pasengers</th>
+                                                        <th>Max Luggages</th>
+                                                        <th>Product</th>
+                                                        <th>Status</th>
+                                                        <th ng-if="superUserEnabled">Is Super User</th>
+                                                        @*<th></th>*@
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click" ng-repeat="cData in tsp.vehiclesGridData">
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.vehicleNo">{{cData.vehicleNo}}</a><span ng-hide="cData.vehicleNo"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.regNo">{{cData.regNo}}</a><span ng-hide="cData.regNo"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.driverName">{{cData.driverName}}</a><span ng-hide="cData.driverName"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.driverIDDLNo">{{cData.driverIDDLNo}}</a><span ng-hide="cData.driverIDDLNo"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.maxPassengers">{{cData.maxPassengers}}</a><span ng-hide="cData.maxPassengers"><left>-</left></span></td>
+                                                        <td style="width:8%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.maxLuggages">{{cData.maxLuggages}}</a><span ng-hide="cData.maxLuggages"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.product">{{cData.product}}</a><span ng-hide="cData.product"><left>-</left></span></td>
+                                                        <td style="width:8%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.status">{{cData.status}}</a><span ng-hide="cData.status"><left>-</left></span></td>
+                                                        <td ng-if="superUserEnabled" style="width:9%;">
+                                                            <input type="checkbox" id="rvh{{cData.id}}" ng-model="cData.isSuperuser" name="checkbox-demo-v"><label for="rvh{{cData.id}}" class="font-gray italic"></label>
+                                                        </td>
+                                                        @*<td style="width:5%;" class="action">
+                                                            <a class="link-action" ng-click="vehicleGridAction(cData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>
+                                                            <a class="link-action" ng-click="vehicleGridAction(cData, 'delete')" id="test_action_product"><i class="access-link fa fa-trash"></i></a>
+
+                                                        </td>*@
+                                                    </tr>
+                                                    <tr class="odd gradeX" ng-hide="tsp.vehiclesGridData.length > 0">
+                                                        <td colspan="10">
+                                                            <center>No results found.</center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
+
+                                        @*<div ng-show="vehicleRequired && submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="vehicleRequired && tsp.vehiclesGridData.length <= 0">Please select at least one vehicle.</span>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Products Details</a> </h4>
+                            </div>
+                            <div>
+                                @*<div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="prod.name for prod in nonMasterProductList track by prod.id" ng-model="tsp.product.product">
+                                                    <option value="">-- Select a Product --</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product Price:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="tsp.product.productPrice" maxlength="300">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProducts(tsp.product)" ng-hide="updateProduct">Save</button>
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="updateProductFunc(tsp.product)" ng-show="updateProduct">Update</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteProduct'">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <span>
+                                                            You are about to delete ' {{productRow.productName}} ', do you want to proceed?
+                                                        </span>
+                                                        <span class="info-btn">
+                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteProduct(productRow)">Delete</button>
+                                                            <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteProduct">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <span>{{infoMsgDeleteProduct}}</span>
+                                                    <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Product Price</th>
+                                                        <th>Status</th>
+                                                        @*<th></th>*@
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click" ng-repeat="pData in tsp.productGridData">
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.productName">{{pData.productName}}</a><span ng-hide="pData.productName"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.productPrice">{{pData.productPrice}}</a><span ng-hide="pData.productPrice"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.status">{{pData.status}}</a><span ng-hide="pData.status"><left>-</left></span></td>
+                                                        @*<td style="width:5%;" class="action">
+                                                            <a class="link-action" ng-click="priductViewAction(pData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>
+                                                            <a class="link-action" ng-click="priductViewAction(pData, 'delete')" id="test_action_product"><i class="access-link fa fa-trash"></i></a>
+                                                        </td>*@
+                                                    </tr>
+                                                    <tr class="odd gradeX" ng-hide="tsp.productGridData.length > 0">
+                                                        <td colspan="8">
+                                                            <center>No results found.</center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
+
+                                        @*<div ng-show="productRequired && submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="productRequired && tsp.productGridData.length <= 0">Please select at least one product.</span>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button class="btn btn-primary" type="button" ui-sref="^.list">Cancel</button>
+                            <button class="btn btn-primary" type="button" ng-click="goToUpdate()">Edit</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

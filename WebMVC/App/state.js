@@ -262,6 +262,20 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
           }
 
       })
+        .state('app.tsp.view', {
+            url: '/{id:int}/view',
+            templateUrl: 'TSP/TSPView',
+            controller: function ($scope, $stateParams, $controller) { $controller("TSPViewCtrl", { $scope: $scope }); },
+            resolve: {
+                loadMyController: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                    return $ocLazyLoad.load('tspControllers');
+                }],
+                loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                    return $ocLazyLoad.load(['tspService']);
+                }],
+
+            }
+        })
          .state('app.product', {
              url: '/product',
              templateUrl: 'Product/Index',
