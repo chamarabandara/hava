@@ -1,7 +1,4 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace HavaBusinessObjects.ViewModels
 {
@@ -15,6 +12,7 @@ namespace HavaBusinessObjects.ViewModels
         public string telephoneMobile { get; set; }
         public List<RepresentativeViewModel> representativeData { get; set; }
         public List<PartnerProductViewModel> productGridData { get; set; }
+        public List<PartnerSitesViewModel> siteGridData { get; set; }
 
     }
 
@@ -41,5 +39,8 @@ namespace HavaBusinessObjects.ViewModels
         public int productId { get; set; }
     }
 
-
+    public class PartnerSitesViewModel
+    {
+        public int id { get; set; }
+    }
 }

@@ -12,6 +12,7 @@ partnerService.factory('HavaPartnerService', ['$resource', function ($resource) 
         createProduct: { method: 'POST', url: appUrl + 'Product/Post' },
         create: { method: 'POST', url: appUrl + 'Partner/Post' },
         getProduct: { method: 'GET', url: appUrl + 'Partner/GetProductList' },
+        getSites: { method: 'GET', url: appUrl + 'Partner/GetSites' },
     });
 }]);
 

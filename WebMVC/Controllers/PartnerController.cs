@@ -46,6 +46,15 @@ namespace HavaWeb.Controllers
             return partnerRepository.GetProduct();
         }
 
+        [HttpGet]
+        public JObject GetSites()
+        {
+
+            SitesRepository siteRepository = new SitesRepository();
+
+            return siteRepository.GetPartner();
+        }
+
         #region add Product
         /// <summary>
         /// Adds the specified Product.
@@ -63,7 +72,7 @@ namespace HavaWeb.Controllers
                 JObject obj = new JObject();
                 PartnerRepository partnerRepository = new PartnerRepository();
                 bool status = partnerRepository.SavePartner(partnerViewModel);
-                obj.Add("status", status);
+                obj.Add("status" , status);
                 return obj;
 
             }

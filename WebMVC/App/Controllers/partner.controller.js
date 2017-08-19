@@ -164,6 +164,11 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
               function (result) {
                   $scope.productList = result.data;
               });
+
+     HavaPartnerService.getSites().$promise.then(
+              function (result) {
+                  $scope.siteList = result.data;
+              });
     //status
     $scope.userStatus = [
      { 'id': 1, 'name': 'Active' }, { 'id': 0, 'name': 'Inactive' }
@@ -371,11 +376,49 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         console.log($scope.productGridData);
     }
 
+    $scope.deleteSite = function(row){
+        $scope.siteRow = row;
+        $scope.viewTask = 'confirmDeleteProduct';
+    }
+    $scope.confirmDeleteSite = function (row) {
+        var ky = null;
+        angular.forEach($scope.siteGridData, function (v, k) {
+            if (row.id == v.id) {
+                ky = k;
+            }
+        });
+        $scope.siteGridData.splice(ky, 1);
+
+        $scope.viewTask = '';
+        $scope.infoMsgDeleteSite = "'" + row.name + "' has been deleted successfully.";
+        $timeout(function () { $scope.infoMsgDeleteSite = ''; }, 1000);
+    }
+
+    $scope.siteGridData = [];
+    $scope.addSite = function (site) {
+    var alreadyAdded = false;
+        if (site != null || site != undefined){
+            angular.forEach($scope.siteGridData, function (v, k) {
+                    if (site.id == v.id)
+                        alreadyAdded = true;
+                });
+            if (!alreadyAdded) {
+                $scope.siteGridData.push({
+                    'id': site.id,
+                    'name': site.name,
+                
+                });
+            }
+            }
+            console.log($scope.siteGridData)
+    }
+
     $scope.create = function (partner) {
         $scope.submitted = true;
         if ($scope.partnerForm.$invalid == false) {
             partner.representativeData = $scope.representativeGridData;
             partner.productGridData = $scope.productGridData;
+            partner.siteGridData = $scope.siteGridData;
             HavaPartnerService.create(partner).$promise.then(function (data) {
                 if (data.status == true) {
                 }

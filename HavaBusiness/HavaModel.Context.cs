@@ -54,7 +54,6 @@ namespace HavaBusiness
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<VehicleType> VehicleTypes { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
-        public virtual DbSet<PartnerSite> PartnerSites { get; set; }
         public virtual DbSet<TSP> TSPs { get; set; }
         public virtual DbSet<TSPProduct> TSPProducts { get; set; }
         public virtual DbSet<TSPVehicle> TSPVehicles { get; set; }
@@ -66,6 +65,7 @@ namespace HavaBusiness
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<PartnerProductRate> PartnerProductRates { get; set; }
         public virtual DbSet<BookingProduct> BookingProducts { get; set; }
+        public virtual DbSet<PartnerSite> PartnerSites { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

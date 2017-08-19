@@ -448,6 +448,102 @@
 
                         </div>
                     </div>
+
+                    <div class="row">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Sites Details</a> </h4>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Site:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="site.name for site in siteList track by site.id" ng-model="site.site">
+                                                    <option value="">-- Select a Site --</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                    
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-6">
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addSite(site.site)" >Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteSite'">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <span>
+                                                            You are about to delete ' {{siteRow.name}} ', do you want to proceed?
+                                                        </span>
+                                                        <span class="info-btn">
+                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteSite(repRow)">Delete</button>
+                                                            <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteSite">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <span>{{infoMsgDeleteSite}}</span>
+                                                    <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Site Name</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click" ng-repeat="pData in siteGridData">
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.name">{{pData.name}}</a><span ng-hide="pData.name"><left>-</left></span></td>    
+                                                        <td style="width:5%;" class="action">
+                                                            <a class="link-action" ng-click="confirmDeleteSite(pData)" id="test_action_product"><i class="access-link fa fa-trash"></i></a>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="odd gradeX" ng-hide="siteGridData.length > 0">
+                                                        <td colspan="8">
+                                                            <center>No results found.</center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
+
+                                        @*<div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

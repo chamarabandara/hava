@@ -2,10 +2,8 @@
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
@@ -67,12 +65,12 @@ namespace HavaBusinessObjects.ControllerRepository
 
                         var name = Path.GetFileNameWithoutExtension(sitesViewModel.productLogoImage.name);
                         var ext = Path.GetExtension(sitesViewModel.productLogoImage.name);
-                        var generatedName = new StringBuilder().Append(name).Append("_").Append(Guid.NewGuid().ToString().Substring(0, 4)).Append(ext).ToString();
+                        var generatedName = new StringBuilder().Append(name).Append("_").Append(Guid.NewGuid().ToString().Substring(0 , 4)).Append(ext).ToString();
 
                         using (WebClient client = new WebClient())
                         {
                             client.UseDefaultCredentials = true;
-                            client.DownloadFile(new Uri(sitesViewModel.productLogoImage.documentPath), fileNameBuilder.Append(HttpContext.Current.Server.MapPath("~" + productLogoImagePath)).Append(generatedName).ToString());
+                            client.DownloadFile(new Uri(sitesViewModel.productLogoImage.documentPath) , fileNameBuilder.Append(HttpContext.Current.Server.MapPath("~" + productLogoImagePath)).Append(generatedName).ToString());
                             File.Delete(sitesViewModel.productLogoImage.documentPath);
 
                             if (!string.IsNullOrEmpty(objSites.SiteBannerPath))
@@ -118,13 +116,13 @@ namespace HavaBusinessObjects.ControllerRepository
             foreach (var part in partner)
             {
                 JObject sitesObj = new JObject();
-                sitesObj.Add("id", part.Id);
-                sitesObj.Add("name", part.siteName);
-                sitesObj.Add("code", part.siteAlias);
+                sitesObj.Add("id" , part.Id);
+                sitesObj.Add("name" , part.siteName);
+                sitesObj.Add("code" , part.siteAlias);
 
                 returnArr.Add(sitesObj);
             }
-            obj.Add("data", returnArr);
+            obj.Add("data" , returnArr);
             return obj;
         }
         #endregion

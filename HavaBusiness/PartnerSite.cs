@@ -14,11 +14,11 @@ namespace HavaBusiness
     
     public partial class PartnerSite
     {
+        public int ID { get; set; }
         public int PartnerId { get; set; }
         public int SiteId { get; set; }
     
         public virtual Partner Partner { get; set; }
-        public virtual Partner Partner1 { get; set; }
         public virtual Site Site { get; set; }
     }
 }

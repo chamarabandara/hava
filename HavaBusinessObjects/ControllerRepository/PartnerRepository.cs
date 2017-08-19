@@ -1,12 +1,11 @@
-﻿using HavaBusiness;
+﻿using AutoMapper;
+using HavaBusiness;
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
-using HavaBusinessObjects.Utilities;
-using AutoMapper;
+using System.Linq;
 
 namespace HavaBusinessObjects.ControllerRepository
 {
@@ -42,14 +41,14 @@ namespace HavaBusinessObjects.ControllerRepository
             foreach (var part in partner)
             {
                 JObject productObj = new JObject();
-                productObj.Add("id", part.Id);
-                productObj.Add("name", part.Name);
-                productObj.Add("telephone", part.TelLandLine);
-                productObj.Add("address", part.FullAddress);
-                productObj.Add("email", part.Email);
+                productObj.Add("id" , part.Id);
+                productObj.Add("name" , part.Name);
+                productObj.Add("telephone" , part.TelLandLine);
+                productObj.Add("address" , part.FullAddress);
+                productObj.Add("email" , part.Email);
                 returnArr.Add(productObj);
             }
-            obj.Add("data", returnArr);
+            obj.Add("data" , returnArr);
             return obj;
         }
         #endregion
@@ -68,19 +67,19 @@ namespace HavaBusinessObjects.ControllerRepository
             foreach (var part in product)
             {
                 JObject productObj = new JObject();
-                productObj.Add("id", part.Id);
-                productObj.Add("name", part.Name);
-                productObj.Add("code", part.Code);
-                productObj.Add("imagePath", part.ProductImagePath);
+                productObj.Add("id" , part.Id);
+                productObj.Add("name" , part.Name);
+                productObj.Add("code" , part.Code);
+                productObj.Add("imagePath" , part.ProductImagePath);
                 returnArr.Add(productObj);
             }
-            obj.Add("data", returnArr);
+            obj.Add("data" , returnArr);
             return obj;
         }
         #endregion
 
 
-        public List<PartnerProductRateViewModel> GetPartnerProducts(int partnerId, int locationId)
+        public List<PartnerProductRateViewModel> GetPartnerProducts(int partnerId , int locationId)
         {
             try
             {
@@ -91,7 +90,7 @@ namespace HavaBusinessObjects.ControllerRepository
                     .Include(x => x.PartnerProduct)
                     .Where(a => a.PartnerId == partnerId && a.LocationId == locationId).ToList();
 
-                var partnerRouteProducts = Mapper.Map<List<PartnerProductRate>, List<PartnerProductRateViewModel>>(partnerProducts);
+                var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
 
                 return partnerRouteProducts;
             }
@@ -99,7 +98,7 @@ namespace HavaBusinessObjects.ControllerRepository
             {
                 throw ex;
             }
-            
+
         }
 
 
@@ -189,11 +188,29 @@ namespace HavaBusinessObjects.ControllerRepository
                             objProd.MarketPrice = Decimal.Parse(prod.marketPrice);
                             objProd.PartnerSellingPrice = Decimal.Parse(prod.partnerSellingPrice);
                             objProd.IsMarkUp = prod.isMarkup;
-                            objProd.Markup = Decimal.Parse(prod.partnerMarkup);
+                            objProd.Markup = string.IsNullOrEmpty(prod.partnerMarkup) ? 0 : Decimal.Parse(prod.partnerMarkup);
                             objProd.Percentage = Decimal.Parse(prod.partnerPercentage);
                             objProd.ProductId = prod.productId;
 
                             this.ObjContext.PartnerProducts.Add(objProd);
+                            this.ObjContext.SaveChanges();
+                        }
+                    }
+                    #endregion
+
+                    #region partner sites
+
+                    if (partnerViewModel.siteGridData != null)
+                    {
+
+                        foreach (var site in partnerViewModel.siteGridData)
+                        {
+
+                            PartnerSite partSite = new PartnerSite();
+                            partSite.SiteId = site.id;
+                            partSite.PartnerId = partnerId;
+
+                            this.ObjContext.PartnerSites.Add(partSite);
                             this.ObjContext.SaveChanges();
                         }
                     }

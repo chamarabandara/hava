@@ -32,7 +32,6 @@
         <EntityTypeShape EntityType="HAVA_DBModel.UserType" Width="1.5" PointX="3" PointY="30.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HAVA_DBModel.VehicleType" Width="1.5" PointX="3" PointY="34.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HAVA_DBModel.Currency" Width="1.5" PointX="15.75" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HAVA_DBModel.PartnerSite" Width="1.5" PointX="5.25" PointY="17.75" IsExpanded="true" />
         <AssociationConnector Association="HAVA_DBModel.FK_ContactTypes_Users" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_ContactTypes_Users1" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_ContactTypes_Users2" ManuallyRouted="false" />
@@ -42,8 +41,6 @@
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerCommissions_Partners" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_Partners_Users" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_Partners_Users1" ManuallyRouted="false" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Partners" ManuallyRouted="false" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Partners1" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_RolePermision_Permission" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_PromotionDiscounts_PromotionDiscountTypes" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_Promotions_PromotionDiscounts" ManuallyRouted="false" />
@@ -51,7 +48,6 @@
         <AssociationConnector Association="HAVA_DBModel.FK_Roles_Users" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_Roles_Users1" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_UserRole_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Sites" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_Sites_Users" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_Sites_Users1" ManuallyRouted="false" />
         <AssociationConnector Association="HAVA_DBModel.FK_UserRole_User" ManuallyRouted="false" />
@@ -92,6 +88,9 @@
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" />
         <EntityTypeShape EntityType="HAVA_DBModel.BookingProduct" Width="1.5" PointX="10.25" PointY="4.375" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingProducts_Booking" />
+        <EntityTypeShape EntityType="HAVA_DBModel.PartnerSite" Width="1.5" PointX="5.25" PointY="17.875" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Partners" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Sites" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

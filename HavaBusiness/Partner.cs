@@ -20,11 +20,10 @@ namespace HavaBusiness
             this.FAQs = new HashSet<FAQ>();
             this.LocationDetails = new HashSet<LocationDetail>();
             this.PartnerCommissions = new HashSet<PartnerCommission>();
-            this.PartnerSites = new HashSet<PartnerSite>();
-            this.PartnerSites1 = new HashSet<PartnerSite>();
             this.PartnerRepresentatives = new HashSet<PartnerRepresentative>();
             this.PartnerProducts = new HashSet<PartnerProduct>();
             this.PartnerProductRates = new HashSet<PartnerProductRate>();
+            this.PartnerSites = new HashSet<PartnerSite>();
         }
     
         public int Id { get; set; }
@@ -51,14 +50,12 @@ namespace HavaBusiness
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerSite> PartnerSites { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerSite> PartnerSites1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerRepresentative> PartnerRepresentatives { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProductRate> PartnerProductRates { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerSite> PartnerSites { get; set; }
     }
 }
