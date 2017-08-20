@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html class="no-js" ng-app="Sites">
 <!--<![endif]-->
 <head>
     <meta charset="utf-8">
@@ -18,123 +18,153 @@
     <link rel="stylesheet" href="~/Content/temp/css/main.css">
     <link rel="stylesheet" type="text/css" href="~/Content/temp/css/font-awesome.min.css">
     <script src="~/Content/temp/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyDIjH5MRPydMQU5Sfmv-bldJTF6Ldfcyyc"></script>
+    <script src="https://code.angularjs.org/1.3.13/angular.min.js"></script>
+    <script>(typeof angular != 'undefined') || document.write('<script src="~/Scripts/AngularJS/angular.min.js"><\/script>')</script>
+    <script src="~/Scripts/AngularJS/angular-file-upload-shim.js"></script>
+    <script src="~/Scripts/AngularJS/angular-file-upload.js"></script>
+    <script type="text/javascript">
+        function initialize() {
+            var options = {
+                types: ['(cities)'],
+                componentRestrictions: { country: "lk" }
+            };
+            var input = document.getElementById('searchTextField');
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
 </head>
-<body class="loading">
+<body class="loading" ng-controller="BookingCreateCtrl">
     <!--[if lt IE 7]>
      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please upgrade your browser to improve your experience.</p>
     <![endif]-->
-    <div class="loading-section">
-        <div>
+    <div class="main-layout" ng-show="isMain">
+        <div class="loading-section">
             <div>
-                <div class="spinner"></div>
+                <div>
+                    <div class="spinner"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="res-men" onclick="showResMenu();"><i class="fa fa-ellipsis-v"></i></div>
-    <div class="top-menu-container-v3">
-        <div class="menu-items-v3">
-            <ul class="menaimenu-v3">
-                <li><a href="#" id="s1">Me</a></li>
-                <li><a href="#" id="s2">About Us</a></li>
-                <li><a href="#" id="s3">Things to do</a></li>
-                <li><a href="#" id="s4">Travel Tips</a></li>
-                <li><a href="#" id="s5">Get in touch</a></li>
-            </ul>
+        <div class="res-men" onclick="showResMenu();"><i class="fa fa-ellipsis-v"></i></div>
+        <div class="top-menu-container-v3">
+            <div class="menu-items-v3">
+                <ul class="menaimenu-v3">
+                    <li><a href="#" id="s1">Me</a></li>
+                    <li><a href="#" id="s2">About Us</a></li>
+                    <li><a href="#" id="s3">Things to do</a></li>
+                    <li><a href="#" id="s4">Travel Tips</a></li>
+                    <li><a href="#" id="s5">Get in touch</a></li>
+                </ul>
+                <div class="login-div">
+                    <a id="singnIn" style="display:none;"><i class="fa fa-sign-in"></i></a>
+                    <a id="signOut"><i class="fa fa-sign-out"></i></a>
+                    <div class="user-image-wrapper">
+                        <img src="~/Content/temp/img/1a519dd.jpg" />
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-    <div class="row margin-0">
-        <div class="col-sm-12" style="padding: 0 0 0 0;">
-            <div id="slide-3" class="clearfix content-3">
-                <div class="bcg featured_product padding-0 padding-0-sm blue_background" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-2">
-                    <div class="hsContainer">
-                        <div class="pn-sect hidden-xs">
-                            <div class="col-sm-4 col-xs-4 xs-padding-0"><p class="phone-number">SRI LANKA : +94 (0) 114 230 421</p></div>
-                            <div class="col-sm-4 col-xs-4 xs-padding-0"><p class="phone-number">UK : +44 (0) 207 193 1075</p></div>
-                            <div class="col-sm-4 col-xs-4 xs-padding-0"><p class="phone-number">AUSTRALIA : +61 (0) 731 023 218</p></div>
-                        </div>
-                        <div class="main-div-full-height main-div-tab padding-0-sm">
-                            <div class="inner-div container">
-                                <div class="hsContent" data-center="opacity: 1" data-106-top="opacity: 1" data-anchor-target="#slide-2 h2">
-                                    <div class="row margin-0">
-                                        <div class="col-sm-12 padding-0">
-                                            <div class="inner-text-section container">
-                                                <div class="text-center">
-                                                    <div class="col-lg-5 col-md-6 col-sm-8">
-                                                        <div class="form-section">
-                                                            <div class="row">
-                                                                <div class="col-sm-6 col-xs-12 form-section-input">
-                                                                    <a class="active-tab tab-btn" onclick="showCurrentTab(this);" tabid="1">AIRPORT TRANSFERS</a>
-                                                                    <div class="arrow-down"></div>
-                                                                </div>
-                                                                <div class="col-sm-6 col-xs-12 form-section-input">
-                                                                    <a class="tab-btn" onclick="showCurrentTab(this);" tabid="2">VEHICLE WITH CHAUFFER</a>
-                                                                </div>
-                                                                <div id="AirDiv" class="tabPane">
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" id="" placeholder="FROM">
-                                                                        </div>
+        <div class="row margin-0">
+            <div class="col-sm-12" style="padding: 0 0 0 0;">
+                <div id="slide-3" class="clearfix content-3">
+                    <div class="bcg featured_product padding-0 padding-0-sm blue_background" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-2">
+                        <div class="hsContainer">
+                            <div class="pn-sect hidden-xs">
+                                <div class="col-sm-4 col-xs-4 xs-padding-0"><p class="phone-number">SRI LANKA : +94 (0) 114 230 421</p></div>
+                                <div class="col-sm-4 col-xs-4 xs-padding-0"><p class="phone-number">UK : +44 (0) 207 193 1075</p></div>
+                                <div class="col-sm-4 col-xs-4 xs-padding-0"><p class="phone-number">AUSTRALIA : +61 (0) 731 023 218</p></div>
+                            </div>
+                            <div class="main-div-full-height main-div-tab padding-0-sm">
+                                <div class="inner-div container">
+                                    <div class="hsContent" data-center="opacity: 1" data-106-top="opacity: 1" data-anchor-target="#slide-2 h2">
+                                        <div class="row margin-0">
+                                            <div class="col-sm-12 padding-0">
+                                                <div class="inner-text-section container">
+                                                    <div class="text-center">
+                                                        <div class="col-lg-5 col-md-6 col-sm-8">
+                                                            <div class="form-section">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 col-xs-12 form-section-input">
+                                                                        <a class="active-tab tab-btn" onclick="showCurrentTab(this);" tabid="1">AIRPORT TRANSFERS</a>
+                                                                        <div class="arrow-down"></div>
                                                                     </div>
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input ">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" id="" placeholder="TO">
-                                                                        </div>
+                                                                    <div class="col-sm-6 col-xs-12 form-section-input">
+                                                                        <a class="tab-btn" onclick="showCurrentTab(this);" tabid="2">VEHICLE WITH CHAUFFER</a>
                                                                     </div>
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input  ">
-                                                                        <div class="form-group">
-                                                                            <div class="input-group">
-                                                                                <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;"></i></span>
-                                                                                <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
+                                                                    <div id="AirDiv" class="tabPane">
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" placeholder="FROM" id="searchTextField" autocomplete="on" ng-model="search.from">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input ">
+                                                                            <div class="form-group">
+                                                                                <select class="form-control" name="toLocation" ng-options="stat.name for stat in locations track by stat.id" ng-model="search.to">
+                                                                                    <option value="">-- Select a destination --</option>
+                                                                                </select>
+                                                                                @* <input type="text" class="form-control" id="" placeholder="TO">*@
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input  ">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;"></i></span>
+                                                                                    <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status" ng-model="search.pickupDate">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
+                                                                                    <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status" ng-model="search.pickupTime">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input">
-                                                                        <div class="form-group">
-                                                                            <div class="input-group">
-                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
+                                                                    <div id="ChaufDiv" style="display:none;" class="tabPane">
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" id="" placeholder="FROM">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input ">
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" id="" placeholder="TO">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input  ">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;"></i></span>
+                                                                                    <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
+                                                                                    <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-12 form-section-input">
+                                                                            <div class="checkbox">
+                                                                                <label style="font-size: 11px;float: right;">
+                                                                                    <input type="checkbox" value="">
+                                                                                    Daily Hire
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div id="ChaufDiv" style="display:none;" class="tabPane">
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" id="" placeholder="FROM">
-                                                                        </div>
+                                                                    <div class="col-sm-12 form-section-input btn-div">
+                                                                        <button type="button" class="btn btn-danger main-btn btn-block" ng-click="searchBooking(search)">Book a vehicle & support local communities</button>
                                                                     </div>
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input ">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" id="" placeholder="TO">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input  ">
-                                                                        <div class="form-group">
-                                                                            <div class="input-group">
-                                                                                <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;"></i></span>
-                                                                                <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6 col-xs-6 form-section-input">
-                                                                        <div class="form-group">
-                                                                            <div class="input-group">
-                                                                                <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-12 form-section-input">
-                                                                        <div class="checkbox">
-                                                                            <label style="font-size: 11px;float: right;">
-                                                                                <input type="checkbox" value="">
-                                                                                Daily Hire
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-12 form-section-input btn-div">
-                                                                    <button type="button" class="btn btn-danger main-btn btn-block">Book a vehicle & support local communities</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -148,365 +178,707 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="slide-2" class="clearfix content-1">
-                <div class="bcg featured_product padding-0 padding-0-sm blue_background" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-2">
-                    <div class="hsContainer">
-                        <div class="main-div second-img-div padding-0-sm">
-                            <div class="inner-div">
-                                <div class="hsContent" data-center="opacity: 1" data-106-top="opacity: 1" data-anchor-target="#slide-2 h2">
-                                    <div class="row margin-0">
-                                        <div class="col-sm-12 padding-0">
-                                            <div class="inner-text-section commity-members-div">
-                                                <div class="text-center">
-                                                    <h2 class="col-sm-12 black-text" style="margin-bottom:0;">Book your</h2>
-                                                    <h3 class="black-text" style="margin-bottom:0;"><b>Airport transfers | Vehicle with Chauffer</h3>
-                                                    <h4 class="black-text" style="margin-bottom:0;"><b>Private One way and Return Trips to Destinations around the island</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container lg-padding-0 full-width content-2" style="border-bottom:20px solid #b7141c">
-                <div class="row">
-
-                    <div class="col-sm-12">
-                        <div class="main-div hava-logo-div">
-                            <div class="inner-div text-center">
-                                <img src="~/Content/temp/img/CompanyLogo.png" class="res-img" alt="" style="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
-                <div class="row ">
-                    <div class="col-sm-12 padding-0">
-                        <div class="featured_product xs-margin-0 padding-0 clearfix ">
-                            <div class="main-div-full-height res-main-div-padding">
-                                <div class="row margin-0">
-                                    <div class="col-lg-5 col-md-5 col-sm-6"><h3 class="left-heading">We Offer</h3></div>
-                                    <div class="col-lg-7 col-md-7 col-sm-6 red-back"><h3>Fix Upfront Affordable Pricing</h3></div>
-                                </div>
-                                <div class="row margin-0">
-                                    <div class="col-sm-12 xs-padding-0 btm_spacing top-spacing">
-                                        <div class="container">
-                                            <div class="col-sm-4 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/icons/icons7.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <h3>GLOBAL RELIABILITY</h3>
-                                                    <p>
-                                                        Offices in 3 Continents backed
-                                                        up by a dedicated network of
-                                                        Local and Global partners and a
-                                                        professional services team we
-                                                        have you covered.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/icons/icons6.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <h3>OPEN</h3>
-                                                    <p>
-                                                        We are here for you 24hrs a day
-                                                        365 days a year to make certain
-                                                        you have a safe and
-                                                        comfortable ride
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/icons/icons5.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <h3>PEACE OF MIND</h3>
-                                                    <p>
-                                                        Book consistent & reliable ground
-                                                        transportation, with HAVA at very
-                                                        competitive rates significantly
-                                                        below traditional car hire &
-                                                        chauffeur services.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container lg-padding-0 full-width content-10" style="background:#eee;border-bottom:20px solid #b7141c">
-                <div class="row ">
-                    <div class="col-sm-12 padding-0">
-                        <div class="featured_product xs-margin-0 padding-0 clearfix ">
-                            <div class="main-div-full-height res-main-div-padding">
-                                <div class="row margin-0">
-                                    <div class="col-sm-12 xs-padding-0 btm_spacing top-spacing">
-                                        <div class="container">
-                                            <div class="col-sm-3 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/icons/icons4.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <h3>SAFETY FIRST</h3>
-                                                    <p>
-                                                        Our fleet is all under 6
-                                                        years old and well
-                                                        maintained. For your further
-                                                        safety all our drivers our
-                                                        Multi lingual & understand
-                                                        English.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/icons/icons3.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <h3>
-                                                        FIX UPFRONT
-                                                        AFFORDABLE PRICING
-                                                    </h3>
-                                                    <p>
-                                                        No hidden surprises
-                                                        with HAVA. Its
-                                                        affordable all-inclusive
-                                                        & confirmed before
-                                                        your ride
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/icons/icons2.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <h3>
-                                                        PROFESSIONAL
-                                                        DRIVERS
-                                                    </h3>
-                                                    <p>
-                                                        Have peace of mind
-                                                        knowing that all HAVA
-                                                        drivers are licensed,
-                                                        insured, regulated
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/icons/icons1.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <h3>
-                                                        COMPLEMENTARY
-                                                        WAIT TIME
-                                                    </h3>
-                                                    <p>
-                                                        Relax. Pickups includes
-                                                        45 minutes of free wait
-                                                        time, we understand we
-                                                        need to sometimes wait
-                                                        for you
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
-                <div class="row ">
-                    <div class="col-sm-12 xs-padding-0">
-                        <div class="featured_product xs-margin-0 padding-0 clearfix ">
-                            <div class="main-div-full-height res-main-div-padding">
-                                <div class="row margin-0">
-                                    <div class="col-lg-5 col-md-5 col-sm-6"><h3 class="left-heading">The Hava Fleet</h3></div>
-                                    <div class="col-lg-7 col-md-7 col-sm-6 red-back"><h3>Safe and Reliable Service at Lowest Rates</h3></div>
-                                </div>
-                                <div class="row margin-0">
-                                    <div class="col-sm-12 xs-padding-0 btm_spacing ">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-sm-4 text-center">
-                                                    <h3 class="text-center" style="font-size:20px;">MINI</h3>
-                                                    <div class="icon-img-div vehec">
-                                                        <img src="~/Content/temp/img/vehicles1.png" />
-                                                    </div>
-                                                    <div class=" icon-text-div">
-                                                        <p><i class="fa fa-group"></i> max. 3</p>
-                                                        <p><i class="fa fa-briefcase"></i> max. 2</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 text-center">
-                                                    <h3 class="text-center" style="font-size:20px;">SEDANS</h3>
-                                                    <div class="icon-img-div vehec">
-                                                        <img src="~/Content/temp/img/vehicles2.png" />
-                                                    </div>
-                                                    <div class=" icon-text-div">
-                                                        <p><i class="fa fa-group"></i> max. 3</p>
-                                                        <p><i class="fa fa-briefcase"></i> max. 4</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 text-center">
-                                                    <h3 class="text-center" style="font-size:20px;">VANS</h3>
-                                                    <div class="icon-img-div vehec">
-                                                        <img src="~/Content/temp/img/vehicles3.png" />
-                                                    </div>
-                                                    <div class=" icon-text-div">
-                                                        <p><i class="fa fa-group"></i> max. 4</p>
-                                                        <p><i class="fa fa-briefcase"></i> max. 5</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
-                <div class="row ">
-                    <div class="col-sm-12 xs-padding-0">
-                        <div class="featured_product xs-margin-0 padding-0 clearfix ">
-                            <div class="main-div-full-height res-main-div-padding">
-                                <div class="row margin-0">
-                                    <div class="col-sm-12">
-                                        <div class="container">
-                                            <h3 class="red-text-heading">How it works</h3>
-                                            <p class="medium-text">All you need to do is provide your travel details your driver will be waiting for you</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row margin-0">
-                                    <div class="col-sm-12 xs-padding-0 btm_spacing top-spacing">
-                                        <div class="container">
-                                            <div class="col-sm-4 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/7pageImg1.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <p class="medium-text">Book your Private Service</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/7pageImg2.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <p class="medium-text">Choose the Vehicle that best suites your needs</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 text-center">
-                                                <div class="icon-img-div">
-                                                    <img src="~/Content/temp/img/7pageImg3.png" />
-                                                </div>
-                                                <div class=" icon-text-div">
-                                                    <p class="medium-text">Enjoy your Journey</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
-                <div class="row margin-0" style="padding-bottom:100px;">
-                    <img src="~/Content/temp/img/webpdf-7.png" style="width:100%" />
-                </div>
-            </div>
-            <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
-                <div class="row ">
-                    <div class="col-sm-12">
-                        <div class="featured_product xs-margin-0 padding-0 clearfix ">
-                            <div class="main-div-full-height res-main-div-padding">
+                <div id="slide-2" class="clearfix content-1">
+                    <div class="bcg featured_product padding-0 padding-0-sm blue_background" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-2">
+                        <div class="hsContainer">
+                            <div class="main-div second-img-div padding-0-sm">
                                 <div class="inner-div">
-                                    <div class="col-sm-12"><h3 class="red-text-heading" style="text-align:right;">Happy Customers</h3></div>
-                                    <div class="col-sm-5 xs-padding-0">
-                                        <img src="~/Content/temp/img/happy-customer1.jpg" class="hidden-xs" style="width:100%;">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <p class="small-txt">Well Done for delivering a great services consistently. My latest trip to Kandy and Gall was just brilliant</p>
-                                        <p class="bold">MD of Browns</p>
-                                        <p class="small-txt">The scope of services offered is just brilliant from airport transfers to daily hire with driver or even ransports services for corporate nts all just one call away!</p>
-                                        <p class="bold">Munchee Managing Director</p>
-
-                                        <p class="small-txt">24/7 After Sales Service is what won our business</p>
-                                        <p class="bold">Metropolitan Police</p>
-                                        <p class="small-txt">I travel the world. When I get home I have peace of mind my driver will be waiting to drop me home. Thank you HAVA</p>
-                                        <p class="bold">Speech Writer to the Foreign Minister</p>
-
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="small-txt">First & foremost in our mind is Safety and Security HAVA ticks the boxes with a BIG yes</p>
-                                        <p class="bold">ZOA NGO</p>
-                                        <p class="small-txt">Efficient, good service. Very competitive price, will definitely return</p>
-                                        <p class="bold">Ambassador to Iraq</p>
-
-                                        <p class="small-txt">We are partnering HAVA as they have offices in the 3 continents our guest come from so service is simple as abc…</p>
-                                        <p class="bold">Chi-Chi Jetwing Hotel</p>
-                                        <p class="small-txt">Price is Important but what is great about HAVA is their standard of vehicles and drives - just excellent</p>
-                                        <p class="bold">CEO of CW Mackie's</p>
-                                        <p class="small-txt">I love it as its so so reliable and very affordable</p>
-                                        <p class="bold">Harvard University Student</p>
+                                    <div class="hsContent" data-center="opacity: 1" data-106-top="opacity: 1" data-anchor-target="#slide-2 h2">
+                                        <div class="row margin-0">
+                                            <div class="col-sm-12 padding-0">
+                                                <div class="inner-text-section commity-members-div">
+                                                    <div class="text-center">
+                                                        <h2 class="col-sm-12 black-text" style="margin-bottom:0;">Book your</h2>
+                                                        <h3 class="black-text" style="margin-bottom:0;"><b>Airport transfers | Vehicle with Chauffer</h3>
+                                                        <h4 class="black-text" style="margin-bottom:0;"><b>Private One way and Return Trips to Destinations around the island</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
-                <div class="row margin-0">
-                    <img src="~/Content/temp/img/pgl.png" style="width:100%" />
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-offset-3 col-md-offset-3 colsm-offset-2 col-lg-6 col-md-6 col-sm-8">
-                                <div class="row text-center">
-                                    <p class="text-center margin-0 bold-links"><b>Airport Transfers | Vehicle with Chauffer</b></p>
-                                    <p class="text-center margin-0">Private One way & Return Trips to Destinations around the Island</p>
-                                    <a class="red-text text-center" href="www.pandarix.com"><b>www.pandarix.com</b></a>
-                                    <br>
-                                    <a class="text-center mail-to-link" href="mailto:hava@pandarix.com" style="margin-bottom:20px;">Email: hava@pandarix.com</a>
-                                    <br>
-                                    <br>
+                <div class="container lg-padding-0 full-width content-2" style="border-bottom:20px solid #b7141c">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="main-div hava-logo-div">
+                                <div class="inner-div text-center">
+                                    <img src="~/Content/temp/img/CompanyLogo.png" class="res-img" alt="" style="" />
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4"><p class="phone-number">SRI LANKA : +94 (0) 114 230 421</p></div>
-                            <div class="col-sm-4"><p class="phone-number">UK : +44 (0) 207 193 1075</p></div>
-                            <div class="col-sm-4"><p class="phone-number">AUSTRALIA : +61 (0) 731 023 218</p></div>
+                    </div>
+                </div>
+                <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
+                    <div class="row ">
+                        <div class="col-sm-12 padding-0">
+                            <div class="featured_product xs-margin-0 padding-0 clearfix ">
+                                <div class="main-div-full-height res-main-div-padding">
+                                    <div class="row margin-0">
+                                        <div class="col-lg-5 col-md-5 col-sm-6"><h3 class="left-heading">We Offer</h3></div>
+                                        <div class="col-lg-7 col-md-7 col-sm-6 red-back"><h3>Fix Upfront Affordable Pricing</h3></div>
+                                    </div>
+                                    <div class="row margin-0">
+                                        <div class="col-sm-12 xs-padding-0 btm_spacing top-spacing">
+                                            <div class="container">
+                                                <div class="col-sm-4 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/icons/icons7.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <h3>GLOBAL RELIABILITY</h3>
+                                                        <p>
+                                                            Offices in 3 Continents backed
+                                                            up by a dedicated network of
+                                                            Local and Global partners and a
+                                                            professional services team we
+                                                            have you covered.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/icons/icons6.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <h3>OPEN</h3>
+                                                        <p>
+                                                            We are here for you 24hrs a day
+                                                            365 days a year to make certain
+                                                            you have a safe and
+                                                            comfortable ride
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/icons/icons5.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <h3>PEACE OF MIND</h3>
+                                                        <p>
+                                                            Book consistent & reliable ground
+                                                            transportation, with HAVA at very
+                                                            competitive rates significantly
+                                                            below traditional car hire &
+                                                            chauffeur services.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container lg-padding-0 full-width content-10" style="background:#eee;border-bottom:20px solid #b7141c">
+                    <div class="row ">
+                        <div class="col-sm-12 padding-0">
+                            <div class="featured_product xs-margin-0 padding-0 clearfix ">
+                                <div class="main-div-full-height res-main-div-padding">
+                                    <div class="row margin-0">
+                                        <div class="col-sm-12 xs-padding-0 btm_spacing top-spacing">
+                                            <div class="container">
+                                                <div class="col-sm-3 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/icons/icons4.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <h3>SAFETY FIRST</h3>
+                                                        <p>
+                                                            Our fleet is all under 6
+                                                            years old and well
+                                                            maintained. For your further
+                                                            safety all our drivers our
+                                                            Multi lingual & understand
+                                                            English.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/icons/icons3.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <h3>
+                                                            FIX UPFRONT
+                                                            AFFORDABLE PRICING
+                                                        </h3>
+                                                        <p>
+                                                            No hidden surprises
+                                                            with HAVA. Its
+                                                            affordable all-inclusive
+                                                            & confirmed before
+                                                            your ride
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/icons/icons2.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <h3>
+                                                            PROFESSIONAL
+                                                            DRIVERS
+                                                        </h3>
+                                                        <p>
+                                                            Have peace of mind
+                                                            knowing that all HAVA
+                                                            drivers are licensed,
+                                                            insured, regulated
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/icons/icons1.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <h3>
+                                                            COMPLEMENTARY
+                                                            WAIT TIME
+                                                        </h3>
+                                                        <p>
+                                                            Relax. Pickups includes
+                                                            45 minutes of free wait
+                                                            time, we understand we
+                                                            need to sometimes wait
+                                                            for you
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
+                    <div class="row ">
+                        <div class="col-sm-12 xs-padding-0">
+                            <div class="featured_product xs-margin-0 padding-0 clearfix ">
+                                <div class="main-div-full-height res-main-div-padding">
+                                    <div class="row margin-0">
+                                        <div class="col-lg-5 col-md-5 col-sm-6"><h3 class="left-heading">The Hava Fleet</h3></div>
+                                        <div class="col-lg-7 col-md-7 col-sm-6 red-back"><h3>Safe and Reliable Service at Lowest Rates</h3></div>
+                                    </div>
+                                    <div class="row margin-0">
+                                        <div class="col-sm-12 xs-padding-0 btm_spacing ">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-sm-4 text-center">
+                                                        <h3 class="text-center" style="font-size:20px;">MINI</h3>
+                                                        <div class="icon-img-div vehec">
+                                                            <img src="~/Content/temp/img/vehicles1.png" />
+                                                        </div>
+                                                        <div class=" icon-text-div">
+                                                            <p><i class="fa fa-group"></i> max. 3</p>
+                                                            <p><i class="fa fa-briefcase"></i> max. 2</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 text-center">
+                                                        <h3 class="text-center" style="font-size:20px;">SEDANS</h3>
+                                                        <div class="icon-img-div vehec">
+                                                            <img src="~/Content/temp/img/vehicles2.png" />
+                                                        </div>
+                                                        <div class=" icon-text-div">
+                                                            <p><i class="fa fa-group"></i> max. 3</p>
+                                                            <p><i class="fa fa-briefcase"></i> max. 4</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 text-center">
+                                                        <h3 class="text-center" style="font-size:20px;">VANS</h3>
+                                                        <div class="icon-img-div vehec">
+                                                            <img src="~/Content/temp/img/vehicles3.png" />
+                                                        </div>
+                                                        <div class=" icon-text-div">
+                                                            <p><i class="fa fa-group"></i> max. 4</p>
+                                                            <p><i class="fa fa-briefcase"></i> max. 5</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
+                    <div class="row ">
+                        <div class="col-sm-12 xs-padding-0">
+                            <div class="featured_product xs-margin-0 padding-0 clearfix ">
+                                <div class="main-div-full-height res-main-div-padding">
+                                    <div class="row margin-0">
+                                        <div class="col-sm-12">
+                                            <div class="container">
+                                                <h3 class="red-text-heading">How it works</h3>
+                                                <p class="medium-text">All you need to do is provide your travel details your driver will be waiting for you</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-0">
+                                        <div class="col-sm-12 xs-padding-0 btm_spacing top-spacing">
+                                            <div class="container">
+                                                <div class="col-sm-4 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/7pageImg1.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <p class="medium-text">Book your Private Service</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/7pageImg2.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <p class="medium-text">Choose the Vehicle that best suites your needs</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 text-center">
+                                                    <div class="icon-img-div">
+                                                        <img src="~/Content/temp/img/7pageImg3.png" />
+                                                    </div>
+                                                    <div class=" icon-text-div">
+                                                        <p class="medium-text">Enjoy your Journey</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
+                    <div class="row margin-0" style="padding-bottom:100px;">
+                        <img src="~/Content/temp/img/webpdf-7.png" style="width:100%" />
+                    </div>
+                </div>
+                <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
+                    <div class="row ">
+                        <div class="col-sm-12">
+                            <div class="featured_product xs-margin-0 padding-0 clearfix ">
+                                <div class="main-div-full-height res-main-div-padding">
+                                    <div class="inner-div">
+                                        <div class="col-sm-12"><h3 class="red-text-heading" style="text-align:right;">Happy Customers</h3></div>
+                                        <div class="col-sm-5 xs-padding-0">
+                                            <img src="~/Content/temp/img/happy-customer1.jpg" class="hidden-xs" style="width:100%;">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p class="small-txt">Well Done for delivering a great services consistently. My latest trip to Kandy and Gall was just brilliant</p>
+                                            <p class="bold">MD of Browns</p>
+                                            <p class="small-txt">The scope of services offered is just brilliant from airport transfers to daily hire with driver or even ransports services for corporate nts all just one call away!</p>
+                                            <p class="bold">Munchee Managing Director</p>
+
+                                            <p class="small-txt">24/7 After Sales Service is what won our business</p>
+                                            <p class="bold">Metropolitan Police</p>
+                                            <p class="small-txt">I travel the world. When I get home I have peace of mind my driver will be waiting to drop me home. Thank you HAVA</p>
+                                            <p class="bold">Speech Writer to the Foreign Minister</p>
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p class="small-txt">First & foremost in our mind is Safety and Security HAVA ticks the boxes with a BIG yes</p>
+                                            <p class="bold">ZOA NGO</p>
+                                            <p class="small-txt">Efficient, good service. Very competitive price, will definitely return</p>
+                                            <p class="bold">Ambassador to Iraq</p>
+
+                                            <p class="small-txt">We are partnering HAVA as they have offices in the 3 continents our guest come from so service is simple as abc…</p>
+                                            <p class="bold">Chi-Chi Jetwing Hotel</p>
+                                            <p class="small-txt">Price is Important but what is great about HAVA is their standard of vehicles and drives - just excellent</p>
+                                            <p class="bold">CEO of CW Mackie's</p>
+                                            <p class="small-txt">I love it as its so so reliable and very affordable</p>
+                                            <p class="bold">Harvard University Student</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container lg-padding-0 full-width content-10" style="border-bottom:20px solid #b7141c">
+                    <div class="row margin-0">
+                        <img src="~/Content/temp/img/pgl.png" style="width:100%" />
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-offset-3 col-md-offset-3 colsm-offset-2 col-lg-6 col-md-6 col-sm-8">
+                                    <div class="row text-center">
+                                        <p class="text-center margin-0 bold-links"><b>Airport Transfers | Vehicle with Chauffer</b></p>
+                                        <p class="text-center margin-0">Private One way & Return Trips to Destinations around the Island</p>
+                                        <a class="red-text text-center" href="www.pandarix.com"><b>www.pandarix.com</b></a>
+                                        <br>
+                                        <a class="text-center mail-to-link" href="mailto:hava@pandarix.com" style="margin-bottom:20px;">Email: hava@pandarix.com</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4"><p class="phone-number">SRI LANKA : +94 (0) 114 230 421</p></div>
+                                <div class="col-sm-4"><p class="phone-number">UK : +44 (0) 207 193 1075</p></div>
+                                <div class="col-sm-4"><p class="phone-number">AUSTRALIA : +61 (0) 731 023 218</p></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="booking-layout" ng-hide="isMain">
+        <div class="loading-section">
+            <div>
+                <div>
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+        <div class="top-menu-container-v3">
+            <div class="menu-items-v3" style="padding: 24px 10px;">
+
+            </div>
+
+        </div>
+        <div class="row margin-0">
+            <div class="col-sm-12" style="padding: 0 0 0 0;">
+                <div class="wizard-wrapper">
+                    <div class="container">
+                        <ul class="wiz-steps">
+                            <li ng-click="navigateSteps(1)"><a ng-class='whatClassIsIt(1)'>car class</a></li>
+                            <li ng-click="navigateSteps(2)"><a ng-class='whatClassIsIt(2)'>options</a></li>
+                            <li ng-click ="navigateSteps(3)"><a ng-class='whatClassIsIt(3)'>login</a></li>
+                            <li ng-click="navigateSteps(4)"><a ng-class='whatClassIsIt(4)'>credit card</a></li>
+                            <li ng-click="navigateSteps(5)"><a ng-class='whatClassIsIt(5)'>check out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="destination-lbl">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 destination-label">
+                                <label class="info-lbl half-label">{{pickupLocation}}</label>
+                                <label class="info-lbl half-label"><i class="fa fa-angle-double-right"></i> Colombo International Airport, Katunayake, Sri Lanka</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 destination-label">
+                                <label class="info-lbl">Duration:38 minutes – Distance: 33.6 km</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 destination-label">
+                                <label class="info-lbl">Aug 17, 2017 11:45PM (23:45)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container" id="carClassDiv" ng-if="step==1">
+                        <div class="col-sm-12">
+                            <div class="sub-section">
+                                <div class="header-section">
+                                    <h2 class="main-heading">Economy Class</h2>
+                                    <label id="VehicleLbl">Toyota Camry, Honda Accord, Toyota Corolla or similar</label>
+                                    <div class="full-width pull-left">
+                                        <span class="capacity-span"><i class="fa fa-users"></i> <label id="maxIconomy">Max 3</label></span>
+                                        <span class="capacity-span"><i class="fa fa-suitcase"></i> <label id="maxIconomy">Max 2</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="list-item-info-lbl">
+                                            <i class="fa fa-clock-o"></i>
+                                            free 60 minutes wait time for airport pickups, 15 mins for all others
+                                        </label>
+                                        <label class="list-item-info-lbl">
+                                            <i class="fa fa-smile-o"></i>
+                                            includes meet & greet
+                                        </label>
+                                        <label class="list-item-info-lbl">
+                                            <i class="fa fa-times-circle-o"></i>
+                                            Free cancellation up until 1 hour before pickup
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img class="main-l-item-img" src="~/Content/temp/img/img1.jpg" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="btn-wrapper">
+                                            <label class="price-lbl pull-right">95.80 USD</label>
+                                            <label class="small-text pull-right">All prices include VAT, fees & tip.</label>
+                                            <button type="button" class="btn btn-primary btn-block">Select</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-section">
+                                <div class="header-section">
+                                    <h2 class="main-heading">Economy Class</h2>
+                                    <label id="VehicleLbl">Toyota Camry, Honda Accord, Toyota Corolla or similar</label>
+                                    <div class="full-width pull-left">
+                                        <span class="capacity-span"><i class="fa fa-users"></i> <label id="maxIconomy">Max 3</label></span>
+                                        <span class="capacity-span"><i class="fa fa-suitcase"></i> <label id="maxIconomy">Max 2</label></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="list-item-info-lbl">
+                                            <i class="fa fa-clock-o"></i>
+                                            free 60 minutes wait time for airport pickups, 15 mins for all others
+                                        </label>
+                                        <label class="list-item-info-lbl">
+                                            <i class="fa fa-smile-o"></i>
+                                            includes meet & greet
+                                        </label>
+                                        <label class="list-item-info-lbl">
+                                            <i class="fa fa-times-circle-o"></i>
+                                            Free cancellation up until 1 hour before pickup
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img class="main-l-item-img" src="~/Content/temp/img/img1.jpg" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="btn-wrapper">
+                                            <label class="price-lbl pull-right">95.80 USD</label>
+                                            <label class="small-text pull-right">All prices include VAT, fees & tip.</label>
+                                            <button type="button" class="btn btn-primary btn-block">Select</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" id="optionDiv" ng-if="step==2">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Airport dropoff details</h3>
+                                    <p class="medium-text">Enter your flight number to ensure your driver brings you to the correct terminal and gate.</p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Flight details</label>
+                                        <input type="text" class="form-control" id="" placeholder="LH 2054">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h3>Frequent Flyer programs</h3>
+                                    <p class="medium-text">Earn reward miles with every ride.</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Program</label>
+                                        <select class="form-control">
+                                            <option selected="selected" value="">Please select</option>
+                                            <option value="asia_miles">Asia Miles</option>
+                                            <option value="miles_and_more">Miles &amp; More</option>
+                                            <option value="air_france_flying_blue">Air France Flying Blue</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Number</label>
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <h3>Additional info</h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pickup sign</label>
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Reference number</label>
+                                        <input type="text" class="form-control" id="" placeholder="Cost ceneter">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Reference number</label>
+                                        <input type="text" class="form-control" id="" placeholder="Any special requests (child car seats...)? Please don't include any confidential information">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label>Help us provide you with a better service and add any special requests</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="padding-top:20px;">
+                                    <button type="button" class="btn btn-default">Skip</button>
+                                    <button type="button" class="btn btn-primary">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" id="logInDiv" ng-if="step==3">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <select class="form-control">
+                                                    <option selected="selected" value="">Title*</option>
+                                                    <option value="asia_miles">Mr.</option>
+                                                    <option value="miles_and_more">Ms.</option>
+                                                    <option value="air_france_flying_blue">Mx.</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" placeholder="First Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" placeholder="E-Mail">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" placeholder="Password">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="squaredTwo">
+                                                        <input type="checkbox" value="None" id="squaredTwo" name="check" checked />
+                                                        <label for="squaredTwo"></label>
+
+                                                    </div>
+                                                    <label class="termsPriv"> Accept <a>terms & conditions</a> and the <a>privacy policy</a></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-right">
+                                    <div class="row">
+                                        <a href="" style="padding-right:10px;">Have an account? Log in to book faster</a>
+                                        <button type="button" class="btn btn-primary">Register</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" id="creditDiv" ng-if="step==4">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg ">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Cardholder name</label>
+                                                        <input type="text" class="form-control" id="" placeholder="Jason Born">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Card number</label>
+                                                        <input type="text" class="form-control" id="" placeholder="5007100222110033">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>Expiration date</label>
+                                                                <input type="text" class="form-control" id="" placeholder="MM">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label> </label>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" id="" placeholder="YY">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>cvv</label>
+                                                                <input type="text" class="form-control" id="" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-left">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button type="button" class="btn btn-primary">Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="footer">
+                <div class="social-media">
+                    <ul>
+                        <li><a href="https://m.facebook.com/charitha.pannilarathne?ref=m_notif&amp;notif_t=open_graph_action_close_friends"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://lk.linkedin.com/in/charitha-dias-pannilaratne-1141679b"><i class="fa fa-linkedin-square"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="copyright center">
+                    <p>Copyright © 2016 Charitha Dias Pannilaratne</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
     <script src="~/Content/temp/js/jquery-2.1.1.min.js" />
     </script>
 
@@ -516,5 +888,27 @@
     <script src="~/Content/temp/js/main.js"></script>
     <script src="~/Content/temp/js/enquire.min.js"></script>
     <script src="~/Content/temp/js/skrollr.js"></script>
+
+    <script src="~/Scripts/AngularJS/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/AngularJS/angular-resource.min.js"></script>
+    <script src="~/Scripts/AngularJS/angular-cookies.js"></script>
+    <script src="~/Scripts/AngularJS/angular-cookies.min.js"></script>
+    <script src="~/Scripts/AngularJS/angular-loader.min.js"></script>
+    <script src="~/Scripts/AngularJS/angular-local-storage.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/AngularJS/ocLazyLoad.js"></script>
+
+    <script>
+        var jsVersion = 3.0;
+
+        document.write("<script type='text/javascript' src='../App/Controllers/booking.controller.js'><\/scr" + "ipt>");
+        //document.write("<script type='text/javascript' src='App/directives.js?v=" + jsVersion + "'><\/scr" + "ipt>");
+        //document.write("<script type='text/javascript' src='App/Controllers/common.controller.js?v=" + jsVersion + "'><\/scr" + "ipt>");
+        //document.write("<script type='text/javascript' src='App/Services/common.js?v=" + jsVersion + "'><\/scr" + "ipt>");
+        //document.write("<script type='text/javascript' src='App/Controllers/navbar.controller.js?v=" + jsVersion + "'><\/scr" + "ipt>");
+        //document.write("<script type='text/javascript' src='App/Controllers/tiles.controller.js?v=" + jsVersion + "'><\/scr" + "ipt>");
+
+
+    </script>
 </body>
 </html>

@@ -238,6 +238,7 @@
     <Content Include="App\Controllers\navbar.controller.js" />
     <Content Include="App\Controllers\partner.controller.js" />
     <Content Include="App\Controllers\product.controller.js" />
+    <Content Include="App\Controllers\booking.controller.js" />
     <Content Include="App\Controllers\sites.controller.js" />
     <Content Include="App\Controllers\tsp.controller.js" />
     <Content Include="App\directives.js" />

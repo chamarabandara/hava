@@ -28,17 +28,104 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+.squaredTwo {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    margin: 20px 0;
+    background: #fcfff4;
+    border: 1px solid #ccc;
+    float: left;
+}
+.squaredTwo label {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+}
+.termsPriv{
+    position: relative;
+    top: 25px;
+    padding-left: 15px;
+}
+.squaredTwo label:after {
+    content: '';
+    width: 15px;
+    height: 8px;
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    border: 3px solid #949494;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+
+}
+.squaredTwo label:hover::after {
+  opacity: 0.3;
+}
+.squaredTwo input[type=checkbox] {
+  visibility: hidden;
+}
+.squaredTwo input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+
+.btn {
+    font-size: 15px;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 5px;
+    border-radius: 0;
+    border: 0;
+    margin-right: 10px;
+}
+.btn-primary {
+    background-image: -webkit-linear-gradient(top,#168ccc 0,#168ccc 100%);
+    background-image: linear-gradient(to bottom,#168ccc 0,#168ccc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff2d6ca2', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #2b669a;
+    border: 1px solid #168ccc !important;
+    padding: 10px 60px !important;
+}
+.btn-default {
+    background-image: -webkit-linear-gradient(top,#fff 0,#ffffff 100%);
+    background-image: linear-gradient(to bottom,#fff 0,#ffffff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #dbdbdb;
+    text-shadow: 0 0px 0 #fff;
+    border-color: #ccc;
+    color: #168ccc;
+    border: 1px solid #168ccc !important;
+    padding: 10px 60px !important;
+}
 body {
 	line-height: 1.3;
   font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+    color: #757575;
+    font-weight: 300;
+}
+.main-heading {
+    color: #333;
+    font-size: 35px;
+    font-weight: 400;
+    padding-bottom: 10px;
+}
+.main-l-item-img {
+    width: 100%;
 }
 ol, ul {
 	list-style: none;
-}
-.btn {
-    font-size: 17px;
-    border-radius: 0;
-    font-weight: 700;
 }
 blockquote, q {
 	quotes: none;
@@ -89,6 +176,10 @@ h3
     font-weight: 700;
     margin-bottom: 5px;
 }
+.form-section-reg{
+    padding: 30px 0 100px 0;
+    float: left;
+}
 .red-text {
     font-size: 14px;
     font-weight: 700;
@@ -97,6 +188,19 @@ h3
 .red-text:hover, .red-text:focus{
   text-decoration: none;
   color: #970714;
+}
+.form-section-reg h3 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 10px 0;
+}
+.form-control {
+    border-radius: 0;
+    webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
+    font-size: 1.125rem;
+    line-height: 2;
+    height: 2.25rem;
 }
 .mail-to-link, .mail-to-link:hover, .mail-to-link:focus {
     color: #333;
@@ -204,7 +308,7 @@ h3
     font-size: 30px;
 }
 .medium-text {
-    font-size: 23px;
+    font-size: 15px;
 }
 .input-group-addon {
     background-color: #fff;
@@ -255,6 +359,17 @@ html
   overflow-x:hidden;
   overflow-y: scroll;
 }
+.form-section {
+    padding: 5px 20px;
+    background: #000;
+}
+.form-section-input {
+    padding: 5px;
+}
+.form-section .form-group{
+  margin-bottom: 0;
+}
+
 @media (min-width:768px)
 {
 
@@ -315,60 +430,6 @@ html
     background-repeat: repeat-x;
     border-color: #b92c28;
 }
-@font-face {
-    font-family: 'latolight';
-    src: url('../fonts/lato-light-webfont.eot');
-    src: url('../fonts/lato-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/lato-light-webfont.woff2') format('woff2'),
-         url('../fonts/lato-light-webfont.woff') format('woff'),
-         url('../fonts/lato-light-webfont.ttf') format('truetype'),
-         url('../fonts/lato-light-webfont.svg#latolight') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'latoregular';
-    src: url('../fonts/lato-regular-webfont.eot');
-    src: url('../fonts/lato-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/lato-regular-webfont.woff2') format('woff2'),
-         url('../fonts/lato-regular-webfont.woff') format('woff'),
-         url('../fonts/lato-regular-webfont.ttf') format('truetype'),
-         url('../fonts/lato-regular-webfont.svg#latoregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-
-@font-face {
-    font-family: 'latomedium';
-    src: url('../fonts/lato-medium-webfont.eot');
-    src: url('../fonts/lato-medium-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/lato-medium-webfont.woff2') format('woff2'),
-         url('../fonts/lato-medium-webfont.woff') format('woff'),
-         url('../fonts/lato-medium-webfont.ttf') format('truetype'),
-         url('../fonts/lato-medium-webfont.svg#latomedium') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'latoblack';
-    src: url('../fonts/lato-black-webfont.eot');
-    src: url('../fonts/lato-black-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/lato-black-webfont.woff2') format('woff2'),
-         url('../fonts/lato-black-webfont.woff') format('woff'),
-         url('../fonts/lato-black-webfont.ttf') format('truetype'),
-         url('../fonts/lato-black-webfont.svg#latoblack') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-
 .center{text-align:center}
 .product_features { position: relative;display: block;float: left;}
 .product_features h2 {font-family:'latolight';text-transform:uppercase;}
@@ -410,24 +471,9 @@ html
     border-radius: 0;
     border: 0;
     line-height: 35px;
-    height: 40px;
+    height: 36px;
 }
-.form-section {
-    padding: 5px 20px;
-    background: #000;
-}
-.form-section-input {
-    padding: 5px;
-}
-.form-section .form-group{
-  margin-bottom: 0;
-}
-.featured_product textarea
-{
-	font-size:16px;
-	font-family:'latolight';
-	border:#ccc 2px solid;
-}
+
 .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {display:inline-block}
 .social-media {background:#202528;text-align:center;}
 .social-media li {display:inline-block}
@@ -487,12 +533,133 @@ html
 #fssPlayPause{position:absolute;top:435px;right:20px;background:url(white.png) repeat;padding:4px 0 5px 0;-moz-border-radius:5px;border-radius:5px;width:60px;text-align:center;display:block;color:#333;text-decoration:none;display:none;}
 
 ul#slideshow{list-style:none;border:none;padding:0px;  margin:auto;width:100%;overflow:hidden;}
-
+.login-div {
+    float: right;
+    padding-right: 15px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+.login-div a {
+    float: right;
+    padding: 8px 17px;
+    font-size: 120%;
+    color: #fff;
+}
+.login-div a i {
+    cursor: pointer;
+}
+.user-image-wrapper {
+    width: 40px;
+    height: 40px;
+    float: right;
+    border-radius: 90px;
+    overflow: hidden;
+}
+.user-image-wrapper img {
+    width: 120%;
+    border-radius: 90px;
+}
 .margin-top-min-16
 {
 	margin-top:-16px;
 }
-
+/*register-page*/
+.wizard-wrapper {
+    float: left;
+    width: 100%;
+    background: #eee;
+    margin-top: 51px;
+}
+.wiz-steps li a {
+    font-size: 1.325rem;
+    font-weight: 300;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    float: left;
+    line-height: 1.15;
+    max-width: 25%;
+    min-width: 15%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+        color: #a8a8a8;
+        cursor:pointer;
+}
+.wiz-steps li a:hover{
+  text-decoration: none;
+}
+ul.wiz-steps li a.active{
+      background-color: #acacac;
+    color: #fff;
+}
+.destination-lbl {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 10px 5px 10px;
+}
+.info-lbl{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #aaa;
+    font-weight: 300;
+}
+.half-label {
+    max-width: 46%;
+    
+}
+.destination-label {
+    border-right: 1px solid #ccc;
+}
+.destination-label:last-child {
+    border-right:0;
+}
+.sub-section {
+    float: left;
+    width: 100%;
+    padding-bottom: 75px;
+}
+.header-section {
+    float: left;
+    width: 100%;
+    padding: 17px 0 0px 0;
+    border-bottom: #ccc solid 1px;
+    margin-bottom: 10px;
+}
+.capacity-span {
+    padding: 20px 20px 20px 0;
+    float: left;
+}
+.list-item-info-lbl i {
+    position: absolute;
+    left: 18px;
+    font-size: 150%;
+}
+.list-item-info-lbl {
+    width: 100%;
+    padding: 10px 10px 10px 30px;
+    float: left;
+}
+.btn-wrapper {
+    padding: 10px;
+    background: #eee;
+    margin: 15px 0;
+}
+.price-lbl {
+    font-size: 36px;
+    color: #333;
+    padding: 10px 10px 15px 10px;
+}
+.small-text {
+    font-size: 12px;
+    color: #333;
+    padding: 10px 0 20px;
+}
+/*end*/
 @media (max-width: 320px) {
 	.social-media li i {padding:15px;font-size:24px}
 	.product_features h2 {font-size:25px;}
@@ -518,6 +685,9 @@ ul#slideshow{list-style:none;border:none;padding:0px;  margin:auto;width:100%;ov
 
 }
 @media (max-width: 768px) {
+  .wizard-wrapper {
+    margin-top: 0px;
+}
 .btm_spacing {margin-bottom:10px}
 .res-margin-0{margin:-30px;}
 .xs-margin-0{
@@ -825,6 +995,10 @@ ul.menaimenu-v3 li a {
 .top-spacing{
   padding-top:20px;
 }
+.form-section-reg {
+    padding: 30px 15px 100px 15px;
+    width: 100%;
+}
 .slide-one-text-height {
     height: auto;
 }
@@ -841,6 +1015,11 @@ h3 {
 }
 .bold {
   text-align: center;
+}
+.wiz-steps li a {
+    font-size: 0.8rem;
+    max-width: 18%;
+    padding: 0.85rem .25rem;
 }
 .left-heading {
     padding-left: 0;
