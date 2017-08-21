@@ -28,9 +28,9 @@ namespace HavaBusinessObjects.ViewModels
         public int? UserId { get; set; }
         public bool IsReturn { get; set; }
         
-        public BookingProductsViewModel BookingProduct { get; set; }
-        public BookingPaymentViewModel BookingPayment { get; set; }
-        public BookingOptionViewModel BookingOption { get; set; }
+        public List<BookingProductsViewModel> BookingProducts { get; set; }
+        public List<BookingPaymentViewModel> BookingPayments { get; set; }
+        public List<BookingOptionViewModel> BookingOptions { get; set; }
     }
 
     public class BookingStatusViewModel

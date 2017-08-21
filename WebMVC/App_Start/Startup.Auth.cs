@@ -12,6 +12,7 @@ using System.Configuration;
 using WebMVC.ModelViews;
 using WebMVC.Providers;
 using WebMVC.Models;
+using System.Web.Http;
 
 namespace WebMVC
 {
@@ -36,6 +37,12 @@ namespace WebMVC
                 RefreshTokenProvider = new SimpleRefreshTokenProvider(),
                 AllowInsecureHttp = true
             };
+
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+
+            config.Formatters.JsonFormatter
+                        .SerializerSettings
+                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
 
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }

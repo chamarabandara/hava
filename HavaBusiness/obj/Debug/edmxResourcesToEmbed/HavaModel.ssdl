@@ -14,7 +14,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="BookingTypeId" Type="int" />
     <Property Name="PickupDate" Type="date" />
     <Property Name="PickupTime" Type="time" Precision="7" />
@@ -162,7 +162,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="nvarchar" MaxLength="500" />
     <Property Name="PartnerId" Type="int" />
     <Property Name="IsActive" Type="bit" />
@@ -227,7 +227,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductId" Type="int" />
     <Property Name="PartnerId" Type="int" />
     <Property Name="HavaPrice" Type="money" />
@@ -272,13 +272,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Property Name="ModifiedDate" Type="datetime" />
     <Property Name="Ratings" Type="smallint" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="PartnerSites">
     <Key>
-      <PropertyRef Name="PartnerId" />
-      <PropertyRef Name="SiteId" />
+      <PropertyRef Name="ID" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PartnerId" Type="int" Nullable="false" />
     <Property Name="SiteId" Type="int" Nullable="false" />
   </EntityType>
@@ -379,7 +377,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary 
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="siteName" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="siteAlias" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -541,6 +539,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary 
       </Principal>
       <Dependent Role="Booking">
         <PropertyRef Name="BookingTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_Partner">
+    <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="PartnerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -753,18 +763,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PartnerSites_Partners">
-    <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
-    <End Role="PartnerSites" Type="Self.PartnerSites" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Partners">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PartnerSites">
-        <PropertyRef Name="PartnerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PartnerSites_Partners1">
     <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
     <End Role="PartnerSites" Type="Self.PartnerSites" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1151,6 +1149,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary 
     <EntitySet Name="PartnerProducts" EntityType="Self.PartnerProducts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PartnerRepresentative" EntityType="Self.PartnerRepresentative" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Partners" EntityType="Self.Partners" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PartnerSites" EntityType="Self.PartnerSites" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
@@ -1178,18 +1177,16 @@ warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary 
     [Currency].[symbol] AS [symbol]
     FROM [dbo].[Currency] AS [Currency]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="PartnerSites" EntityType="Self.PartnerSites" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [PartnerSites].[PartnerId] AS [PartnerId], 
-    [PartnerSites].[SiteId] AS [SiteId]
-    FROM [dbo].[PartnerSites] AS [PartnerSites]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_Booking_BookingStatus" Association="Self.FK_Booking_BookingStatus">
       <End Role="BookingStatus" EntitySet="BookingStatus" />
       <End Role="Booking" EntitySet="Booking" />
     </AssociationSet>
     <AssociationSet Name="FK_Booking_BookingTypes" Association="Self.FK_Booking_BookingTypes">
       <End Role="BookingTypes" EntitySet="BookingTypes" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_Partner" Association="Self.FK_Booking_Partner">
+      <End Role="Partners" EntitySet="Partners" />
       <End Role="Booking" EntitySet="Booking" />
     </AssociationSet>
     <AssociationSet Name="FK_BookingOptions_Booking" Association="Self.FK_BookingOptions_Booking">
@@ -1261,10 +1258,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.PartnerSites' does not have a primary 
       <End Role="Partners" EntitySet="Partners" />
     </AssociationSet>
     <AssociationSet Name="FK_PartnerSites_Partners" Association="Self.FK_PartnerSites_Partners">
-      <End Role="Partners" EntitySet="Partners" />
-      <End Role="PartnerSites" EntitySet="PartnerSites" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PartnerSites_Partners1" Association="Self.FK_PartnerSites_Partners1">
       <End Role="Partners" EntitySet="Partners" />
       <End Role="PartnerSites" EntitySet="PartnerSites" />
     </AssociationSet>

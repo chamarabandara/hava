@@ -19,7 +19,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookingTypeId" Type="int" />
           <Property Name="PickupDate" Type="date" />
           <Property Name="PickupTime" Type="time" Precision="7" />
@@ -544,6 +544,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="Booking">
               <PropertyRef Name="BookingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_Partner">
+          <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partners">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="PartnerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1178,6 +1190,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="BookingTypes" EntitySet="BookingTypes" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
+          <AssociationSet Name="FK_Booking_Partner" Association="Self.FK_Booking_Partner">
+            <End Role="Partners" EntitySet="Partners" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
           <AssociationSet Name="FK_BookingOptions_Booking" Association="Self.FK_BookingOptions_Booking">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="BookingOptions" EntitySet="BookingOptions" />
@@ -1514,6 +1530,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts" FromRole="Partner" ToRole="PartnerProduct" />
           <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="Partner" ToRole="PartnerProductRate" />
           <NavigationProperty Name="PartnerSites" Relationship="HAVA_DBModel.FK_PartnerSites_Partners" FromRole="Partner" ToRole="PartnerSite" />
+          <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_Partner" FromRole="Partner" ToRole="Booking" />
           </EntityType>
         <EntityType Name="PaymentType">
           <Key>
@@ -2317,6 +2334,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Site" EntitySet="Sites" />
             <End Role="PartnerSite" EntitySet="PartnerSites" />
           </AssociationSet>
+          <AssociationSet Name="FK_Booking_Partner" Association="HAVA_DBModel.FK_Booking_Partner">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -2635,6 +2656,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="BookingOptions" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="Booking" ToRole="BookingOption" />
           <NavigationProperty Name="BookingPayments" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="Booking" ToRole="BookingPayment" />
           <NavigationProperty Name="BookingProducts" Relationship="HAVA_DBModel.FK_BookingProducts_Booking" FromRole="Booking" ToRole="BookingProduct" />
+          <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_Booking_Partner" FromRole="Booking" ToRole="Partner" />
         </EntityType>
         <EntityType Name="PartnerProductRate">
           <Key>
@@ -2808,6 +2830,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="PartnerSite">
               <PropertyRef Name="SiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_Partner">
+          <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="PartnerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

@@ -357,14 +357,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PartnerSites">
-      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerSite">
-        <MappingFragment StoreEntitySet="PartnerSites">
-          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-          <ScalarProperty Name="SiteId" ColumnName="SiteId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="HAVA_DBModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="HAVA_DBModel.Store.sp_creatediagram" />
     <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="HAVA_DBModel.Store.sp_dropdiagram" />
@@ -575,6 +567,15 @@
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="BookingId" ColumnName="BookingId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PartnerSites">
+      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerSite">
+        <MappingFragment StoreEntitySet="PartnerSites">
+          <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

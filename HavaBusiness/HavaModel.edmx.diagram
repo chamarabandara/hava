@@ -91,6 +91,7 @@
         <EntityTypeShape EntityType="HAVA_DBModel.PartnerSite" Width="1.5" PointX="5.25" PointY="17.875" />
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Partners" />
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Sites" />
+        <AssociationConnector Association="HAVA_DBModel.FK_Booking_Partner" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

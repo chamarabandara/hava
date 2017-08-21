@@ -41,9 +41,9 @@ namespace HavaBusinessObjects.ControllerRepository
 
                     int bookingId = booking.Id;
 
-                    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProduct);
-                    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOption);
-                    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayment);
+                    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
+                    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
+                    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
 
                     bookingOption.CreatedDate = DateTime.UtcNow;
                     bookingOption.BookingId = bookingId;
@@ -79,14 +79,24 @@ namespace HavaBusinessObjects.ControllerRepository
 
         public BookingViewModel GetById(int id)
         {
-            var booking = this.ObjContext.Bookings
-                .Include(x => x.BookingOptions)
-                .Include(x => x.BookingProducts)
-                .Include(x => x.BookingPayments)
-                .Where(a => a.Id == id).FirstOrDefault();
+            try
+            {
+               var booking = this.ObjContext.Bookings
+                    .Include(x => x.Partner)
+                    .Include(x => x.BookingStatu)
+                    .Include(x => x.BookingType)
+                    .Include(x => x.BookingType)
+                    .Include(x => x.BookingOptions)
+                    .Include(x => x.BookingProducts)
+                    .Include(x => x.BookingPayments)
+                    .Where(a => a.Id == id).FirstOrDefault();
 
-
-            return Mapper.Map<Booking, BookingViewModel>(booking);
+                return Mapper.Map<Booking, BookingViewModel>(booking);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #region Dispose
