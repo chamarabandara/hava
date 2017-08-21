@@ -1,3 +1,6 @@
 WebMVC/Web.config
 WebMVC/bin/
 HavaBusinessObjects/bin/
+HavaBusinessObjects/bin
+HavaBusiness/bin/*
+HavaBusinessObjects/bin/*

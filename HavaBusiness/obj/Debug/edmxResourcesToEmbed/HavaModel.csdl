@@ -147,11 +147,11 @@
     <NavigationProperty Name="PartnerCommissions" Relationship="Self.FK_PartnerCommissions_Partners" FromRole="Partners" ToRole="PartnerCommissions" />
     <NavigationProperty Name="User" Relationship="Self.FK_Partners_Users" FromRole="Partners" ToRole="Users" />
     <NavigationProperty Name="User1" Relationship="Self.FK_Partners_Users1" FromRole="Partners" ToRole="Users" />
-    <NavigationProperty Name="PartnerSites" Relationship="Self.FK_PartnerSites_Partners" FromRole="Partners" ToRole="PartnerSites" />
-    <NavigationProperty Name="PartnerSites1" Relationship="Self.FK_PartnerSites_Partners1" FromRole="Partners" ToRole="PartnerSites" />
     <NavigationProperty Name="PartnerRepresentatives" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Partner" FromRole="Partner" ToRole="PartnerRepresentative" />
     <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts" FromRole="Partner" ToRole="PartnerProduct" />
     <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="Partner" ToRole="PartnerProductRate" />
+    <NavigationProperty Name="PartnerSites" Relationship="HAVA_DBModel.FK_PartnerSites_Partners" FromRole="Partner" ToRole="PartnerSite" />
+    <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_Partner" FromRole="Partner" ToRole="Booking" />
   </EntityType>
   <EntityType Name="PaymentType">
     <Key>
@@ -272,9 +272,9 @@
     <Property Name="SiteBannerPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="siteBannerName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="siteBannerSize" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="PartnerSites" Relationship="Self.FK_PartnerSites_Sites" FromRole="Sites" ToRole="PartnerSites" />
     <NavigationProperty Name="User" Relationship="Self.FK_Sites_Users" FromRole="Sites" ToRole="Users" />
     <NavigationProperty Name="User1" Relationship="Self.FK_Sites_Users1" FromRole="Sites" ToRole="Users" />
+    <NavigationProperty Name="PartnerSites" Relationship="HAVA_DBModel.FK_PartnerSites_Sites" FromRole="Site" ToRole="PartnerSite" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -397,17 +397,6 @@
     <Property Name="code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="symbol" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="PartnerSite">
-    <Key>
-      <PropertyRef Name="PartnerId" />
-      <PropertyRef Name="SiteId" />
-    </Key>
-    <Property Name="PartnerId" Type="Int32" Nullable="false" />
-    <Property Name="SiteId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Partner" Relationship="Self.FK_PartnerSites_Partners" FromRole="PartnerSites" ToRole="Partners" />
-    <NavigationProperty Name="Partner1" Relationship="Self.FK_PartnerSites_Partners1" FromRole="PartnerSites" ToRole="Partners" />
-    <NavigationProperty Name="Site" Relationship="Self.FK_PartnerSites_Sites" FromRole="PartnerSites" ToRole="Sites" />
-  </EntityType>
   <Association Name="FK_ContactTypes_Users">
     <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="ContactTypes" Type="Self.ContactType" Multiplicity="*" />
@@ -516,30 +505,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PartnerSites_Partners">
-    <End Role="Partners" Type="Self.Partner" Multiplicity="1" />
-    <End Role="PartnerSites" Type="Self.PartnerSite" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Partners">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PartnerSites">
-        <PropertyRef Name="PartnerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PartnerSites_Partners1">
-    <End Role="Partners" Type="Self.Partner" Multiplicity="1" />
-    <End Role="PartnerSites" Type="Self.PartnerSite" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Partners">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PartnerSites">
-        <PropertyRef Name="PartnerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_RolePermision_Permission">
     <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
     <End Role="RolePermision" Type="Self.RolePermision" Multiplicity="*" />
@@ -621,18 +586,6 @@
       </Principal>
       <Dependent Role="UserRoles">
         <PropertyRef Name="RoleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PartnerSites_Sites">
-    <End Role="Sites" Type="Self.Site" Multiplicity="1" />
-    <End Role="PartnerSites" Type="Self.PartnerSite" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Sites">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PartnerSites">
-        <PropertyRef Name="SiteId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -772,7 +725,6 @@
     <EntitySet Name="UserTypes" EntityType="Self.UserType" />
     <EntitySet Name="VehicleTypes" EntityType="Self.VehicleType" />
     <EntitySet Name="Currencies" EntityType="Self.Currency" />
-    <EntitySet Name="PartnerSites" EntityType="Self.PartnerSite" />
     <AssociationSet Name="FK_ContactTypes_Users" Association="Self.FK_ContactTypes_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="ContactTypes" EntitySet="ContactTypes" />
@@ -809,14 +761,6 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Partners" EntitySet="Partners" />
     </AssociationSet>
-    <AssociationSet Name="FK_PartnerSites_Partners" Association="Self.FK_PartnerSites_Partners">
-      <End Role="Partners" EntitySet="Partners" />
-      <End Role="PartnerSites" EntitySet="PartnerSites" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PartnerSites_Partners1" Association="Self.FK_PartnerSites_Partners1">
-      <End Role="Partners" EntitySet="Partners" />
-      <End Role="PartnerSites" EntitySet="PartnerSites" />
-    </AssociationSet>
     <AssociationSet Name="FK_RolePermision_Permission" Association="Self.FK_RolePermision_Permission">
       <End Role="Permission" EntitySet="Permissions" />
       <End Role="RolePermision" EntitySet="RolePermisions" />
@@ -844,10 +788,6 @@
     <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="UserRoles" EntitySet="UserRoles" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PartnerSites_Sites" Association="Self.FK_PartnerSites_Sites">
-      <End Role="Sites" EntitySet="Sites" />
-      <End Role="PartnerSites" EntitySet="PartnerSites" />
     </AssociationSet>
     <AssociationSet Name="FK_Sites_Users" Association="Self.FK_Sites_Users">
       <End Role="Users" EntitySet="Users" />
@@ -1005,6 +945,19 @@
     <AssociationSet Name="FK_BookingProducts_Booking" Association="HAVA_DBModel.FK_BookingProducts_Booking">
       <End Role="Booking" EntitySet="Bookings" />
       <End Role="BookingProduct" EntitySet="BookingProducts" />
+    </AssociationSet>
+    <EntitySet Name="PartnerSites" EntityType="HAVA_DBModel.PartnerSite" />
+    <AssociationSet Name="FK_PartnerSites_Partners" Association="HAVA_DBModel.FK_PartnerSites_Partners">
+      <End Role="Partner" EntitySet="Partners" />
+      <End Role="PartnerSite" EntitySet="PartnerSites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartnerSites_Sites" Association="HAVA_DBModel.FK_PartnerSites_Sites">
+      <End Role="Site" EntitySet="Sites" />
+      <End Role="PartnerSite" EntitySet="PartnerSites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_Partner" Association="HAVA_DBModel.FK_Booking_Partner">
+      <End Role="Partner" EntitySet="Partners" />
+      <End Role="Booking" EntitySet="Bookings" />
     </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1324,6 +1277,7 @@
     <NavigationProperty Name="BookingOptions" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="Booking" ToRole="BookingOption" />
     <NavigationProperty Name="BookingPayments" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="Booking" ToRole="BookingPayment" />
     <NavigationProperty Name="BookingProducts" Relationship="HAVA_DBModel.FK_BookingProducts_Booking" FromRole="Booking" ToRole="BookingProduct" />
+    <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_Booking_Partner" FromRole="Booking" ToRole="Partner" />
   </EntityType>
   <EntityType Name="PartnerProductRate">
     <Key>
@@ -1463,6 +1417,52 @@
       </Principal>
       <Dependent Role="BookingProduct">
         <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PartnerSite">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartnerId" Type="Int32" Nullable="false" />
+    <Property Name="SiteId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerSites_Partners" FromRole="PartnerSite" ToRole="Partner" />
+    <NavigationProperty Name="Site" Relationship="HAVA_DBModel.FK_PartnerSites_Sites" FromRole="PartnerSite" ToRole="Site" />
+  </EntityType>
+  <Association Name="FK_PartnerSites_Partners">
+    <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="1" />
+    <End Type="HAVA_DBModel.PartnerSite" Role="PartnerSite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerSite">
+        <PropertyRef Name="PartnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartnerSites_Sites">
+    <End Type="HAVA_DBModel.Site" Role="Site" Multiplicity="1" />
+    <End Type="HAVA_DBModel.PartnerSite" Role="PartnerSite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Site">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartnerSite">
+        <PropertyRef Name="SiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_Partner">
+    <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1" />
+    <End Type="HAVA_DBModel.Booking" Role="Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="PartnerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
