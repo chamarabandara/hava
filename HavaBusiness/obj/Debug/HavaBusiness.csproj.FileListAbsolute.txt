@@ -48,3 +48,14 @@ E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.dl
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\obj\Debug\HavaBusiness.pdb
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\AutoMapper.dll
 E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusiness\bin\AutoMapper.xml
+D:\hava project git\hava\HavaBusiness\bin\HavaBusiness.dll.config
+D:\hava project git\hava\HavaBusiness\bin\HavaBusiness.dll
+D:\hava project git\hava\HavaBusiness\bin\HavaBusiness.pdb
+D:\hava project git\hava\HavaBusiness\bin\AutoMapper.dll
+D:\hava project git\hava\HavaBusiness\bin\EntityFramework.dll
+D:\hava project git\hava\HavaBusiness\bin\EntityFramework.SqlServer.dll
+D:\hava project git\hava\HavaBusiness\bin\AutoMapper.xml
+D:\hava project git\hava\HavaBusiness\bin\EntityFramework.xml
+D:\hava project git\hava\HavaBusiness\bin\EntityFramework.SqlServer.xml
+D:\hava project git\hava\HavaBusiness\obj\Debug\HavaBusiness.dll
+D:\hava project git\hava\HavaBusiness\obj\Debug\HavaBusiness.pdb

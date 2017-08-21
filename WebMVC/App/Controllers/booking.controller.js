@@ -11,12 +11,17 @@
 *
 */
 
-var sitesControllers = angular.module('Sites', []);
+var sitesControllers = angular.module('Sites', ['siteService']);
 
-sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', function ($scope, $http) {
+sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', function ($scope, $http, HavaSiteService) {
   
     $scope.search = {};
-    $scope.locations = [{ 'id': 1, 'name': 'test' }];
+    HavaSiteService.getLocations({ 'id': 1003 }).$promise.then(
+             function (result) {
+                // angular.forEach(result);
+                 $scope.locations= JSON.parse(result);
+             });
+  //  $scope.locations = [{ 'id': 1, 'name': 'test' }];
     $scope.isMain = true;
     $scope.searchBooking = function (model) {
         $scope.isMain = false;
@@ -36,5 +41,24 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', function ($
             return "";
     }
 
+    $scope.selectDate = function (id) {
+        setTimeout(function () {
+            $('#' + id).trigger('focus');
+        }, 50);
+    }
+
+    angular.element(document).ready(function () {
+        //$(function () {
+        //    $("#datepicker").datepicker();
+        //});
+        $('#timepicker').timepicker({});
+        var dateToday = new Date();
+        $('#inputGroupSuccessDate').datepicker({
+        format: 'yyyy-mm-dd',
+        endDate: dateToday,
+        todayBtn: 'linked',
+        autoclose: true,
+    });
+    });
 }]);
 
