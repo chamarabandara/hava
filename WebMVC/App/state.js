@@ -61,6 +61,7 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
            { name: 'productControllers', serie: true, files: ['App/Controllers/product.controller.js?v=' + jsVersion] },
            { name: 'sitesControllers', serie: true, files: ['App/Controllers/sites.controller.js?v=' + jsVersion] },
            { name: 'tspControllers', serie: true, files: ['App/Controllers/tsp.controller.js?v=' + jsVersion] },
+            { name: 'bookingControllers', serie: true, files: ['App/Controllers/booking.controller.js?v=' + jsVersion] },
        //service modules  
          { name: 'partnerService', serie: true, files: ['App/Services/partnerservice.js?v=' + jsVersion] },
            { name: 'navBarService', serie: true, files: ['App/Services/navbarservice.js?v=' + jsVersion] },
@@ -403,6 +404,24 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
               //loadMyFilter: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
               //    return $ocLazyLoad.load(['filterString']);
               //}]
+          }
+
+      })
+         .state('app.booking', {
+             url: '/booking',
+             templateUrl: 'Booking/Index',
+         })
+      .state('app.booking.list', {
+          url: '/list',
+          templateUrl: 'Booking/List',
+          controller: function ($scope, $stateParams, $controller) { $controller("BookingCtrl", { $scope: $scope }); },
+          resolve: {
+              loadMyController: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                  return $ocLazyLoad.load('bookingControllers');
+              }],
+              loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                  return $ocLazyLoad.load(['siteService']);
+              }]
           }
 
       })

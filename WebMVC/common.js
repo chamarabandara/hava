@@ -8,7 +8,7 @@
     }
     return "";
 }
-var apiUrl = 'http://localhost/hava/';
+var apiUrl = 'http://localhost/havadip/';
 var tokenKey = 'accessToken';
 var refreshTokenKey = 'refreshToken';
 var appUrl = 'http://localhost/hava/';

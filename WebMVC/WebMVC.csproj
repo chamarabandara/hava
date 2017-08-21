@@ -238,6 +238,7 @@
     <Content Include="App\Controllers\navbar.controller.js" />
     <Content Include="App\Controllers\partner.controller.js" />
     <Content Include="App\Controllers\product.controller.js" />
+    <Content Include="App\Controllers\booking.controller.js" />
     <Content Include="App\Controllers\sites.controller.js" />
     <Content Include="App\Controllers\tsp.controller.js" />
     <Content Include="App\directives.js" />
@@ -4813,6 +4814,8 @@
     <Content Include="Views\TSP\Index.cshtml" />
     <Content Include="Views\TSP\List.cshtml" />
     <Content Include="Views\TSP\TSPView.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
+    <Content Include="Views\Booking\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
