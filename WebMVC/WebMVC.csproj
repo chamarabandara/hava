@@ -4814,6 +4814,8 @@
     <Content Include="Views\TSP\Index.cshtml" />
     <Content Include="Views\TSP\List.cshtml" />
     <Content Include="Views\TSP\TSPView.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
+    <Content Include="Views\Booking\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

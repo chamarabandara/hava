@@ -3,10 +3,7 @@ using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Mvc;
 
 namespace WebMVC.Controllers
@@ -19,26 +16,26 @@ namespace WebMVC.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public JObject GetProducts(int partnerId, int locationId)
+        public JObject GetProducts(int partnerId , int locationId)
         {
             JObject returnObj = new JObject();
             try
             {
-                var prodPrices = _partnerRepository.GetPartnerProducts(partnerId, locationId);
+                var prodPrices = _partnerRepository.GetPartnerProducts(partnerId , locationId);
                 if (prodPrices.Count() > 0)
                 {
-                    returnObj.Add("data", JsonConvert.SerializeObject(prodPrices));
+                    returnObj.Add("data" , JsonConvert.SerializeObject(prodPrices));
                     return returnObj;
                 }
                 else
                 {
                     return returnObj;
                 }
-                
+
             }
             catch (Exception ex)
             {
-                returnObj.Add("error", ex.Message.ToString());
+                returnObj.Add("error" , ex.Message.ToString());
                 return returnObj;
             }
         }
@@ -52,11 +49,11 @@ namespace WebMVC.Controllers
             if (ModelState.IsValid)
             {
                 var booking = _bookingRepository.Insert(vm);
-                returnObj.Add("data", JsonConvert.SerializeObject(booking));
+                returnObj.Add("data" , JsonConvert.SerializeObject(booking));
                 return returnObj;
 
             }
-            returnObj.Add("error", "Please provide mandatory fields");
+            returnObj.Add("error" , "Please provide mandatory fields");
             return returnObj;
         }
 
@@ -68,14 +65,31 @@ namespace WebMVC.Controllers
             try
             {
                 var booking = _bookingRepository.GetById(id);
-                returnObj.Add("data", JsonConvert.SerializeObject(booking));
+                returnObj.Add("data" , JsonConvert.SerializeObject(booking));
                 return returnObj;
             }
             catch (Exception ex)
             {
-                returnObj.Add("error", "General Error");
+                returnObj.Add("error" , "General Error");
                 return returnObj;
             }
+        }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult List()
+        {
+            return View();
+        }
+
+        public JObject GetBookingList()
+        {
+            JObject returnObj = new JObject();
+            returnObj.Add("data" , _bookingRepository.GetBookingList());
+            return returnObj;
         }
 
 

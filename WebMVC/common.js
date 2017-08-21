@@ -11,7 +11,7 @@
 var apiUrl = 'http://localhost/havadip/';
 var tokenKey = 'accessToken';
 var refreshTokenKey = 'refreshToken';
-var appUrl = 'http://localhost:51604/WebMVC/';
+var appUrl = 'http://localhost/hava/';
 var loginUrl = appUrl + 'home/Login';
 var token = sessionStorage.getItem(tokenKey);
 var translateKey = getCookie("translateKey");
