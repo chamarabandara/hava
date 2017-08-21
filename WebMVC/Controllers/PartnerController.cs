@@ -55,6 +55,12 @@ namespace HavaWeb.Controllers
             return siteRepository.GetPartner();
         }
 
+        [HttpGet]
+        public JObject GetPartnerById(int id)
+        {
+            PartnerRepository partnerRepo = new PartnerRepository();
+            return partnerRepo.GetPartnerById(id);
+        }
         #region add Product
         /// <summary>
         /// Adds the specified Product.

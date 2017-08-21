@@ -258,6 +258,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="int" />
+          <Property Name="UserId" Type="int" />
         </EntityType>
         <EntityType Name="Partners">
           <Key>
@@ -730,6 +731,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PartnerProducts_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="PartnerProducts" Type="Self.PartnerProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerProducts">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PartnerRepresentative_Partner">
           <End Role="Partners" Type="Self.Partners" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -741,6 +754,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="PartnerRepresentative">
               <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerRepresentative_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PartnerRepresentative" Type="Self.PartnerRepresentative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerRepresentative">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1056,6 +1081,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserTypes_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="*" />
@@ -1251,8 +1288,16 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Partners" EntitySet="Partners" />
             <End Role="PartnerProducts" EntitySet="PartnerProducts" />
           </AssociationSet>
+          <AssociationSet Name="FK_PartnerProducts_Products" Association="Self.FK_PartnerProducts_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PartnerProducts" EntitySet="PartnerProducts" />
+          </AssociationSet>
           <AssociationSet Name="FK_PartnerRepresentative_Partner" Association="Self.FK_PartnerRepresentative_Partner">
             <End Role="Partners" EntitySet="Partners" />
+            <End Role="PartnerRepresentative" EntitySet="PartnerRepresentative" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerRepresentative_Users" Association="Self.FK_PartnerRepresentative_Users">
+            <End Role="Users" EntitySet="Users" />
             <End Role="PartnerRepresentative" EntitySet="PartnerRepresentative" />
           </AssociationSet>
           <AssociationSet Name="FK_Partners_Users" Association="Self.FK_Partners_Users">
@@ -1358,6 +1403,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_UserRoles_Users1" Association="Self.FK_UserRoles_Users1">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users" Association="Self.FK_Users_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_UserTypes_Users" Association="Self.FK_UserTypes_Users">
             <End Role="Users" EntitySet="Users" />
@@ -1503,6 +1552,8 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Partner" FromRole="PartnerRepresentative" ToRole="Partner" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Users" FromRole="PartnerRepresentative" ToRole="User" />
         </EntityType>
         <EntityType Name="Partner">
           <Key>
@@ -1571,6 +1622,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="ProductImageSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TSPProducts" Relationship="HAVA_DBModel.FK_TSPProducts_Products" FromRole="Product" ToRole="TSPProduct" />
           <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_Products" FromRole="Product" ToRole="TSPVehicle" />
+          <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="Product" ToRole="PartnerProduct" />
         </EntityType>
         <EntityType Name="PromotionDiscount">
           <Key>
@@ -1735,6 +1787,9 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="TSPProducts1" Relationship="HAVA_DBModel.FK_TSPProducts_Users1" FromRole="User" ToRole="TSPProduct" />
           <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_Users" FromRole="User" ToRole="TSPVehicle" />
           <NavigationProperty Name="TSPVehicles1" Relationship="HAVA_DBModel.FK_TSPVehicles_Users1" FromRole="User" ToRole="TSPVehicle" />
+          <NavigationProperty Name="PartnerRepresentatives" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Users" FromRole="User" ToRole="PartnerRepresentative" />
+          <NavigationProperty Name="Users1" Relationship="HAVA_DBModel.FK_Users_Users" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="User1" Relationship="HAVA_DBModel.FK_Users_Users" FromRole="User1" ToRole="User" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -2339,6 +2394,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Partner" EntitySet="Partners" />
             <End Role="Booking" EntitySet="Bookings" />
           </AssociationSet>
+          <AssociationSet Name="FK_PartnerRepresentative_Users" Association="HAVA_DBModel.FK_PartnerRepresentative_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PartnerRepresentative" EntitySet="PartnerRepresentatives" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users" Association="HAVA_DBModel.FK_Users_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User1" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerProducts_Products" Association="HAVA_DBModel.FK_PartnerProducts_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="PartnerProduct" EntitySet="PartnerProducts" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -2609,6 +2676,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="Percentage" Type="Decimal" Precision="6" Scale="2" />
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts" FromRole="PartnerProduct" ToRole="Partner" />
           <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="PartnerProduct" ToRole="PartnerProductRate" />
+          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="PartnerProduct" ToRole="Product" />
         </EntityType>
         <Association Name="FK_PartnerProducts_PartnerProducts">
           <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1">
@@ -2847,6 +2915,42 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PartnerRepresentative_Users">
+          <End Type="HAVA_DBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.PartnerRepresentative" Role="PartnerRepresentative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerRepresentative">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Users">
+          <End Type="HAVA_DBModel.User" Role="User" Multiplicity="1" />
+          <End Type="HAVA_DBModel.User" Role="User1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerProducts_Products">
+          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2962,6 +3066,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="PartnerRepresentatives">
             <EntityTypeMapping TypeName="HAVA_DBModel.PartnerRepresentative">
               <MappingFragment StoreEntitySet="PartnerRepresentative">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

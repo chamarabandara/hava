@@ -19,6 +19,7 @@ namespace HavaBusiness
         {
             this.TSPProducts = new HashSet<TSPProduct>();
             this.TSPVehicles = new HashSet<TSPVehicle>();
+            this.PartnerProducts = new HashSet<PartnerProduct>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,7 @@ namespace HavaBusiness
         public virtual ICollection<TSPProduct> TSPProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSPVehicle> TSPVehicles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
     }
 }

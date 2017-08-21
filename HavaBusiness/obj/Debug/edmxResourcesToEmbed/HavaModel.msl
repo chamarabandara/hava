@@ -110,6 +110,7 @@
     <EntitySetMapping Name="PartnerRepresentatives">
       <EntityTypeMapping TypeName="HAVA_DBModel.PartnerRepresentative">
         <MappingFragment StoreEntitySet="PartnerRepresentative">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -500,6 +501,7 @@
     <EntitySetMapping Name="Bookings">
       <EntityTypeMapping TypeName="HAVA_DBModel.Booking">
         <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="IsAirportTransfer" ColumnName="IsAirportTransfer" />
           <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserConfirmed" ColumnName="UserConfirmed" />

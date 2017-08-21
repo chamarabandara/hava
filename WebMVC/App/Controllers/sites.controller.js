@@ -25,7 +25,7 @@ sitesControllers.controller('SitesCreateCtrl', ['$scope', '$http', 'HavaSiteServ
             }
             HavaSiteService.createSites(sites).$promise.then(function (data) {
                 if (data.status == true) {
-                    tmp.infoMsg = 'Customer \'' + sites.name + '\' has been saved successfully.';
+                    tmp.infoMsg = 'Site \'' + sites.name + '\' has been saved successfully.';
                     $state.go('^.list');
                 }
             });

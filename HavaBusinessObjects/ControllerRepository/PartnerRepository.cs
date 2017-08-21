@@ -229,6 +229,91 @@ namespace HavaBusinessObjects.ControllerRepository
             }
         }
 
+        #region Get partner by Id
+        /// <summary>
+        /// Gets the partner.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        public JObject GetPartnerById(int Id)
+        {
+            JObject returnObj = new JObject();
+            Partner objPartner = new Partner();
+            objPartner = this.ObjContext.Partners.Find(Id);
+            if (objPartner != null)
+            {
+                returnObj.Add("id" , objPartner.Id);
+                returnObj.Add("code" , objPartner.Code);
+                returnObj.Add("name" , objPartner.Name);
+                returnObj.Add("address" , objPartner.FullAddress);
+                returnObj.Add("email" , objPartner.Email);
+                returnObj.Add("telephoneLand" , objPartner.TelLandLine);
+                returnObj.Add("telephoneMobile" , objPartner.TelMobile);
+
+                JArray repList = new JArray();
+                if (objPartner.PartnerRepresentatives.Count > 0)
+                {
+                    foreach (var rep in objPartner.PartnerRepresentatives)
+                    {
+                        JObject objRep = new JObject();
+                        objRep.Add("partnerId" , rep.PartnerId);
+                        objRep.Add("name" , rep.Name);
+                        objRep.Add("teleNo" , rep.TelephoneNo);
+                        objRep.Add("mobileNo" , rep.MobileNo);
+                        objRep.Add("email" , rep.Email);
+                        objRep.Add("status" , rep.IsActive == true ? "Active" : "Inactive");
+                        objRep.Add("userName" , rep.UserId != null ? rep.User.UserName : string.Empty);
+                        objRep.Add("password" , rep.UserId != null ? rep.User.PasswordEncrypt : string.Empty);
+
+                        repList.Add(objRep);
+                    }
+                }
+                returnObj.Add("representativeGridData" , repList);
+
+                #region partner product details
+                JArray prodList = new JArray();
+                if (objPartner.PartnerProducts.Count > 0)
+                {
+                    foreach (var objProd in objPartner.PartnerProducts)
+                    {
+
+                        JObject prod = new JObject();
+                        prod.Add("partnerId" , objProd.PartnerId);
+                        prod.Add("havaPrice" , objProd.HavaPrice);
+                        prod.Add("marketPrice" , objProd.MarketPrice);
+                        prod.Add("partnerSellingPrice" , objProd.PartnerSellingPrice);
+                        prod.Add("isMarkup" , objProd.IsMarkUp == true ? "True" : "False");
+                        prod.Add("partnerMarkup" , objProd.Markup);
+                        prod.Add("partnerPercentage" , objProd.Percentage);
+                        prod.Add("productId" , objProd.ProductId);
+                        prod.Add("name" , objProd.Product.Name);
+
+                        prodList.Add(prod);
+                    }
+                }
+                returnObj.Add("productGridData" , prodList);
+                #endregion
+
+                #region partner sites
+                JArray siteList = new JArray();
+                if (objPartner.PartnerSites.Count > 0)
+                {
+                    foreach (var site in objPartner.PartnerSites)
+                    {
+                        JObject st = new JObject();
+                        st.Add("siteId" , site.SiteId);
+                        st.Add("site" , site.Site.siteName);
+
+                        siteList.Add(st);
+                    }
+                }
+                returnObj.Add("siteGridData" , siteList);
+                #endregion
+            }
+
+            return returnObj;
+        }
+        #endregion
 
         #region Dispose
         /// <summary>

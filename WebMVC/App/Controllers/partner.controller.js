@@ -155,7 +155,7 @@ partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerSer
 }]);
 
 partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, filterFilter) {
-
+    //var tmp = PartnerServiceLocal;
     $scope.representative = {};
     $scope.submittedRep = false;
     $scope.representativeGridData = [];
@@ -163,12 +163,23 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     HavaPartnerService.getProduct().$promise.then(
               function (result) {
                   $scope.productList = result.data;
+                  HavaPartnerService.getSites().$promise.then(
+                     function (result) {
+                         $scope.siteList = result.data;
+                     });
+
+                  if ($stateParams.id) {
+                      HavaPartnerService.getPartner({ id: $stateParams.id }).$promise.then(
+                        function (result) {
+                            $scope.model = result;
+                            $scope.representativeGridData = result.representativeGridData;
+                            $scope.productGridData = result.productGridData;
+                            $scope.siteGridData = result.siteGridData;
+                        });
+                  }
               });
 
-     HavaPartnerService.getSites().$promise.then(
-              function (result) {
-                  $scope.siteList = result.data;
-              });
+    
     //status
     $scope.userStatus = [
      { 'id': 1, 'name': 'Active' }, { 'id': 0, 'name': 'Inactive' }
@@ -421,6 +432,8 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
             partner.siteGridData = $scope.siteGridData;
             HavaPartnerService.create(partner).$promise.then(function (data) {
                 if (data.status == true) {
+                  tmp.infoMsg = 'Customer \'' + sites.name + '\' has been saved successfully.';
+                    $state.go('^.list');
                 }
             });
 

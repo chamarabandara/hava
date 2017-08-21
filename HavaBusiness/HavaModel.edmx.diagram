@@ -92,6 +92,9 @@
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Partners" />
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerSites_Sites" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_Partner" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerRepresentative_Users" />
+        <AssociationConnector Association="HAVA_DBModel.FK_Users_Users" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProducts_Products" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

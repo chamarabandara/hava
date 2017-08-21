@@ -106,7 +106,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 List<Booking> bookings = this.ObjContext.Bookings.ToList();
                 bookings = bookings.OrderByDescending(x => x.CreatedDate).ToList();
                 JArray returnArr = new JArray();
-                foreach (var booking in bookings)
+                foreach (Booking booking in bookings)
                 {
                     JObject bk = new JObject();
                     bk.Add("id" , booking.Id);
@@ -114,10 +114,10 @@ namespace HavaBusinessObjects.ControllerRepository
                     bk.Add("partner" , booking.PartnerId != null ? booking.Partner.Name : string.Empty);
                     bk.Add("bookingType" , booking.BookingTypeId != null ? booking.BookingType.type : string.Empty);
                     bk.Add("pickupDate" , booking.PickupDate != null ? booking.PickupDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
-                    bk.Add("pickupTime" , booking.PickupTime != null ? booking.PickupTime.Value.ToString("hh:mm:ss") : string.Empty);
+                    bk.Add("pickupTime" , booking.PickupTime != null ? booking.PickupTime.Value.ToString(@"hh\:mm") : string.Empty);
                     bk.Add("pickupLocation" , booking.PickupLocation);
                     bk.Add("returnDate" , booking.ReturnDate != null ? booking.ReturnDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
-                    bk.Add("returnTime" , booking.ReturnTime != null ? booking.ReturnTime.Value.ToString("hh:mm:ss") : string.Empty);
+                    bk.Add("returnTime" , booking.ReturnTime != null ? booking.ReturnTime.Value.ToString(@"hh\:mm") : string.Empty);
                     bk.Add("dropLocation" , booking.DropLocation);
                     bk.Add("bookingStatus" , booking.BookingStatusId != null ? booking.BookingStatu.Name : string.Empty);
 

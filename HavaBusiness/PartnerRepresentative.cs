@@ -25,7 +25,9 @@ namespace HavaBusiness
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<int> UserId { get; set; }
     
         public virtual Partner Partner { get; set; }
+        public virtual User User { get; set; }
     }
 }
