@@ -18,14 +18,28 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     $scope.search = {};
     HavaSiteService.getLocations({ 'id': 1003 }).$promise.then(
              function (result) {
-                // angular.forEach(result);
-                 $scope.locations= JSON.parse(result);
+                 // angular.forEach(result);
+                 console.log(JSON.parse(result.data));
+                 var dt = JSON.parse(result.data);
+                 $scope.locations = dt;
              });
-  //  $scope.locations = [{ 'id': 1, 'name': 'test' }];
+    //  $scope.locations = [{ 'id': 1, 'name': 'test' },{ 'id': 1, 'name': 'test' }];
     $scope.isMain = true;
     $scope.searchBooking = function (model) {
         $scope.isMain = false;
-        $scope.pickupLocation = $('#searchTextField').val();
+        $scope.search.pickupLocation = $('#searchTextField').val();
+        $scope.search.dropLocation = $('#searchTextField').val();
+
+        if ($('#inputGroupSuccessDate').val() != "")
+            $scope.search.pickupDate = $('#inputGroupSuccessDate').val();
+        else
+            $scope.search.pickupDate = $('#inputGroupSuccessDate2').val();
+        if ($('#timepicker').val() != "")
+            $scope.search.pickupTime = $('#timepicker').val();
+        else
+            $scope.search.pickupTime = $('#timepicker2').val();
+
+        console.log($scope.search);
     }
 
     $scope.step = 1;
@@ -52,13 +66,22 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         //    $("#datepicker").datepicker();
         //});
         $('#timepicker').timepicker({});
+        $('#timepicker2').timepicker({});
+
         var dateToday = new Date();
+
         $('#inputGroupSuccessDate').datepicker({
         format: 'yyyy-mm-dd',
         endDate: dateToday,
         todayBtn: 'linked',
         autoclose: true,
-    });
+        });
+        $('#inputGroupSuccessDate2').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: dateToday,
+            todayBtn: 'linked',
+            autoclose: true,
+        });
     });
 }]);
 
