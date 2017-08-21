@@ -16,7 +16,7 @@ namespace WebMVC.Controllers
         private BookingRepository _bookingRepository = new BookingRepository();
 
         [HttpGet]
-        [Route("GetProducts/{partnerId}/{locationId}", Name = "GetPartnersProductsForLocations")]
+        [Route("GetProducts", Name = "GetPartnersProductsForLocations")]
         [AllowAnonymous]
         public IHttpActionResult GetPartnersProductsForLocations(int partnerId, int locationId)
         {
@@ -54,7 +54,7 @@ namespace WebMVC.Controllers
         }
 
         [HttpGet]
-        [Route("GetById/{id}", Name = "GetById")]
+        [Route("GetById", Name = "GetById")]
         [AllowAnonymous]
         public IHttpActionResult GetById(int id)
         {
