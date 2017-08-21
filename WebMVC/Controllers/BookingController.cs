@@ -42,35 +42,41 @@ namespace WebMVC.Controllers
                 return returnObj;
             }
         }
-        
-        //[HttpPost]
-        //[Route("", Name = "InserBooking")]
-        //[AllowAnonymous]
-        //public IHttpActionResult Insert(BookingViewModel vm)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var batteryQuality = _bookingRepository.Insert(vm);
-        //        return CreatedAtRoute("GetBatteryQualityById", new { batteryQuality.Id }, batteryQuality);
 
-        //    }
-        //    return BadRequest(ModelState);
-        //}
+        [HttpPost]
+        [AllowAnonymous]
+        public JObject Insert(BookingViewModel vm)
+        {
+            JObject returnObj = new JObject();
 
-        //[HttpGet]
-        //[Route("GetById", Name = "GetById")]
-        //[AllowAnonymous]
-        //public IHttpActionResult GetById(int id)
-        //{
-        //    try
-        //    {
-        //        return Ok(_bookingRepository.GetById(id));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest("General Error"); 
-        //    }
-        //}
+            if (ModelState.IsValid)
+            {
+                var booking = _bookingRepository.Insert(vm);
+                returnObj.Add("data", JsonConvert.SerializeObject(booking));
+                return returnObj;
+
+            }
+            returnObj.Add("error", "Please provide mandatory fields");
+            return returnObj;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public JObject GetById(int id)
+        {
+            JObject returnObj = new JObject();
+            try
+            {
+                var booking = _bookingRepository.GetById(id);
+                returnObj.Add("data", JsonConvert.SerializeObject(booking));
+                return returnObj;
+            }
+            catch (Exception ex)
+            {
+                returnObj.Add("error", "General Error");
+                return returnObj;
+            }
+        }
 
 
         //public System.Web.Mvc
