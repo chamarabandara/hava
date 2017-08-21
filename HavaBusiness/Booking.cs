@@ -46,6 +46,7 @@ namespace HavaBusiness
         public bool UserConfirmed { get; set; }
         public Nullable<int> UserId { get; set; }
         public bool IsReturn { get; set; }
+        public Nullable<bool> IsAirportTransfer { get; set; }
     
         public virtual BookingStatu BookingStatu { get; set; }
         public virtual BookingType BookingType { get; set; }

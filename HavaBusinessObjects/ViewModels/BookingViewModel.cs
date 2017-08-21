@@ -27,7 +27,8 @@ namespace HavaBusinessObjects.ViewModels
         public bool UserConfirmed { get; set; }
         public int? UserId { get; set; }
         public bool IsReturn { get; set; }
-        
+        public bool IsAirportTransfer { get; set; }
+
         public List<BookingProductsViewModel> BookingProducts { get; set; }
         public List<BookingPaymentViewModel> BookingPayments { get; set; }
         public List<BookingOptionViewModel> BookingOptions { get; set; }
