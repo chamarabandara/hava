@@ -23,8 +23,10 @@ namespace WebMVC.Controllers
             try
             {                
                 var result = _locationDetailsRepository.GetAllByPartnerId(id);
-                returnObj.Add("data", JsonConvert.SerializeObject(result));
+                var returnData = JsonConvert.SerializeObject(result).Replace("\"", "");
+                returnObj.Add("data", returnData);
                 return returnObj;
+                
             }
             catch (Exception ex)
             {

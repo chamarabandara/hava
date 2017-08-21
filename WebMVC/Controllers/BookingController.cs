@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization.Json;
 using System.Web.Mvc;
 
 namespace WebMVC.Controllers
@@ -27,8 +28,11 @@ namespace WebMVC.Controllers
                 var prodPrices = _partnerRepository.GetPartnerProducts(partnerId, locationId);
                 if (prodPrices.Count() > 0)
                 {
-                    returnObj.Add("data", JsonConvert.SerializeObject(prodPrices));
-                    return returnObj;
+                   // returnObj.Add("data", JsonConvert.SerializeObject(prodPrices).Replace("\\", ""));
+
+                    var returnData = JsonConvert.SerializeObject(prodPrices).Replace("\"", "");
+                    returnObj.Add("data", returnData);
+                    return returnObj;                    
                 }
                 else
                 {
@@ -68,8 +72,11 @@ namespace WebMVC.Controllers
             try
             {
                 var booking = _bookingRepository.GetById(id);
-                returnObj.Add("data", JsonConvert.SerializeObject(booking));
+
+                var returnData = JsonConvert.SerializeObject(booking).Replace("\"", "");
+                returnObj.Add("data", returnData);
                 return returnObj;
+
             }
             catch (Exception ex)
             {
