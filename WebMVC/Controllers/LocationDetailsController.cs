@@ -1,30 +1,35 @@
 ﻿using HavaBusinessObjects.ControllerRepository;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using System.Web.Mvc;
 
 namespace WebMVC.Controllers
 {
-    [RoutePrefix("api/locationDetails")]
-    public class LocationDetailsController : ApiController
+   
+    public class LocationDetailsController : Controller
     {
         private LocationDetailsRepository _locationDetailsRepository = new LocationDetailsRepository();
 
-        [HttpGet]
-        [Route("GetAllByPartnerId/{id}", Name = "GetAllByPartnerId")]
+        [HttpGet]        
         [AllowAnonymous]
-        public IHttpActionResult GetAllByPartnerId(int id)
+        public JObject GetAllByPartnerId(int id)
         {
+            JObject returnObj = new JObject();
+
             try
-            {
-                return Ok(_locationDetailsRepository.GetAllByPartnerId(id));
+            {                
+                var result = _locationDetailsRepository.GetAllByPartnerId(id);
+                returnObj.Add("data", JsonConvert.SerializeObject(result));
+                return returnObj;
             }
             catch (Exception ex)
             {
-                return BadRequest("General Error");
+                returnObj.Add("error", ex.Message.ToString());
+                return returnObj;
             }
         }
     }
