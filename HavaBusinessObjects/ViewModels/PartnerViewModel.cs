@@ -37,6 +37,7 @@ namespace HavaBusinessObjects.ViewModels
         public string marketPrice { get; set; }
         public string havaPrice { get; set; }
         public int productId { get; set; }
+        public ProductViewModel productVM { get; set; }
     }
 
     public class PartnerSitesViewModel

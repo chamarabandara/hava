@@ -30,12 +30,9 @@ namespace WebMVC.Controllers
                 var prodPrices = _partnerRepository.GetPartnerProducts(partnerId, locationId);
                 if (prodPrices.Count() > 0)
                 {
-                    //returnObj.Add("data", JsonConvert.SerializeObject(prodPrices).Replace("\\", ""));
-
-
                     JArray albums = JArray.Parse(JsonConvert.SerializeObject(prodPrices).Replace("\\", "")) as JArray;
-                    JObject jalbum = albums[0] as JObject;
-                    returnObj.Add("data", jalbum);
+                    //JObject jalbum = albums[0] as JObject;
+                    returnObj.Add("data", albums);
 
                     return returnObj;
                 }
