@@ -14,7 +14,7 @@
 var sitesControllers = angular.module('Sites', ['siteService', 'ui.router']);
 
 sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$state', '$stateParams', function ($scope, $http, HavaSiteService, $state, $stateParams) {
-  
+
     $scope.search = {};
 
     $scope.parseQueryString = function (url) {
@@ -28,25 +28,26 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
         return urlParams;
     }
-    $scope.locations = [{ 'id': 1, 'name': "Nuwara Eliya", 'PartnerId': 1003, 'IsActive': true }, { 'id': 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", 'PartnerId': 1003, 'IsActive': true}];
 
-    //HavaSiteService.getLocations({ 'id': 1003 }).$promise.then(
-    //         function (result) {
-    //             // angular.forEach(result);
-    //           //  console.log(JSON.parse(result.data));
-    //           //  var dt = JSON.parse(result.data);
-    //             $scope.locations = [{ "Id": 1, "name": "Nuwara Eliya rn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo", "ToLocation": "Nuwara Eliya rn" }, { "Id": 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo ", "ToLocation": "Jaffna" }];
-    //         });
-     // $scope.locations = [{ 'id': 1, 'name': 'test' },{ 'id': 1, 'name': 'test' }];
+    $scope.urlparms = $scope.parseQueryString(window.location.href);
+    //$scope.locations = [{ 'id': 1, 'name': "Nuwara Eliya", 'PartnerId': 1003, 'IsActive': true }, { 'id': 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", 'PartnerId': 1003, 'IsActive': true }];
+
+    HavaSiteService.getLocations({ 'id': parseInt($scope.urlparms.P) }).$promise.then(
+             function (result) {
+                 // angular.forEach(result);
+               //  console.log(JSON.parse(result.data));
+               //  var dt = JSON.parse(result.data);
+                 $scope.locations = result.data;
+             });
+    // $scope.locations = [{ 'id': 1, 'name': 'test' },{ 'id': 1, 'name': 'test' }];
     $scope.isMain = true;
 
     $scope.programeList = [{ 'name': "Asia Miles", id: 1 }, { 'name': "Air France Flying Blue" }];
 
-    $scope.titleList = [{ 'name': "Mr", id: 1 }, { 'name': "Mrs.",id:2 }];
+    $scope.titleList = [{ 'name': "Mr", id: 1 }, { 'name': "Mrs.", id: 2 }];
     $scope.searchBooking = function (model) {
         $scope.submitted = true;
-        if ($('#searchTextField').val() != "" && $scope.dropLocation != undefined && $scope.dropLocation)
-        {
+        if ($('#searchTextField').val() != "" && $scope.dropLocation != undefined && $scope.dropLocation) {
             $scope.isMain = false;
 
             $scope.search.pickupLocation = $('#searchTextField').val();
@@ -65,7 +66,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             var urlparms = $scope.parseQueryString(window.location.href);
             console.log(urlparms);
 
-            HavaSiteService.getProductDetails({ 'partnerId': parseInt(urlparms.P), 'locationId': $scope.search.dropLocation.id }).$promise.then(
+            HavaSiteService.getProductDetails({ 'partnerId': parseInt($scope.urlparms.P), 'locationId': $scope.search.dropLocation.id }).$promise.then(
                      function (result) {
                          // angular.forEach(result);
                          console.log(JSON.parse(result.data.replace(/'/g, '"')));
@@ -73,9 +74,9 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                          //  var dt = JSON.parse(result.data);
                          $scope.locations = [{ "Id": 1, "name": "Nuwara Eliya rn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo", "ToLocation": "Nuwara Eliya rn" }, { "Id": 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo ", "ToLocation": "Jaffna" }];
                      });
-        }else
+        } else
             return true;
-        
+
     }
 
     $scope.step = 1;
@@ -111,10 +112,10 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         var dateToday = new Date();
 
         $('#inputGroupSuccessDate').datepicker({
-        format: 'yyyy-mm-dd',
-        endDate: dateToday,
-        todayBtn: 'linked',
-        autoclose: true,
+            format: 'yyyy-mm-dd',
+            endDate: dateToday,
+            todayBtn: 'linked',
+            autoclose: true,
         });
         $('#inputGroupSuccessDate2').datepicker({
             format: 'yyyy-mm-dd',

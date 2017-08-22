@@ -100,13 +100,13 @@
                                                                     </div>
                                                                     <div id="AirDiv" class="tabPane">
                                                                         <div class="col-sm-6 col-xs-6 form-section-input">
-                                                                            <div class="form-group" >
-                                                                                <input type="text" ng-class="{'has-error' : (!pickupLocation && submitted)}"  class="form-control" placeholder="FROM" id="searchTextField" autocomplete="on" ng-model="pickupLocation">
+                                                                            <div class="form-group">
+                                                                                <input type="text" ng-class="{'has-error' : (!pickupLocation && submitted)}" class="form-control" placeholder="FROM" id="searchTextField" autocomplete="on" ng-model="pickupLocation">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-6 col-xs-6 form-section-input ">
-                                                                            <div class="form-group" >
-                                                                                <select class="form-control" ng-class="{'has-error' : (!dropLocation && submitted)}"  name="toLocation" ng-options="stat.name for stat in locations track by stat.id" ng-model="dropLocation">
+                                                                            <div class="form-group">
+                                                                                <select class="form-control" ng-class="{'has-error' : (!dropLocation && submitted)}" name="toLocation" ng-options="stat.name for stat in locations track by stat.id" ng-model="dropLocation">
                                                                                     <option value="">-- Select a destination --</option>
                                                                                 </select>
                                                                             </div>
@@ -574,7 +574,7 @@
                         <ul class="wiz-steps">
                             <li ng-click="navigateSteps(1)"><a ng-class='whatClassIsIt(1)'>car class</a></li>
                             <li ng-click="navigateSteps(2)"><a ng-class='whatClassIsIt(2)'>options</a></li>
-                            <li ng-click ="navigateSteps(3)"><a ng-class='whatClassIsIt(3)'>login</a></li>
+                            <li ng-click="navigateSteps(3)"><a ng-class='whatClassIsIt(3)'>login</a></li>
                             <li ng-click="navigateSteps(4)"><a ng-class='whatClassIsIt(4)'>credit card</a></li>
                             <li ng-click="navigateSteps(5)"><a ng-class='whatClassIsIt(5)'>check out</a></li>
                         </ul>
@@ -694,11 +694,11 @@
                                     <div class="form-group">
                                         <label>Program</label>
                                         @*<select class="form-control">*@
-                                            <select class="form-control" required name="programe" ng-options="st.name for st in programeList track by st.id" ng-model="model.status">
-                                                <option value="">-- Select a Programe --</option>
-                                            </select>
-                                           
-                                       
+                                        <select class="form-control" required name="programe" ng-options="st.name for st in programeList track by st.id" ng-model="model.status">
+                                            <option value="">-- Select a Programe --</option>
+                                        </select>
+
+
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -790,7 +790,7 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="squaredTwo">
-                                                        <input type="checkbox" value="None" id="squaredTwo" name="check" checked ng-model="user.isTermsAccept"/>
+                                                        <input type="checkbox" value="None" id="squaredTwo" name="check" checked ng-model="user.isTermsAccept" />
                                                         <label for="squaredTwo"></label>
 
                                                     </div>
