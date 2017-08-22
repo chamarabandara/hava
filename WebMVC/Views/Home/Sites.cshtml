@@ -100,13 +100,13 @@
                                                                     </div>
                                                                     <div id="AirDiv" class="tabPane">
                                                                         <div class="col-sm-6 col-xs-6 form-section-input">
-                                                                            <div class="form-group">
-                                                                                <input type="text" class="form-control" placeholder="FROM" id="searchTextField" autocomplete="on" ng-model="pickupLocation">
+                                                                            <div class="form-group" >
+                                                                                <input type="text" ng-class="{'has-error' : (!pickupLocation && submitted)}"  class="form-control" placeholder="FROM" id="searchTextField" autocomplete="on" ng-model="pickupLocation">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-6 col-xs-6 form-section-input ">
-                                                                            <div class="form-group">
-                                                                                <select class="form-control" name="toLocation" ng-options="stat.name for stat in locations track by stat.id" ng-model="dropLocation">
+                                                                            <div class="form-group" >
+                                                                                <select class="form-control" ng-class="{'has-error' : (!dropLocation && submitted)}"  name="toLocation" ng-options="stat.name for stat in locations track by stat.id" ng-model="dropLocation">
                                                                                     <option value="">-- Select a destination --</option>
                                                                                 </select>
                                                                             </div>
@@ -118,7 +118,7 @@
                                                                                     <div id="ddp3">
                                                                                         <div class="input-group input-append date date-picker">
                                                                                             <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;" ng-click="selectDate('inputGroupSuccessDate')"></i></span>
-                                                                                            <input type="text" class="form-control" id="inputGroupSuccessDate" aria-describedby="inputGroupSuccess1Status" ng-model="search.pickupDate">
+                                                                                            <input type="text" ng-class="{'has-error' : (!search.pickupDate && submitted)}" class="form-control" id="inputGroupSuccessDate" aria-describedby="inputGroupSuccess1Status" ng-model="search.pickupDate">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -128,7 +128,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                    <input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime">
+                                                                                    <input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -585,7 +585,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 destination-label">
                                 <label class="info-lbl half-label">{{search.pickupLocation}}</label>
-                                <label class="info-lbl half-label"><i class="fa fa-angle-double-right"></i> {{search.dropLocation}}</label>
+                                <label class="info-lbl half-label"><i class="fa fa-angle-double-right"></i> {{search.dropLocation.name}}</label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 destination-label">
                                 <label class="info-lbl">Duration:38 minutes – Distance: 33.6 km</label>
@@ -693,18 +693,18 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Program</label>
-                                        <select class="form-control">
-                                            <option selected="selected" value="">Please select</option>
-                                            <option value="asia_miles">Asia Miles</option>
-                                            <option value="miles_and_more">Miles &amp; More</option>
-                                            <option value="air_france_flying_blue">Air France Flying Blue</option>
-                                        </select>
+                                        @*<select class="form-control">*@
+                                            <select class="form-control" required name="programe" ng-options="st.name for st in programeList track by st.id" ng-model="model.status">
+                                                <option value="">-- Select a Programe --</option>
+                                            </select>
+                                           
+                                       
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Number</label>
-                                        <input type="text" class="form-control" id="" placeholder="">
+                                        <input type="text" class="form-control" id="" placeholder="" ng-model="option.number">
                                     </div>
                                 </div>
 
@@ -714,19 +714,19 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Pickup sign</label>
-                                        <input type="text" class="form-control" id="" placeholder="">
+                                        <input type="text" class="form-control" id="" placeholder="" ng-model="option.pickupSign">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Reference number</label>
-                                        <input type="text" class="form-control" id="" placeholder="Cost ceneter">
+                                        <input type="text" class="form-control" id="" placeholder="Cost ceneter" ng-model="option.refNumber">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Reference number</label>
-                                        <input type="text" class="form-control" id="" placeholder="Any special requests (child car seats...)? Please don't include any confidential information">
+                                        <input type="text" class="form-control" id="" placeholder="Any special requests (child car seats...)? Please don't include any confidential information" ng-model="option.flightRefNumber">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -737,8 +737,8 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12" style="padding-top:20px;">
-                                    <button type="button" class="btn btn-default">Skip</button>
-                                    <button type="button" class="btn btn-primary">Continue</button>
+                                    <button type="button" class="btn btn-default" ng-click="navigateSteps(3)">Skip</button>
+                                    <button type="button" class="btn btn-primary" ng-click="continueOption(user)">Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -750,11 +750,8 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <select class="form-control">
-                                                    <option selected="selected" value="">Title*</option>
-                                                    <option value="asia_miles">Mr.</option>
-                                                    <option value="miles_and_more">Ms.</option>
-                                                    <option value="air_france_flying_blue">Mx.</option>
+                                                <select class="form-control" required name="title" ng-options="st.name for st in titleList track by st.id" ng-model="user.title">
+                                                    <option value="">-- Select a Title --</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -764,12 +761,12 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="First Name">
+                                                        <input type="text" class="form-control" id="" placeholder="First Name" ng-model="user.firstName">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="Last Name">
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="user.lastName">
                                                     </div>
                                                 </div>
                                             </div>
@@ -778,22 +775,22 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="E-Mail">
+                                                        <input type="text" class="form-control" id="" placeholder="E-Mail" ng-model="user.email">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="">
+                                                        <input type="text" class="form-control" id="" placeholder="UserName" ng-model="user.userName">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="Password">
+                                                        <input type="password" class="form-control" id="" placeholder="Password" ng-model="user.password">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="squaredTwo">
-                                                        <input type="checkbox" value="None" id="squaredTwo" name="check" checked />
+                                                        <input type="checkbox" value="None" id="squaredTwo" name="check" checked ng-model="user.isTermsAccept"/>
                                                         <label for="squaredTwo"></label>
 
                                                     </div>

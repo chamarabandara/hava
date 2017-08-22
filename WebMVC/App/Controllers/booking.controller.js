@@ -11,35 +11,71 @@
 *
 */
 
-var sitesControllers = angular.module('Sites', ['siteService']);
+var sitesControllers = angular.module('Sites', ['siteService', 'ui.router']);
 
-sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', function ($scope, $http, HavaSiteService) {
+sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$state', '$stateParams', function ($scope, $http, HavaSiteService, $state, $stateParams) {
   
     $scope.search = {};
-    HavaSiteService.getLocations({ 'id': 1003 }).$promise.then(
-             function (result) {
-                 // angular.forEach(result);
-                 console.log(JSON.parse(result.data));
-                 var dt = JSON.parse(result.data);
-                 $scope.locations = dt;
-             });
-    //  $scope.locations = [{ 'id': 1, 'name': 'test' },{ 'id': 1, 'name': 'test' }];
+
+    $scope.parseQueryString = function (url) {
+        var urlParams = {};
+        url.replace(
+          new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+          function ($0, $1, $2, $3) {
+              urlParams[$1] = $3;
+          }
+        );
+
+        return urlParams;
+    }
+    $scope.locations = [{ 'id': 1, 'name': "Nuwara Eliya", 'PartnerId': 1003, 'IsActive': true }, { 'id': 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", 'PartnerId': 1003, 'IsActive': true}];
+
+    //HavaSiteService.getLocations({ 'id': 1003 }).$promise.then(
+    //         function (result) {
+    //             // angular.forEach(result);
+    //           //  console.log(JSON.parse(result.data));
+    //           //  var dt = JSON.parse(result.data);
+    //             $scope.locations = [{ "Id": 1, "name": "Nuwara Eliya rn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo", "ToLocation": "Nuwara Eliya rn" }, { "Id": 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo ", "ToLocation": "Jaffna" }];
+    //         });
+     // $scope.locations = [{ 'id': 1, 'name': 'test' },{ 'id': 1, 'name': 'test' }];
     $scope.isMain = true;
+
+    $scope.programeList = [{ 'name': "Asia Miles", id: 1 }, { 'name': "Air France Flying Blue" }];
+
+    $scope.titleList = [{ 'name': "Mr", id: 1 }, { 'name': "Mrs.",id:2 }];
     $scope.searchBooking = function (model) {
-        $scope.isMain = false;
-        $scope.search.pickupLocation = $('#searchTextField').val();
-        $scope.search.dropLocation = $('#searchTextField').val();
+        $scope.submitted = true;
+        if ($('#searchTextField').val() != "" && $scope.dropLocation != undefined && $scope.dropLocation)
+        {
+            $scope.isMain = false;
 
-        if ($('#inputGroupSuccessDate').val() != "")
-            $scope.search.pickupDate = $('#inputGroupSuccessDate').val();
-        else
-            $scope.search.pickupDate = $('#inputGroupSuccessDate2').val();
-        if ($('#timepicker').val() != "")
-            $scope.search.pickupTime = $('#timepicker').val();
-        else
-            $scope.search.pickupTime = $('#timepicker2').val();
+            $scope.search.pickupLocation = $('#searchTextField').val();
+            $scope.search.dropLocation = $scope.dropLocation;
 
-        console.log($scope.search);
+            if ($('#inputGroupSuccessDate').val() != "")
+                $scope.search.pickupDate = $('#inputGroupSuccessDate').val();
+            else
+                $scope.search.pickupDate = $('#inputGroupSuccessDate2').val();
+            if ($('#timepicker').val() != "")
+                $scope.search.pickupTime = $('#timepicker').val();
+            else
+                $scope.search.pickupTime = $('#timepicker2').val();
+
+
+            var urlparms = $scope.parseQueryString(window.location.href);
+            console.log(urlparms);
+
+            HavaSiteService.getProductDetails({ 'partnerId': parseInt(urlparms.P), 'locationId': $scope.search.dropLocation.id }).$promise.then(
+                     function (result) {
+                         // angular.forEach(result);
+                         console.log(JSON.parse(result.data.replace(/'/g, '"')));
+
+                         //  var dt = JSON.parse(result.data);
+                         $scope.locations = [{ "Id": 1, "name": "Nuwara Eliya rn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo", "ToLocation": "Nuwara Eliya rn" }, { "Id": 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo ", "ToLocation": "Jaffna" }];
+                     });
+        }else
+            return true;
+        
     }
 
     $scope.step = 1;
@@ -59,6 +95,10 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         setTimeout(function () {
             $('#' + id).trigger('focus');
         }, 50);
+    }
+
+    $scope.ValidateFlight = function (users) {
+
     }
 
     angular.element(document).ready(function () {

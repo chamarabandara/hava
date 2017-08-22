@@ -1,7 +1,7 @@
 
 
 /* ==========================================================================
-   Eranga Liyanage  -  custom styles
+   Chamara Bandara  -  custom styles
    ========================================================================== */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -140,6 +140,9 @@ q:before, q:after {
 p {
 line-height: 25px;
 margin-bottom: 15px;
+}
+.has-error {
+  background-color: #d88e92 !important;
 }
 h3
 {
@@ -1122,4 +1125,5 @@ ul.menaimenu-v3 li a {
   height: auto !important;
   padding: 20px 0
 }
+
 }

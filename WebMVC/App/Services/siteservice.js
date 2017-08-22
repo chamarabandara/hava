@@ -7,6 +7,7 @@ partnerService.factory('HavaSiteService', ['$resource', function ($resource) {
         create: { method: 'POST', url: appUrl + 'Partner/Post' },
         getProduct: { method: 'GET', url: appUrl + 'Partner/GetProductList' },
         getLocations: { method: 'GET', url: appUrl + 'locationDetails/GetAllByPartnerId', params: { id: '@id' } },
+        getProductDetails: { method: 'GET', url: appUrl + 'booking/GetProducts', params: { partnerId: '@partnerId', locationId: '@locationId' } },
     });
 }]);
 
