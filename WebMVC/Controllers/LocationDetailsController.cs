@@ -24,8 +24,7 @@ namespace WebMVC.Controllers
             {                
                 var result = _locationDetailsRepository.GetAllByPartnerId(id);
                 JArray albums = JArray.Parse(JsonConvert.SerializeObject(result)) as JArray;
-                JObject jalbum = albums[0] as JObject;
-                returnObj.Add("data", jalbum);
+                returnObj.Add("data", albums);
                 return returnObj;
 
             }
