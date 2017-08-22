@@ -1,6 +1,8 @@
 ﻿using HavaBusiness;
 using System;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 
 namespace HavaBusinessObjects
 {
@@ -35,6 +37,57 @@ namespace HavaBusinessObjects
                 throw;
             }
         }
+        #endregion
+
+        #region GEt User by Id
+        public User GetUserById(int id)
+        {
+            try
+            {
+                return this.ObjContext.Users.Where(u => u.Id == id).FirstOrDefault<User>();
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
+            }
+        }
+        #endregion
+
+        #region Send Mail
+
+        public bool SendMailToRecepients(string[] toMails, string[] ccMails, string messageBody, string subject)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient(ConfigurationManager.AppSettings["SMTP_Client"].ToString());
+
+                mail.From = new MailAddress(ConfigurationManager.AppSettings["From_Mail"].ToString());
+
+                foreach (string tomail in toMails)
+                {
+                    mail.To.Add(tomail);
+                }
+
+                foreach (string ccmail in ccMails)
+                {
+                    mail.CC.Add(ccmail);
+                }
+
+                mail.Subject = subject;
+                mail.Body = messageBody;
+
+                SmtpServer.Send(mail);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region Dispose

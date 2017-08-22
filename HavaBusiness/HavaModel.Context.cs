@@ -36,7 +36,6 @@ namespace HavaBusiness
         public virtual DbSet<Menue> Menues { get; set; }
         public virtual DbSet<MenuType> MenuTypes { get; set; }
         public virtual DbSet<PartnerCommission> PartnerCommissions { get; set; }
-        public virtual DbSet<PartnerRepresentative> PartnerRepresentatives { get; set; }
         public virtual DbSet<Partner> Partners { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
@@ -61,11 +60,12 @@ namespace HavaBusiness
         public virtual DbSet<BookingOption> BookingOptions { get; set; }
         public virtual DbSet<BookingPayment> BookingPayments { get; set; }
         public virtual DbSet<Common> Commons { get; set; }
-        public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
-        public virtual DbSet<PartnerProductRate> PartnerProductRates { get; set; }
         public virtual DbSet<BookingProduct> BookingProducts { get; set; }
         public virtual DbSet<PartnerSite> PartnerSites { get; set; }
+        public virtual DbSet<PartnerProductRate> PartnerProductRates { get; set; }
+        public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
+        public virtual DbSet<PartnerRepresentative> PartnerRepresentatives { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

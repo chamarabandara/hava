@@ -104,9 +104,9 @@ namespace HavaBusiness
         public virtual ICollection<TSPVehicle> TSPVehicles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSPVehicle> TSPVehicles1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerRepresentative> PartnerRepresentatives { get; set; }
         public virtual User Users1 { get; set; }
         public virtual User User1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerRepresentative> PartnerRepresentatives { get; set; }
     }
 }

@@ -107,24 +107,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PartnerRepresentatives">
-      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerRepresentative">
-        <MappingFragment StoreEntitySet="PartnerRepresentative">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
-          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Partners">
       <EntityTypeMapping TypeName="HAVA_DBModel.Partner">
         <MappingFragment StoreEntitySet="Partners">
@@ -483,21 +465,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PartnerProducts">
-      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProduct">
-        <MappingFragment StoreEntitySet="PartnerProducts">
-          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
-          <ScalarProperty Name="Markup" ColumnName="Markup" />
-          <ScalarProperty Name="IsMarkUp" ColumnName="IsMarkUp" />
-          <ScalarProperty Name="PartnerSellingPrice" ColumnName="PartnerSellingPrice" />
-          <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
-          <ScalarProperty Name="HavaPrice" ColumnName="HavaPrice" />
-          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Bookings">
       <EntityTypeMapping TypeName="HAVA_DBModel.Booking">
         <MappingFragment StoreEntitySet="Booking">
@@ -529,6 +496,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BookingProducts">
+      <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
+        <MappingFragment StoreEntitySet="BookingProducts">
+          <ScalarProperty Name="ChildSeatDays" ColumnName="ChildSeatDays" />
+          <ScalarProperty Name="NoOfChildSeats" ColumnName="NoOfChildSeats" />
+          <ScalarProperty Name="AdditionalChufferHours" ColumnName="AdditionalChufferHours" />
+          <ScalarProperty Name="AdditionalChufferDate" ColumnName="AdditionalChufferDate" />
+          <ScalarProperty Name="AdditionalHours" ColumnName="AdditionalHours" />
+          <ScalarProperty Name="AdditionalDays" ColumnName="AdditionalDays" />
+          <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PartnerSites">
+      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerSite">
+        <MappingFragment StoreEntitySet="PartnerSites">
+          <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="PartnerProductRates">
       <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProductRate">
         <MappingFragment StoreEntitySet="PartnerProductRate">
@@ -555,29 +548,36 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="BookingProducts">
-      <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
-        <MappingFragment StoreEntitySet="BookingProducts">
-          <ScalarProperty Name="ChildSeatDays" ColumnName="ChildSeatDays" />
-          <ScalarProperty Name="NoOfChildSeats" ColumnName="NoOfChildSeats" />
-          <ScalarProperty Name="AdditionalChufferHours" ColumnName="AdditionalChufferHours" />
-          <ScalarProperty Name="AdditionalChufferDate" ColumnName="AdditionalChufferDate" />
-          <ScalarProperty Name="AdditionalHours" ColumnName="AdditionalHours" />
-          <ScalarProperty Name="AdditionalDays" ColumnName="AdditionalDays" />
-          <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
+    <EntitySetMapping Name="PartnerProducts">
+      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProduct">
+        <MappingFragment StoreEntitySet="PartnerProducts">
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Markup" ColumnName="Markup" />
+          <ScalarProperty Name="IsMarkUp" ColumnName="IsMarkUp" />
+          <ScalarProperty Name="PartnerSellingPrice" ColumnName="PartnerSellingPrice" />
+          <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+          <ScalarProperty Name="HavaPrice" ColumnName="HavaPrice" />
+          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PartnerSites">
-      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerSite">
-        <MappingFragment StoreEntitySet="PartnerSites">
-          <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+    <EntitySetMapping Name="PartnerRepresentatives">
+      <EntityTypeMapping TypeName="HAVA_DBModel.PartnerRepresentative">
+        <MappingFragment StoreEntitySet="PartnerRepresentative">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

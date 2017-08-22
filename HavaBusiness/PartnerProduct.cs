@@ -30,9 +30,9 @@ namespace HavaBusiness
         public Nullable<decimal> Markup { get; set; }
         public Nullable<decimal> Percentage { get; set; }
     
-        public virtual Partner Partner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProductRate> PartnerProductRates { get; set; }
+        public virtual Partner Partner { get; set; }
         public virtual Product Product { get; set; }
     }
 }
