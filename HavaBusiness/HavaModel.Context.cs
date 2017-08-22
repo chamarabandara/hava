@@ -66,6 +66,7 @@ namespace HavaBusiness
         public virtual DbSet<PartnerProductRate> PartnerProductRates { get; set; }
         public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
         public virtual DbSet<PartnerRepresentative> PartnerRepresentatives { get; set; }
+        public virtual DbSet<ProductFeature> ProductFeatures { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -36,6 +36,7 @@ namespace HavaBusinessObjects.Utilities
                 .ReverseMap()
             ;
 
+            CreateMap<ProductFeature, ProductFeaturesViewMOdel>().ReverseMap();
             
         }
     

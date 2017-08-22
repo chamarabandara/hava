@@ -186,6 +186,9 @@
     <Compile Include="Product.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductFeature.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Promotion.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>

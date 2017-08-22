@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -15,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using WebMVC.ModelViews;
 using WebMVC.Models;
 using WebMVC.Common;
+using HavaBusiness;
 
 namespace WebMVC.Controllers
 {
@@ -26,6 +28,21 @@ namespace WebMVC.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private const string LocalLoginProvider = "Local";
+
+        #region repository db context
+
+        private HAVA_DBModelEntities context;
+
+        private HAVA_DBModelEntities ObjContext
+        {
+            get
+            {
+                if (context == null)
+                    context = new HAVA_DBModelEntities();
+                return context;
+            }
+        }
+        #endregion db context
 
         public AccountController()
         {
@@ -341,6 +358,17 @@ namespace WebMVC.Controllers
                 obj.Add("errorType", errorType);
                 return obj;
             }
+        }
+
+        [System.Web.Http.Route("CreateAppUser")]
+        [System.Web.Http.HttpPost]
+        public JObject CreateWebUsers(ApplicationUser appUser)
+        {
+            JObject returnObj = new JObject();
+            var result = UserManager.CreateAsync(appUser, appUser.Email).Result;
+
+            returnObj.Add("data", this.ObjContext.Users.Where(u => u.UserName.ToLower() == appUser.UserName.ToLower()).FirstOrDefault<User>().Id);
+            return returnObj;
         }
 
         private class ExternalLoginData

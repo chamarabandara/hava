@@ -95,6 +95,8 @@
         <EntityTypeShape EntityType="HAVA_DBModel.PartnerRepresentative" Width="1.5" PointX="10.5" PointY="23.375" />
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerRepresentative_Partner" />
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerRepresentative_Users" />
+        <EntityTypeShape EntityType="HAVA_DBModel.ProductFeature" Width="1.5" PointX="15" PointY="16.375" />
+        <AssociationConnector Association="HAVA_DBModel.FK_ProductFeatures_Product" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

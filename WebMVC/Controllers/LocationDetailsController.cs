@@ -9,22 +9,39 @@ using System.Web.Mvc;
 
 namespace WebMVC.Controllers
 {
-   
+
     public class LocationDetailsController : Controller
     {
         private LocationDetailsRepository _locationDetailsRepository = new LocationDetailsRepository();
 
-        [HttpGet]        
+        [HttpGet]
         [AllowAnonymous]
         public JObject GetAllByPartnerId(int id)
         {
             JObject returnObj = new JObject();
 
             try
-            {                
+            {
                 var result = _locationDetailsRepository.GetAllByPartnerId(id);
-                JArray albums = JArray.Parse(JsonConvert.SerializeObject(result)) as JArray;
-                returnObj.Add("data", albums);
+                //JArray albums = JArray.Parse(JsonConvert.SerializeObject(result).Replace("\r\n", string.Empty)) as JArray;
+                //returnObj.Add("data", albums);
+                //return returnObj;
+
+                JArray returnArr = new JArray();
+
+                foreach (var item in result)
+                {
+                    JObject itemObj = new JObject();
+                    itemObj.Add("Id", item.Id);
+                    itemObj.Add("name", item.name);
+                    itemObj.Add("PartnerId", item.PartnerId);
+                    itemObj.Add("IsActive", item.IsActive);
+                    itemObj.Add("FromLocation", item.FromLocation);
+                    itemObj.Add("ToLocation", item.ToLocation);
+
+                    returnArr.Add(itemObj);
+                }
+                returnObj.Add("data", returnArr);
                 return returnObj;
 
             }

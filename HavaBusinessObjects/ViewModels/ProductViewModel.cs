@@ -11,6 +11,7 @@ namespace HavaBusinessObjects.ViewModels
         public string code { get; set; }
         public string name { get; set; }
         public Nullable<bool> isMainProduct { get; set; }
+        public ProductFeaturesViewMOdel productFeatures { get; set; }
         public ProductImageViewModel productLogoImage { get; set; }
 
     }
@@ -21,5 +22,12 @@ namespace HavaBusinessObjects.ViewModels
         public string name { get; set; }
         public string documentPath { get; set; }
         public string size { get; set; }
+    }
+
+    public class ProductFeaturesViewMOdel
+    {
+        public int id { get; set; }
+        public int productId { get; set; }
+        public string description { get; set; }
     }
 }

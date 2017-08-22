@@ -310,6 +310,14 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="LastModifiedByUserID" Type="int" />
           <Property Name="LastModifiedOnDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="ProductFeatures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ProdcutId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="Id" />
@@ -817,6 +825,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductFeatures_Product">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductFeatures" Type="Self.ProductFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductFeatures">
+              <PropertyRef Name="ProdcutId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PromotionDiscounts_PromotionDiscountTypes">
           <End Role="PromotionDiscountTypes" Type="Self.PromotionDiscountTypes" Multiplicity="1" />
           <End Role="PromotionDiscounts" Type="Self.PromotionDiscounts" Multiplicity="0..1" />
@@ -1183,6 +1203,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySet Name="PartnerSites" EntityType="Self.PartnerSites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductFeatures" EntityType="Self.ProductFeatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionDiscounts" EntityType="Self.PromotionDiscounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionDiscountTypes" EntityType="Self.PromotionDiscountTypes" Schema="dbo" store:Type="Tables" />
@@ -1303,6 +1324,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_PartnerSites_Sites" Association="Self.FK_PartnerSites_Sites">
             <End Role="Sites" EntitySet="Sites" />
             <End Role="PartnerSites" EntitySet="PartnerSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductFeatures_Product" Association="Self.FK_ProductFeatures_Product">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductFeatures" EntitySet="ProductFeatures" />
           </AssociationSet>
           <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="Self.FK_PromotionDiscounts_PromotionDiscountTypes">
             <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />
@@ -1588,6 +1613,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="TSPProducts" Relationship="HAVA_DBModel.FK_TSPProducts_Products" FromRole="Product" ToRole="TSPProduct" />
           <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_Products" FromRole="Product" ToRole="TSPVehicle" />
           <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="Product" ToRole="PartnerProduct" />
+          <NavigationProperty Name="ProductFeatures" Relationship="HAVA_DBModel.FK_ProductFeatures_Product" FromRole="Product" ToRole="ProductFeature" />
         </EntityType>
         <EntityType Name="PromotionDiscount">
           <Key>
@@ -2371,6 +2397,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="User" EntitySet="Users" />
             <End Role="PartnerRepresentative" EntitySet="PartnerRepresentatives" />
           </AssociationSet>
+          <EntitySet Name="ProductFeatures" EntityType="HAVA_DBModel.ProductFeature" />
+          <AssociationSet Name="FK_ProductFeatures_Product" Association="HAVA_DBModel.FK_ProductFeatures_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductFeature" EntitySet="ProductFeatures" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -2932,6 +2963,27 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="PartnerRepresentative">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductFeature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProdcutId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_ProductFeatures_Product" FromRole="ProductFeature" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductFeatures_Product">
+          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="HAVA_DBModel.ProductFeature" Role="ProductFeature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductFeature">
+              <PropertyRef Name="ProdcutId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3517,6 +3569,15 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
                 <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductFeatures">
+            <EntityTypeMapping TypeName="HAVA_DBModel.ProductFeature">
+              <MappingFragment StoreEntitySet="ProductFeatures">
+                <ScalarProperty Name="ProdcutId" ColumnName="ProdcutId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
