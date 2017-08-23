@@ -30,16 +30,11 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     }
 
     $scope.urlparms = $scope.parseQueryString(window.location.href);
-    //$scope.locations = [{ 'id': 1, 'name': "Nuwara Eliya", 'PartnerId': 1003, 'IsActive': true }, { 'id': 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", 'PartnerId': 1003, 'IsActive': true }];
 
-    HavaSiteService.getLocations({ 'id': parseInt($scope.urlparms.P) }).$promise.then(
+    HavaSiteService.getLocations({ id: parseInt($scope.urlparms.P) }).$promise.then(
              function (result) {
-                 // angular.forEach(result);
-               //  console.log(JSON.parse(result.data));
-               //  var dt = JSON.parse(result.data);
-                 $scope.locations = result.data;
+                $scope.locations = result.data;
              });
-    // $scope.locations = [{ 'id': 1, 'name': 'test' },{ 'id': 1, 'name': 'test' }];
     $scope.isMain = true;
 
     $scope.programeList = [{ 'name': "Asia Miles", id: 1 }, { 'name': "Air France Flying Blue" }];
@@ -65,14 +60,14 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
             var urlparms = $scope.parseQueryString(window.location.href);
             console.log(urlparms);
+            $scope.Products = [{ 'name': 'Economy class', 'id': 1, 'description': 'Toyota Camry, Honda Accord, Toyota Corolla or similar' }, { 'name': 'Sidan', 'id': 2, 'description': 'Toyota Camry, Honda Accord' }]
 
-            HavaSiteService.getProductDetails({ 'partnerId': parseInt($scope.urlparms.P), 'locationId': $scope.search.dropLocation.id }).$promise.then(
+            HavaSiteService.getProductDetails({ partnerId: parseInt($scope.urlparms.P), locationId: $scope.search.dropLocation.Id }).$promise.then(
                      function (result) {
                          // angular.forEach(result);
-                         console.log(JSON.parse(result.data.replace(/'/g, '"')));
-
-                         //  var dt = JSON.parse(result.data);
-                         $scope.locations = [{ "Id": 1, "name": "Nuwara Eliya rn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo", "ToLocation": "Nuwara Eliya rn" }, { "Id": 2, "name": "Jaffna includes 2 Days & 1 Night for returnrn", "PartnerId": 1003, "IsActive": true, "FromLocation": "Colombo ", "ToLocation": "Jaffna" }];
+                       //  console.log(JSON.parse(result.data.replace(/'/g, '"')));
+                         console.log(result.data);
+                         //var dt = JSON.parse(result.data);
                      });
         } else
             return true;
@@ -101,6 +96,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     $scope.ValidateFlight = function (users) {
 
     }
+
 
     angular.element(document).ready(function () {
         //$(function () {
