@@ -79,7 +79,7 @@ namespace HavaBusinessObjects.ControllerRepository
         #endregion
 
 
-        public List<PartnerProductRateViewModel> GetPartnerProducts(int partnerId , int locationId)
+        public List<PartnerProductRate> GetPartnerProducts(int partnerId , int locationId)
         {
             try
             {
@@ -90,9 +90,9 @@ namespace HavaBusinessObjects.ControllerRepository
                     .Include(x => x.PartnerProduct)
                     .Where(a => a.PartnerId == partnerId && a.LocationId == locationId).ToList();
 
-                var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
+                //var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
 
-                return partnerRouteProducts;
+                return partnerProducts;
             }
             catch (Exception ex)
             {
