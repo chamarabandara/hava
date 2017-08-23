@@ -60,12 +60,12 @@ namespace WebMVC.Controllers
                         JObject partnerObj = new JObject();
                         if (item.Partner != null)
                         {
-                            partnerObj.Add("name", item.Partner.name);
-                            partnerObj.Add("code", item.Partner.code);
-                            partnerObj.Add("address", item.Partner.address);
-                            partnerObj.Add("email", item.Partner.email);
-                            partnerObj.Add("telephoneLand", item.Partner.telephoneLand);
-                            partnerObj.Add("telephoneMobile", item.Partner.telephoneMobile);
+                            partnerObj.Add("name", item.Partner.Name);
+                            partnerObj.Add("code", item.Partner.Code);
+                            partnerObj.Add("address", item.Partner.FullAddress);
+                            partnerObj.Add("email", item.Partner.Email);
+                            partnerObj.Add("telephoneLand", item.Partner.TelLandLine);
+                            partnerObj.Add("telephoneMobile", item.Partner.TelMobile);
                         }
 
                         itemObj.Add("Partner", partnerObj);
@@ -86,36 +86,44 @@ namespace WebMVC.Controllers
                         JObject partnerProdcutObj = new JObject();
                         if (item.PartnerProduct != null)
                         {
-                            partnerProdcutObj.Add("partnerPercentage", item.PartnerProduct.partnerPercentage);
-                            partnerProdcutObj.Add("partnerMarkup", item.PartnerProduct.partnerMarkup);
-                            partnerProdcutObj.Add("isMarkup", item.PartnerProduct.isMarkup);
-                            partnerProdcutObj.Add("partnerSellingPrice", item.PartnerProduct.partnerSellingPrice);
-                            partnerProdcutObj.Add("marketPrice", item.PartnerProduct.marketPrice);
-                            partnerProdcutObj.Add("havaPrice", item.PartnerProduct.havaPrice);
-                            partnerProdcutObj.Add("productId", item.PartnerProduct.productId);
+                            partnerProdcutObj.Add("partnerPercentage", item.PartnerProduct.Percentage);
+                            partnerProdcutObj.Add("partnerMarkup", item.PartnerProduct.Markup);
+                            partnerProdcutObj.Add("isMarkup", item.PartnerProduct.IsMarkUp);
+                            partnerProdcutObj.Add("partnerSellingPrice", item.PartnerProduct.PartnerSellingPrice);
+                            partnerProdcutObj.Add("marketPrice", item.PartnerProduct.MarketPrice);
+                            partnerProdcutObj.Add("havaPrice", item.PartnerProduct.HavaPrice);
+                            partnerProdcutObj.Add("productId", item.PartnerProduct.ProductId);
 
                             JObject productObj = new JObject();
-                            if (item.PartnerProduct.productVM != null)
+                            if (item.PartnerProduct.Product != null)
                             {
-                                productObj.Add("description", item.PartnerProduct.productVM.description);
-                                productObj.Add("code", item.PartnerProduct.productVM.code);
-                                productObj.Add("name", item.PartnerProduct.productVM.name);
-                                productObj.Add("isMainProduct", item.PartnerProduct.productVM.isMainProduct);
+                                productObj.Add("description", item.PartnerProduct.Product.Description);
+                                productObj.Add("code", item.PartnerProduct.Product.Code);
+                                productObj.Add("name", item.PartnerProduct.Product.Name);
+                                productObj.Add("isMainProduct", item.PartnerProduct.Product.IsMainProduct);
 
-                                JObject productFeaturesObj = new JObject();
-                                if (item.PartnerProduct.productVM.productFeatures != null)
+                                 JArray featureArr = new JArray();
+                                if (item.PartnerProduct.Product.ProductFeatures.Count() > 0)
                                 {
-                                    productFeaturesObj.Add("id", item.PartnerProduct.productVM.productFeatures.id);
-                                    productFeaturesObj.Add("description", item.PartnerProduct.productVM.productFeatures.description);
+                                   
+                                    foreach (var feature in item.PartnerProduct.Product.ProductFeatures)
+                                    {
+                                        JObject productFeaturesObj = new JObject();
+                                        productFeaturesObj.Add("id", feature.Id);
+                                        productFeaturesObj.Add("description", feature.Description);
+
+                                        featureArr.Add(productFeaturesObj);
+                                    }
+                                    
                                 }
 
-                                productObj.Add("productFeatures", productFeaturesObj);
+                                productObj.Add("productFeatures", featureArr);
 
                                 JObject productImageObj = new JObject();
-                                if (item.PartnerProduct.productVM.productLogoImage != null)
+                                if (item.PartnerProduct.Product != null)
                                 {
-                                    productImageObj.Add("name", item.PartnerProduct.productVM.productLogoImage.name);
-                                    productImageObj.Add("documentPath", item.PartnerProduct.productVM.productLogoImage.documentPath);
+                                    productImageObj.Add("name", item.PartnerProduct.Product.ProductImageName);
+                                    productImageObj.Add("documentPath", item.PartnerProduct.Product.ProductImagePath);
                                 }
 
                                 productObj.Add("productLogoImage", productImageObj);
