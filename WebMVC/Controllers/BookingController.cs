@@ -101,8 +101,10 @@ namespace WebMVC.Controllers
                                 productObj.Add("code", item.PartnerProduct.Product.Code);
                                 productObj.Add("name", item.PartnerProduct.Product.Name);
                                 productObj.Add("isMainProduct", item.PartnerProduct.Product.IsMainProduct);
+                                productObj.Add("maxPassengers", item.PartnerProduct.Product.MaxPassengers);
+                                productObj.Add("maxLuggage", item.PartnerProduct.Product.MaxLuggage);
 
-                                 JArray featureArr = new JArray();
+                                JArray featureArr = new JArray();
                                 if (item.PartnerProduct.Product.ProductFeatures.Count() > 0)
                                 {
                                    
@@ -128,6 +130,7 @@ namespace WebMVC.Controllers
 
                                 productObj.Add("productLogoImage", productImageObj);
                             }
+                            partnerProdcutObj.Add("productVM", productObj);
                         }
 
                         itemObj.Add("PartnerProduct", partnerProdcutObj);

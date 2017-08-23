@@ -39,7 +39,6 @@ namespace HavaBusiness
         public virtual DbSet<Partner> Partners { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<PromotionDiscount> PromotionDiscounts { get; set; }
         public virtual DbSet<PromotionDiscountType> PromotionDiscountTypes { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
@@ -67,6 +66,7 @@ namespace HavaBusiness
         public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
         public virtual DbSet<PartnerRepresentative> PartnerRepresentatives { get; set; }
         public virtual DbSet<ProductFeature> ProductFeatures { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

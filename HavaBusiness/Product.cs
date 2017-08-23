@@ -17,10 +17,10 @@ namespace HavaBusiness
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.TSPProducts = new HashSet<TSPProduct>();
-            this.TSPVehicles = new HashSet<TSPVehicle>();
             this.PartnerProducts = new HashSet<PartnerProduct>();
             this.ProductFeatures = new HashSet<ProductFeature>();
+            this.TSPProducts = new HashSet<TSPProduct>();
+            this.TSPVehicles = new HashSet<TSPVehicle>();
         }
     
         public int Id { get; set; }
@@ -31,14 +31,16 @@ namespace HavaBusiness
         public string ProductImagePath { get; set; }
         public string ProductImageName { get; set; }
         public string ProductImageSize { get; set; }
+        public Nullable<int> MaxPassengers { get; set; }
+        public Nullable<int> MaxLuggage { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TSPProduct> TSPProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TSPVehicle> TSPVehicles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductFeature> ProductFeatures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSPProduct> TSPProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSPVehicle> TSPVehicles { get; set; }
     }
 }

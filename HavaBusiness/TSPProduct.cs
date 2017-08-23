@@ -24,9 +24,9 @@ namespace HavaBusiness
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual TSP TSP { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
