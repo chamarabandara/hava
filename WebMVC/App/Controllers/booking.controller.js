@@ -33,7 +33,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
     HavaSiteService.getLocations({ id: parseInt($scope.urlparms.P) }).$promise.then(
              function (result) {
-                $scope.locations = result.data;
+                 $scope.locations = result.data;
              });
     $scope.isMain = true;
 
@@ -65,7 +65,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             HavaSiteService.getProductDetails({ partnerId: parseInt($scope.urlparms.P), locationId: $scope.search.dropLocation.Id }).$promise.then(
                      function (result) {
                          // angular.forEach(result);
-                       //  console.log(JSON.parse(result.data.replace(/'/g, '"')));
+                         //  console.log(JSON.parse(result.data.replace(/'/g, '"')));
                          console.log(result.data);
                          //var dt = JSON.parse(result.data);
                      });
