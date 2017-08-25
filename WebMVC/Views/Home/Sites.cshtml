@@ -604,33 +604,28 @@
                                     <h2 class="main-heading">{{product.name}}</h2>
                                     <label id="VehicleLbl">{{product.description}}</label>
                                     <div class="full-width pull-left">
-                                        <span class="capacity-span"><i class="fa fa-users"></i> <label id="maxIconomy">Max 3</label></span>
-                                        <span class="capacity-span"><i class="fa fa-suitcase"></i> <label id="maxIconomy">Max 2</label></span>
+                                        <span class="capacity-span" ng-show="product.PartnerProduct.productVM.maxPassengers"><i class="fa fa-users"></i> <label id="maxIconomy">Max {{product.PartnerProduct.productVM.maxPassengers}}</label></span>
+                                        <span class="capacity-span" ng-show="product.PartnerProduct.productVM.maxLuggage"><i class="fa fa-suitcase"></i> <label id="maxIconomy">Max {{product.PartnerProduct.productVM.maxLuggage}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <label class="list-item-info-lbl">
+                                        <label class="list-item-info-lbl" ng-repeat="prodf in product.PartnerProduct.productVM.productFeatures">
                                             <i class="fa fa-clock-o"></i>
-                                            free 60 minutes wait time for airport pickups, 15 mins for all others
+                                            
+                                            {{prodf.description}}
                                         </label>
-                                        <label class="list-item-info-lbl">
-                                            <i class="fa fa-smile-o"></i>
-                                            includes meet & greet
-                                        </label>
-                                        <label class="list-item-info-lbl">
-                                            <i class="fa fa-times-circle-o"></i>
-                                            Free cancellation up until 1 hour before pickup
-                                        </label>
+                                       
                                     </div>
                                     <div class="col-sm-6">
-                                        <img class="main-l-item-img" src="~/Content/temp/img/img1.jpg" />
+                                        <img class="main-l-item-img" src="/hava/Content/ProductImagePath/{{product.PartnerProduct.productVM.productLogoImage.name}}" />
+                                     @*   <img class="main-l-item-img" src="~/Content/temp/img/img1.jpg" />*@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="btn-wrapper">
-                                            <label class="price-lbl pull-right">95.80 USD</label>
+                                            <label class="price-lbl pull-right">{{product.PartnerSellingPrice}} Rs</label>
                                             <label class="small-text pull-right">All prices include VAT, fees & tip.</label>
-                                            <button type="button" class="btn btn-primary btn-block">Select</button>
+                                            <button type="button" class="btn btn-primary btn-block" ng-click="navigateSteps(2)">Select</button>
                                         </div>
                                     </div>
                                 </div>

@@ -60,12 +60,13 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
             var urlparms = $scope.parseQueryString(window.location.href);
             console.log(urlparms);
-            $scope.Products = [{ 'name': 'Economy class', 'id': 1, 'description': 'Toyota Camry, Honda Accord, Toyota Corolla or similar' }, { 'name': 'Sidan', 'id': 2, 'description': 'Toyota Camry, Honda Accord' }]
+         //   $scope.Products = [{ 'name': 'Economy class', 'id': 1, 'description': 'Toyota Camry, Honda Accord, Toyota Corolla or similar' }, { 'name': 'Sidan', 'id': 2, 'description': 'Toyota Camry, Honda Accord' }]
 
             HavaSiteService.getProductDetails({ partnerId: parseInt($scope.urlparms.P), locationId: $scope.search.dropLocation.Id }).$promise.then(
                      function (result) {
                          // angular.forEach(result);
                          //  console.log(JSON.parse(result.data.replace(/'/g, '"')));
+                         $scope.Products = result.data;
                          console.log(result.data);
                          //var dt = JSON.parse(result.data);
                      });
