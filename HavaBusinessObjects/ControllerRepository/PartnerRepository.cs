@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using HavaBusiness;
+﻿using HavaBusiness;
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
@@ -147,7 +146,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             objRep.ModifiedBy = 1;
                             objRep.CreatedDate = DateTime.Now;
                             objRep.ModifiedDate = DateTime.Now;
-                            if (rep.status == "Active") objRep.IsActive = true; else if (rep.status == "Inactive") objRep.IsActive = false;
+                            objRep.IsActive = rep.status == "Active" ? true : false;
 
                             this.ObjContext.PartnerRepresentatives.Add(objRep);
                             this.ObjContext.SaveChanges();
@@ -167,7 +166,8 @@ namespace HavaBusinessObjects.ControllerRepository
                                 user.ModifiedDate = DateTime.Now;
                                 this.ObjContext.Users.Add(user);
                                 this.ObjContext.SaveChanges();
-
+                                objRep.UserId = user.Id;
+                                this.ObjContext.SaveChanges();
                             }
 
                         }
@@ -207,7 +207,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         {
 
                             PartnerSite partSite = new PartnerSite();
-                            partSite.SiteId = site.id;
+                            partSite.SiteId = site.siteId;
                             partSite.PartnerId = partnerId;
 
                             this.ObjContext.PartnerSites.Add(partSite);
@@ -275,7 +275,8 @@ namespace HavaBusinessObjects.ControllerRepository
                 JArray prodList = new JArray();
                 if (objPartner.PartnerProducts.Count > 0)
                 {
-                    foreach (var objProd in objPartner.PartnerProducts)
+                    var list = objPartner.PartnerProducts.Where(p => p.IsActive == true).ToList();
+                    foreach (var objProd in list)
                     {
 
                         JObject prod = new JObject();
@@ -302,8 +303,9 @@ namespace HavaBusinessObjects.ControllerRepository
                     foreach (var site in objPartner.PartnerSites)
                     {
                         JObject st = new JObject();
+                        st.Add("id" , site.ID);
                         st.Add("siteId" , site.SiteId);
-                        st.Add("site" , site.Site.siteName);
+                        st.Add("name" , site.Site.siteName);
 
                         siteList.Add(st);
                     }
@@ -369,6 +371,18 @@ namespace HavaBusinessObjects.ControllerRepository
                                         rep.ModifiedBy = partnerViewModel.createdBy;
                                         rep.ModifiedDate = DateTime.Now;
                                         if (selRep.status == "Active") rep.IsActive = true; else if (selRep.status == "Inactive") rep.IsActive = false;
+                                        if (rep.User != null)
+                                        {
+                                            User user = new User();
+                                            user.UserName = selRep.userName;
+                                            user.PasswordEncrypt = selRep.password;
+                                            user.FirstName = selRep.name;
+                                            user.Email = selRep.email;
+                                            user.TelLandLine = selRep.teleNo;
+                                            user.TelMobile = selRep.mobileNo;
+                                            user.ModifiedBy = partnerViewModel.createdBy;
+                                            user.ModifiedDate = DateTime.Now;
+                                        }
                                     }
                                     else
                                     {
@@ -400,7 +414,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                     objRep.ModifiedBy = partnerViewModel.createdBy;
                                     objRep.CreatedDate = DateTime.Now;
                                     objRep.ModifiedDate = DateTime.Now;
-                                    if (newrep.status == "Active") objRep.IsActive = true; else if (newrep.status == "Inactive") objRep.IsActive = false;
+                                    objRep.IsActive = newrep.status == "Active" ? true : false;
 
                                     this.ObjContext.PartnerRepresentatives.Add(objRep);
                                     this.ObjContext.SaveChanges();
@@ -419,6 +433,8 @@ namespace HavaBusinessObjects.ControllerRepository
                                         user.CreatedDate = DateTime.Now;
                                         user.ModifiedDate = DateTime.Now;
                                         this.ObjContext.Users.Add(user);
+                                        this.ObjContext.SaveChanges();
+                                        objRep.UserId = user.Id;
                                         this.ObjContext.SaveChanges();
                                     }
                                 }
@@ -471,6 +487,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                     objProd.CreatedDate = DateTime.Now;
                                     objProd.ModifiedBy = partnerViewModel.createdBy;
                                     objProd.ModifiedDate = DateTime.Now;
+                                    objProd.IsActive = true;
 
                                     this.ObjContext.PartnerProducts.Add(objProd);
                                     this.ObjContext.SaveChanges();
@@ -494,7 +511,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                 foreach (var newsite in newSites)
                                 {
                                     PartnerSite partSite = new PartnerSite();
-                                    partSite.SiteId = newsite.id;
+                                    partSite.SiteId = newsite.siteId;
                                     partSite.PartnerId = partner.Id;
 
                                     this.ObjContext.PartnerSites.Add(partSite);

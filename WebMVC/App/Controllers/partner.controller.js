@@ -13,10 +13,12 @@
 
 var partnerControllers = angular.module('partnerControllers', ['ngCookies', 'partnerService']);
 
-partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout) {
-    $scope.create = function () {
+partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, PartnerServiceLocal) {
+    var tmp = PartnerServiceLocal;
+    $scope.infoMsg = $sce.trustAsHtml(PartnerServiceLocal.infoMsg);
+$scope.create = function () {
         $scope.submitted = true;
-        if ($scope.customerForm.$invalid == false) {
+        if ($scope.partnerForm.$invalid == false) {
             $scope.isLegelNameExistsValidation();
             $scope.isAccNoExistsVaidation();
             $scope.isOrgRegNoExistsVaidation();
@@ -39,10 +41,11 @@ partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerSer
     $scope.bindActionButtons = function (o) {
         var actionButtons = "";
         actionButtons = '<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">';
-        var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
+        //var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
         var editButton = '<a data-dataId="' + o.id + '" class="link-action action-button"  data-view="edit" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>';
         var deleteButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
-        actionButtons += viewButton + editButton;
+        var copyButton = '<a class="link-action action-button" title="Copy" data-dataId="' + o.id + '" data-dataType="' + o.id + '"  data-view="copy"><i class="fa fa-files-o"></i></a>'
+        actionButtons += copyButton + editButton;
         if (o.status != "Closed")
             actionButtons += deleteButton;
         actionButtons += '</div>';
@@ -111,7 +114,9 @@ partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerSer
            
 
         } else if (task == 'copy') {
-
+            var tmp = PartnerServiceLocal;
+            tmp.copyedData = row;
+            $state.go('^.add');
         }
         else if (task == 'delete') {
             //$scope.claimRow = row;
@@ -154,8 +159,8 @@ partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerSer
     });
 }]);
 
-partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, filterFilter) {
-    //var tmp = PartnerServiceLocal;
+partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', 'PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, filterFilter, PartnerServiceLocal) {
+    var tmp = PartnerServiceLocal;
     $scope.representative = {};
     $scope.submittedRep = false;
     $scope.representativeGridData = [];
@@ -176,6 +181,14 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                             $scope.productGridData = result.productGridData;
                             $scope.siteGridData = result.siteGridData;
                         });
+                  } else if (PartnerServiceLocal.copyedData) {
+                      HavaPartnerService.getPartner({ id: PartnerServiceLocal.copyedData.id }).$promise.then(
+                         function (result) {
+                             $scope.model = result;
+                             $scope.representativeGridData = result.representativeGridData;
+                             $scope.productGridData = result.productGridData;
+                             $scope.siteGridData = result.siteGridData;
+                         });
                   }
               });
 
@@ -184,7 +197,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.userStatus = [
      { 'id': 1, 'name': 'Active' }, { 'id': 0, 'name': 'Inactive' }
     ];
-    $scope.representative.status = {'id':1}
+    $scope.representative.status = { 'id': 1, 'name': 'Active' };
     $scope.addRepresentative = function (repData) {
         $scope.submittedRep = true;
         $scope.userExist = false;
@@ -211,7 +224,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                                    $scope.representativeGridData.push({
                                        'name': (repData.name) ? repData.name : null, 'teleNo': (repData.teleNo) ? repData.teleNo : null,
                                        'mobileNo': repData.mobileNo, 'email': (repData.email) ? repData.email : null,
-                                       'userName': repData.userName, 'password': repData.password, 'status': (repData.status) ? repData.status.name : null,
+                                       'userName': repData.userName, 'password': repData.password, 'status': (repData.status) ? repData.status.name : 'Active',
                                        'id': '-1' + Math.random()
                                    });
                                    $scope.representative = {};
@@ -232,7 +245,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                     $scope.representativeGridData.push({
                         'name': (repData.name) ? repData.name : null, 'teleNo': (repData.teleNo) ? repData.teleNo : null,
                         'mobileNo': repData.mobileNo, 'email': (repData.email) ? repData.email : null,
-                        'userName': repData.userName, 'password': repData.password, 'status': (repData.status) ? repData.status.name : null,
+                        'userName': repData.userName, 'password': repData.password, 'status': (repData.status) ? repData.status.name : 'Active',
                         'id': '-1' + Math.random()
                     });
                     $scope.representative = {};
@@ -268,12 +281,12 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
             $scope.pswMinLength = false;
         }
 
-        if ($scope.pswMinLength != true && $scope.customerForm.representativeEmail.$error.email != true && $scope.representativeNameRequired == false) {
+        if ($scope.pswMinLength != true && $scope.partnerForm.representativeEmail.$error.email != true && $scope.representativeNameRequired == false) {
 
             if (repData.password && repData.password != undefined && repData.password != "" && repData.userName) {
-                AutoConceptCustomerService.isUserNamePasswordExists({ username: repData.userName, id: (repData.rId) ? repData.rId : 0, password: repData.password }).$promise.then(
-                      function (result) {
-                          if (result.status == false) {
+                //AutoConceptCustomerService.isUserNamePasswordExists({ username: repData.userName, id: (repData.rId) ? repData.rId : 0, password: repData.password }).$promise.then(
+                //      function (result) {
+                //          if (result.status == false) {
                               var repD = filterFilter($scope.representativeGridData, function (item) {
                                   if (item.userName == repData.userName && item.password == repData.password && item.id != repData.id) {
                                       return item;
@@ -298,10 +311,10 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                               }
 
 
-                          } else {
-                              $scope.userExist = true;
-                          }
-                      });
+                          //} else {
+                          //    $scope.userExist = true;
+                          //}
+                      //});
             } else {
 
                 var repD = filterFilter($scope.representativeGridData, function (item) {
@@ -380,12 +393,67 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                 'product': product.product,
                 'partnerSellingPrice': product.partnerSellingPrice,
                 'partnerPercentage': product.partnerPercentage,
-                'partnerMarkup': product.partnerMarkup,
+                'partnerMarkup': product.isMarkup ? product.partnerMarkup : 0,
                 'productId': product.product.id,
                 'productName':product.product.name
             });
 
         console.log($scope.productGridData);
+    }
+
+    $scope.priductViewAction = function (row, task) {
+        $scope.updateProduct = false;
+        $scope.rowIndex = row.rowIndex;
+        if (task == "edit") {
+            $scope.updateProduct = true;
+            var rData = angular.copy(row);
+            $scope.product = rData;
+            angular.forEach($scope.productList, function (prod) {
+                if (prod.name == $scope.product.productName) {
+                    $scope.product.product = prod;
+                }
+            });
+            $scope.product.isMarkup = row.isMarkup == "True" ? true : false;
+        } else if (task == "delete") {
+            $scope.productRow = row;
+            $scope.viewTask = 'confirmDeleteProduct';
+
+        }
+    }
+
+    $scope.updateProductFunc = function (prodData) {
+        if (prodData.product != null || prodData.product != undefined) {
+            var gridData = angular.copy($scope.productGridData);
+            var rowIndex = null;
+            angular.forEach(gridData, function (v, k) {
+                if (v.productId == prodData.productId) {
+                    prodData.productName = prodData.product.name;
+                    prodData.productId = prodData.product.id;
+                    gridData[k] = prodData;
+                    $scope.product = {};
+                    $scope.updateProduct = false;
+                    $scope.productGridData = gridData;
+                }
+            });
+        }
+    }
+
+    $scope.confirmDeleteProduct = function (row) {
+        var ky = null;
+        angular.forEach($scope.productGridData, function (v, k) {
+            if (row.productId == v.productId) {
+                ky = k;
+            }
+        });
+        $scope.productGridData.splice(ky, 1);
+
+        $scope.viewTask = '';
+        $scope.infoMsgDeleteProduct = "'" + row.productName + "' has been deleted successfully.";
+        $timeout(function () { $scope.infoMsgDeleteProduct = ''; }, 1000);
+
+        if ($scope.productGridData.length <= 0) {
+            $scope.repRequired = false;
+        }
     }
 
     $scope.deleteSite = function(row){
@@ -416,7 +484,8 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                 });
             if (!alreadyAdded) {
                 $scope.siteGridData.push({
-                    'id': site.id,
+                    'id': '-1' + Math.random(),
+                    'siteId': site.id,
                     'name': site.name,
                 
                 });
@@ -431,13 +500,23 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
             partner.representativeData = $scope.representativeGridData;
             partner.productGridData = $scope.productGridData;
             partner.siteGridData = $scope.siteGridData;
-            HavaPartnerService.create(partner).$promise.then(function (data) {
-                if (data.status == true) {
-                  tmp.infoMsg = 'Customer \'' + sites.name + '\' has been saved successfully.';
-                    $state.go('^.list');
-                }
-            });
 
+            if ($stateParams.id) {
+                HavaPartnerService.updatePartner(partner).$promise.then(function (data) {
+                    if (data.status == true) {
+                        tmp.infoMsg = 'Customer \'' + partner.name + '\' has been updated successfully.';
+                        $state.go('^.list');
+                    }
+                });
+            }
+            else {
+                HavaPartnerService.create(partner).$promise.then(function (data) {
+                    if (data.status == true) {
+                        tmp.infoMsg = 'Customer \'' + partner.name + '\' has been saved successfully.';
+                        $state.go('^.list');
+                    }
+                });
+            }
         }
     }
 }]);

@@ -98,8 +98,8 @@ namespace HavaWeb.Controllers
         /// </summary>
         /// <param name="partnerViewModel">The partner view model.</param>
         /// <returns></returns>
-        [HttpPut]
-        public JObject Put(PartnerViewModel partnerViewModel)
+        [HttpPost]
+        public JObject EditPartner(PartnerViewModel partnerViewModel)
         {
             try
             {

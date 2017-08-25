@@ -374,25 +374,25 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteRepresentative'">
+                                        <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteProduct'">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="row">
                                                         <span>
-                                                            You are about to delete ' {{repRow.name}} ', do you want to proceed?
+                                                            You are about to delete ' {{productRow.productName}} ', do you want to proceed?
                                                         </span>
                                                         <span class="info-btn">
-                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteRep(repRow)">Delete</button>
+                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteProduct(productRow)">Delete</button>
                                                             <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteRep">
+                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteProduct">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <span>{{infoMsgDeleteRep}}</span>
+                                                    <span>{{infoMsgDeleteProduct}}</span>
                                                     <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
                                                 </div>
                                             </div>

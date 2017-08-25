@@ -46,5 +46,6 @@ namespace HavaBusinessObjects.ViewModels
     public class PartnerSitesViewModel
     {
         public int id { get; set; }
+        public int siteId { get; set; }
     }
 }
