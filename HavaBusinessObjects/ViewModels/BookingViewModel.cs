@@ -71,6 +71,7 @@ namespace HavaBusinessObjects.ViewModels
         public int? AdditionalChufferHours { get; set; }
         public int? NoOfChildSeats { get; set; }
         public int? ChildSeatDays { get; set; }
+        public BookedProductViewModel Product { get; set; }
     }
 
     public class BookingOptionViewModel

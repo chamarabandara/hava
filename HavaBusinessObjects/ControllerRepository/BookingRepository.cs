@@ -75,8 +75,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 }
             }
         }
-
-
+        
         public BookingViewModel GetById(int id)
         {
             try
@@ -87,7 +86,7 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingOptions)
-                     .Include(x => x.BookingProducts)
+                     .Include(x => x.BookingProducts.Select(y=>y.Product))
                      .Include(x => x.BookingPayments)
                      .Where(a => a.Id == id).FirstOrDefault();
 
@@ -129,6 +128,137 @@ namespace HavaBusinessObjects.ControllerRepository
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public BookingViewModel Update(BookingViewModel vm)
+        {
+            //Booking booking = Mapper.Map<BookingViewModel, Booking>(vm);
+
+            using (var dbContextTransaction = this.ObjContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    Booking booking = this.ObjContext.Bookings.Where(a => a.Id == vm.Id).FirstOrDefault();
+                    booking.BookingTypeId       = vm.BookingType.Id;
+                    booking.PickupDate          = vm.PickupDate;
+                    booking.PickupTime          = vm.PickupTime;
+                    booking.PickupLocation      = vm.PickupLocation;
+                    booking.ReturnTime          = vm.ReturnTime;
+                    booking.ReturnPickupLocation= vm.ReturnPickupLocation;
+                    booking.DropLocation        = vm.DropLocation;
+                    booking.ReturnDate          = vm.ReturnDate;
+                    booking.RefNo               = vm.RefNo;
+                    booking.ModifiedBy          = 1;
+                    booking.ModifiedDate        = DateTime.UtcNow;
+                    booking.PartnerId           = vm.Partner.id;
+                    booking.NumberOfDays        = vm.NumberOfDays;
+                    booking.BookingStatusId     = vm.BookingStatu.Id;
+                    booking.TSPId               = vm.TSPId;
+                    booking.PaymentTypeId       = vm.PaymentTypeId;
+                    booking.PromotionId         = vm.PromotionId;
+                    booking.HasPromotions       = vm.HasPromotions;
+                    booking.UserConfirmed       = vm.UserConfirmed;
+                    booking.UserId              = vm.UserId;
+                    booking.IsReturn            = vm.IsReturn;
+                    booking.IsAirportTransfer   = vm.IsAirportTransfer;
+
+                    this.ObjContext.Entry(booking).State = EntityState.Modified;
+                    this.ObjContext.SaveChanges();
+                    
+                    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
+                    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
+                    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
+
+                    if (bookingProduct.Id > 0)
+                    {
+                        BookingProduct extBookingProduct = this.ObjContext.BookingProducts.Where(a => a.Id == bookingProduct.Id).FirstOrDefault();
+                        extBookingProduct.BookingId         = bookingProduct.BookingId;
+                        extBookingProduct.ProductId         = bookingProduct.ProductId;
+                        extBookingProduct.Price             = bookingProduct.Price;
+                        extBookingProduct.IsAirPortTour     = bookingProduct.IsAirPortTour;
+                        extBookingProduct.AdditionalDays    = bookingProduct.AdditionalDays;
+                        extBookingProduct.AdditionalHours   = bookingProduct.AdditionalHours;
+                        extBookingProduct.AdditionalChufferDate = bookingProduct.AdditionalChufferDate;
+                        extBookingProduct.AdditionalChufferHours = bookingProduct.AdditionalChufferHours;
+                        extBookingProduct.NoOfChildSeats    = bookingProduct.NoOfChildSeats;
+                        extBookingProduct.ChildSeatDays     = bookingProduct.ChildSeatDays;
+
+                        this.ObjContext.Entry(extBookingProduct).State = EntityState.Modified;
+                        this.ObjContext.SaveChanges();
+                    }
+                    else
+                    {
+                        bookingProduct.BookingId = booking.Id;
+
+                        this.ObjContext.BookingProducts.Add(bookingProduct);
+                        this.ObjContext.SaveChanges();
+                    }
+
+
+                    if (bookingOption.Id > 0)
+                    {
+                        BookingOption extBookingOption = this.ObjContext.BookingOptions.Where(a => a.Id == bookingOption.Id).FirstOrDefault();
+                        extBookingOption.BookingId      = bookingOption.BookingId;
+                        extBookingOption.FlightNo       = bookingOption.FlightNo;
+                        extBookingOption.FlyerProgramId = bookingOption.FlyerProgramId;
+                        extBookingOption.FlyerReffNo    = bookingOption.FlyerReffNo;
+                        extBookingOption.PickupSign     = bookingOption.PickupSign;
+                        extBookingOption.PickupSignReffNo = bookingOption.PickupSignReffNo;
+                        extBookingOption.NoteToDriver   = bookingOption.NoteToDriver;
+
+                        this.ObjContext.Entry(extBookingOption).State = EntityState.Modified;
+                        this.ObjContext.SaveChanges();
+                    }
+                    else
+                    {
+                        bookingOption.CreatedDate = DateTime.UtcNow;
+                        bookingOption.BookingId = booking.Id;
+
+                        this.ObjContext.BookingOptions.Add(bookingOption);
+                        this.ObjContext.SaveChanges();
+                    }
+
+
+                    if (bookingPayment.Id > 0)
+                    {
+                        BookingPayment extBookingPayment = this.ObjContext.BookingPayments.Where(a => a.Id == bookingPayment.Id).FirstOrDefault();
+                        extBookingPayment.BookingId     = bookingPayment.BookingId;
+                        extBookingPayment.CardHolderName = bookingPayment.CardHolderName;
+                        extBookingPayment.ExpireDate    = bookingPayment.ExpireDate;
+                        extBookingPayment.CardNo        = bookingPayment.CardNo;
+
+                        this.ObjContext.Entry(extBookingPayment).State = EntityState.Modified;
+                        this.ObjContext.SaveChanges();
+                    }
+                    else
+                    {
+                        bookingPayment.CreatedDate = DateTime.UtcNow;
+                        bookingPayment.BookingId = booking.Id;
+
+                        this.ObjContext.BookingPayments.Add(bookingPayment);
+                        this.ObjContext.SaveChanges();
+                    }
+                                    
+                    dbContextTransaction.Commit();
+
+                    var updatedBooking = this.ObjContext.Bookings
+                     .Include(x => x.Partner)
+                     .Include(x => x.BookingStatu)
+                     .Include(x => x.BookingType)
+                     .Include(x => x.BookingType)
+                     .Include(x => x.BookingOptions)
+                     .Include(x => x.BookingProducts)
+                     .Include(x => x.BookingPayments)
+                     .Where(a => a.Id == vm.Id).FirstOrDefault();
+
+                    return Mapper.Map<Booking, BookingViewModel>(updatedBooking);
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    throw ex;
+                }
             }
         }
 

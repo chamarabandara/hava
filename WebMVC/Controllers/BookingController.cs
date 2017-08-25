@@ -4,6 +4,8 @@ using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -218,6 +220,24 @@ namespace WebMVC.Controllers
             return returnObj;
         }
 
+        [HttpPut]
+        [AllowAnonymous]
+        public JObject Update(BookingViewModel vm)
+        {
+            JObject returnObj = new JObject();
+
+            if (ModelState.IsValid)
+            {
+                var booking = _bookingRepository.Update(vm);
+                
+                returnObj.Add("data", this.ReturnBookingJson(booking));
+                return returnObj;
+
+            }
+            returnObj.Add("error", "Please provide mandatory fields");
+            return returnObj;
+        }
+
         private JObject ReturnBookingJson(BookingViewModel vm)
         {
             JObject returnObj = new JObject();
@@ -281,6 +301,9 @@ namespace WebMVC.Controllers
                 bookingProductObj.Add("AdditionalChufferHours", product.AdditionalChufferHours);
                 bookingProductObj.Add("NoOfChildSeats", product.NoOfChildSeats);
                 bookingProductObj.Add("ChildSeatDays", product.ChildSeatDays);
+
+                var path = ConfigurationManager.AppSettings["SiteUrl"].ToString()+ product.Product.ProductImagePath;
+                bookingProductObj.Add("ProductImagePath", path);
 
                 productArr.Add(bookingProductObj);
             }
