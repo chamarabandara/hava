@@ -152,20 +152,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="HAVA_DBModel.Product">
-        <MappingFragment StoreEntitySet="Products">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="IsMainProduct" ColumnName="IsMainProduct" />
-          <ScalarProperty Name="ProductImagePath" ColumnName="ProductImagePath" />
-          <ScalarProperty Name="ProductImageName" ColumnName="ProductImageName" />
-          <ScalarProperty Name="ProductImageSize" ColumnName="ProductImageSize" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PromotionDiscounts">
       <EntityTypeMapping TypeName="HAVA_DBModel.PromotionDiscount">
         <MappingFragment StoreEntitySet="PromotionDiscounts">
@@ -551,6 +537,11 @@
     <EntitySetMapping Name="PartnerProducts">
       <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProduct">
         <MappingFragment StoreEntitySet="PartnerProducts">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="Percentage" ColumnName="Percentage" />
           <ScalarProperty Name="Markup" ColumnName="Markup" />
           <ScalarProperty Name="IsMarkUp" ColumnName="IsMarkUp" />
@@ -577,6 +568,22 @@
           <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="HAVA_DBModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="MaxLuggage" ColumnName="MaxLuggage" />
+          <ScalarProperty Name="MaxPassengers" ColumnName="MaxPassengers" />
+          <ScalarProperty Name="ProductImageSize" ColumnName="ProductImageSize" />
+          <ScalarProperty Name="ProductImageName" ColumnName="ProductImageName" />
+          <ScalarProperty Name="ProductImagePath" ColumnName="ProductImagePath" />
+          <ScalarProperty Name="IsMainProduct" ColumnName="IsMainProduct" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

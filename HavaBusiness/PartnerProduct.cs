@@ -29,6 +29,11 @@ namespace HavaBusiness
         public Nullable<bool> IsMarkUp { get; set; }
         public Nullable<decimal> Markup { get; set; }
         public Nullable<decimal> Percentage { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProductRate> PartnerProductRates { get; set; }

@@ -242,6 +242,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="IsMarkUp" Type="bit" />
           <Property Name="Markup" Type="money" />
           <Property Name="Percentage" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PartnerRepresentative">
           <Key>
@@ -309,14 +314,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="CreatedOnDate" Type="datetime" />
           <Property Name="LastModifiedByUserID" Type="int" />
           <Property Name="LastModifiedOnDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="ProductFeatures">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="ProdcutId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -827,18 +824,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductFeatures_Product">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="ProductFeatures" Type="Self.ProductFeatures" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductFeatures">
-              <PropertyRef Name="ProdcutId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PromotionDiscounts_PromotionDiscountTypes">
           <End Role="PromotionDiscountTypes" Type="Self.PromotionDiscountTypes" Multiplicity="1" />
           <End Role="PromotionDiscounts" Type="Self.PromotionDiscounts" Multiplicity="0..1" />
@@ -1103,6 +1088,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserTypes_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="*" />
@@ -1205,7 +1202,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySet Name="PartnerSites" EntityType="Self.PartnerSites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductFeatures" EntityType="Self.ProductFeatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionDiscounts" EntityType="Self.PromotionDiscounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionDiscountTypes" EntityType="Self.PromotionDiscountTypes" Schema="dbo" store:Type="Tables" />
@@ -1327,10 +1323,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Sites" EntitySet="Sites" />
             <End Role="PartnerSites" EntitySet="PartnerSites" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductFeatures_Product" Association="Self.FK_ProductFeatures_Product">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductFeatures" EntitySet="ProductFeatures" />
-          </AssociationSet>
           <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="Self.FK_PromotionDiscounts_PromotionDiscountTypes">
             <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />
             <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
@@ -1418,6 +1410,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_UserRoles_Users1" Association="Self.FK_UserRoles_Users1">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users" Association="Self.FK_Users_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_UserTypes_Users" Association="Self.FK_UserTypes_Users">
             <End Role="Users" EntitySet="Users" />
@@ -2819,6 +2815,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="PartnerProduct" ToRole="PartnerProductRate" />
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts" FromRole="PartnerProduct" ToRole="Partner" />
           <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="PartnerProduct" ToRole="Product" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_PartnerProductRate_Location">
           <End Type="HAVA_DBModel.LocationDetail" Role="LocationDetail" Multiplicity="1" />
@@ -3533,6 +3534,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="PartnerProducts">
             <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProduct">
               <MappingFragment StoreEntitySet="PartnerProducts">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Percentage" ColumnName="Percentage" />
                 <ScalarProperty Name="Markup" ColumnName="Markup" />
                 <ScalarProperty Name="IsMarkUp" ColumnName="IsMarkUp" />
@@ -3559,15 +3565,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
                 <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductFeatures">
-            <EntityTypeMapping TypeName="HAVA_DBModel.ProductFeature">
-              <MappingFragment StoreEntitySet="ProductFeatures">
-                <ScalarProperty Name="ProdcutId" ColumnName="ProdcutId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
