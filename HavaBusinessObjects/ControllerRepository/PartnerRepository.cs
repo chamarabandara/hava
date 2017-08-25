@@ -256,7 +256,8 @@ namespace HavaBusinessObjects.ControllerRepository
                     foreach (var rep in objPartner.PartnerRepresentatives)
                     {
                         JObject objRep = new JObject();
-                        objRep.Add("partnerId" , rep.PartnerId);
+                        objRep.Add("id" , rep.Id);
+                        objRep.Add("repId" , rep.Id);
                         objRep.Add("name" , rep.Name);
                         objRep.Add("teleNo" , rep.TelephoneNo);
                         objRep.Add("mobileNo" , rep.MobileNo);
@@ -278,7 +279,7 @@ namespace HavaBusinessObjects.ControllerRepository
                     {
 
                         JObject prod = new JObject();
-                        prod.Add("partnerId" , objProd.PartnerId);
+                        prod.Add("id" , objProd.Id);
                         prod.Add("havaPrice" , objProd.HavaPrice);
                         prod.Add("marketPrice" , objProd.MarketPrice);
                         prod.Add("partnerSellingPrice" , objProd.PartnerSellingPrice);
@@ -286,7 +287,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         prod.Add("partnerMarkup" , objProd.Markup);
                         prod.Add("partnerPercentage" , objProd.Percentage);
                         prod.Add("productId" , objProd.ProductId);
-                        prod.Add("name" , objProd.Product.Name);
+                        prod.Add("productName" , objProd.Product.Name);
 
                         prodList.Add(prod);
                     }
@@ -312,6 +313,218 @@ namespace HavaBusinessObjects.ControllerRepository
             }
 
             return returnObj;
+        }
+        #endregion
+
+        #region Update Partner
+        /// <summary>
+        /// Update Partner
+        /// </summary>
+        /// </summary>
+        /// Date           Author/(Reviewer)        Description
+        /// ------------------------------------------------------------------------------------          
+        /// 23-Aug-2017    VISH                 Created.
+        /// 
+        public bool UpdatePartner(PartnerViewModel partnerViewModel)
+        {
+            try
+            {
+                if (partnerViewModel == null)
+                {
+                    throw new ArgumentNullException("item");
+                }
+                else
+                {
+                    Partner partner = new Partner();
+                    using (var dbContextTransaction = this.ObjContext.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            partner = this.ObjContext.Partners.Find(partnerViewModel.id);
+                            if (partner != null)
+                            {
+                                partner.Name = partnerViewModel.name;
+                                partner.Email = partnerViewModel.email;
+                                partner.TelLandLine = partnerViewModel.telephoneLand;
+                                partner.TelMobile = partnerViewModel.telephoneMobile;
+                                partner.FullAddress = partnerViewModel.address;
+                                partner.IsActive = true;
+                                partner.IsCompany = true;
+                                partner.ModifiedBy = partnerViewModel.createdBy;
+                                partner.ModifiedDate = DateTime.Now;
+
+                                #region Partner Representative
+                                var recentRepss = partner.PartnerRepresentatives.ToList();
+                                foreach (var rep in recentRepss)
+                                {
+                                    List<int> ids = partnerViewModel.representativeData.Select(i => i.id).ToList();
+                                    if (ids.Contains(rep.Id))
+                                    {
+                                        var selRep = partnerViewModel.representativeData.FirstOrDefault(o => o.id == rep.Id);
+                                        rep.PartnerId = partner.Id;
+                                        rep.Name = selRep.name;
+                                        rep.TelephoneNo = selRep.teleNo;
+                                        rep.MobileNo = selRep.mobileNo;
+                                        rep.Email = selRep.email;
+                                        rep.ModifiedBy = partnerViewModel.createdBy;
+                                        rep.ModifiedDate = DateTime.Now;
+                                        if (selRep.status == "Active") rep.IsActive = true; else if (selRep.status == "Inactive") rep.IsActive = false;
+                                    }
+                                    else
+                                    {
+                                        rep.IsActive = false;
+                                        rep.ModifiedBy = partnerViewModel.createdBy;
+                                        rep.ModifiedDate = DateTime.Now;
+                                        if (rep.User != null)
+                                        {
+                                            rep.User.IsActive = false;
+                                            rep.User.ModifiedBy = partnerViewModel.createdBy;
+                                            rep.User.ModifiedDate = DateTime.Now;
+                                        }
+
+                                    }
+                                    this.ObjContext.Entry(rep).State = System.Data.Entity.EntityState.Modified;
+                                    this.ObjContext.SaveChanges();
+                                }
+                                var newReps = partnerViewModel.representativeData.Where(p => p.id <= 0).ToList();
+                                foreach (var newrep in newReps)
+                                {
+                                    PartnerRepresentative objRep = new PartnerRepresentative();
+                                    int repId = 0;
+                                    objRep.PartnerId = partner.Id;
+                                    objRep.Name = newrep.name;
+                                    objRep.TelephoneNo = newrep.teleNo;
+                                    objRep.MobileNo = newrep.mobileNo;
+                                    objRep.Email = newrep.email;
+                                    objRep.CreatedBy = partnerViewModel.createdBy;
+                                    objRep.ModifiedBy = partnerViewModel.createdBy;
+                                    objRep.CreatedDate = DateTime.Now;
+                                    objRep.ModifiedDate = DateTime.Now;
+                                    if (newrep.status == "Active") objRep.IsActive = true; else if (newrep.status == "Inactive") objRep.IsActive = false;
+
+                                    this.ObjContext.PartnerRepresentatives.Add(objRep);
+                                    this.ObjContext.SaveChanges();
+                                    repId = objRep.Id;
+                                    if (newrep.userName != null && newrep.password != null)
+                                    {
+                                        User user = new User();
+                                        user.UserName = newrep.userName;
+                                        user.PasswordEncrypt = newrep.password;
+                                        user.FirstName = newrep.name;
+                                        user.Email = newrep.email;
+                                        user.TelLandLine = newrep.teleNo;
+                                        user.TelMobile = newrep.mobileNo;
+                                        user.CreatedBy = partnerViewModel.createdBy;
+                                        user.ModifiedBy = partnerViewModel.createdBy;
+                                        user.CreatedDate = DateTime.Now;
+                                        user.ModifiedDate = DateTime.Now;
+                                        this.ObjContext.Users.Add(user);
+                                        this.ObjContext.SaveChanges();
+                                    }
+                                }
+
+                                #endregion
+
+                                #region Partner Products
+                                var recentProds = partner.PartnerProducts.ToList();
+                                foreach (var prod in recentProds)
+                                {
+                                    List<int> ids = partnerViewModel.productGridData.Select(i => i.id).ToList();
+                                    if (ids.Contains(prod.Id))
+                                    {
+                                        var selProd = partnerViewModel.productGridData.FirstOrDefault(o => o.id == prod.Id);
+                                        prod.PartnerId = partner.Id;
+                                        prod.HavaPrice = selProd.havaPrice != null ? Decimal.Parse(selProd.havaPrice) : 0;
+                                        prod.MarketPrice = selProd.marketPrice != null ? Decimal.Parse(selProd.marketPrice) : 0;
+                                        prod.PartnerSellingPrice = selProd.partnerSellingPrice != null ? Decimal.Parse(selProd.partnerSellingPrice) : 0;
+                                        prod.IsMarkUp = selProd.isMarkup;
+                                        prod.Markup = string.IsNullOrEmpty(selProd.partnerMarkup) ? 0 : Decimal.Parse(selProd.partnerMarkup);
+                                        prod.Percentage = selProd.partnerPercentage != null ? Decimal.Parse(selProd.partnerPercentage) : 0;
+                                        prod.ProductId = selProd.productId;
+                                        prod.ModifiedBy = partnerViewModel.createdBy;
+                                        prod.ModifiedDate = DateTime.Now;
+                                    }
+                                    else
+                                    {
+                                        prod.IsActive = false;
+                                        prod.ModifiedBy = partnerViewModel.createdBy;
+                                        prod.ModifiedDate = DateTime.Now;
+
+                                    }
+                                    this.ObjContext.Entry(prod).State = System.Data.Entity.EntityState.Modified;
+                                    this.ObjContext.SaveChanges();
+                                }
+                                var newProds = partnerViewModel.productGridData.Where(p => p.id <= 0).ToList();
+                                foreach (var newprod in newProds)
+                                {
+                                    PartnerProduct objProd = new PartnerProduct();
+                                    int repId = 0;
+                                    objProd.PartnerId = partner.Id;
+                                    objProd.HavaPrice = newprod.havaPrice != null ? Decimal.Parse(newprod.havaPrice) : 0;
+                                    objProd.MarketPrice = newprod.marketPrice != null ? Decimal.Parse(newprod.marketPrice) : 0;
+                                    objProd.PartnerSellingPrice = newprod.partnerSellingPrice != null ? Decimal.Parse(newprod.partnerSellingPrice) : 0;
+                                    objProd.IsMarkUp = newprod.isMarkup;
+                                    objProd.Markup = string.IsNullOrEmpty(newprod.partnerMarkup) ? 0 : Decimal.Parse(newprod.partnerMarkup);
+                                    objProd.Percentage = newprod.partnerPercentage != null ? Decimal.Parse(newprod.partnerPercentage) : 0;
+                                    objProd.ProductId = newprod.productId;
+                                    objProd.CreatedBy = partnerViewModel.createdBy;
+                                    objProd.CreatedDate = DateTime.Now;
+                                    objProd.ModifiedBy = partnerViewModel.createdBy;
+                                    objProd.ModifiedDate = DateTime.Now;
+
+                                    this.ObjContext.PartnerProducts.Add(objProd);
+                                    this.ObjContext.SaveChanges();
+
+                                }
+
+                                #endregion
+
+                                #region partner sites
+                                var recentSites = partner.PartnerSites.ToList();
+                                foreach (var site in recentSites)
+                                {
+                                    List<int> ids = partnerViewModel.siteGridData.Select(i => i.id).ToList();
+                                    if (!ids.Contains(site.ID))
+                                    {
+                                        this.ObjContext.PartnerSites.Remove(site);
+                                        this.ObjContext.SaveChanges();
+                                    }
+                                }
+                                var newSites = partnerViewModel.siteGridData.Where(p => p.id <= 0).ToList();
+                                foreach (var newsite in newSites)
+                                {
+                                    PartnerSite partSite = new PartnerSite();
+                                    partSite.SiteId = newsite.id;
+                                    partSite.PartnerId = partner.Id;
+
+                                    this.ObjContext.PartnerSites.Add(partSite);
+                                    this.ObjContext.SaveChanges();
+
+                                }
+
+                                #endregion
+
+                                this.ObjContext.Entry(partner).State = System.Data.Entity.EntityState.Modified;
+                                this.ObjContext.SaveChanges();
+                                dbContextTransaction.Commit();
+
+                                return true;
+                            }
+                            else
+                                return false;
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         #endregion
 

@@ -36,3 +36,5 @@ WebMVC/obj/Debug/WebMVC.csprojResolveAssemblyReference.cache
 WebMVC/obj/Debug/WebMVC.dll
 WebMVC/obj/Debug/WebMVC.pdb
 WebMVC/WebMVC.csproj.user
+HavaBusiness/Web.config
+WebMVC/Web.config

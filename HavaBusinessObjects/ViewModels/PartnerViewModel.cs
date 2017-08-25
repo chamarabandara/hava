@@ -4,6 +4,7 @@ namespace HavaBusinessObjects.ViewModels
 {
     public class PartnerViewModel
     {
+        public int id { get; set; }
         public string name { get; set; }
         public string code { get; set; }
         public string address { get; set; }
@@ -13,12 +14,13 @@ namespace HavaBusinessObjects.ViewModels
         public List<RepresentativeViewModel> representativeData { get; set; }
         public List<PartnerProductViewModel> productGridData { get; set; }
         public List<PartnerSitesViewModel> siteGridData { get; set; }
+        public int createdBy { get; set; }
 
     }
 
     public class RepresentativeViewModel
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
         public string teleNo { get; set; }
@@ -38,6 +40,7 @@ namespace HavaBusinessObjects.ViewModels
         public string havaPrice { get; set; }
         public int productId { get; set; }
         public ProductViewModel productVM { get; set; }
+        public int id { get; set; }
     }
 
     public class PartnerSitesViewModel

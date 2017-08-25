@@ -381,7 +381,8 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                 'partnerSellingPrice': product.partnerSellingPrice,
                 'partnerPercentage': product.partnerPercentage,
                 'partnerMarkup': product.partnerMarkup,
-                'productId':product.product.id
+                'productId': product.product.id,
+                'productName':product.product.name
             });
 
         console.log($scope.productGridData);

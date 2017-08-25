@@ -61,7 +61,7 @@ namespace HavaWeb.Controllers
             PartnerRepository partnerRepo = new PartnerRepository();
             return partnerRepo.GetPartnerById(id);
         }
-        #region add Product
+        #region add Partner
         /// <summary>
         /// Adds the specified Product.
         /// Date		    Author/(Reviewer)		    Description
@@ -78,6 +78,35 @@ namespace HavaWeb.Controllers
                 JObject obj = new JObject();
                 PartnerRepository partnerRepository = new PartnerRepository();
                 bool status = partnerRepository.SavePartner(partnerViewModel);
+                obj.Add("status" , status);
+                return obj;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region Update Partner
+        /// <summary>
+        /// Update Partner data
+        /// Date		    Author/(Reviewer)		    Description
+        /// -------------------------------------------------------	
+        /// 23 Aug 2015     VISHan Abeyrathna           Creation
+        /// </summary>
+        /// <param name="partnerViewModel">The partner view model.</param>
+        /// <returns></returns>
+        [HttpPut]
+        public JObject Put(PartnerViewModel partnerViewModel)
+        {
+            try
+            {
+                JObject obj = new JObject();
+                PartnerRepository partnerRepository = new PartnerRepository();
+                partnerViewModel.createdBy = 1;
+                bool status = partnerRepository.UpdatePartner(partnerViewModel);
                 obj.Add("status" , status);
                 return obj;
 
