@@ -18,9 +18,10 @@ namespace HavaBusiness
         public Product()
         {
             this.PartnerProducts = new HashSet<PartnerProduct>();
-            this.ProductFeatures = new HashSet<ProductFeature>();
             this.TSPProducts = new HashSet<TSPProduct>();
             this.TSPVehicles = new HashSet<TSPVehicle>();
+            this.ProductFeatures = new HashSet<ProductFeature>();
+            this.BookingProducts = new HashSet<BookingProduct>();
         }
     
         public int Id { get; set; }
@@ -37,10 +38,12 @@ namespace HavaBusiness
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductFeature> ProductFeatures { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSPProduct> TSPProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSPVehicle> TSPVehicles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductFeature> ProductFeatures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingProduct> BookingProducts { get; set; }
     }
 }
