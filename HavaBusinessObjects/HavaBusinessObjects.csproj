@@ -94,6 +94,7 @@
     <Compile Include="ControllerRepository\BookingRepository.cs" />
     <Compile Include="ControllerRepository\LocationDetailsRepository.cs" />
     <Compile Include="ControllerRepository\PartnerRepository.cs" />
+    <Compile Include="ControllerRepository\PromotionRepository.cs" />
     <Compile Include="ControllerRepository\SitesRepository.cs" />
     <Compile Include="ControllerRepository\ProductRepository.cs" />
     <Compile Include="ControllerRepository\TSPRepository.cs" />

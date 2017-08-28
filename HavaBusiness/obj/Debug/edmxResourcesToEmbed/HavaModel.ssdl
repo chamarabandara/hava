@@ -310,6 +310,14 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Property Name="LastModifiedByUserID" Type="int" />
     <Property Name="LastModifiedOnDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="ProductFeatures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="ProdcutId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="Id" />
@@ -345,11 +353,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="500" />
     <Property Name="Code" Type="nvarchar" MaxLength="50" />
     <Property Name="IsAvtive" Type="bit" />
-    <Property Name="PromosionTypeId" Type="int" />
+    <Property Name="PromosionTypeId" Type="int" Nullable="false" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
@@ -563,6 +571,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Booking_Promotion">
+    <End Role="Promotions" Type="Self.Promotions" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Promotions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="PromotionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_BookingOptions_Booking">
     <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
     <End Role="BookingOptions" Type="Self.BookingOptions" Multiplicity="*" />
@@ -596,6 +616,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
       </Principal>
       <Dependent Role="BookingProducts">
         <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookingProducts_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="BookingProducts" Type="Self.BookingProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingProducts">
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -816,6 +848,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
       </Principal>
       <Dependent Role="PartnerSites">
         <PropertyRef Name="SiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductFeatures_Product">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ProductFeatures" Type="Self.ProductFeatures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductFeatures">
+        <PropertyRef Name="ProdcutId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1197,6 +1241,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <EntitySet Name="PartnerSites" EntityType="Self.PartnerSites" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductFeatures" EntityType="Self.ProductFeatures" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PromotionDiscounts" EntityType="Self.PromotionDiscounts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PromotionDiscountTypes" EntityType="Self.PromotionDiscountTypes" Schema="dbo" store:Type="Tables" />
@@ -1234,6 +1279,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
       <End Role="Partners" EntitySet="Partners" />
       <End Role="Booking" EntitySet="Booking" />
     </AssociationSet>
+    <AssociationSet Name="FK_Booking_Promotion" Association="Self.FK_Booking_Promotion">
+      <End Role="Promotions" EntitySet="Promotions" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
     <AssociationSet Name="FK_BookingOptions_Booking" Association="Self.FK_BookingOptions_Booking">
       <End Role="Booking" EntitySet="Booking" />
       <End Role="BookingOptions" EntitySet="BookingOptions" />
@@ -1244,6 +1293,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     </AssociationSet>
     <AssociationSet Name="FK_BookingProducts_Booking" Association="Self.FK_BookingProducts_Booking">
       <End Role="Booking" EntitySet="Booking" />
+      <End Role="BookingProducts" EntitySet="BookingProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookingProducts_Products" Association="Self.FK_BookingProducts_Products">
+      <End Role="Products" EntitySet="Products" />
       <End Role="BookingProducts" EntitySet="BookingProducts" />
     </AssociationSet>
     <AssociationSet Name="FK_ContactTypes_Users" Association="Self.FK_ContactTypes_Users">
@@ -1317,6 +1370,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <AssociationSet Name="FK_PartnerSites_Sites" Association="Self.FK_PartnerSites_Sites">
       <End Role="Sites" EntitySet="Sites" />
       <End Role="PartnerSites" EntitySet="PartnerSites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductFeatures_Product" Association="Self.FK_ProductFeatures_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductFeatures" EntitySet="ProductFeatures" />
     </AssociationSet>
     <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="Self.FK_PromotionDiscounts_PromotionDiscountTypes">
       <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />

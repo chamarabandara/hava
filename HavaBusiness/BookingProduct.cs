@@ -26,7 +26,7 @@ namespace HavaBusiness
         public Nullable<int> NoOfChildSeats { get; set; }
         public Nullable<int> ChildSeatDays { get; set; }
     
-        public virtual Booking Booking { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Booking Booking { get; set; }
     }
 }

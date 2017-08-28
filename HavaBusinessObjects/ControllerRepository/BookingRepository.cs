@@ -98,6 +98,22 @@ namespace HavaBusinessObjects.ControllerRepository
             }
         }
 
+        public Promotion GetPromotionCode(string promotionCode, int partnerId)
+        {
+            try
+            {
+                var promotion = this.ObjContext.Promotions
+                     .Include(x => x.PromotionDiscount)
+                     .Where(a => a.Code == promotionCode && a.PartnerId == partnerId  && a.IsAvtive == true).FirstOrDefault();
+
+                return promotion;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public JArray GetBookingList()
         {
             try

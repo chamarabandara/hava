@@ -220,6 +220,22 @@ namespace WebMVC.Controllers
             return returnObj;
         }
 
+        public JObject GetPromotion(string promotionCode, int partnerId)
+        {
+            var promotion = _bookingRepository.GetPromotionCode(promotionCode, partnerId);
+
+            JObject promotionObj = new JObject();
+
+            if (promotion!=null)
+            {
+                promotionObj.Add("promotionId", promotion.Id);
+                promotionObj.Add("promotionCode", promotion.Code);
+                promotionObj.Add("discount", promotion.PromotionDiscount.AmountOrPercentage);
+
+            }
+            return promotionObj;
+        }
+
         [HttpPut]
         [AllowAnonymous]
         public JObject Update(BookingViewModel vm)
@@ -345,6 +361,7 @@ namespace WebMVC.Controllers
 
             return returnObj;
         }
+
 
 
         //public System.Web.Mvc

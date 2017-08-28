@@ -14,11 +14,17 @@ namespace HavaBusiness
     
     public partial class Promotion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Promotion()
+        {
+            this.Bookings = new HashSet<Booking>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public Nullable<bool> IsAvtive { get; set; }
-        public Nullable<int> PromosionTypeId { get; set; }
+        public int PromosionTypeId { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -26,6 +32,8 @@ namespace HavaBusiness
         public Nullable<int> PromotionDiscountId { get; set; }
         public Nullable<int> PartnerId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings { get; set; }
         public virtual PromotionDiscount PromotionDiscount { get; set; }
     }
 }

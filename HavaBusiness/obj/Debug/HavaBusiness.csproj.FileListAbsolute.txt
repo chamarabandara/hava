@@ -71,3 +71,14 @@ E:\VISH\WorkStation\HAVA Dev\HavaBusiness\bin\EntityFramework.SqlServer.xml
 E:\VISH\WorkStation\HAVA Dev\HavaBusiness\obj\Debug\HavaBusiness.csprojResolveAssemblyReference.cache
 E:\VISH\WorkStation\HAVA Dev\HavaBusiness\obj\Debug\HavaBusiness.dll
 E:\VISH\WorkStation\HAVA Dev\HavaBusiness\obj\Debug\HavaBusiness.pdb
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\HavaBusiness.dll.config
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\HavaBusiness.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\HavaBusiness.pdb
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\AutoMapper.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\EntityFramework.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\EntityFramework.SqlServer.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\AutoMapper.xml
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\EntityFramework.xml
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\EntityFramework.SqlServer.xml
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\obj\Debug\HavaBusiness.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\obj\Debug\HavaBusiness.pdb

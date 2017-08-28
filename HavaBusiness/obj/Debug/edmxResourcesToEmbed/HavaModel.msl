@@ -170,23 +170,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Promotions">
-      <EntityTypeMapping TypeName="HAVA_DBModel.Promotion">
-        <MappingFragment StoreEntitySet="Promotions">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="IsAvtive" ColumnName="IsAvtive" />
-          <ScalarProperty Name="PromosionTypeId" ColumnName="PromosionTypeId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="PromotionDiscountId" ColumnName="PromotionDiscountId" />
-          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="RolePermisions">
       <EntityTypeMapping TypeName="HAVA_DBModel.RolePermision">
         <MappingFragment StoreEntitySet="RolePermision">
@@ -451,54 +434,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Bookings">
-      <EntityTypeMapping TypeName="HAVA_DBModel.Booking">
-        <MappingFragment StoreEntitySet="Booking">
-          <ScalarProperty Name="IsAirportTransfer" ColumnName="IsAirportTransfer" />
-          <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="UserConfirmed" ColumnName="UserConfirmed" />
-          <ScalarProperty Name="HasPromotions" ColumnName="HasPromotions" />
-          <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
-          <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
-          <ScalarProperty Name="TSPId" ColumnName="TSPId" />
-          <ScalarProperty Name="BookingStatusId" ColumnName="BookingStatusId" />
-          <ScalarProperty Name="NumberOfDays" ColumnName="NumberOfDays" />
-          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
-          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
-          <ScalarProperty Name="DropLocation" ColumnName="DropLocation" />
-          <ScalarProperty Name="ReturnPickupLocation" ColumnName="ReturnPickupLocation" />
-          <ScalarProperty Name="ReturnTime" ColumnName="ReturnTime" />
-          <ScalarProperty Name="PickupLocation" ColumnName="PickupLocation" />
-          <ScalarProperty Name="PickupTime" ColumnName="PickupTime" />
-          <ScalarProperty Name="PickupDate" ColumnName="PickupDate" />
-          <ScalarProperty Name="BookingTypeId" ColumnName="BookingTypeId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BookingProducts">
-      <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
-        <MappingFragment StoreEntitySet="BookingProducts">
-          <ScalarProperty Name="ChildSeatDays" ColumnName="ChildSeatDays" />
-          <ScalarProperty Name="NoOfChildSeats" ColumnName="NoOfChildSeats" />
-          <ScalarProperty Name="AdditionalChufferHours" ColumnName="AdditionalChufferHours" />
-          <ScalarProperty Name="AdditionalChufferDate" ColumnName="AdditionalChufferDate" />
-          <ScalarProperty Name="AdditionalHours" ColumnName="AdditionalHours" />
-          <ScalarProperty Name="AdditionalDays" ColumnName="AdditionalDays" />
-          <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PartnerSites">
       <EntityTypeMapping TypeName="HAVA_DBModel.PartnerSite">
         <MappingFragment StoreEntitySet="PartnerSites">
@@ -582,6 +517,80 @@
           <ScalarProperty Name="ProductImagePath" ColumnName="ProductImagePath" />
           <ScalarProperty Name="IsMainProduct" ColumnName="IsMainProduct" />
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductFeatures">
+      <EntityTypeMapping TypeName="HAVA_DBModel.ProductFeature">
+        <MappingFragment StoreEntitySet="ProductFeatures">
+          <ScalarProperty Name="ProdcutId" ColumnName="ProdcutId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingProducts">
+      <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
+        <MappingFragment StoreEntitySet="BookingProducts">
+          <ScalarProperty Name="ChildSeatDays" ColumnName="ChildSeatDays" />
+          <ScalarProperty Name="NoOfChildSeats" ColumnName="NoOfChildSeats" />
+          <ScalarProperty Name="AdditionalChufferHours" ColumnName="AdditionalChufferHours" />
+          <ScalarProperty Name="AdditionalChufferDate" ColumnName="AdditionalChufferDate" />
+          <ScalarProperty Name="AdditionalHours" ColumnName="AdditionalHours" />
+          <ScalarProperty Name="AdditionalDays" ColumnName="AdditionalDays" />
+          <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="HAVA_DBModel.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="IsAirportTransfer" ColumnName="IsAirportTransfer" />
+          <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserConfirmed" ColumnName="UserConfirmed" />
+          <ScalarProperty Name="HasPromotions" ColumnName="HasPromotions" />
+          <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
+          <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+          <ScalarProperty Name="TSPId" ColumnName="TSPId" />
+          <ScalarProperty Name="BookingStatusId" ColumnName="BookingStatusId" />
+          <ScalarProperty Name="NumberOfDays" ColumnName="NumberOfDays" />
+          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="DropLocation" ColumnName="DropLocation" />
+          <ScalarProperty Name="ReturnPickupLocation" ColumnName="ReturnPickupLocation" />
+          <ScalarProperty Name="ReturnTime" ColumnName="ReturnTime" />
+          <ScalarProperty Name="PickupLocation" ColumnName="PickupLocation" />
+          <ScalarProperty Name="PickupTime" ColumnName="PickupTime" />
+          <ScalarProperty Name="PickupDate" ColumnName="PickupDate" />
+          <ScalarProperty Name="BookingTypeId" ColumnName="BookingTypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Promotions">
+      <EntityTypeMapping TypeName="HAVA_DBModel.Promotion">
+        <MappingFragment StoreEntitySet="Promotions">
+          <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+          <ScalarProperty Name="PromotionDiscountId" ColumnName="PromotionDiscountId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="PromosionTypeId" ColumnName="PromosionTypeId" />
+          <ScalarProperty Name="IsAvtive" ColumnName="IsAvtive" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
