@@ -56,5 +56,14 @@ namespace HavaWeb.Controllers
             }
         }
         #endregion
+
+        public JObject GetList()
+        {
+
+            ProductRepository productRepository = new ProductRepository();
+
+            return productRepository.GetProductsList();
+        }
+
     }
 }

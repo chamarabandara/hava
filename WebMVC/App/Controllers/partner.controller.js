@@ -41,11 +41,11 @@ $scope.create = function () {
     $scope.bindActionButtons = function (o) {
         var actionButtons = "";
         actionButtons = '<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">';
-        //var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
+        var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
         var editButton = '<a data-dataId="' + o.id + '" class="link-action action-button"  data-view="edit" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>';
         var deleteButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
         var copyButton = '<a class="link-action action-button" title="Copy" data-dataId="' + o.id + '" data-dataType="' + o.id + '"  data-view="copy"><i class="fa fa-files-o"></i></a>'
-        actionButtons += copyButton + editButton;
+        actionButtons += copyButton + editButton + viewButton;
         if (o.status != "Closed")
             actionButtons += deleteButton;
         actionButtons += '</div>';

@@ -125,3 +125,8 @@ cursor: pointer;
 .info-btn {
 	float:right;
 }
+
+.alert .x-btn{
+    float:right;
+
+}

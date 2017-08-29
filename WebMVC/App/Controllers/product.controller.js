@@ -173,7 +173,7 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
         //  "processing": true,
         //  "serverSide": true,
         'ajax': {
-            'url': appUrl + 'Partner/GetList',
+            'url': appUrl + 'Product/GetList',
             'type': 'GET',
             //'beforeSend': function (request) {
             //    //  $("#loadingWidget").css({ display: 'block' });
@@ -197,17 +197,17 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
                  }
              },
              {
-                 "data": "email", sWidth: "25%", "render": function (data, type, row, meta) {
+                 "data": "code", sWidth: "25%", "render": function (data, type, row, meta) {
                      return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
                  }
              },
              {
-                 "data": "telephone", sWidth: "20%", "render": function (data, type, row, meta) {
+                 "data": "description", sWidth: "20%", "render": function (data, type, row, meta) {
                      return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
                  }
              },
              {
-                 "data": "address", sWidth: "20%", "render": function (data, type, row, meta) {
+                 "data": "isMainProduct", sWidth: "20%", "render": function (data, type, row, meta) {
                      return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
                  }
              },
