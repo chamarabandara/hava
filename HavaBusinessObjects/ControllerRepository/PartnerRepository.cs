@@ -184,13 +184,23 @@ namespace HavaBusinessObjects.ControllerRepository
 
                             PartnerProduct objProd = new PartnerProduct();
                             objProd.PartnerId = partnerId;
-                            objProd.HavaPrice = Decimal.Parse(prod.havaPrice);
-                            objProd.MarketPrice = Decimal.Parse(prod.marketPrice);
-                            objProd.PartnerSellingPrice = Decimal.Parse(prod.partnerSellingPrice);
-                            objProd.IsMarkUp = prod.isMarkup;
-                            objProd.Markup = string.IsNullOrEmpty(prod.partnerMarkup) ? 0 : Decimal.Parse(prod.partnerMarkup);
-                            objProd.Percentage = Decimal.Parse(prod.partnerPercentage);
                             objProd.ProductId = prod.productId;
+                            objProd.CreatedBy = partnerViewModel.createdBy;
+                            objProd.CreatedDate = DateTime.Now;
+                            objProd.ModifiedBy = partnerViewModel.createdBy;
+                            objProd.ModifiedDate = DateTime.Now;
+                            objProd.IsActive = true;
+
+                            PartnerProductRate productRate = new PartnerProductRate();
+                            productRate.HavaPrice = string.IsNullOrEmpty(prod.havaPrice) ? 0 : Decimal.Parse(prod.havaPrice);
+                            productRate.MarketPrice = string.IsNullOrEmpty(prod.marketPrice) ? 0 : Decimal.Parse(prod.marketPrice);
+                            productRate.PartnerSellingPrice = string.IsNullOrEmpty(prod.partnerSellingPrice) ? 0 : Decimal.Parse(prod.partnerSellingPrice);
+                            productRate.IsMarkUp = prod.isMarkup;
+                            productRate.Markup = string.IsNullOrEmpty(prod.partnerMarkup) ? 0 : Decimal.Parse(prod.partnerMarkup);
+                            productRate.Percentage = string.IsNullOrEmpty(prod.partnerPercentage) ? 0 : Decimal.Parse(prod.partnerPercentage);
+                            productRate.PartnerId = partnerId;
+                            productRate.CreateDate = DateTime.Now;
+                            objProd.PartnerProductRates.Add(productRate);
 
                             this.ObjContext.PartnerProducts.Add(objProd);
                             this.ObjContext.SaveChanges();
@@ -281,14 +291,25 @@ namespace HavaBusinessObjects.ControllerRepository
 
                         JObject prod = new JObject();
                         prod.Add("id" , objProd.Id);
-                        prod.Add("havaPrice" , objProd.HavaPrice);
-                        prod.Add("marketPrice" , objProd.MarketPrice);
-                        prod.Add("partnerSellingPrice" , objProd.PartnerSellingPrice);
-                        prod.Add("isMarkup" , objProd.IsMarkUp == true ? "True" : "False");
-                        prod.Add("partnerMarkup" , objProd.Markup);
-                        prod.Add("partnerPercentage" , objProd.Percentage);
+                        //prod.Add("havaPrice" , objProd.HavaPrice);
+                        //prod.Add("marketPrice" , objProd.MarketPrice);
+                        //prod.Add("partnerSellingPrice" , objProd.PartnerSellingPrice);
+                        //prod.Add("isMarkup" , objProd.IsMarkUp == true ? "True" : "False");
+                        //prod.Add("partnerMarkup" , objProd.Markup);
+                        //prod.Add("partnerPercentage" , objProd.Percentage);
                         prod.Add("productId" , objProd.ProductId);
                         prod.Add("productName" , objProd.Product.Name);
+
+                        var prodRate = objProd.PartnerProductRates.FirstOrDefault();
+                        if (prodRate != null)
+                        {
+                            prod.Add("havaPrice" , prodRate.HavaPrice);
+                            prod.Add("marketPrice" , prodRate.MarketPrice);
+                            prod.Add("partnerSellingPrice" , prodRate.PartnerSellingPrice);
+                            prod.Add("isMarkup" , prodRate.IsMarkUp == true ? "True" : "False");
+                            prod.Add("partnerMarkup" , prodRate.Markup);
+                            prod.Add("partnerPercentage" , prodRate.Percentage);
+                        }
 
                         prodList.Add(prod);
                     }
@@ -450,15 +471,21 @@ namespace HavaBusinessObjects.ControllerRepository
                                     {
                                         var selProd = partnerViewModel.productGridData.FirstOrDefault(o => o.id == prod.Id);
                                         prod.PartnerId = partner.Id;
-                                        prod.HavaPrice = selProd.havaPrice != null ? Decimal.Parse(selProd.havaPrice) : 0;
-                                        prod.MarketPrice = selProd.marketPrice != null ? Decimal.Parse(selProd.marketPrice) : 0;
-                                        prod.PartnerSellingPrice = selProd.partnerSellingPrice != null ? Decimal.Parse(selProd.partnerSellingPrice) : 0;
-                                        prod.IsMarkUp = selProd.isMarkup;
-                                        prod.Markup = string.IsNullOrEmpty(selProd.partnerMarkup) ? 0 : Decimal.Parse(selProd.partnerMarkup);
-                                        prod.Percentage = selProd.partnerPercentage != null ? Decimal.Parse(selProd.partnerPercentage) : 0;
                                         prod.ProductId = selProd.productId;
                                         prod.ModifiedBy = partnerViewModel.createdBy;
                                         prod.ModifiedDate = DateTime.Now;
+
+                                        var partProdRate = prod.PartnerProductRates.FirstOrDefault();
+                                        if (partProdRate != null)
+                                        {
+                                            partProdRate.HavaPrice = string.IsNullOrEmpty(selProd.havaPrice) ? 0 : Decimal.Parse(selProd.havaPrice);
+                                            partProdRate.MarketPrice = string.IsNullOrEmpty(selProd.marketPrice) ? 0 : Decimal.Parse(selProd.marketPrice);
+                                            partProdRate.PartnerSellingPrice = string.IsNullOrEmpty(selProd.partnerSellingPrice) ? 0 : Decimal.Parse(selProd.partnerSellingPrice);
+                                            partProdRate.IsMarkUp = selProd.isMarkup;
+                                            partProdRate.Markup = string.IsNullOrEmpty(selProd.partnerMarkup) ? 0 : Decimal.Parse(selProd.partnerMarkup);
+                                            partProdRate.Percentage = string.IsNullOrEmpty(selProd.partnerPercentage) ? 0 : Decimal.Parse(selProd.partnerPercentage);
+                                        }
+
                                     }
                                     else
                                     {
@@ -476,18 +503,23 @@ namespace HavaBusinessObjects.ControllerRepository
                                     PartnerProduct objProd = new PartnerProduct();
                                     int repId = 0;
                                     objProd.PartnerId = partner.Id;
-                                    objProd.HavaPrice = newprod.havaPrice != null ? Decimal.Parse(newprod.havaPrice) : 0;
-                                    objProd.MarketPrice = newprod.marketPrice != null ? Decimal.Parse(newprod.marketPrice) : 0;
-                                    objProd.PartnerSellingPrice = newprod.partnerSellingPrice != null ? Decimal.Parse(newprod.partnerSellingPrice) : 0;
-                                    objProd.IsMarkUp = newprod.isMarkup;
-                                    objProd.Markup = string.IsNullOrEmpty(newprod.partnerMarkup) ? 0 : Decimal.Parse(newprod.partnerMarkup);
-                                    objProd.Percentage = newprod.partnerPercentage != null ? Decimal.Parse(newprod.partnerPercentage) : 0;
                                     objProd.ProductId = newprod.productId;
                                     objProd.CreatedBy = partnerViewModel.createdBy;
                                     objProd.CreatedDate = DateTime.Now;
                                     objProd.ModifiedBy = partnerViewModel.createdBy;
                                     objProd.ModifiedDate = DateTime.Now;
                                     objProd.IsActive = true;
+
+                                    PartnerProductRate productRate = new PartnerProductRate();
+                                    productRate.HavaPrice = string.IsNullOrEmpty(newprod.havaPrice) ? 0 : Decimal.Parse(newprod.havaPrice);
+                                    productRate.MarketPrice = string.IsNullOrEmpty(newprod.marketPrice) ? 0 : Decimal.Parse(newprod.marketPrice);
+                                    productRate.PartnerSellingPrice = string.IsNullOrEmpty(newprod.partnerSellingPrice) ? 0 : Decimal.Parse(newprod.partnerSellingPrice);
+                                    productRate.IsMarkUp = newprod.isMarkup;
+                                    productRate.Markup = string.IsNullOrEmpty(newprod.partnerMarkup) ? 0 : Decimal.Parse(newprod.partnerMarkup);
+                                    productRate.Percentage = string.IsNullOrEmpty(newprod.partnerPercentage) ? 0 : Decimal.Parse(newprod.partnerPercentage);
+                                    productRate.PartnerId = partner.Id; ;
+                                    productRate.CreateDate = DateTime.Now;
+                                    objProd.PartnerProductRates.Add(productRate);
 
                                     this.ObjContext.PartnerProducts.Add(objProd);
                                     this.ObjContext.SaveChanges();

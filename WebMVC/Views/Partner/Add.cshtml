@@ -41,7 +41,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" ng-model="model.name" name="name" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (partnerForm.name.$invalid && submitted)}">
                                             <ul ng-show="partnerForm.name.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
-                                                <li class="parsley-required" ng-show="partnerForm.name.$error.required">This value is required.</li>
+                                                <li class="parsley-required" ng-show="partnerForm.name.$error.required">Partner Name is required.</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" ng-model="model.code" name="code" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (partnerForm.code.$invalid && submitted)}">
                                             <ul ng-show="partnerForm.code.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
-                                                <li class="parsley-required" ng-show="partnerForm.code.$error.required">This value is required.</li>
+                                                <li class="parsley-required" ng-show="partnerForm.code.$error.required">Partner Code is required.</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control" rows="3" placeholder="" ng-model="model.address" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
                                             <ul ng-show="partnerForm.address.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
-                                                <li class="parsley-required" ng-show="partnerForm.address.$error.required">This value is required.</li>
+                                                <li class="parsley-required" ng-show="partnerForm.address.$error.required">Partner Address is required.</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="email" ng-model="model.email" name="email" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (partnerForm.email.$invalid && submitted)}">
                                             <ul ng-show="partnerForm.email.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
-                                                <li class="parsley-required" ng-show="partnerForm.email.$error.required">This value is required.</li>
+                                                <li class="parsley-required" ng-show="partnerForm.email.$error.required">Partner Email is required.</li>
                                                 <li class="parsley-required" ng-show="partnerForm.email.$error.email">Invalid Email.</li>
                                             </ul>
                                         </div>
@@ -269,8 +269,8 @@
                                         </div>
                                         @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
 
-                                        <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
-                                            <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
+                                        <div ng-show="submitted" class="ng-hide ng-cloak">
+                                            <span class="help-block error-label ng-cloak" ng-show="representativeGridData.length <= 0">Please add at least one representative..</span>
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +284,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading relative">
-                                <h4 class="panel-title">Products Details</a> </h4>
+                                <h4 class="panel-title">Products Details </h4>
                             </div>
                             <div>
                                 <div class="row">
@@ -292,16 +292,18 @@
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <select class="form-control" ng-options="prod.name for prod in productList track by prod.id" ng-model="product.product">
+                                                <select class="form-control" ng-options="prod.name for prod in productList track by prod.id" ng-model="product.product" ng-class="{'parsley-error' : (productNameRequired && submittedProd)}">
                                                      <option value="">-- Select a Product --</option>
                                                 </select>
-
+                                                <ul ng-show="productNameRequired && submittedProd" class="parsley-errors-list filled" id="parsley-id-5">
+                                                    <li class="parsley-required" ng-show="productNameRequired && submittedProd">Please Select Product.</li>
+                                                </ul>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" ng-model="product.havaPrice" maxlength="300">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.havaPrice" maxlength="300">
                                                
                                             </div>
                                         </div>
@@ -309,13 +311,13 @@
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" ng-model="product.marketPrice" maxlength="20">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.marketPrice" maxlength="20">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" ng-model="product.partnerSellingPrice" maxlength="20">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerSellingPrice" maxlength="20">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -338,13 +340,13 @@
                                         <div class="form-group" ng-show="product.isMarkup==true">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Markup:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" ng-model="product.partnerMarkup" maxlength="20">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerMarkup" maxlength="20">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Percentage:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" ng-model="product.partnerPercentage" maxlength="20">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerPercentage" maxlength="20">
                                             </div>
                                         </div>
                                     </div>
@@ -453,7 +455,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading relative">
-                                <h4 class="panel-title">Sites Details</a> </h4>
+                                <h4 class="panel-title">Sites Details </h4>
                             </div>
                             <div>
                                 <div class="row">
@@ -461,10 +463,12 @@
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Site:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <select class="form-control" ng-options="site.name for site in siteList track by site.id" ng-model="site.site">
+                                                <select class="form-control" ng-options="site.name for site in siteList track by site.id" ng-model="site.site" ng-class="{'parsley-error' : (siteRequired && submittedSite)}">
                                                     <option value="">-- Select a Site --</option>
                                                 </select>
-
+                                                <ul ng-show="siteRequired && submittedSite" class="parsley-errors-list filled" id="parsley-id-5">
+                                                    <li class="parsley-required" ng-show="siteRequired && submittedSite">Please Select Site.</li>
+                                                </ul>
                                             </div>
                                         </div>
                                      

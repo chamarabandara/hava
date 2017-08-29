@@ -159,7 +159,7 @@ $scope.create = function () {
     });
 }]);
 
-partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', 'PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, filterFilter, PartnerServiceLocal) {
+partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', 'PartnerServiceLocal','$filter', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, filterFilter, PartnerServiceLocal, $filter) {
     var tmp = PartnerServiceLocal;
     $scope.representative = {};
     $scope.submittedRep = false;
@@ -384,21 +384,26 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
 
     $scope.productGridData = [];
     $scope.addProducts = function (product) {
-        if (product != null || product != undefined)
+        $scope.submittedProd = true;
+        if ($scope.product == undefined || $scope.product.product == null || $scope.product.product == undefined) {
+            $scope.productNameRequired = true;
+        }
+        else
+        {
+            $scope.productNameRequired = false;
             $scope.productGridData.push({
-                'havaPrice': product.havaPrice,
+                'havaPrice': product.havaPrice != undefined || product.havaPrice != "" ? product.havaPrice : 0,
                 'isMarkup': product.isMarkup,
-                'marketPrice': product.marketPrice,
-                'partnerSellingPrice': product.partnerSellingPrice,
+                'marketPrice': product.marketPrice != undefined || product.marketPrice != "" ? product.marketPrice : 0,
+                'partnerSellingPrice': product.partnerSellingPrice != undefined || product.partnerSellingPrice != "" ? product.partnerSellingPrice : 0,
                 'product': product.product,
-                'partnerSellingPrice': product.partnerSellingPrice,
-                'partnerPercentage': product.partnerPercentage,
-                'partnerMarkup': product.isMarkup ? product.partnerMarkup : 0,
+                'partnerPercentage': product.partnerPercentage != undefined || product.partnerPercentage != "" ? product.partnerPercentage : 0,
+                'partnerMarkup': product.isMarkup ? (product.partnerMarkup != "" ? product.partnerMarkup : 0) : 0,
                 'productId': product.product.id,
                 'productName':product.product.name
             });
-
-        console.log($scope.productGridData);
+            $scope.product = {};
+        }  
     }
 
     $scope.priductViewAction = function (row, task) {
@@ -476,46 +481,51 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
 
     $scope.siteGridData = [];
     $scope.addSite = function (site) {
-    var alreadyAdded = false;
-        if (site != null || site != undefined){
-            angular.forEach($scope.siteGridData, function (v, k) {
-                    if (site.id == v.id)
-                        alreadyAdded = true;
-                });
-            if (!alreadyAdded) {
-                $scope.siteGridData.push({
-                    'id': '-1' + Math.random(),
-                    'siteId': site.id,
-                    'name': site.name,
-                
-                });
-            }
-            }
+        var alreadyAdded = false;
+        $scope.submittedSite = true;
+        if (site != null || site != undefined) {
+            $scope.siteRequired = false;
+        angular.forEach($scope.siteGridData, function (v, k) {
+            if (site.id == v.id)
+                alreadyAdded = true;
+        });
+        if (!alreadyAdded) {
+            $scope.siteGridData.push({
+                'id': '-1' + Math.random(),
+                'siteId': site.id,
+                'name': site.name,
+            });
+        }
+    } else {
+        $scope.siteRequired = true;
+    }
             console.log($scope.siteGridData)
     }
 
     $scope.create = function (partner) {
         $scope.submitted = true;
         if ($scope.partnerForm.$invalid == false) {
-            partner.representativeData = $scope.representativeGridData;
-            partner.productGridData = $scope.productGridData;
-            partner.siteGridData = $scope.siteGridData;
+            if($scope.representativeGridData.length <= 0){
+                partner.representativeData = $scope.representativeGridData;
+                partner.productGridData = $scope.productGridData;
+                partner.siteGridData = $scope.siteGridData;
 
-            if ($stateParams.id) {
-                HavaPartnerService.updatePartner(partner).$promise.then(function (data) {
-                    if (data.status == true) {
-                        tmp.infoMsg = 'Customer \'' + partner.name + '\' has been updated successfully.';
-                        $state.go('^.list');
-                    }
-                });
-            }
-            else {
-                HavaPartnerService.create(partner).$promise.then(function (data) {
-                    if (data.status == true) {
-                        tmp.infoMsg = 'Customer \'' + partner.name + '\' has been saved successfully.';
-                        $state.go('^.list');
-                    }
-                });
+                if ($stateParams.id) {
+                    HavaPartnerService.updatePartner(partner).$promise.then(function (data) {
+                        if (data.status == true) {
+                            tmp.infoMsg = 'Partner \'' + partner.name + '\' has been updated successfully.';
+                            $state.go('^.list');
+                        }
+                    });
+                }
+                else {
+                    HavaPartnerService.create(partner).$promise.then(function (data) {
+                        if (data.status == true) {
+                            tmp.infoMsg = 'Partner \'' + partner.name + '\' has been saved successfully.';
+                            $state.go('^.list');
+                        }
+                    });
+                }
             }
         }
     }

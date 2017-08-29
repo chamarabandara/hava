@@ -228,6 +228,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="ChufferDailyRate" Type="money" />
           <Property Name="ChufferKMRate" Type="money" />
           <Property Name="ChildSeatRate" Type="money" />
+          <Property Name="CreateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PartnerProducts">
           <Key>
@@ -2709,6 +2710,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="LocationDetail" Relationship="HAVA_DBModel.FK_PartnerProductRate_Location" FromRole="PartnerProductRate" ToRole="LocationDetail" />
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="PartnerProductRate" ToRole="Partner" />
           <NavigationProperty Name="PartnerProduct" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="PartnerProductRate" ToRole="PartnerProduct" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="PartnerProduct">
           <Key>
@@ -3536,6 +3538,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="PartnerProductRates">
             <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProductRate">
               <MappingFragment StoreEntitySet="PartnerProductRate">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ChildSeatRate" ColumnName="ChildSeatRate" />
                 <ScalarProperty Name="ChufferKMRate" ColumnName="ChufferKMRate" />
                 <ScalarProperty Name="ChufferDailyRate" ColumnName="ChufferDailyRate" />

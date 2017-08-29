@@ -32,7 +32,7 @@ var app = angular.module('app',
         'ipCookie',
        // 'ngGrid',
         'ngCookies',
-        //'LocalStorageModule',
+        'LocalStorageModule',
        // 'angular-datepicker',
        // 'commonService',
         'oc.lazyLoad',
@@ -97,33 +97,32 @@ var app = angular.module('app',
 //}]);
 
 
-app.run(['$http', '$cookies', '$state', '$location', '$window', '$rootScope', '$timeout', function ($http, $cookies, $state, $location, $window, $rootScope, $timeout) {
+app.run(['$http', '$cookies', '$state', '$location', '$window', '$rootScope', '$timeout','localStorageService', function ($http, $cookies, $state, $location, $window, $rootScope, $timeout, localStorageService) {
 
     //$rootScope.hideTiles = true;
     //$rootScope.hideTilesLink = false;
     //$rootScope.hideStats = false;
     //$rootScope.locationChanged = true;
     ////  console.log(loginUrl);
-    //var loginURL = loginUrl;
+    var loginURL = loginUrl;
     ////  console.log(loginURL);
     //// var loginURL = $cookies.appUrl+'Home/Login';
-    //cookieToken = localStorageService.get('accessToken');
-    // cookieToken = $cookies.accessToken;
-    //console.log('test');
-    //if (cookieToken) {
-    //    $http.defaults.headers.common['Authorization'] = 'Bearer ' + cookieToken;
-    //    $http.get(apiUrl + '/api/Account/IsExistingUser?userName=" "').
-    //                  success(function (data, status, headers, config) {
-    //                      //  console.log('success');
-    //                  }).
-    //                  error(function (data, status, headers, config) {
-    //                      if (status == 405) {
-    //                          $window.location.href = loginURL + '?ref=' + window.location.href;
-    //                      }
-    //                  });
-    //} else {
-    //    $window.location.href = loginURL + '?ref=' + window.location.href;
-    //}
+    cookieToken = localStorageService.get('accessToken');
+    if (cookieToken) {
+        console.log('test2');
+        $http.defaults.headers.common['Authorization'] = 'Bearer ' + cookieToken;
+        //$http.get(apiUrl + '/Account/IsExistingUser?userName=" "').
+        //              success(function (data, status, headers, config) {
+        //                  //  console.log('success');
+        //              }).
+        //              error(function (data, status, headers, config) {
+        //                  if (status == 405) {
+        //                      $window.location.href = loginURL + '?ref=' + window.location.href;
+        //                  }
+        //              });
+    } else {
+        $window.location.href = loginURL + '?ref=' + window.location.href;
+    }
 
 
 

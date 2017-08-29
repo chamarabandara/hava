@@ -62,6 +62,7 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
            { name: 'sitesControllers', serie: true, files: ['App/Controllers/sites.controller.js?v=' + jsVersion] },
            { name: 'tspControllers', serie: true, files: ['App/Controllers/tsp.controller.js?v=' + jsVersion] },
             { name: 'bookingControllers', serie: true, files: ['App/Controllers/booking.controller.js?v=' + jsVersion] },
+            { name: 'filterString', files: ['App/filterstring.js?v=' + jsVersion] },
        //service modules  
          { name: 'partnerService', serie: true, files: ['App/Services/partnerservice.js?v=' + jsVersion] },
            { name: 'navBarService', serie: true, files: ['App/Services/navbarservice.js?v=' + jsVersion] },
@@ -94,7 +95,7 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
                         loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
                             return $ocLazyLoad.load(
                                 [
-                                    'navBarService'
+                                    'navBarService', 'filterString'
                                 ]);
                         }]
                     }
@@ -191,6 +192,9 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
                 loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
                     return $ocLazyLoad.load(['partnerService']);
                 }],
+                loadMyFilter: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                    return $ocLazyLoad.load(['filterString']);
+                }]
                
             }
 
@@ -206,9 +210,9 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
               loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
                      return $ocLazyLoad.load(['partnerService']);
               }],
-              //loadMyFilter: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
-              //    return $ocLazyLoad.load(['filterString']);
-              //}]
+              loadMyFilter: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                  return $ocLazyLoad.load(['filterString']);
+              }]
           }
 
       })
@@ -453,7 +457,7 @@ login.config(['$stateProvider', function ($stateProvider) {
         })
 }]);
 
-app.factory('authHttpResponseInterceptor', ['$q', '$location', '$cookies', '$rootScope', '_END_REQUEST_', '$injector', function ($q, $location, $cookies, $rootScope, _END_REQUEST_, $injector) {
+app.factory('authHttpResponseInterceptor', ['$q', '$location', '$cookies', '$rootScope', '_END_REQUEST_', '$injector','localStorageService', function ($q, $location, $cookies, $rootScope, _END_REQUEST_, $injector, localStorageService) {
 
     return {
         response: function (response) {
@@ -466,10 +470,10 @@ app.factory('authHttpResponseInterceptor', ['$q', '$location', '$cookies', '$roo
 
             if (rejection.status === 401) {
                 console.log("Response Error 401", rejection);
-                //localStorageService.remove('accessToken');
-              //  localStorageService.remove('refreshToken');
-                // delete $cookies.accessToken;
-                // delete $cookies.refreshToken;
+                localStorageService.remove('accessToken');
+                localStorageService.remove('refreshToken');
+                 delete $cookies.accessToken;
+                 delete $cookies.refreshToken;
                 $location.path('/login').search('returnTo', $location.path());
 
             } else if (rejection.status === 404) {

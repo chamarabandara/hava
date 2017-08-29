@@ -11,11 +11,18 @@
   <connectionStrings>
     <!-- <add name="DefaultConnection" connectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-WebMVC-20170627054400.mdf;Initial Catalog=aspnet-WebMVC-20170627054400;Integrated Security=True" providerName="System.Data.SqlClient" />
   -->
-    <add name="IdentityConnection" connectionString="Server=AT-NB-VISHAN\SQLSERVER2014;Database=HAVA_DB;User ID=sa;Password=letmein;Trusted_Connection=False;" providerName="System.Data.SqlClient" />
+    <add name="IdentityConnection" connectionString="Server=AT-NB-UDAYANGAN\SQLSERVER2014;Database=HAVA_DB;User ID=sa;Password=letmein;Trusted_Connection=False;" providerName="System.Data.SqlClient" />
 
+<<<<<<< HEAD
     <add name="DefaultConnection" connectionString="Data Source=AT-NB-UDAYANGAN\SQLSERVER2014;Initial Catalog=HAVA_DB;persist security info=True;user id=sa;password=letmein;MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
+    <add name="HAVA_DBModelEntities" connectionString="metadata=res://*/HavaModel.csdl|res://*/HavaModel.ssdl|res://*/HavaModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=AT-NB-UDAYANGAN\SQLSERVER2014;initial catalog=HAVA_DB;user id=sa;password=letmein;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+=======
+    <add name="DefaultConnection" connectionString="Data Source=AT-NB-VISHAN\SQLSERVER2014;Initial Catalog=HAVA_DB;persist security info=True;user id=sa;password=letmein;MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
     <!--<add name="HAVA_DBModelEntities" connectionString="metadata=res://*/HavaModel.csdl|res://*/HavaModel.ssdl|res://*/HavaModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=AT-NB-UDAYANGAN\SQLSERVER2014;initial catalog=HAVA_DB;user id=sa;password=letmein;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />-->
-    <add name="HAVA_DBModelEntities" connectionString="metadata=res://*/HavaModel.csdl|res://*/HavaModel.ssdl|res://*/HavaModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=AT-NB-VISHAN\SQLSERVER2014;initial catalog=HAVA_DB;user id=sa;password=letmein;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />  </connectionStrings>
+    <add name="HAVA_DBModelEntities" connectionString="metadata=res://*/HavaModel.csdl|res://*/HavaModel.ssdl|res://*/HavaModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=AT-NB-VISHAN\SQLSERVER2014;initial catalog=HAVA_DB;user id=sa;password=letmein;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+
+>>>>>>> partner edit and copy
+  </connectionStrings>
   <appSettings>
     <add key="TokenTimeOut" value="150" />
     <add key="webpages:Version" value="3.0.0.0" />
@@ -24,7 +31,6 @@
     <add key="UnobtrusiveJavaScriptEnabled" value="true" />
     <add key="ProductImagePath" value="/Content/ProductImagePath/" />
    <add key="SitesImagePath" value="/Content/SitesImagePath/" />
-    <add key="SiteUrl" value="https://localhost/hava/" />
 
     <add key="SMTP_Client" value="smtp.gmail.com" />
     <add key="From_Mail" value="havaFrom@gmail.com" />

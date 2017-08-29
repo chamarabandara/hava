@@ -26,23 +26,29 @@ loginControllers.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$cooki
                 password: login.loginPassword,
                 client_id: 'HavaApp'
             };
-            window.location.href = appUrl;
+            //window.location.href = appUrl;
 
-            //$http.post(appUrl + '/Token', $.param(loginData)).
-            //success(function (data, status, headers, config) {
-            //    var redirectUrl = location.href;
-            //    var a = redirectUrl.indexOf("ref=");
-            //    if (redirectUrl.indexOf("ref=") < 0) {
-            //        window.location.href = appUrl;
-            //    } else {
-            //        window.location.href = redirectUrl.substring(redirectUrl.indexOf("ref=") + 4);
-            //    }
+            $http.post(appUrl + '/Token', $.param(loginData)).
+            success(function (data, status, headers, config) {
+                console.log(data);
+                var expireTime = Date.now() + parseInt(data.refreshToken_timeout) * 60000;
+                localStorageService.set('accessToken', data.access_token);
+                localStorageService.set('refreshToken', data.refresh_token);
+                localStorageService.set('refreshTokenTimeOut', parseInt(data.refreshToken_timeout));
+                localStorageService.set('refreshOn', expireTime);
+                var redirectUrl = location.href;
+                var a = redirectUrl.indexOf("ref=");
+                if (redirectUrl.indexOf("ref=") < 0) {
+                    window.location.href = appUrl;
+                } else {
+                    window.location.href = redirectUrl.substring(redirectUrl.indexOf("ref=") + 4);
+                }
 
                 
-            //}).
-            //error(function (data, status, headers, config) {
-            //    $scope.invalidUserNamePassword = true;
-            //});
+            }).
+            error(function (data, status, headers, config) {
+                $scope.invalidUserNamePassword = true;
+            });
 
         } else {
         }
