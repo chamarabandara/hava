@@ -116,6 +116,7 @@ namespace WebMVC.Controllers
                             locationObj.Add("IsActive", item.LocationDetail.IsActive);
                             locationObj.Add("FromLocation", item.LocationDetail.FromLocation);
                             locationObj.Add("ToLocation", item.LocationDetail.ToLocation);
+                            locationObj.Add("IsAirPortTour", item.LocationDetail.IsAirPortTour);
                         }
 
                         itemObj.Add("LocationDetail", locationObj);
