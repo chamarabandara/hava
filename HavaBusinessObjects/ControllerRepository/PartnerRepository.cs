@@ -87,7 +87,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 var partnerProducts = this.ObjContext.PartnerProductRates
                     .Include(x => x.LocationDetail)
                     .Include(x => x.PartnerProduct)
-                    .Where(a => a.PartnerId == partnerId && a.LocationId == locationId).ToList();
+                    .Where(a => a.PartnerId == partnerId && a.LocationId == locationId && a.PartnerProduct.Product.IsMainProduct == true).ToList();
 
                 //var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
 
