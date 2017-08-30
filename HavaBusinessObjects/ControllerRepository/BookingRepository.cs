@@ -25,7 +25,7 @@ namespace HavaBusinessObjects.ControllerRepository
 
         public BookingViewModel Insert(BookingViewModel vm)
         {
-            Booking booking = Mapper.Map<BookingViewModel , Booking>(vm);
+            Booking booking = Mapper.Map<BookingViewModel, Booking>(vm);
 
             using (var dbContextTransaction = this.ObjContext.Database.BeginTransaction())
             {
@@ -41,9 +41,9 @@ namespace HavaBusinessObjects.ControllerRepository
 
                     int bookingId = booking.Id;
 
-                    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel , BookingProduct>(vm.BookingProducts.FirstOrDefault());
-                    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel , BookingOption>(vm.BookingOptions.FirstOrDefault());
-                    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel , BookingPayment>(vm.BookingPayments.FirstOrDefault());
+                    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
+                    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
+                    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
 
                     bookingOption.CreatedDate = DateTime.UtcNow;
                     bookingOption.BookingId = bookingId;
@@ -66,7 +66,7 @@ namespace HavaBusinessObjects.ControllerRepository
 
 
                     dbContextTransaction.Commit();
-                    return Mapper.Map<Booking , BookingViewModel>(booking);
+                    return Mapper.Map<Booking, BookingViewModel>(booking);
                 }
                 catch (Exception ex)
                 {
@@ -75,7 +75,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 }
             }
         }
-        
+
         public BookingViewModel GetById(int id)
         {
             try
@@ -86,11 +86,11 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingOptions)
-                     .Include(x => x.BookingProducts.Select(y=>y.Product))
+                     .Include(x => x.BookingProducts.Select(y => y.Product))
                      .Include(x => x.BookingPayments)
                      .Where(a => a.Id == id).FirstOrDefault();
 
-                return Mapper.Map<Booking , BookingViewModel>(booking);
+                return Mapper.Map<Booking, BookingViewModel>(booking);
             }
             catch (Exception ex)
             {
@@ -104,7 +104,7 @@ namespace HavaBusinessObjects.ControllerRepository
             {
                 var promotion = this.ObjContext.Promotions
                      .Include(x => x.PromotionDiscount)
-                     .Where(a => a.Code == promotionCode && a.PartnerId == partnerId  && a.IsAvtive == true).FirstOrDefault();
+                     .Where(a => a.Code == promotionCode && a.PartnerId == partnerId && a.IsAvtive == true).FirstOrDefault();
 
                 return promotion;
             }
@@ -124,18 +124,41 @@ namespace HavaBusinessObjects.ControllerRepository
                 foreach (Booking booking in bookings)
                 {
                     JObject bk = new JObject();
-                    bk.Add("id" , booking.Id);
-                    bk.Add("refNo" , booking.RefNo);
-                    bk.Add("partner" , booking.PartnerId != null ? booking.Partner.Name : string.Empty);
-                    bk.Add("bookingType" , booking.BookingTypeId != null ? booking.BookingType.type : string.Empty);
-                    bk.Add("pickupDate" , booking.PickupDate != null ? booking.PickupDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
-                    bk.Add("pickupTime" , booking.PickupTime != null ? booking.PickupTime.Value.ToString(@"hh\:mm") : string.Empty);
-                    bk.Add("pickupLocation" , booking.PickupLocation);
-                    bk.Add("returnDate" , booking.ReturnDate != null ? booking.ReturnDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
-                    bk.Add("returnTime" , booking.ReturnTime != null ? booking.ReturnTime.Value.ToString(@"hh\:mm") : string.Empty);
-                    bk.Add("dropLocation" , booking.DropLocation);
-                    bk.Add("bookingStatus" , booking.BookingStatusId != null ? booking.BookingStatu.Name : string.Empty);
+                    bk.Add("id", booking.Id);
+                    bk.Add("refNo", booking.RefNo);
+                    bk.Add("partner", booking.PartnerId != null ? booking.Partner.Name : string.Empty);
+                    bk.Add("bookingType", booking.BookingTypeId != null ? booking.BookingType.type : string.Empty);
+                    bk.Add("pickupDate", booking.PickupDate != null ? booking.PickupDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
+                    bk.Add("pickupTime", booking.PickupTime != null ? booking.PickupTime.Value.ToString(@"hh\:mm") : string.Empty);
+                    bk.Add("pickupLocation", booking.PickupLocation);
+                    bk.Add("returnDate", booking.ReturnDate != null ? booking.ReturnDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
+                    bk.Add("returnTime", booking.ReturnTime != null ? booking.ReturnTime.Value.ToString(@"hh\:mm") : string.Empty);
+                    bk.Add("dropLocation", booking.DropLocation);
+                    bk.Add("bookingStatus", booking.BookingStatusId != null ? booking.BookingStatu.Name : string.Empty);
 
+                    returnArr.Add(bk);
+                }
+                return returnArr;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public JArray BookingStatus()
+        {
+            try
+            {
+                List<BookingStatu> status = this.ObjContext.BookingStatus.ToList();
+                JArray returnArr = new JArray();
+                foreach (BookingStatu item in status.OrderBy(a=>a.Name))
+                {
+                    JObject bk = new JObject();
+                    bk.Add("id", item.Id);
+                    bk.Add("name", item.Name);
+                    
                     returnArr.Add(bk);
                 }
                 return returnArr;

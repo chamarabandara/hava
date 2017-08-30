@@ -24,6 +24,24 @@ namespace WebMVC.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        public JObject AllStatus()
+        {
+            JObject returnObj = new JObject();
+            try
+            {
+                returnObj.Add("data", _bookingRepository.BookingStatus());
+                return returnObj;
+
+            }
+            catch (Exception ex)
+            {
+                returnObj.Add("error", "General Error");
+                return returnObj;
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public JObject GetProducts(int partnerId, int locationId, string PromotionCode)
         {
             JObject returnObj = new JObject();
