@@ -1127,3 +1127,18 @@ ul.menaimenu-v3 li a {
 }
 
 }
+
+.option-price {
+    float: right;
+    margin-right: 50px;
+    margin-top: 20px;
+    color: #168ccc;
+    background-color:#EEEEEE;
+    padding: 10px 20px;
+
+}
+.option-price label{
+    font-weight:bold;
+    font-size: x-large;
+    font-family: serif;
+}

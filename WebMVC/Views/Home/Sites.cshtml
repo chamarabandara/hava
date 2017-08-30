@@ -27,7 +27,7 @@
     <script type="text/javascript">
         function initialize() {
             var options = {
-                types: ['(cities)'],
+                types: ['geocode'],
                 componentRestrictions: { country: "lk" }
             };
             var input = document.getElementById('searchTextField');
@@ -576,7 +576,9 @@
                             <li ng-click="navigateSteps(2)"><a ng-class='whatClassIsIt(2)'>options</a></li>
                             <li ng-click="navigateSteps(3)"><a ng-class='whatClassIsIt(3)'>login</a></li>
                             <li ng-click="navigateSteps(4)"><a ng-class='whatClassIsIt(4)'>credit card</a></li>
-                            <li ng-click="navigateSteps(5)"><a ng-class='whatClassIsIt(5)'>check out</a></li>
+                            <li ng-click="navigateSteps(5)"><a ng-class='whatClassIsIt(5)'>Completed</a></li>
+
+                           @* <li ng-click="navigateSteps(5)"><a ng-class='whatClassIsIt(5)'>check out</a></li>*@
                         </ul>
                     </div>
                 </div>
@@ -598,19 +600,19 @@
                 </div>
                 <div class="row">
                     <div class="container" id="carClassDiv" ng-if="step==1">
-                        <div class="col-sm-12" ng-repeat="product in Products.PartnerProduct">
+                        <div class="col-sm-12" ng-repeat="product in Products">
                             <div class="sub-section">
                                 <div class="header-section">
                                     <h2 class="main-heading">{{product.name}}</h2>
                                     <label id="VehicleLbl">{{product.description}}</label>
                                     <div class="full-width pull-left">
-                                        <span class="capacity-span" ng-show="product.PartnerProduct.productVM.maxPassengers"><i class="fa fa-users"></i> <label id="maxIconomy">Max {{product.PartnerProduct.productVM.maxPassengers}}</label></span>
-                                        <span class="capacity-span" ng-show="product.PartnerProduct.productVM.maxLuggage"><i class="fa fa-suitcase"></i> <label id="maxIconomy">Max {{product.PartnerProduct.productVM.maxLuggage}}</label></span>
+                                        <span class="capacity-span" ng-show="product.maxPassengers"><i class="fa fa-users"></i> <label id="maxIconomy">Max {{product.maxPassengers}}</label></span>
+                                        <span class="capacity-span" ng-show="product.maxLuggage"><i class="fa fa-suitcase"></i> <label id="maxIconomy">Max {{product.maxLuggage}}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <label class="list-item-info-lbl" ng-repeat="prodf in product.PartnerProduct.productVM.productFeatures">
+                                        <label class="list-item-info-lbl" ng-repeat="prodf in product.productFeatures">
                                             <i class="fa fa-clock-o"></i>
 
                                             {{prodf.description}}
@@ -618,59 +620,70 @@
 
                                     </div>
                                     <div class="col-sm-6">
-                                        <img class="main-l-item-img" src="/hava/Content/ProductImagePath/{{product.PartnerProduct.productVM.productLogoImage.name}}" />
+                                        <img class="main-l-item-img" src="/hava/Content/ProductImagePath/{{product.imageName}}"/>
                                         @*   <img class="main-l-item-img" src="~/Content/temp/img/img1.jpg" />*@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="btn-wrapper">
-                                            <label class="price-lbl pull-right">{{product.PartnerSellingPrice}} Rs</label>
+                                            <label class="price-lbl pull-right">RS {{product.PartnerSellingPrice}}</label>
                                             <label class="small-text pull-right">All prices include VAT, fees & tip.</label>
-                                            <button type="button" class="btn btn-primary btn-block" ng-click="navigateSteps(2)">Select</button>
+                                            <button type="button" class="btn btn-primary btn-block" ng-click="setBookingProduct(product);navigateSteps(2)">Select</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @*<div class="sub-section">
-                <div class="header-section">
-                    <h2 class="main-heading">Economy Class</h2>
-                    <label id="VehicleLbl">Toyota Camry, Honda Accord, Toyota Corolla or similar</label>
-                    <div class="full-width pull-left">
-                        <span class="capacity-span"><i class="fa fa-users"></i> <label id="maxIconomy">Max 3</label></span>
-                        <span class="capacity-span"><i class="fa fa-suitcase"></i> <label id="maxIconomy">Max 2</label></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label class="list-item-info-lbl">
-                            <i class="fa fa-clock-o"></i>
-                            free 60 minutes wait time for airport pickups, 15 mins for all others
-                        </label>
-                        <label class="list-item-info-lbl">
-                            <i class="fa fa-smile-o"></i>
-                            includes meet & greet
-                        </label>
-                        <label class="list-item-info-lbl">
-                            <i class="fa fa-times-circle-o"></i>
-                            Free cancellation up until 1 hour before pickup
-                        </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <img class="main-l-item-img" src="~/Content/temp/img/img1.jpg" />
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="btn-wrapper">
-                            <label class="price-lbl pull-right">95.80 USD</label>
-                            <label class="small-text pull-right">All prices include VAT, fees & tip.</label>
-                            <button type="button" class="btn btn-primary btn-block">Select</button>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+                    
                         </div>
                     </div>
                     <div class="container" id="optionDiv" ng-if="step==2">
+                        <div class="row option-price">
+                            <label>
+                                Total Cost:</label>
+                                <span> RS {{totalSellingPrice}}</span>
+</div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg">
                             <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Additional info</h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Additional Hours(Hourly rete: {{selectedProduct.AdditionaHourRate}})</label>
+                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.AdditionalHours" ng-pattern="/^[0-9]*$/" ng-change="calculateTotal(BookingOptions.AdditionalHours,BookingOptions.NoOfChildSeats)" only-digits>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>No Of Child Seats</label>
+                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.NoOfChildSeats" ng-pattern="/^[0-9]*$/" ng-change="calculateTotal(BookingOptions.AdditionalHours,BookingOptions.NoOfChildSeats)" only-digits>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Additional Days</label>
+                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.AdditionalDays">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Child Seat Days</label>
+                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.ChildSeatDays">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pickup Address</label>
+                                        <textarea class="form-control" rows="4" id="comment" ng-model="BookingOptions.PickupAddress"></textarea>
+                                        @* <input type="text" class="form-control" id="" placeholder="" ng-model="option.pickupSign">*@
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Note  To Driver</label>
+                                        <textarea class="form-control" rows="3" id="comment" ng-model="BookingOptions.NoteToDriver"></textarea>
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-12">
                                     <h3>Airport dropoff details</h3>
                                     <p class="medium-text">Enter your flight number to ensure your driver brings you to the correct terminal and gate.</p>
@@ -678,52 +691,11 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Flight details</label>
-                                        <input type="text" class="form-control" id="" placeholder="LH 2054">
+                                        <input type="text" class="form-control" id="" placeholder="LH 2054" ng-model="BookingOptions.FlightNo">
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <h3>Frequent Flyer programs</h3>
-                                    <p class="medium-text">Earn reward miles with every ride.</p>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Program</label>
-                                        @*<select class="form-control">*@
-                                        <select class="form-control" required name="programe" ng-options="st.name for st in programeList track by st.id" ng-model="model.status">
-                                            <option value="">-- Select a Programe --</option>
-                                        </select>
-
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Number</label>
-                                        <input type="text" class="form-control" id="" placeholder="" ng-model="option.number">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <h3>Additional info</h3>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Pickup sign</label>
-                                        <input type="text" class="form-control" id="" placeholder="" ng-model="option.pickupSign">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Reference number</label>
-                                        <input type="text" class="form-control" id="" placeholder="Cost ceneter" ng-model="option.refNumber">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Reference number</label>
-                                        <input type="text" class="form-control" id="" placeholder="Any special requests (child car seats...)? Please don't include any confidential information" ng-model="option.flightRefNumber">
-                                    </div>
-                                </div>
+                            
+                                
                                 <div class="col-sm-12">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -756,12 +728,12 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="First Name" ng-model="user.firstName">
+                                                        <input type="text" ng-class="{'has-error' : (userNameRequired && submitted)}" class="form-control" id="" placeholder="First Name" ng-model="user.FirstName">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="user.lastName">
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="user.LastName">
                                                     </div>
                                                 </div>
                                             </div>
@@ -770,22 +742,22 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="E-Mail" ng-model="user.email">
+                                                        <input type="text" class="form-control" id="" placeholder="E-Mail" ng-model="user.Email">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" placeholder="UserName" ng-model="user.userName">
+                                                        <input type="text" ng-class="{'has-error' : (firstNameRequired && submitted)}" class="form-control" id="" placeholder="UserName" ng-model="user.UserName">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <input type="password" class="form-control" id="" placeholder="Password" ng-model="user.password">
+                                                        <input type="password" class="form-control" id="" placeholder="Password" ng-model="user.Password" ng-class="{'has-error' : (PasswordRequired && submitted)}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="squaredTwo">
-                                                        <input type="checkbox" value="None" id="squaredTwo" name="check" checked ng-model="user.isTermsAccept" />
+                                                        <input type="checkbox" value="None" id="squaredTwo" name="check" checked ng-model="user.isTermsAccept" ng-click="isTermsAcepted(user.isTermsAccept)" />
                                                         <label for="squaredTwo"></label>
 
                                                     </div>
@@ -797,8 +769,8 @@
                                 </div>
                                 <div class="col-sm-12 text-right">
                                     <div class="row">
-                                        <a href="" style="padding-right:10px;">Have an account? Log in to book faster</a>
-                                        <button type="button" class="btn btn-primary">Register</button>
+                                        @*<a href="" style="padding-right:10px;">Have an account? Log in to book faster</a>*@
+                                        <button type="button" class="btn btn-primary" ng-click="createUser(user)" ng-class="{'disabled' : disabledButton}">Register</button>
                                     </div>
                                 </div>
                             </div>
@@ -814,13 +786,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Cardholder name</label>
-                                                        <input type="text" class="form-control" id="" placeholder="Jason Born">
+                                                        <input type="text" class="form-control" id="" placeholder="Jason Born" ng-model="BookingPayments.CardHolderName" ng-class="{'has-error' : (CardHolderNameRequired && submitted)}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Card number</label>
-                                                        <input type="text" class="form-control" id="" placeholder="5007100222110033">
+                                                        <input type="text" class="form-control" id="" placeholder="5007100222110033" ng-model="BookingPayments.CardNo" ng-class="{'has-error' : (CardNoRequired && submitted)}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -832,18 +804,18 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label>Expiration date</label>
-                                                                <input type="text" class="form-control" id="" placeholder="MM">
+                                                                <input type="text" class="form-control" id="" placeholder="MM" ng-model="BookingPayments.ExpireDateMM">
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <label> </label>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" id="" placeholder="YY">
+                                                                <input type="text" class="form-control" id="" placeholder="YY" ng-model="BookingPayments.ExpireDateYY">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                @*<div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
@@ -852,7 +824,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>*@
                                             </div>
                                         </div>
                                     </div>
@@ -860,10 +832,18 @@
                                 <div class="col-sm-12 text-left">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <button type="button" class="btn btn-primary">Continue</button>
+                                            <button type="button" class="btn btn-primary" ng-click="creditCardDetails(BookingPayments)">Continue</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-success" ng-show="infoMsg">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <span>{{infoMsg}}</span>
+                                <span class="x-btn"><a href=""><i class="fa fa-remove"></i></a></span>
                             </div>
                         </div>
                     </div>
@@ -880,7 +860,7 @@
                 </div>
 
                 <div class="copyright center">
-                    <p>Copyright © 2016 Charitha Dias Pannilaratne</p>
+                    <p>Copyright © 2016 Hava.lk</p>
                 </div>
             </div>
         </footer>

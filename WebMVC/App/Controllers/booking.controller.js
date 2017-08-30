@@ -13,7 +13,7 @@
 
 var sitesControllers = angular.module('Sites', ['siteService', 'ui.router']);
 
-sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$state', '$stateParams', function ($scope, $http, HavaSiteService, $state, $stateParams) {
+sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$state', '$stateParams', '$timeout', function ($scope, $http, HavaSiteService, $state, $stateParams, $timeout) {
 
     $scope.search = {};
 
@@ -59,16 +59,11 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
 
             var urlparms = $scope.parseQueryString(window.location.href);
-            console.log(urlparms);
-         //   $scope.Products = [{ 'name': 'Economy class', 'id': 1, 'description': 'Toyota Camry, Honda Accord, Toyota Corolla or similar' }, { 'name': 'Sidan', 'id': 2, 'description': 'Toyota Camry, Honda Accord' }]
-
+          
             HavaSiteService.getProductDetails({ partnerId: parseInt($scope.urlparms.P), locationId: $scope.search.dropLocation.Id }).$promise.then(
                      function (result) {
-                         // angular.forEach(result);
-                         //  console.log(JSON.parse(result.data.replace(/'/g, '"')));
-                         $scope.Products = result.data;
+                        $scope.Products = result.data;
                          console.log(result.data);
-                         //var dt = JSON.parse(result.data);
                      });
         } else
             return true;
@@ -88,6 +83,23 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             return "";
     }
 
+    $scope.setBookingProduct = function (product) {
+        $scope.selectedProduct = product;
+        $scope.totalSellingPrice = angular.copy($scope.selectedProduct.PartnerSellingPrice);
+
+    }
+    //calculate price
+    $scope.calculateTotal = function (hours,sets) {
+        var hrs = (hours != undefined && hours != "")?parseInt(hours):0;
+        var st = (sets != undefined && sets != "") ? parseInt(sets) : 0;
+        var hrsTotal= 0, stTotal=0, partPrice = 0;
+        var hrsTotal = (hrs * parseInt($scope.selectedProduct.AdditionaHourRate));
+        var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
+        var stTotal =  (st * parseInt($scope.selectedProduct.ChildSeatRate));
+        $scope.totalSellingPrice = partPrice + hrsTotal + stTotal;
+    }
+
+
     $scope.selectDate = function (id) {
         setTimeout(function () {
             $('#' + id).trigger('focus');
@@ -96,6 +108,92 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
     $scope.ValidateFlight = function (users) {
 
+    }
+
+  
+
+    $scope.disabledButton = true;
+
+    $scope.isTermsAcepted = function (status) {
+        if (status == true) {
+            $scope.disabledButton = false;
+        } else {
+            $scope.disabledButton = true;
+        }
+    }
+
+    $scope.createUser = function (user) {
+        $scope.userNameRequired = false;
+        $scope.firstNameRequired = false;
+        $scope.submitted = true;
+        if (user.UserName != undefined && user.UserName != "" && user.FirstName != undefined && user.FirstName != "" && 
+            user.Password != undefined && user.Password != "") {
+            var data = angular.copy(user);
+           delete data.isTermsAcepted;
+            HavaSiteService.createUser(data, function (data) {
+                if (data.success == true) {
+                    $scope.UserId = data.id;
+                    $scope.whatClassIsIt(3);
+                } else {
+                   
+                }
+            })
+        } else {
+            if (user.UserName == undefined || user.UserName == "")
+                $scope.userNameRequired = true;
+            if (user.FirstName == undefined || user.FirstName == "")
+                $scope.firstNameRequired = true;
+            if (user.Password != undefined || user.Password != "")
+                $scope.PasswordRequired = true;
+        }
+       
+
+    }
+
+    $scope.creditCardDetails = function (booking) {
+        $scope.CardHolderNameRequired = false;
+        $scope.CardNoRequired = false;
+        if (usbookinger.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "") {
+            var data = {
+                "BookingType": {
+                    "id":1
+                },
+                "UserId": $scope.UserId,
+                'BookingProducts': $scope.selectedProduct,
+                "BookingStatu": {
+                    "Id": 1,
+                    "Name": "Pending",
+                    "IsActive": true
+                },
+                "PickupLocation": $scope.pickupLocation,
+                "PickupDate": $scope.search.pickupDate,
+                "PickupTime": $scope.search.pickupTime,
+                "DropLocation": $scope.dropLocation.Id,
+                "BookingPayments": {
+                    "CardHolderName": $scope.BookingPayments.CardHolderName,
+                    "BookingPayments": $scope.BookingPayments.CardNo,
+                    "ExpireDate": $scope.BookingPayments.ExpireDateMM + "/" + $scope.BookingPayments.ExpireDateYY
+                }
+
+            }
+            HavaSiteService.createBooking(data, function (data) {
+                if (data.success == true) {
+                    $scope.infoMsg = "Booking sucessfully created.";
+
+                    $timeout(function () {
+                        location.reload();
+                    }, 2000);
+                } else {
+
+                }
+            })
+        } else {
+            if (booking.CardHolderName == undefined || booking.CardHolderName == "")
+                $scope.CardHolderNameRequired = true;
+            if (booking.CardNo == undefined || booking.CardNo == "")
+                $scope.CardNoRequired = true;
+            
+        }
     }
 
 
@@ -273,3 +371,22 @@ sitesControllers.controller('BookingCtrl', ['$scope', '$http', 'HavaSiteService'
         //});
     });
 }]);
+
+sitesControllers.directive('onlyDigits', function ($filter) {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, modelCtrl) {
+            modelCtrl.$parsers.push(function (inputValue) {
+
+                if (inputValue == undefined) return ''
+                var transformedInput = inputValue.replace(/[^0-9]/g, '');
+                if (transformedInput != inputValue) {
+                    modelCtrl.$setViewValue(transformedInput);
+                    modelCtrl.$render();
+                }
+
+                return transformedInput;
+            });
+        }
+    };
+});
