@@ -17,6 +17,7 @@ using WebMVC.ModelViews;
 using WebMVC.Models;
 using WebMVC.Common;
 using HavaBusiness;
+using GlobalBatterier.Api.Models;
 
 namespace WebMVC.Controllers
 {
@@ -28,6 +29,7 @@ namespace WebMVC.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private const string LocalLoginProvider = "Local";
+        
 
         #region repository db context
 
@@ -364,10 +366,11 @@ namespace WebMVC.Controllers
         [System.Web.Http.HttpPost]
         public JObject CreateWebUsers(ApplicationUser appUser)
         {
+            IUserRepository _userRepository = new UserRepository();
             JObject returnObj = new JObject();
             var result = UserManager.CreateAsync(appUser, appUser.Email).Result;
 
-            returnObj.Add("data", this.ObjContext.Users.Where(u => u.UserName.ToLower() == appUser.UserName.ToLower()).FirstOrDefault<User>().Id);
+            returnObj.Add("data", _userRepository.GetUserIdByUserName(appUser.UserName));
             return returnObj;
         }
 

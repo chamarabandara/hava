@@ -58,6 +58,7 @@
           <Property Name="PickupSignReffNo" Type="nvarchar" MaxLength="50" />
           <Property Name="NoteToDriver" Type="nvarchar" MaxLength="500" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="PickupAddress" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="BookingPayment">
           <Key>
@@ -174,6 +175,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="IsActive" Type="bit" />
           <Property Name="FromLocation" Type="nvarchar" MaxLength="500" />
           <Property Name="ToLocation" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsAirPortTour" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Menues">
           <Key>
@@ -1570,6 +1572,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="FromLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ToLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Location" FromRole="LocationDetail" ToRole="PartnerProductRate" />
+          <Property Name="IsAirPortTour" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Menue">
           <Key>
@@ -2615,6 +2618,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="NoteToDriver" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="BookingOption" ToRole="Booking" />
+          <Property Name="PickupAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BookingPayment">
           <Key>
@@ -3158,6 +3162,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="LocationDetails">
             <EntityTypeMapping TypeName="HAVA_DBModel.LocationDetail">
               <MappingFragment StoreEntitySet="LocationDetails">
+                <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
                 <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
                 <ScalarProperty Name="FromLocation" ColumnName="FromLocation" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -3492,6 +3497,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="BookingOptions">
             <EntityTypeMapping TypeName="HAVA_DBModel.BookingOption">
               <MappingFragment StoreEntitySet="BookingOptions">
+                <ScalarProperty Name="PickupAddress" ColumnName="PickupAddress" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="NoteToDriver" ColumnName="NoteToDriver" />
                 <ScalarProperty Name="PickupSignReffNo" ColumnName="PickupSignReffNo" />

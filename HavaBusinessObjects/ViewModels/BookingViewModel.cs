@@ -85,5 +85,6 @@ namespace HavaBusinessObjects.ViewModels
         public string PickupSignReffNo { get; set; }
         public string NoteToDriver { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public string PickupAddress { get; set; }
     }
 }

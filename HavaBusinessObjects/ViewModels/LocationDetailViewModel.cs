@@ -13,5 +13,6 @@ namespace HavaBusinessObjects.ViewModels
         public bool? IsActive { get; set; }
         public string FromLocation { get; set; }
         public string ToLocation { get; set; }
+        public bool IsAirPortTour { get; set; }
     }
 }

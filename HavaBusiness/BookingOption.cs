@@ -23,6 +23,7 @@ namespace HavaBusiness
         public string PickupSignReffNo { get; set; }
         public string NoteToDriver { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string PickupAddress { get; set; }
     
         public virtual Booking Booking { get; set; }
     }
