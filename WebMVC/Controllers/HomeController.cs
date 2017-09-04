@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using HavaBusinessObjects.ControllerRepository;
+﻿using HavaBusinessObjects.ControllerRepository;
 using Newtonsoft.Json.Linq;
+using System.Web.Mvc;
 
 namespace WebMVC.Controllers
 {
@@ -40,6 +36,7 @@ namespace WebMVC.Controllers
 
         #region Get Nav Bar Menues
 
+        [Authorize]
         public JObject Menues()
         {
             UserRepository userRepository = new UserRepository();

@@ -42,6 +42,12 @@
                 <section class="login_content">
                     <form name="loginForm" novalidate>
                         <h1>Login Form</h1>
+                        <div class="alert alert-danger display-hide ng-hide" style="display: block;" ng-show="invalidUserNamePassword">
+                            <button class="close" data-close="alert" ng-click="invalidUserNamePassword=false"></button>
+                            <span>
+                                Enter valid username and password.
+                            </span>
+                        </div>
                         <div ng-class="{'has-error' : (loginForm.username.$error.required && submitted)}">
                             <input class="form-control" ng-model="login.loginUsername" type="text" autocomplete="off" placeholder="Username" name="username" required ng-change="submitted=false" ng-keyup="$event.keyCode == 13 && Login(login)" />
                             <div ng-show="loginForm.username.$invalid && submitted" class="ng-hide">
