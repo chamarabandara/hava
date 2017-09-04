@@ -175,35 +175,58 @@ namespace HavaBusinessObjects.ControllerRepository
                     #endregion
 
                     #region partner product details
-
-                    if (partnerViewModel.productGridData != null)
+                    if (partnerViewModel.productGridData.Count > 0)
                     {
-
-                        foreach (var prod in partnerViewModel.productGridData)
+                        foreach (var partProd in partnerViewModel.productGridData)
                         {
-
                             PartnerProduct objProd = new PartnerProduct();
                             objProd.PartnerId = partnerId;
-                            objProd.ProductId = prod.productId;
+                            objProd.ProductId = partProd.productId;
                             objProd.CreatedBy = partnerViewModel.createdBy;
                             objProd.CreatedDate = DateTime.Now;
                             objProd.ModifiedBy = partnerViewModel.createdBy;
                             objProd.ModifiedDate = DateTime.Now;
                             objProd.IsActive = true;
-
-                            PartnerProductRate productRate = new PartnerProductRate();
-                            productRate.HavaPrice = string.IsNullOrEmpty(prod.havaPrice) ? 0 : Decimal.Parse(prod.havaPrice);
-                            productRate.MarketPrice = string.IsNullOrEmpty(prod.marketPrice) ? 0 : Decimal.Parse(prod.marketPrice);
-                            productRate.PartnerSellingPrice = string.IsNullOrEmpty(prod.partnerSellingPrice) ? 0 : Decimal.Parse(prod.partnerSellingPrice);
-                            productRate.IsMarkUp = prod.isMarkup;
-                            productRate.Markup = string.IsNullOrEmpty(prod.partnerMarkup) ? 0 : Decimal.Parse(prod.partnerMarkup);
-                            productRate.Percentage = string.IsNullOrEmpty(prod.partnerPercentage) ? 0 : Decimal.Parse(prod.partnerPercentage);
-                            productRate.PartnerId = partnerId;
-                            productRate.CreateDate = DateTime.Now;
-                            objProd.PartnerProductRates.Add(productRate);
-
                             this.ObjContext.PartnerProducts.Add(objProd);
                             this.ObjContext.SaveChanges();
+
+                            foreach (var prodLoc in partProd.partnerLocations)
+                            {
+                                LocationDetail location = new LocationDetail();
+                                location.FromLocation = prodLoc.fromLocation;
+                                location.ToLocation = prodLoc.toLocation;
+                                location.IsActive = true;
+                                location.IsAirPortTour = prodLoc.isAirPortTour;
+                                location.name = prodLoc.locationName;
+                                location.PartnerId = partnerId;
+                                this.ObjContext.LocationDetails.Add(location);
+                                this.ObjContext.SaveChanges();
+
+                                PartnerProductRate productRate = new PartnerProductRate();
+                                productRate.AdditionaDayRate = prodLoc.additionalDayRate;
+                                productRate.AdditionaHourRate = prodLoc.additionalHourRate;
+                                productRate.AirportRate = prodLoc.airPortRate;
+                                productRate.ChildSeatRate = prodLoc.childSeatRate;
+                                productRate.ChufferDailyRate = prodLoc.chufferDailyRate;
+                                productRate.ChufferKMRate = prodLoc.chufferKMRate;
+                                productRate.HavaPrice = string.IsNullOrEmpty(prodLoc.havaPrice) ? 0 : Decimal.Parse(prodLoc.havaPrice);
+                                productRate.HavaPriceReturn = prodLoc.havaPriceReturn;
+                                productRate.IsMarkUp = prodLoc.isMarkup;
+                                productRate.LocationId = location.Id;
+                                productRate.MarketPrice = string.IsNullOrEmpty(prodLoc.marketPrice) ? 0 : Decimal.Parse(prodLoc.marketPrice);
+                                productRate.MarketPriceReturn = prodLoc.marketPriceReturn;
+                                productRate.Markup = string.IsNullOrEmpty(prodLoc.partnerMarkup) ? 0 : Decimal.Parse(prodLoc.partnerMarkup);
+                                productRate.PartnerId = partnerId;
+                                productRate.PartnerProductId = objProd.Id;
+                                productRate.PartnerSellingPrice = string.IsNullOrEmpty(prodLoc.partnerSellingPrice) ? 0 : Decimal.Parse(prodLoc.partnerSellingPrice);
+                                productRate.PartnerSellingPriceReturn = prodLoc.partnerSellPriceReturn;
+                                productRate.Percentage = string.IsNullOrEmpty(prodLoc.partnerPercentage) ? 0 : Decimal.Parse(prodLoc.partnerPercentage);
+                                productRate.Rate = prodLoc.rate;
+                                productRate.CreateDate = DateTime.Now;
+
+                                this.ObjContext.PartnerProductRates.Add(productRate);
+                                this.ObjContext.SaveChanges();
+                            }
                         }
                     }
                     #endregion
@@ -275,7 +298,6 @@ namespace HavaBusinessObjects.ControllerRepository
                         objRep.Add("status" , rep.IsActive == true ? "Active" : "Inactive");
                         objRep.Add("userName" , rep.UserId != null ? rep.User.UserName : string.Empty);
                         objRep.Add("password" , rep.UserId != null ? rep.User.PasswordEncrypt : string.Empty);
-
                         repList.Add(objRep);
                     }
                 }
@@ -283,36 +305,38 @@ namespace HavaBusinessObjects.ControllerRepository
 
                 #region partner product details
                 JArray prodList = new JArray();
-                if (objPartner.PartnerProducts.Count > 0)
+                var partnerProductRates = this.ObjContext.PartnerProductRates.Where(p => p.PartnerId == objPartner.Id).ToList();
+                foreach (var partProdRate in partnerProductRates)
                 {
-                    var list = objPartner.PartnerProducts.Where(p => p.IsActive == true).ToList();
-                    foreach (var objProd in list)
-                    {
+                    JObject partProdObj = new JObject();
+                    partProdObj.Add("id" , partProdRate.PartnerProduct.Id);
+                    partProdObj.Add("productId" , partProdRate.PartnerProductId);
+                    partProdObj.Add("productName" , partProdRate.PartnerProduct.Product.Name);
+                    partProdObj.Add("isActive" , partProdRate.PartnerProduct.IsActive);
+                    partProdObj.Add("locationdetailId" , partProdRate.LocationDetail.Id);
+                    partProdObj.Add("locationName" , partProdRate.LocationDetail.name);
+                    partProdObj.Add("locationId" , partProdRate.LocationId);
+                    partProdObj.Add("fromLocation" , partProdRate.LocationDetail.FromLocation);
+                    partProdObj.Add("toLocation" , partProdRate.LocationDetail.ToLocation);
+                    partProdObj.Add("isAirPortTour" , partProdRate.LocationDetail.IsAirPortTour);
+                    partProdObj.Add("PartnerProductRateId" , partProdRate.Id);
+                    partProdObj.Add("additionalDayRate" , partProdRate.AdditionaDayRate);
+                    partProdObj.Add("additionalHourRate" , partProdRate.AdditionaHourRate);
+                    partProdObj.Add("airPortRate" , partProdRate.AirportRate);
+                    partProdObj.Add("childSeatRate" , partProdRate.ChildSeatRate);
+                    partProdObj.Add("chufferDailyRate" , partProdRate.ChufferDailyRate);
+                    partProdObj.Add("chufferKMRate" , partProdRate.ChufferKMRate);
+                    partProdObj.Add("havaPrice" , partProdRate.HavaPrice);
+                    partProdObj.Add("havaPriceReturn" , partProdRate.HavaPriceReturn);
+                    partProdObj.Add("isMarkup" , partProdRate.IsMarkUp);
+                    partProdObj.Add("marketPrice" , partProdRate.MarketPrice);
+                    partProdObj.Add("marketPriceReturn" , partProdRate.MarketPriceReturn);
+                    partProdObj.Add("partnerMarkup" , partProdRate.Markup);
+                    partProdObj.Add("partnerSellingPrice" , partProdRate.PartnerSellingPrice);
+                    partProdObj.Add("partnerSellPriceReturn" , partProdRate.PartnerSellingPriceReturn);
+                    partProdObj.Add("partnerPercentage" , partProdRate.Percentage);
+                    partProdObj.Add("rate" , partProdRate.Rate);
 
-                        JObject prod = new JObject();
-                        prod.Add("id" , objProd.Id);
-                        //prod.Add("havaPrice" , objProd.HavaPrice);
-                        //prod.Add("marketPrice" , objProd.MarketPrice);
-                        //prod.Add("partnerSellingPrice" , objProd.PartnerSellingPrice);
-                        //prod.Add("isMarkup" , objProd.IsMarkUp == true ? "True" : "False");
-                        //prod.Add("partnerMarkup" , objProd.Markup);
-                        //prod.Add("partnerPercentage" , objProd.Percentage);
-                        prod.Add("productId" , objProd.ProductId);
-                        prod.Add("productName" , objProd.Product.Name);
-
-                        var prodRate = objProd.PartnerProductRates.FirstOrDefault();
-                        if (prodRate != null)
-                        {
-                            prod.Add("havaPrice" , prodRate.HavaPrice);
-                            prod.Add("marketPrice" , prodRate.MarketPrice);
-                            prod.Add("partnerSellingPrice" , prodRate.PartnerSellingPrice);
-                            prod.Add("isMarkup" , prodRate.IsMarkUp == true ? "True" : "False");
-                            prod.Add("partnerMarkup" , prodRate.Markup);
-                            prod.Add("partnerPercentage" , prodRate.Percentage);
-                        }
-
-                        prodList.Add(prod);
-                    }
                 }
                 returnObj.Add("productGridData" , prodList);
                 #endregion
@@ -463,69 +487,165 @@ namespace HavaBusinessObjects.ControllerRepository
                                 #endregion
 
                                 #region Partner Products
-                                var recentProds = partner.PartnerProducts.ToList();
-                                foreach (var prod in recentProds)
+                                foreach (var prod in partnerViewModel.productGridData)
                                 {
-                                    List<int> ids = partnerViewModel.productGridData.Select(i => i.id).ToList();
-                                    if (ids.Contains(prod.Id))
+                                    if (prod.id > 0)
                                     {
-                                        var selProd = partnerViewModel.productGridData.FirstOrDefault(o => o.id == prod.Id);
-                                        prod.PartnerId = partner.Id;
-                                        prod.ProductId = selProd.productId;
-                                        prod.ModifiedBy = partnerViewModel.createdBy;
-                                        prod.ModifiedDate = DateTime.Now;
-
-                                        var partProdRate = prod.PartnerProductRates.FirstOrDefault();
-                                        if (partProdRate != null)
+                                        if (prod.isActive == true)
                                         {
-                                            partProdRate.HavaPrice = string.IsNullOrEmpty(selProd.havaPrice) ? 0 : Decimal.Parse(selProd.havaPrice);
-                                            partProdRate.MarketPrice = string.IsNullOrEmpty(selProd.marketPrice) ? 0 : Decimal.Parse(selProd.marketPrice);
-                                            partProdRate.PartnerSellingPrice = string.IsNullOrEmpty(selProd.partnerSellingPrice) ? 0 : Decimal.Parse(selProd.partnerSellingPrice);
-                                            partProdRate.IsMarkUp = selProd.isMarkup;
-                                            partProdRate.Markup = string.IsNullOrEmpty(selProd.partnerMarkup) ? 0 : Decimal.Parse(selProd.partnerMarkup);
-                                            partProdRate.Percentage = string.IsNullOrEmpty(selProd.partnerPercentage) ? 0 : Decimal.Parse(selProd.partnerPercentage);
-                                        }
+                                            foreach (var prodLoc in prod.partnerLocations)
+                                            {
+                                                if (prodLoc.locationId > 0)
+                                                {
+                                                    var location = this.ObjContext.LocationDetails.Find(prodLoc.locationId);
+                                                    location.FromLocation = prodLoc.fromLocation;
+                                                    location.ToLocation = prodLoc.toLocation;
+                                                    location.IsActive = true;
+                                                    location.IsAirPortTour = prodLoc.isAirPortTour;
+                                                    location.name = prodLoc.locationName;
+                                                    location.PartnerId = partner.Id;
+                                                    this.ObjContext.LocationDetails.Add(location);
+                                                    this.ObjContext.SaveChanges();
+                                                    var productRate = this.ObjContext.PartnerProductRates.Find(prodLoc.productRateId);
+                                                    productRate.AdditionaDayRate = prodLoc.additionalDayRate;
+                                                    productRate.AdditionaHourRate = prodLoc.additionalHourRate;
+                                                    productRate.AirportRate = prodLoc.airPortRate;
+                                                    productRate.ChildSeatRate = prodLoc.childSeatRate;
+                                                    productRate.ChufferDailyRate = prodLoc.chufferDailyRate;
+                                                    productRate.ChufferKMRate = prodLoc.chufferKMRate;
+                                                    productRate.HavaPrice = string.IsNullOrEmpty(prodLoc.havaPrice) ? 0 : Decimal.Parse(prodLoc.havaPrice);
+                                                    productRate.HavaPriceReturn = prodLoc.havaPriceReturn;
+                                                    productRate.IsMarkUp = prodLoc.isMarkup;
+                                                    productRate.LocationId = location.Id;
+                                                    productRate.MarketPrice = string.IsNullOrEmpty(prodLoc.marketPrice) ? 0 : Decimal.Parse(prodLoc.marketPrice);
+                                                    productRate.MarketPriceReturn = prodLoc.marketPriceReturn;
+                                                    productRate.Markup = string.IsNullOrEmpty(prodLoc.partnerMarkup) ? 0 : Decimal.Parse(prodLoc.partnerMarkup);
+                                                    productRate.PartnerId = partner.Id;
+                                                    productRate.PartnerProductId = prod.id;
+                                                    productRate.PartnerSellingPrice = string.IsNullOrEmpty(prodLoc.partnerSellingPrice) ? 0 : Decimal.Parse(prodLoc.partnerSellingPrice);
+                                                    productRate.PartnerSellingPriceReturn = prodLoc.partnerSellPriceReturn;
+                                                    productRate.Percentage = string.IsNullOrEmpty(prodLoc.partnerPercentage) ? 0 : Decimal.Parse(prodLoc.partnerPercentage);
+                                                    productRate.Rate = prodLoc.rate;
+                                                    productRate.CreateDate = DateTime.Now;
 
+                                                    this.ObjContext.Entry(productRate).State = System.Data.Entity.EntityState.Modified;
+                                                    this.ObjContext.Entry(location).State = System.Data.Entity.EntityState.Modified;
+                                                    this.ObjContext.SaveChanges();
+                                                }
+                                                else
+                                                {
+                                                    LocationDetail location = new LocationDetail();
+                                                    location.FromLocation = prodLoc.fromLocation;
+                                                    location.ToLocation = prodLoc.toLocation;
+                                                    location.IsActive = true;
+                                                    location.IsAirPortTour = prodLoc.isAirPortTour;
+                                                    location.name = prodLoc.locationName;
+                                                    location.PartnerId = partner.Id;
+                                                    this.ObjContext.LocationDetails.Add(location);
+                                                    this.ObjContext.SaveChanges();
+
+                                                    PartnerProductRate productRate = new PartnerProductRate();
+                                                    productRate.AdditionaDayRate = prodLoc.additionalDayRate;
+                                                    productRate.AdditionaHourRate = prodLoc.additionalHourRate;
+                                                    productRate.AirportRate = prodLoc.airPortRate;
+                                                    productRate.ChildSeatRate = prodLoc.childSeatRate;
+                                                    productRate.ChufferDailyRate = prodLoc.chufferDailyRate;
+                                                    productRate.ChufferKMRate = prodLoc.chufferKMRate;
+                                                    productRate.HavaPrice = string.IsNullOrEmpty(prodLoc.havaPrice) ? 0 : Decimal.Parse(prodLoc.havaPrice);
+                                                    productRate.HavaPriceReturn = prodLoc.havaPriceReturn;
+                                                    productRate.IsMarkUp = prodLoc.isMarkup;
+                                                    productRate.LocationId = location.Id;
+                                                    productRate.MarketPrice = string.IsNullOrEmpty(prodLoc.marketPrice) ? 0 : Decimal.Parse(prodLoc.marketPrice);
+                                                    productRate.MarketPriceReturn = prodLoc.marketPriceReturn;
+                                                    productRate.Markup = string.IsNullOrEmpty(prodLoc.partnerMarkup) ? 0 : Decimal.Parse(prodLoc.partnerMarkup);
+                                                    productRate.PartnerId = partner.Id;
+                                                    productRate.PartnerProductId = prod.id;
+                                                    productRate.PartnerSellingPrice = string.IsNullOrEmpty(prodLoc.partnerSellingPrice) ? 0 : Decimal.Parse(prodLoc.partnerSellingPrice);
+                                                    productRate.PartnerSellingPriceReturn = prodLoc.partnerSellPriceReturn;
+                                                    productRate.Percentage = string.IsNullOrEmpty(prodLoc.partnerPercentage) ? 0 : Decimal.Parse(prodLoc.partnerPercentage);
+                                                    productRate.Rate = prodLoc.rate;
+                                                    productRate.CreateDate = DateTime.Now;
+
+                                                    this.ObjContext.PartnerProductRates.Add(productRate);
+                                                    this.ObjContext.SaveChanges();
+                                                }
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var removedProd = this.ObjContext.PartnerProducts.Find(prod.id);
+                                            removedProd.IsActive = false;
+                                            removedProd.ModifiedBy = partnerViewModel.createdBy;
+                                            removedProd.ModifiedDate = DateTime.Now;
+                                            foreach (var prodLoc in prod.partnerLocations)
+                                            {
+                                                var removedLoc = this.ObjContext.LocationDetails.Find(prodLoc.locationId);
+                                                removedLoc.IsActive = false;
+                                                this.ObjContext.Entry(removedLoc).State = System.Data.Entity.EntityState.Modified;
+                                                this.ObjContext.SaveChanges();
+                                            }
+                                            this.ObjContext.Entry(partner).State = System.Data.Entity.EntityState.Modified;
+                                            this.ObjContext.SaveChanges();
+
+                                        }
                                     }
                                     else
                                     {
-                                        prod.IsActive = false;
-                                        prod.ModifiedBy = partnerViewModel.createdBy;
-                                        prod.ModifiedDate = DateTime.Now;
+                                        foreach (var partProd in partnerViewModel.productGridData)
+                                        {
+                                            PartnerProduct objProd = new PartnerProduct();
+                                            objProd.PartnerId = partner.Id;
+                                            objProd.ProductId = partProd.productId;
+                                            objProd.CreatedBy = partnerViewModel.createdBy;
+                                            objProd.CreatedDate = DateTime.Now;
+                                            objProd.ModifiedBy = partnerViewModel.createdBy;
+                                            objProd.ModifiedDate = DateTime.Now;
+                                            objProd.IsActive = true;
+                                            this.ObjContext.PartnerProducts.Add(objProd);
+                                            this.ObjContext.SaveChanges();
 
+                                            foreach (var prodLoc in partProd.partnerLocations)
+                                            {
+                                                LocationDetail location = new LocationDetail();
+                                                location.FromLocation = prodLoc.fromLocation;
+                                                location.ToLocation = prodLoc.toLocation;
+                                                location.IsActive = true;
+                                                location.IsAirPortTour = prodLoc.isAirPortTour;
+                                                location.name = prodLoc.locationName;
+                                                location.PartnerId = partner.Id;
+                                                this.ObjContext.LocationDetails.Add(location);
+                                                this.ObjContext.SaveChanges();
+
+                                                PartnerProductRate productRate = new PartnerProductRate();
+                                                productRate.AdditionaDayRate = prodLoc.additionalDayRate;
+                                                productRate.AdditionaHourRate = prodLoc.additionalHourRate;
+                                                productRate.AirportRate = prodLoc.airPortRate;
+                                                productRate.ChildSeatRate = prodLoc.childSeatRate;
+                                                productRate.ChufferDailyRate = prodLoc.chufferDailyRate;
+                                                productRate.ChufferKMRate = prodLoc.chufferKMRate;
+                                                productRate.HavaPrice = string.IsNullOrEmpty(prodLoc.havaPrice) ? 0 : Decimal.Parse(prodLoc.havaPrice);
+                                                productRate.HavaPriceReturn = prodLoc.havaPriceReturn;
+                                                productRate.IsMarkUp = prodLoc.isMarkup;
+                                                productRate.LocationId = location.Id;
+                                                productRate.MarketPrice = string.IsNullOrEmpty(prodLoc.marketPrice) ? 0 : Decimal.Parse(prodLoc.marketPrice);
+                                                productRate.MarketPriceReturn = prodLoc.marketPriceReturn;
+                                                productRate.Markup = string.IsNullOrEmpty(prodLoc.partnerMarkup) ? 0 : Decimal.Parse(prodLoc.partnerMarkup);
+                                                productRate.PartnerId = partner.Id;
+                                                productRate.PartnerProductId = objProd.Id;
+                                                productRate.PartnerSellingPrice = string.IsNullOrEmpty(prodLoc.partnerSellingPrice) ? 0 : Decimal.Parse(prodLoc.partnerSellingPrice);
+                                                productRate.PartnerSellingPriceReturn = prodLoc.partnerSellPriceReturn;
+                                                productRate.Percentage = string.IsNullOrEmpty(prodLoc.partnerPercentage) ? 0 : Decimal.Parse(prodLoc.partnerPercentage);
+                                                productRate.Rate = prodLoc.rate;
+                                                productRate.CreateDate = DateTime.Now;
+
+                                                this.ObjContext.PartnerProductRates.Add(productRate);
+                                                this.ObjContext.SaveChanges();
+                                            }
+                                        }
                                     }
-                                    this.ObjContext.Entry(prod).State = System.Data.Entity.EntityState.Modified;
-                                    this.ObjContext.SaveChanges();
-                                }
-                                var newProds = partnerViewModel.productGridData.Where(p => p.id <= 0).ToList();
-                                foreach (var newprod in newProds)
-                                {
-                                    PartnerProduct objProd = new PartnerProduct();
-                                    int repId = 0;
-                                    objProd.PartnerId = partner.Id;
-                                    objProd.ProductId = newprod.productId;
-                                    objProd.CreatedBy = partnerViewModel.createdBy;
-                                    objProd.CreatedDate = DateTime.Now;
-                                    objProd.ModifiedBy = partnerViewModel.createdBy;
-                                    objProd.ModifiedDate = DateTime.Now;
-                                    objProd.IsActive = true;
-
-                                    PartnerProductRate productRate = new PartnerProductRate();
-                                    productRate.HavaPrice = string.IsNullOrEmpty(newprod.havaPrice) ? 0 : Decimal.Parse(newprod.havaPrice);
-                                    productRate.MarketPrice = string.IsNullOrEmpty(newprod.marketPrice) ? 0 : Decimal.Parse(newprod.marketPrice);
-                                    productRate.PartnerSellingPrice = string.IsNullOrEmpty(newprod.partnerSellingPrice) ? 0 : Decimal.Parse(newprod.partnerSellingPrice);
-                                    productRate.IsMarkUp = newprod.isMarkup;
-                                    productRate.Markup = string.IsNullOrEmpty(newprod.partnerMarkup) ? 0 : Decimal.Parse(newprod.partnerMarkup);
-                                    productRate.Percentage = string.IsNullOrEmpty(newprod.partnerPercentage) ? 0 : Decimal.Parse(newprod.partnerPercentage);
-                                    productRate.PartnerId = partner.Id; ;
-                                    productRate.CreateDate = DateTime.Now;
-                                    objProd.PartnerProductRates.Add(productRate);
-
-                                    this.ObjContext.PartnerProducts.Add(objProd);
-                                    this.ObjContext.SaveChanges();
 
                                 }
-
                                 #endregion
 
                                 #region partner sites

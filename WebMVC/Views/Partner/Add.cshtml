@@ -301,13 +301,45 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location Name:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control"  ng-model="product.locationName" maxlength="300">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>From Location:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="product.fromLocation" maxlength="300">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>To Location:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" ng-model="product.toLocation" maxlength="300">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv221">
+                                                <strong>
+                                                    Is Airport Tour:
+                                                </strong>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="rv221" name="checkbox-demo-v" ng-model="product.isAirPortTour" />
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
                                                 <input type="text" placeholder="" class="form-control" format="number" ng-model="product.havaPrice" maxlength="300">
-                                               
                                             </div>
                                         </div>
-
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
@@ -343,21 +375,69 @@
                                                 <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerMarkup" maxlength="20">
                                             </div>
                                         </div>
+                                       
+                                    </div>
+                                    <div class="col-sm-6 margin-top">
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Percentage:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
                                                 <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerPercentage" maxlength="20">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 margin-top">
-
                                         <div class="form-group">
-                                            <div>
-                                                <img src="{{product.product.imagePath}}"></div>
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Air Port Rate:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.airPortRate" maxlength="20">
+                                            </div>
                                         </div>
-                                       
-                                       
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price Return:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.havaPriceReturn" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price Return:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.marketPriceReturn" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price Return:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerSellPriceReturn" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Day Rate:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.additionalDayRate" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Hour Rate:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.additionalHourRate" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer Daily Rate:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.chufferDailyRate" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer KM Rate:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.chufferKMRate" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Child Seat Rate:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.childSeatRate" maxlength="20">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -365,9 +445,8 @@
                                                 <div class="form-group">
                                                     <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
                                                     <div class="col-lg-7 col-md-7 col-sm-6">
-                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProducts(product)" ng-hide="updateRep">Save</button>
-                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProducts(representative)" ng-show="updateRep">Update</button>
-
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProducts(product)" ng-hide="updateProduct">Save</button>
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="updateProductFunc(product)" ng-show="updateProduct">Update</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,27 +483,27 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Product Name</th>
-                                                        <th>Hava Price</th>
-                                                        <th>Market Price</th>
-                                                        <th>Partner Selling Price</th>
-                                                        <th>Is Markup</th>
+                                                        <th>Location Name</th>
+                                                        <th>Location From</th>
+                                                        <th>Location To</th>
+                                                        @*<th>Is Markup</th>
                                                         <th>Partner Percentage</th>
-                                                        <th>Partner Markup</th>
-                                                        
+                                                        <th>Partner Markup</th>*@
                                                         <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="click-row off-click" ng-repeat="pData in productGridData">
                                                         <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.productName">{{pData.productName}}</a><span ng-hide="pData.productName"><left>-</left></span></td>
-                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.havaPrice">{{pData.havaPrice}}</a><span ng-hide="pData.havaPrice"><left>-</left></span></td>
-                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.marketPrice">{{pData.marketPrice}}</a><span ng-hide="pData.marketPrice"><left>-</left></span></td>
-                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.partnerSellingPrice">{{pData.partnerSellingPrice}}</a><span ng-hide="pData.partnerSellingPrice"><left>-</left></span></td>
-                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.isMarkup">{{pData.isMarkup}}</a><span ng-hide="pData.isMarkup"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.locationName">{{pData.locationName}}</a><span ng-hide="pData.locationName"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.fromLocation">{{pData.fromLocation}}</a><span ng-hide="pData.fromLocation"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.toLocation">{{pData.toLocation}}</a><span ng-hide="pData.toLocation"><left>-</left></span></td>
+                                                        @*<td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.isMarkup">{{pData.isMarkup}}</a><span ng-hide="pData.isMarkup"><left>-</left></span></td>
                                                         <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.partnerPercentage">{{pData.partnerPercentage}}</a><span ng-hide="pData.partnerPercentage"><left>-</left></span></td>
-                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.partnerMarkup">{{pData.partnerMarkup}}</a><span ng-hide="pData.partnerMarkup"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.partnerMarkup">{{pData.partnerMarkup}}</a><span ng-hide="pData.partnerMarkup"><left>-</left></span></td>*@
                                                         
                                                         <td style="width:5%;" class="action">
+                                                            <a class="link-action" ng-click="priductViewAction(pData,'view')" title="Edit"><i class="access-link fa fa-eye"></i></a>
                                                             <a class="link-action" ng-click="priductViewAction(pData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>
                                                             <a class="link-action" ng-click="priductViewAction(pData, 'delete')" id="test_action_product"><i class="access-link fa fa-trash"></i></a>
 
@@ -562,3 +641,136 @@
         </div>
     </div>
 </div>
+
+<!-- location prices -->
+<div class="modal fade" data-backdrop="static" id="pro-location-prices">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" id="close-picture">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 margin-top">
+
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv221">
+                                <strong>
+                                    Is Airport Tour:
+                                </strong>
+                            </label>
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <label>
+                                    <input type="checkbox" readonly id="rv221" name="checkbox-demo-v" ng-model="selectedProd.isAirPortTour" />
+                                    </label> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.havaPrice}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.marketPrice}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.partnerSellingPrice}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv222">
+                                <strong>
+                                    Is MarkUp
+                                </strong>
+                            </label>
+                          
+                                <div class="col-lg-7 col-md-7 col-sm-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" readonly id="rv222" name="checkbox-demo-v" ng-model="selectedProd.isMarkup" />
+                                        </label>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="selectedProd.isMarkup==true">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Markup:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.partnerMarkup}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 margin-top">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Percentage:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.partnerPercentage}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Air Port Rate:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.airPortRate}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price Return:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.havaPriceReturn}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price Return:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.marketPriceReturn}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price Return:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.partnerSellPriceReturn}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Day Rate:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.additionalDayRate}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Hour Rate:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.additionalHourRate}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer Daily Rate:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.chufferDailyRate}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer KM Rate:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.chufferKMRate}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Child Seat Rate:</strong></label>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <label>{{selectedProd.childSeatRate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--End location prices-->

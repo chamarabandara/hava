@@ -392,15 +392,28 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         {
             $scope.productNameRequired = false;
             $scope.productGridData.push({
+                'product': product.product,
+                'productId': product.product.id,
+                'productName':product.product.name,
+                'locationName':product.locationName,
+                'fromLocation':product.fromLocation,
+                'toLocation':product.toLocation,
+                'isAirPortTour': product.isAirPortTour,
                 'havaPrice': product.havaPrice != undefined || product.havaPrice != "" ? product.havaPrice : 0,
-                'isMarkup': product.isMarkup,
                 'marketPrice': product.marketPrice != undefined || product.marketPrice != "" ? product.marketPrice : 0,
                 'partnerSellingPrice': product.partnerSellingPrice != undefined || product.partnerSellingPrice != "" ? product.partnerSellingPrice : 0,
-                'product': product.product,
-                'partnerPercentage': product.partnerPercentage != undefined || product.partnerPercentage != "" ? product.partnerPercentage : 0,
+                'isMarkup': product.isMarkup,
                 'partnerMarkup': product.isMarkup ? (product.partnerMarkup != "" ? product.partnerMarkup : 0) : 0,
-                'productId': product.product.id,
-                'productName':product.product.name
+                'partnerPercentage': product.partnerPercentage != undefined || product.partnerPercentage != "" ? product.partnerPercentage : 0,
+                'airPortRate': product.airPortRate != undefined || product.airPortRate != "" ? product.airPortRate : 0,
+                'havaPriceReturn': product.havaPriceReturn != undefined || product.havaPriceReturn != "" ? product.havaPriceReturn : 0,
+                'marketPriceReturn': product.marketPriceReturn != undefined || product.marketPriceReturn != "" ? product.marketPriceReturn : 0,
+                'partnerSellPriceReturn': product.partnerSellPriceReturn != undefined || product.partnerSellPriceReturn != "" ? product.partnerSellPriceReturn : 0,
+                'additionalDayRate': product.additionalDayRate != undefined || product.additionalDayRate != "" ? product.additionalDayRate : 0,
+                'additionalHourRate': product.additionalHourRate != undefined || product.additionalHourRate != "" ? product.additionalHourRate : 0,
+                'chufferDailyRate': product.chufferDailyRate != undefined || product.chufferDailyRate != "" ? product.chufferDailyRate : 0,
+                'chufferKMRate': product.chufferKMRate != undefined || product.chufferKMRate != "" ? product.chufferKMRate : 0,
+                'childSeatRate': product.childSeatRate != undefined || product.childSeatRate != "" ? product.childSeatRate : 0,
             });
             $scope.product = {};
         }  
@@ -409,7 +422,13 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.priductViewAction = function (row, task) {
         $scope.updateProduct = false;
         $scope.rowIndex = row.rowIndex;
-        if (task == "edit") {
+        if (task == "view") {
+            $scope.selectedProd = {};
+            var rData = angular.copy(row);
+            $scope.selectedProd = rData;
+            $('#pro-location-prices').modal('show');
+        }
+        else if (task == "edit") {
             $scope.updateProduct = true;
             var rData = angular.copy(row);
             $scope.product = rData;
@@ -422,7 +441,6 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         } else if (task == "delete") {
             $scope.productRow = row;
             $scope.viewTask = 'confirmDeleteProduct';
-
         }
     }
 

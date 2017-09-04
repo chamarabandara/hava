@@ -32,20 +32,44 @@ namespace HavaBusinessObjects.ViewModels
 
     public class PartnerProductViewModel
     {
-        public string partnerPercentage { get; set; }
-        public string partnerMarkup { get; set; }
-        public bool isMarkup { get; set; }
-        public string partnerSellingPrice { get; set; }
-        public string marketPrice { get; set; }
-        public string havaPrice { get; set; }
-        public int productId { get; set; }
-        public ProductViewModel productVM { get; set; }
         public int id { get; set; }
+        public int productId { get; set; }
+        public bool isActive { get; set; }
+        public List<PrtnerLocations> partnerLocations { get; set; }
+
     }
 
     public class PartnerSitesViewModel
     {
         public int id { get; set; }
         public int siteId { get; set; }
+    }
+
+    public class PrtnerLocations
+    {
+        public int locationId { get; set; }
+        public string locationName { get; set; }
+        public string fromLocation { get; set; }
+        public string toLocation { get; set; }
+        public bool isAirPortTour { get; set; }
+        public bool isActive { get; set; }
+
+        public int productRateId { get; set; }
+        public string partnerPercentage { get; set; }
+        public string partnerMarkup { get; set; }
+        public bool isMarkup { get; set; }
+        public string partnerSellingPrice { get; set; }
+        public string marketPrice { get; set; }
+        public string havaPrice { get; set; }
+        public decimal airPortRate { get; set; }
+        public decimal havaPriceReturn { get; set; }
+        public decimal marketPriceReturn { get; set; }
+        public decimal partnerSellPriceReturn { get; set; }
+        public decimal additionalDayRate { get; set; }
+        public decimal additionalHourRate { get; set; }
+        public decimal chufferDailyRate { get; set; }
+        public decimal chufferKMRate { get; set; }
+        public decimal childSeatRate { get; set; }
+        public decimal rate { get; set; }
     }
 }
