@@ -36,6 +36,10 @@ namespace HavaBusinessObjects.ControllerRepository
                     booking.ModifiedBy = 1;
                     booking.ModifiedDate = DateTime.UtcNow;
 
+                    booking.BookingStatu = null;
+                    booking.BookingType = null;
+                    booking.Partner = null;
+
                     this.ObjContext.Bookings.Add(booking);
                     this.ObjContext.SaveChanges();
 

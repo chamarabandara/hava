@@ -77,6 +77,24 @@ namespace HavaBusinessObjects.ControllerRepository
         }
         #endregion
 
+        public Site GetPartnerSiteBySiteId(int partnerId, int siteId)
+        {
+            try
+            {
+                var partnerSite = this.ObjContext.PartnerSites
+                    .Include(x => x.Site)
+                    .Where(a => a.PartnerId == partnerId && a.SiteId == siteId).Select(x => x.Site).FirstOrDefault();
+
+                //var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
+
+                return partnerSite;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         public List<PartnerProductRate> GetPartnerProducts(int partnerId , int locationId)
         {

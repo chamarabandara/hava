@@ -57,6 +57,24 @@ namespace HavaWeb.Controllers
         }
 
         [HttpGet]
+        public JObject GetPartnerSite(int partnerId, int siteId)
+        {
+            PartnerRepository partnerRepository = new PartnerRepository();
+            var site = partnerRepository.GetPartnerSiteBySiteId(partnerId, siteId);
+
+            JObject siteObj = new JObject();
+            siteObj.Add("id", site.Id);
+            siteObj.Add("siteName", site.siteName);
+            siteObj.Add("siteAlias", site.siteAlias);
+            siteObj.Add("bannerPath", site.SiteBannerPath);
+            siteObj.Add("bannerName", site.siteBannerName);
+
+            JObject returnObj = new JObject();
+            returnObj.Add("data", siteObj);
+            return returnObj;
+        }
+
+        [HttpGet]
         public JObject GetPartnerById(int id)
         {
             PartnerRepository partnerRepo = new PartnerRepository();
