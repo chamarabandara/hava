@@ -30,7 +30,6 @@ loginControllers.controller('LoginCtrl', ['$scope', '$http', '$cookies', '$cooki
 
             $http.post(appUrl + '/Token', $.param(loginData)).
             success(function (data, status, headers, config) {
-                console.log(data);
                 var expireTime = Date.now() + parseInt(data.refreshToken_timeout) * 60000;
                 localStorageService.set('accessToken', data.access_token);
                 localStorageService.set('refreshToken', data.refresh_token);

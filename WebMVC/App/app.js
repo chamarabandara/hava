@@ -109,7 +109,6 @@ app.run(['$http', '$cookies', '$state', '$location', '$window', '$rootScope', '$
     //// var loginURL = $cookies.appUrl+'Home/Login';
     cookieToken = localStorageService.get('accessToken');
     if (cookieToken) {
-        console.log('test2');
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + cookieToken;
         //$http.get(apiUrl + '/Account/IsExistingUser?userName=" "').
         //              success(function (data, status, headers, config) {

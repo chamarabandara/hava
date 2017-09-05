@@ -13,7 +13,7 @@
 
 var partnerControllers = angular.module('partnerControllers', ['ngCookies', 'partnerService']);
 
-partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, PartnerServiceLocal) {
+partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'PartnerServiceLocal', 'localStorageService', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, PartnerServiceLocal, localStorageService) {
     var tmp = PartnerServiceLocal;
     $scope.infoMsg = $sce.trustAsHtml(PartnerServiceLocal.infoMsg);
 $scope.create = function () {
@@ -51,13 +51,16 @@ $scope.create = function () {
         actionButtons += '</div>';
         return actionButtons;
     }
-
+    var accessToken = localStorageService.get('accessToken');
     $('#datatable-partner').DataTable({
       //  "processing": true,
       //  "serverSide": true,
         'ajax': {
             'url': appUrl + 'Partner/GetList',
             'type': 'GET',
+            'beforeSend': function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + accessToken);
+            },
             //'beforeSend': function (request) {
             //    //  $("#loadingWidget").css({ display: 'block' });
             //  //  headers.append('Access-Control-Allow-Origin', apiUrl);
@@ -164,6 +167,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.representative = {};
     $scope.submittedRep = false;
     $scope.representativeGridData = [];
+    $scope.products = [];
 
     HavaPartnerService.getProduct().$promise.then(
               function (result) {
@@ -179,7 +183,12 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                             $scope.model = result;
                             $scope.representativeGridData = result.representativeGridData;
                             $scope.productGridData = result.productGridData;
+                            $scope.products = result.products;
                             $scope.siteGridData = result.siteGridData;
+                            var datatable = $('#productdt').dataTable().api();
+                           datatable.clear();
+                           datatable.rows.add($scope.products);
+                            datatable.draw();
                         });
                   } else if (PartnerServiceLocal.copyedData) {
                       HavaPartnerService.getPartner({ id: PartnerServiceLocal.copyedData.id }).$promise.then(
@@ -517,7 +526,6 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     } else {
         $scope.siteRequired = true;
     }
-            console.log($scope.siteGridData)
     }
 
     $scope.create = function (partner) {
@@ -547,4 +555,139 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
             }
         }
     }
+   // var products = [];
+  //{
+  //  "id": 1,
+  //  "productName": "test",
+  //  "locationName": "test2",
+  //  "locationFrom": "test3",
+  //  "locationTo": "test4",
+  //  "rates": [{
+  //    "id": 1,
+  //    "havaPrice": 2312312,
+  //    "havaPriceReturn": 1212331233,
+  //    "marketPrice": 333,
+  //    "partnerSellingPrice": 2322
+  //    },
+  //        {
+  //      "id": 2,
+  //    "havaPrice": 23,
+  //    "havaPriceReturn": 123,
+  //    "marketPrice": 333,
+  //    "partnerSellingPrice": 2322
+  //  }
+  //  ]
+  //  },
+    //  {
+    //"id": 2,
+    //"productName": "test2",
+    //"locationName": "test22",
+    //"locationFrom": "test32",
+    //"locationTo": "test42",
+    //"rates": [{
+    //  "id": 1,
+    //  "havaPrice": 23,
+    //  "havaPriceReturn": 123,
+    //  "marketPrice": 333,
+    //  "partnerSellingPrice": 2322
+    //},
+    //{
+    //  "id": 2,
+    //  "havaPrice": 23,
+    //  "havaPriceReturn": 1235555,
+    //  "marketPrice": 33355,
+    //  "partnerSellingPrice": 2322
+    //}
+    //]
+    //}
+    //  ];
+
+    $scope.format = function(table_id) {
+        return '<table class="table table-striped" id="productdt_' + table_id + '">' +
+        '<thead><tr><th>From Location</th><th>To Location</th><th>Is AirPort Tour</th><th>Location Name</th><th>Hava Price</th><th>Hava Price Return</th><th>Market Price</th><th>Partner Selling Price</th><th>Percentage</th></tr></thead>' +
+        '<tr>'+
+          '<td></td>'+
+          '<td></td>'+
+          '<td></td>' +
+          '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+        '</tr>'
+        '</table>';
+    }
+    var iTableCounter=1;
+    var oInnerTable;
+
+    $(document).ready(function () {
+        TableHtml = $('#productdt').html();
+
+        var table = $('#productdt').DataTable({
+            paging: false,
+            searching: false,
+            info: false,
+            rowId: 'id',
+            data: $scope.products,
+            columns: [
+              {
+                  className: 'details-control',
+                  orderable: false,
+                  data: null,
+                  defaultContent: ''
+              },
+              { data:'id' },
+              { data: 'productName' }
+            ],
+            order: [[1, 'asc']]
+        });
+        /* Add event listener for opening and closing details
+         * Note that the indicator for showing which row is open is not controlled by DataTables,
+         * rather it is done here
+         */
+        $('#productdt tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+            var rowData = table.row(tr).data();
+            console.log(rowData.rates);
+            if (row.child.isShown()) {
+                //  This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                row.child($scope.format(rowData.id)).show();
+                tr.addClass('shown');
+                // try datatable stuff
+                oInnerTable = $('#productdt_' + rowData.id).dataTable({
+                    data: rowData.rates,
+                    autoWidth: true,
+                    deferRender: true,
+                    info: false,
+                    lengthChange: false,
+                    ordering: false,
+                    paging: false,
+                    scrollX: false,
+                    scrollY: false,
+                    searching: false,
+                    columns: [
+                        { data : 'fromLocation'},
+                        { data : 'toLocation'}, 
+                        { data : 'isAirPortTour'},
+                        { data : 'locationName' },
+                        { data : 'havaPrice' },
+                        { data : 'havaPriceReturn' },
+                        { data : 'marketPrice' },
+                        { data: 'partnerSellingPrice' },
+                        { data : 'percentage'}
+
+                    ]
+                });
+                iTableCounter = iTableCounter + 1;
+            }
+        });
+    });
+
 }]);
