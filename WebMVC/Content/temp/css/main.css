@@ -1142,3 +1142,16 @@ ul.menaimenu-v3 li a {
     font-size: x-large;
     font-family: serif;
 }
+
+hr {
+  display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    /* margin: 1em 0; */
+    padding: -10px;
+    z-index: 1000;
+    margin-top: 33px;
+    position: absolute;
+    margin-left: 94px;
+}

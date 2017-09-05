@@ -10,7 +10,7 @@ partnerService.factory('HavaSiteService', ['$resource', function ($resource) {
         getProduct: { method: 'GET', url: appUrl + 'Partner/GetProductList' },
        // createBooking: { method: 'POST', url: appUrl + 'api/Account/CreateAppUser' },
         getLocations: { method: 'GET', url: appUrl + 'locationDetails/GetAllByPartnerId', params: { id: '@id' },isArray: false  },
-        getProductDetails: { method: 'GET', url: appUrl + 'booking/GetProducts', params: { partnerId: '@partnerId', locationId: '@locationId' } },
+        getProductDetails: { method: 'GET', url: appUrl + 'booking/GetProducts', params: { partnerId: '@partnerId', locationId: '@locationId', PromotionCode: '@PromotionCode' } },
     });
 }]);
 

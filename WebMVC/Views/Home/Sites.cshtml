@@ -132,6 +132,17 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="col-sm-12 col-xs-12 form-section-input">
+
+                                                                            <div class="form-group">
+                                                                               @* <label class="col-lg-6 col-md-6 col-sm-6" for=""><strong>Promotional Code:</strong></label>*@
+                                                                                <div class="input-group">
+                                                                                        <input type="text" class="form-control" placeholder="Promotion Code" ng-model="promotionCode">
+
+                                                                                </div>
+
+                                                                                </div>
+                                                                        </div>
                                                                     </div>
                                                                     <div id="ChaufDiv" style="display:none;" class="tabPane">
                                                                         <div class="col-sm-6 col-xs-6 form-section-input">
@@ -142,7 +153,7 @@
                                                                         </div>
                                                                         <div class="col-sm-6 col-xs-6 form-section-input ">
                                                                             <div class="form-group">
-                                                                                <select class="form-control" name="toLocation" ng-options="stat.name for stat in locations track by stat.id" ng-model="dropLocation">
+                                                                                <select class="form-control" name="toLocation" ng-options="due.name for due in durantions track by due.id" ng-model="duration">
                                                                                     <option value="">-- Select Duration --</option>
                                                                                 </select>
                                                                             </div>
@@ -168,14 +179,25 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm-12 form-section-input">
+                                                                        <div class="col-sm-12 col-xs-12 form-section-input">
+
+                                                                            <div class="form-group">
+                                                                                @* <label class="col-lg-6 col-md-6 col-sm-6" for=""><strong>Promotional Code:</strong></label>*@
+                                                                                <div class="input-group">
+                                                                                    <input type="text" class="form-control" placeholder="Promotion Code" ng-model="promotionCode">
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        @*<div class="col-sm-12 form-section-input">
                                                                             <div class="checkbox">
                                                                                 <label style="font-size: 11px;float: right;">
                                                                                     <input type="checkbox" value="">
                                                                                     Daily Hire
                                                                                 </label>
                                                                             </div>
-                                                                        </div>
+                                                                        </div>*@
                                                                     </div>
                                                                     <div class="col-sm-12 form-section-input btn-div">
                                                                         <button type="button" class="btn btn-danger main-btn btn-block" ng-click="searchBooking(search)">Book a vehicle & support local communities</button>
@@ -625,6 +647,8 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="btn-wrapper">
+                                            <hr width="50%">
+                                            <label class="price-lbl pull-right">RS {{product.MarketPrice}}</label>
                                             <label class="price-lbl pull-right">RS {{product.PartnerSellingPrice}}</label>
                                             <label class="small-text pull-right">All prices include VAT, fees & tip.</label>
                                             <button type="button" class="btn btn-primary btn-block" ng-click="setBookingProduct(product);navigateSteps(2)">Select</button>
@@ -684,11 +708,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-12" ng-show="selectedProduct.LocationDetail.IsAirPortTour==true">
                                     <h3>Airport dropoff details</h3>
                                     <p class="medium-text">Enter your flight number to ensure your driver brings you to the correct terminal and gate.</p>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-12" ng-show="selectedProduct.LocationDetail.IsAirPortTour==true">
                                     <div class="form-group">
                                         <label>Flight details</label>
                                         <input type="text" class="form-control" id="" placeholder="LH 2054" ng-model="BookingOptions.FlightNo">
@@ -705,7 +729,7 @@
                                 </div>
                                 <div class="col-sm-12" style="padding-top:20px;">
                                     <button type="button" class="btn btn-default" ng-click="navigateSteps(3)">Skip</button>
-                                    <button type="button" class="btn btn-primary" ng-click="continueOption(user)">Continue</button>
+                                    <button type="button" class="btn btn-primary" ng-click="saveBookingOptions(BookingOptions)">Continue</button>
                                 </div>
                             </div>
                         </div>

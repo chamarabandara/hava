@@ -36,13 +36,19 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                  $scope.locations = result.data;
              });
     $scope.isMain = true;
-
+    $scope.durantions = [
+        { 'name': "1 Day", id: 1 },
+        { 'name': "2 Days", id: 2 },
+        { 'name': "3 Days", id: 3 }, 
+        { 'name': "4 Days", id: 4 },
+        { 'name': "5 Days", id: 5 }
+    ];
     $scope.programeList = [{ 'name': "Asia Miles", id: 1 }, { 'name': "Air France Flying Blue" }];
 
     $scope.titleList = [{ 'name': "Mr", id: 1 }, { 'name': "Mrs.", id: 2 }];
     $scope.searchBooking = function (model) {
         $scope.submitted = true;
-        if ($('#searchTextField').val() != "" && $scope.dropLocation != undefined && $scope.dropLocation) {
+        if ($('#searchTextField').val() != "" && (($scope.dropLocation != undefined && $scope.dropLocation) || $scope.duration != undefined)) {
             $scope.isMain = false;
 
             $scope.search.pickupLocation = $('#searchTextField').val();
@@ -57,10 +63,9 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             else
                 $scope.search.pickupTime = $('#timepicker2').val();
 
-
             var urlparms = $scope.parseQueryString(window.location.href);
           
-            HavaSiteService.getProductDetails({ partnerId: parseInt($scope.urlparms.P), locationId: $scope.search.dropLocation.Id }).$promise.then(
+            HavaSiteService.getProductDetails({ partnerId: parseInt($scope.urlparms.P), locationId: ($scope.search.dropLocation != undefined)? $scope.search.dropLocation.Id:0, PromotionCode: ($scope.promotionCode != undefined)?$scope.promotionCode:0 }).$promise.then(
                      function (result) {
                         $scope.Products = result.data;
                          console.log(result.data);
@@ -95,7 +100,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         var hrsTotal= 0, stTotal=0, partPrice = 0;
         var hrsTotal = (hrs * parseInt($scope.selectedProduct.AdditionaHourRate));
         var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
-        var stTotal =  (st * parseInt($scope.selectedProduct.ChildSeatRate));
+        var stTotal = ($scope.selectedProduct.ChildSeatRate != null)?(st * parseInt($scope.selectedProduct.ChildSeatRate)):0;
         $scope.totalSellingPrice = partPrice + hrsTotal + stTotal;
     }
 
@@ -131,9 +136,9 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             var data = angular.copy(user);
            delete data.isTermsAcepted;
             HavaSiteService.createUser(data, function (data) {
-                if (data.success == true) {
-                    $scope.UserId = data.id;
-                    $scope.whatClassIsIt(3);
+                if (data.data > 0) {
+                    $scope.UserId = data.data;
+                    $scope.navigateSteps(4);
                 } else {
                    
                 }
@@ -149,12 +154,18 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
        
 
     }
+    $scope.saveBookingOptions = function (optionData) {
+        $scope.bookingOptionData = optionData;
+        $scope.navigateSteps(3);
+    }
 
     $scope.creditCardDetails = function (booking) {
         $scope.CardHolderNameRequired = false;
         $scope.CardNoRequired = false;
-        if (usbookinger.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "") {
+        if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "") {
+            $scope.selectedProduct.Partner.Id = $scope.urlparms.P;
             var data = {
+                "Id":0,
                 "BookingType": {
                     "id":1
                 },
@@ -165,16 +176,25 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                     "Name": "Pending",
                     "IsActive": true
                 },
-                "PickupLocation": $scope.pickupLocation,
+                "PickupLocation": $scope.search.pickupLocation,
                 "PickupDate": $scope.search.pickupDate,
                 "PickupTime": $scope.search.pickupTime,
                 "DropLocation": $scope.dropLocation.Id,
+                "BookingOptions": $scope.bookingOptionData,
                 "BookingPayments": {
-                    "CardHolderName": $scope.BookingPayments.CardHolderName,
-                    "BookingPayments": $scope.BookingPayments.CardNo,
-                    "ExpireDate": $scope.BookingPayments.ExpireDateMM + "/" + $scope.BookingPayments.ExpireDateYY
-                }
-
+                    "CardHolderName": booking.CardHolderName,
+                    "BookingPayments": booking.CardNo,
+                    "ExpireDate": booking.ExpireDateMM + "/" + booking.ExpireDateYY
+                },
+                "UserConfirmed": true,
+                "IsAirportTransfer": $scope.selectedProduct.LocationDetail.IsAirPortTour,
+                "Partner": $scope.selectedProduct.Partner,
+                "BookingType": {
+                    "Id": 1,
+                    "type": "Online",
+                    "IsActive": true
+                },
+                "IsReturn":false
             }
             HavaSiteService.createBooking(data, function (data) {
                 if (data.success == true) {
@@ -201,8 +221,16 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         //$(function () {
         //    $("#datepicker").datepicker();
         //});
-        $('#timepicker').timepicker({});
-        $('#timepicker2').timepicker({});
+        $('#timepicker').timepicker({
+            timeFormat: 'HH:mm:ss',
+            showSecond: true,
+            ampm: false
+        });
+        $('#timepicker2').timepicker({
+            timeFormat: 'HH:mm:ss',
+            showSecond: true,
+            ampm: false
+        });
 
         var dateToday = new Date();
 
