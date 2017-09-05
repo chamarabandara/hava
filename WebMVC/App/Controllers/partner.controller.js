@@ -531,9 +531,9 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.create = function (partner) {
         $scope.submitted = true;
         if ($scope.partnerForm.$invalid == false) {
-            if($scope.representativeGridData.length <= 0){
+            if($scope.representativeGridData.length > 0){
                 partner.representativeData = $scope.representativeGridData;
-                partner.productGridData = $scope.productGridData;
+                partner.productGridData = $scope.products;//$scope.productGridData;
                 partner.siteGridData = $scope.siteGridData;
 
                 if ($stateParams.id) {
