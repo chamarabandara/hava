@@ -43,13 +43,16 @@ tspControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$sta
         actionButtons += '</div>';
         return actionButtons;
     }
-
+     var accessToken = localStorageService.get('accessToken');
     $('#datatable-partner').DataTable({
         //  "processing": true,
         //  "serverSide": true,
         'ajax': {
             'url': appUrl + 'TSP/GetList',
             'type': 'GET',
+            'beforeSend': function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + accessToken);
+            },
             //'beforeSend': function (request) {
             //    //  $("#loadingWidget").css({ display: 'block' });
             //  //  headers.append('Access-Control-Allow-Origin', apiUrl);
