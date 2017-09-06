@@ -13,7 +13,9 @@
 
 var tspControllers = angular.module('TSPControllers', ['ngCookies', 'tspService']);
 
-tspControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout) {
+tspControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'localStorageService', 'TSPServiceLocal', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout, localStorageService, TSPServiceLocal) {
+    var tmp = TSPServiceLocal;
+    $scope.infoMsg = $sce.trustAsHtml(TSPServiceLocal.infoMsg);
     $scope.create = function () {
         $scope.submitted = true;
         if ($scope.tspForm.$invalid == false) {
@@ -153,8 +155,8 @@ tspControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$sta
     });
 }]);
 
-tspControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout, filterFilter) {
-
+tspControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', 'TSPServiceLocal', function ($scope, $http, HavaTSPService, $stateParams, $state, $sce, $window, $timeout, filterFilter, TSPServiceLocal) {
+    var tmp = TSPServiceLocal;
     $scope.tsp = {};
     $scope.tsp.vehicle = {};
     $scope.tsp.product = {};
@@ -366,6 +368,8 @@ tspControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPService',
                         delete tsp.productGridData
                         HavaTSPService.updateTSP(tspOBJ).$promise.then(function (data) {
                             if (data.status == true) {
+                                tmp.infoMsg = 'TSP \'' + tspOBJ.name + '\' has been updated successfully.';
+                                $state.go('^.list');
                             }
                         }); 
                     }
@@ -384,7 +388,9 @@ tspControllers.controller('TSPCreateCtrl', ['$scope', '$http', 'HavaTSPService',
                         delete tsp.vehiclesGridData;
                         delete tsp.productGridData
                         HavaTSPService.create(tspOBJ).$promise.then(function (data) {
-                            if (data.status == true) {
+                            if (data.status >0) {
+                                tmp.infoMsg = 'TSP \'' + tspOBJ.name + '\' has been updated successfully.';
+                                $state.go('^.list');
                             }
                         });
                     }

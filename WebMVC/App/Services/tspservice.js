@@ -17,6 +17,6 @@ partnerService.factory('HavaTSPService', ['$resource', function ($resource) {
     });
 }]);
 
-partnerService.factory('PartnerServiceLocal', function () {
+partnerService.factory('TSPServiceLocal', function () {
     return {};
 });

@@ -77,7 +77,7 @@ namespace HavaBusinessObjects.ControllerRepository
         }
         #endregion
 
-        public Site GetPartnerSiteBySiteId(int partnerId, int siteId)
+        public Site GetPartnerSiteBySiteId(int partnerId , int siteId)
         {
             try
             {
@@ -193,60 +193,60 @@ namespace HavaBusinessObjects.ControllerRepository
                     #endregion
 
                     #region partner product details
-                    if (partnerViewModel.productGridData.Count > 0)
-                    {
-                        foreach (var partProd in partnerViewModel.productGridData)
-                        {
-                            PartnerProduct objProd = new PartnerProduct();
-                            objProd.PartnerId = partnerId;
-                            objProd.ProductId = partProd.productId;
-                            objProd.CreatedBy = partnerViewModel.createdBy;
-                            objProd.CreatedDate = DateTime.Now;
-                            objProd.ModifiedBy = partnerViewModel.createdBy;
-                            objProd.ModifiedDate = DateTime.Now;
-                            objProd.IsActive = true;
-                            this.ObjContext.PartnerProducts.Add(objProd);
-                            this.ObjContext.SaveChanges();
+                    //if (partnerViewModel.productGridData.Count > 0)
+                    //{
+                    //    foreach (var partProd in partnerViewModel.productGridData)
+                    //    {
+                    //        PartnerProduct objProd = new PartnerProduct();
+                    //        objProd.PartnerId = partnerId;
+                    //        objProd.ProductId = partProd.productId;
+                    //        objProd.CreatedBy = partnerViewModel.createdBy;
+                    //        objProd.CreatedDate = DateTime.Now;
+                    //        objProd.ModifiedBy = partnerViewModel.createdBy;
+                    //        objProd.ModifiedDate = DateTime.Now;
+                    //        objProd.IsActive = true;
+                    //        this.ObjContext.PartnerProducts.Add(objProd);
+                    //        this.ObjContext.SaveChanges();
 
-                            foreach (var prodLoc in partProd.partnerLocations)
-                            {
-                                LocationDetail location = new LocationDetail();
-                                location.FromLocation = prodLoc.fromLocation;
-                                location.ToLocation = prodLoc.toLocation;
-                                location.IsActive = true;
-                                location.IsAirPortTour = prodLoc.isAirPortTour;
-                                location.name = prodLoc.locationName;
-                                location.PartnerId = partnerId;
-                                this.ObjContext.LocationDetails.Add(location);
-                                this.ObjContext.SaveChanges();
+                    //        foreach (var prodLoc in partProd.partnerLocations)
+                    //        {
+                    //            LocationDetail location = new LocationDetail();
+                    //            location.FromLocation = prodLoc.fromLocation;
+                    //            location.ToLocation = prodLoc.toLocation;
+                    //            location.IsActive = true;
+                    //            location.IsAirPortTour = prodLoc.isAirPortTour;
+                    //            location.name = prodLoc.locationName;
+                    //            location.PartnerId = partnerId;
+                    //            this.ObjContext.LocationDetails.Add(location);
+                    //            this.ObjContext.SaveChanges();
 
-                                PartnerProductRate productRate = new PartnerProductRate();
-                                productRate.AdditionaDayRate = prodLoc.additionalDayRate;
-                                productRate.AdditionaHourRate = prodLoc.additionalHourRate;
-                                productRate.AirportRate = prodLoc.airPortRate;
-                                productRate.ChildSeatRate = prodLoc.childSeatRate;
-                                productRate.ChufferDailyRate = prodLoc.chufferDailyRate;
-                                productRate.ChufferKMRate = prodLoc.chufferKMRate;
-                                productRate.HavaPrice = string.IsNullOrEmpty(prodLoc.havaPrice) ? 0 : Decimal.Parse(prodLoc.havaPrice);
-                                productRate.HavaPriceReturn = prodLoc.havaPriceReturn;
-                                productRate.IsMarkUp = prodLoc.isMarkup;
-                                productRate.LocationId = location.Id;
-                                productRate.MarketPrice = string.IsNullOrEmpty(prodLoc.marketPrice) ? 0 : Decimal.Parse(prodLoc.marketPrice);
-                                productRate.MarketPriceReturn = prodLoc.marketPriceReturn;
-                                productRate.Markup = string.IsNullOrEmpty(prodLoc.partnerMarkup) ? 0 : Decimal.Parse(prodLoc.partnerMarkup);
-                                productRate.PartnerId = partnerId;
-                                productRate.PartnerProductId = objProd.Id;
-                                productRate.PartnerSellingPrice = string.IsNullOrEmpty(prodLoc.partnerSellingPrice) ? 0 : Decimal.Parse(prodLoc.partnerSellingPrice);
-                                productRate.PartnerSellingPriceReturn = prodLoc.partnerSellPriceReturn;
-                                productRate.Percentage = string.IsNullOrEmpty(prodLoc.partnerPercentage) ? 0 : Decimal.Parse(prodLoc.partnerPercentage);
-                                productRate.Rate = prodLoc.rate;
-                                productRate.CreateDate = DateTime.Now;
+                    //            PartnerProductRate productRate = new PartnerProductRate();
+                    //            productRate.AdditionaDayRate = prodLoc.additionalDayRate;
+                    //            productRate.AdditionaHourRate = prodLoc.additionalHourRate;
+                    //            productRate.AirportRate = prodLoc.airPortRate;
+                    //            productRate.ChildSeatRate = prodLoc.childSeatRate;
+                    //            productRate.ChufferDailyRate = prodLoc.chufferDailyRate;
+                    //            productRate.ChufferKMRate = prodLoc.chufferKMRate;
+                    //            productRate.HavaPrice = string.IsNullOrEmpty(prodLoc.havaPrice) ? 0 : Decimal.Parse(prodLoc.havaPrice);
+                    //            productRate.HavaPriceReturn = prodLoc.havaPriceReturn;
+                    //            productRate.IsMarkUp = prodLoc.isMarkup;
+                    //            productRate.LocationId = location.Id;
+                    //            productRate.MarketPrice = string.IsNullOrEmpty(prodLoc.marketPrice) ? 0 : Decimal.Parse(prodLoc.marketPrice);
+                    //            productRate.MarketPriceReturn = prodLoc.marketPriceReturn;
+                    //            productRate.Markup = string.IsNullOrEmpty(prodLoc.partnerMarkup) ? 0 : Decimal.Parse(prodLoc.partnerMarkup);
+                    //            productRate.PartnerId = partnerId;
+                    //            productRate.PartnerProductId = objProd.Id;
+                    //            productRate.PartnerSellingPrice = string.IsNullOrEmpty(prodLoc.partnerSellingPrice) ? 0 : Decimal.Parse(prodLoc.partnerSellingPrice);
+                    //            productRate.PartnerSellingPriceReturn = prodLoc.partnerSellPriceReturn;
+                    //            productRate.Percentage = string.IsNullOrEmpty(prodLoc.partnerPercentage) ? 0 : Decimal.Parse(prodLoc.partnerPercentage);
+                    //            productRate.Rate = prodLoc.rate;
+                    //            productRate.CreateDate = DateTime.Now;
 
-                                this.ObjContext.PartnerProductRates.Add(productRate);
-                                this.ObjContext.SaveChanges();
-                            }
-                        }
-                    }
+                    //            this.ObjContext.PartnerProductRates.Add(productRate);
+                    //            this.ObjContext.SaveChanges();
+                    //        }
+                    //    }
+                    //}
                     #endregion
 
                     #region partner sites
