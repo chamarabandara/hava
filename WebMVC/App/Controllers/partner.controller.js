@@ -527,7 +527,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         if (site != null || site != undefined) {
             $scope.siteRequired = false;
         angular.forEach($scope.siteGridData, function (v, k) {
-            if (site.id == v.id)
+            if (site.id == v.siteId)
                 alreadyAdded = true;
         });
         if (!alreadyAdded) {
