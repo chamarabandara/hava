@@ -135,6 +135,7 @@ namespace HavaBusinessObjects.ControllerRepository
                     objPartner.Email = partnerViewModel.email;
                     objPartner.TelLandLine = partnerViewModel.telephoneLand;
                     objPartner.TelMobile = partnerViewModel.telephoneMobile;
+                    objPartner.IsActive = true;
                     objPartner.CreatedBy = 1;
                     objPartner.ModifiedBy = 1;
                     objPartner.CreatedDate = DateTime.Now;

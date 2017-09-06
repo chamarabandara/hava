@@ -183,7 +183,9 @@ sitesControllers.controller('SitesListCtrl', ['$scope', '$http', 'HavaSiteServic
             'type': 'GET',
          
             contentType: 'application/json',
-
+            'beforeSend': function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + accessToken);
+            },
             "data": function (d) {
                 return JSON.stringify(d);
             },
