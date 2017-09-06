@@ -140,7 +140,11 @@ $scope.create = function () {
         });
     }
 
-
+        $scope.clearMsg = function () {
+        $scope.infoMsg = '';
+        tmp.infoMsg = '';
+        $scope.infoMsgDelete = "";
+    }
     angular.element(document).ready(function () {
         $('#claim-grid').on('click', '.search-cleardata', function (e) {
             e.preventDefault();
