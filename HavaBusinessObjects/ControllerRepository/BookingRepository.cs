@@ -45,32 +45,50 @@ namespace HavaBusinessObjects.ControllerRepository
 
                     int bookingId = booking.Id;
 
-                    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
-                    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
-                    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
+                    if (vm.BookingProducts != null && vm.BookingProducts.Count() > 0)
+                    {
+                        BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
+                        bookingProduct.BookingId = bookingId;
 
-                    bookingOption.CreatedDate = DateTime.UtcNow;
-                    bookingOption.BookingId = bookingId;
+                        this.ObjContext.BookingProducts.Add(bookingProduct);
+                        this.ObjContext.SaveChanges();
+                    }
 
-                    this.ObjContext.BookingOptions.Add(bookingOption);
-                    this.ObjContext.SaveChanges();
+                    if (vm.BookingOptions != null && vm.BookingOptions.Count() > 0)
+                    {
+                        BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
 
+                        bookingOption.CreatedDate = DateTime.UtcNow;
+                        bookingOption.BookingId = bookingId;
 
-                    bookingProduct.BookingId = bookingId;
+                        this.ObjContext.BookingOptions.Add(bookingOption);
+                        this.ObjContext.SaveChanges();
+                    }
 
-                    this.ObjContext.BookingProducts.Add(bookingProduct);
-                    this.ObjContext.SaveChanges();
+                    if (vm.BookingPayments != null && vm.BookingPayments.Count() > 0)
+                    {
+                        BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
 
+                        bookingPayment.CreatedDate = DateTime.UtcNow;
+                        bookingPayment.BookingId = bookingId;
 
-                    bookingPayment.CreatedDate = DateTime.UtcNow;
-                    bookingPayment.BookingId = bookingId;
-
-                    this.ObjContext.BookingPayments.Add(bookingPayment);
-                    this.ObjContext.SaveChanges();
-
+                        this.ObjContext.BookingPayments.Add(bookingPayment);
+                        this.ObjContext.SaveChanges();
+                    }
 
                     dbContextTransaction.Commit();
-                    return Mapper.Map<Booking, BookingViewModel>(booking);
+
+                    var newBooking = this.ObjContext.Bookings
+                     .Include(x => x.Partner)
+                     .Include(x => x.BookingStatu)
+                     .Include(x => x.BookingType)
+                     .Include(x => x.BookingType)
+                     .Include(x => x.BookingOptions)
+                     .Include(x => x.BookingProducts.Select(y => y.Product))
+                     .Include(x => x.BookingPayments)
+                     .Where(a => a.Id == booking.Id).FirstOrDefault();
+
+                    return Mapper.Map<Booking, BookingViewModel>(newBooking);
                 }
                 catch (Exception ex)
                 {
@@ -209,80 +227,93 @@ namespace HavaBusinessObjects.ControllerRepository
                     this.ObjContext.Entry(booking).State = EntityState.Modified;
                     this.ObjContext.SaveChanges();
                     
-                    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
-                    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
-                    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
+                   
+                   
 
-                    if (bookingProduct.Id > 0)
+                    if (vm.BookingPayments != null && vm.BookingPayments.Count() > 0)
                     {
-                        BookingProduct extBookingProduct = this.ObjContext.BookingProducts.Where(a => a.Id == bookingProduct.Id).FirstOrDefault();
-                        extBookingProduct.BookingId         = bookingProduct.BookingId;
-                        extBookingProduct.ProductId         = bookingProduct.ProductId;
-                        extBookingProduct.Price             = bookingProduct.Price;
-                        extBookingProduct.IsAirPortTour     = bookingProduct.IsAirPortTour;
-                        extBookingProduct.AdditionalDays    = bookingProduct.AdditionalDays;
-                        extBookingProduct.AdditionalHours   = bookingProduct.AdditionalHours;
-                        extBookingProduct.AdditionalChufferDate = bookingProduct.AdditionalChufferDate;
-                        extBookingProduct.AdditionalChufferHours = bookingProduct.AdditionalChufferHours;
-                        extBookingProduct.NoOfChildSeats    = bookingProduct.NoOfChildSeats;
-                        extBookingProduct.ChildSeatDays     = bookingProduct.ChildSeatDays;
+                        BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
 
-                        this.ObjContext.Entry(extBookingProduct).State = EntityState.Modified;
-                        this.ObjContext.SaveChanges();
-                    }
-                    else
-                    {
-                        bookingProduct.BookingId = booking.Id;
+                        if (bookingProduct.Id > 0)
+                        {
+                            BookingProduct extBookingProduct = this.ObjContext.BookingProducts.Where(a => a.Id == bookingProduct.Id).FirstOrDefault();
+                            extBookingProduct.BookingId = bookingProduct.BookingId;
+                            extBookingProduct.ProductId = bookingProduct.ProductId;
+                            extBookingProduct.Price = bookingProduct.Price;
+                            extBookingProduct.IsAirPortTour = bookingProduct.IsAirPortTour;
+                            extBookingProduct.AdditionalDays = bookingProduct.AdditionalDays;
+                            extBookingProduct.AdditionalHours = bookingProduct.AdditionalHours;
+                            extBookingProduct.AdditionalChufferDate = bookingProduct.AdditionalChufferDate;
+                            extBookingProduct.AdditionalChufferHours = bookingProduct.AdditionalChufferHours;
+                            extBookingProduct.NoOfChildSeats = bookingProduct.NoOfChildSeats;
+                            extBookingProduct.ChildSeatDays = bookingProduct.ChildSeatDays;
 
-                        this.ObjContext.BookingProducts.Add(bookingProduct);
-                        this.ObjContext.SaveChanges();
-                    }
+                            this.ObjContext.Entry(extBookingProduct).State = EntityState.Modified;
+                            this.ObjContext.SaveChanges();
+                        }
+                        else
+                        {
+                            bookingProduct.BookingId = booking.Id;
 
-
-                    if (bookingOption.Id > 0)
-                    {
-                        BookingOption extBookingOption = this.ObjContext.BookingOptions.Where(a => a.Id == bookingOption.Id).FirstOrDefault();
-                        extBookingOption.BookingId      = bookingOption.BookingId;
-                        extBookingOption.FlightNo       = bookingOption.FlightNo;
-                        extBookingOption.FlyerProgramId = bookingOption.FlyerProgramId;
-                        extBookingOption.FlyerReffNo    = bookingOption.FlyerReffNo;
-                        extBookingOption.PickupSign     = bookingOption.PickupSign;
-                        extBookingOption.PickupSignReffNo = bookingOption.PickupSignReffNo;
-                        extBookingOption.NoteToDriver   = bookingOption.NoteToDriver;
-
-                        this.ObjContext.Entry(extBookingOption).State = EntityState.Modified;
-                        this.ObjContext.SaveChanges();
-                    }
-                    else
-                    {
-                        bookingOption.CreatedDate = DateTime.UtcNow;
-                        bookingOption.BookingId = booking.Id;
-
-                        this.ObjContext.BookingOptions.Add(bookingOption);
-                        this.ObjContext.SaveChanges();
+                            this.ObjContext.BookingProducts.Add(bookingProduct);
+                            this.ObjContext.SaveChanges();
+                        }
                     }
 
-
-                    if (bookingPayment.Id > 0)
+                    if (vm.BookingOptions != null && vm.BookingOptions.Count() > 0)
                     {
-                        BookingPayment extBookingPayment = this.ObjContext.BookingPayments.Where(a => a.Id == bookingPayment.Id).FirstOrDefault();
-                        extBookingPayment.BookingId     = bookingPayment.BookingId;
-                        extBookingPayment.CardHolderName = bookingPayment.CardHolderName;
-                        extBookingPayment.ExpireDate    = bookingPayment.ExpireDate;
-                        extBookingPayment.CardNo        = bookingPayment.CardNo;
+                        BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
 
-                        this.ObjContext.Entry(extBookingPayment).State = EntityState.Modified;
-                        this.ObjContext.SaveChanges();
+
+                        if (bookingOption.Id > 0)
+                        {
+                            BookingOption extBookingOption = this.ObjContext.BookingOptions.Where(a => a.Id == bookingOption.Id).FirstOrDefault();
+                            extBookingOption.BookingId = bookingOption.BookingId;
+                            extBookingOption.FlightNo = bookingOption.FlightNo;
+                            extBookingOption.FlyerProgramId = bookingOption.FlyerProgramId;
+                            extBookingOption.FlyerReffNo = bookingOption.FlyerReffNo;
+                            extBookingOption.PickupSign = bookingOption.PickupSign;
+                            extBookingOption.PickupSignReffNo = bookingOption.PickupSignReffNo;
+                            extBookingOption.NoteToDriver = bookingOption.NoteToDriver;
+
+                            this.ObjContext.Entry(extBookingOption).State = EntityState.Modified;
+                            this.ObjContext.SaveChanges();
+                        }
+                        else
+                        {
+                            bookingOption.CreatedDate = DateTime.UtcNow;
+                            bookingOption.BookingId = booking.Id;
+
+                            this.ObjContext.BookingOptions.Add(bookingOption);
+                            this.ObjContext.SaveChanges();
+                        }
                     }
-                    else
+
+                    if (vm.BookingPayments != null && vm.BookingPayments.Count() > 0)
                     {
-                        bookingPayment.CreatedDate = DateTime.UtcNow;
-                        bookingPayment.BookingId = booking.Id;
+                        BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
 
-                        this.ObjContext.BookingPayments.Add(bookingPayment);
-                        this.ObjContext.SaveChanges();
+                        if (bookingPayment.Id > 0)
+                        {
+                            BookingPayment extBookingPayment = this.ObjContext.BookingPayments.Where(a => a.Id == bookingPayment.Id).FirstOrDefault();
+                            extBookingPayment.BookingId = bookingPayment.BookingId;
+                            extBookingPayment.CardHolderName = bookingPayment.CardHolderName;
+                            extBookingPayment.ExpireDate = bookingPayment.ExpireDate;
+                            extBookingPayment.CardNo = bookingPayment.CardNo;
+
+                            this.ObjContext.Entry(extBookingPayment).State = EntityState.Modified;
+                            this.ObjContext.SaveChanges();
+                        }
+                        else
+                        {
+                            bookingPayment.CreatedDate = DateTime.UtcNow;
+                            bookingPayment.BookingId = booking.Id;
+
+                            this.ObjContext.BookingPayments.Add(bookingPayment);
+                            this.ObjContext.SaveChanges();
+                        }
                     }
-                                    
+                                                        
                     dbContextTransaction.Commit();
 
                     var updatedBooking = this.ObjContext.Bookings

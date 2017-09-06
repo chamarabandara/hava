@@ -25,10 +25,12 @@ namespace HavaBusinessObjects.Utilities
             CreateMap<BookingProductsViewModel , BookingProduct>().ReverseMap();
             CreateMap<BookingOptionViewModel , BookingOption>().ReverseMap();
             CreateMap<BookingStatusViewModel , BookingStatu>().ReverseMap();
-            CreateMap<Booking , BookingViewModel>()
-                .MaxDepth(2)
-                .ReverseMap()
-            ;
+            CreateMap<Booking, BookingViewModel>()
+                .MaxDepth(2);
+
+            CreateMap<BookingViewModel, Booking>()
+               .ForMember(dest => dest.BookingStatusId, opt => opt.MapFrom(src => src.BookingStatu.Id))
+               .MaxDepth(2);
 
             CreateMap<ProductFeature , ProductFeaturesViewMOdel>().ReverseMap();
 
