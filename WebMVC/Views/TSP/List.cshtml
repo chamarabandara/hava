@@ -6,6 +6,30 @@
         </div>
     </div>
 </div>
+<div class="infobar cf ng-cloak" ng-show="infoMsgDelete">
+    <div class="col-sm-12">
+        <div class="row">
+            <span>{{infoMsgDelete}}</span>
+            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="infobar cf error dark pos-reletive-z ng-hide ng-cloak" id="del-box" ng-show="viewTask == 'confirmDelete'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <span>
+                    You are about to delete TSP, do you want to proceed?
+                </span>
+                <span class="info-btn">
+                    <button id="action2" class="btn-danger" type="button" ng-click="delete(data)">Delete</button>
+                    <button id="action1" class="btn-default" type="button" ng-click="clearDelete()">Cancel</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="dashboard_graph">
         <div class="row x_title">

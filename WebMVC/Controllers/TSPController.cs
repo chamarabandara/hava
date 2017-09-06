@@ -75,5 +75,14 @@ namespace WebMVC.Controllers
             returnObj.Add("status" , tspRepository.UpdateTSP(tspViewModel));
             return returnObj;
         }
+
+        [HttpPost]
+        public JObject DeleteTSP(int id)
+        {
+            JObject returnObj = new JObject();
+            TSPRepository tspRepository = new TSPRepository();
+            returnObj.Add("status" , tspRepository.DeleteTSP(id));
+            return returnObj;
+        }
     }
 }

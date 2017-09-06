@@ -14,7 +14,8 @@ partnerService.factory('HavaPartnerService', ['$resource', function ($resource) 
         getProduct: { method: 'GET', url: appUrl + 'Partner/GetProductList' },
         getSites: { method: 'GET', url: appUrl + 'Partner/GetSites' },
         getPartner: { method: 'GET', url: appUrl + 'Partner/GetPartnerById', params: { id: '@id' } },
-        updatePartner: { method: 'POST', url: appUrl + 'Partner/EditPartner' }
+        updatePartner: { method: 'POST', url: appUrl + 'Partner/EditPartner' },
+        delete: { method: 'POST', url: appUrl + 'Partner/DeletePartner', params: { id: '@id' }, }
     });
 }]);
 

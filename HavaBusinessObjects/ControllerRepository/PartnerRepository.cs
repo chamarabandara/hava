@@ -36,7 +36,7 @@ namespace HavaBusinessObjects.ControllerRepository
         {
             JObject obj = new JObject();
             JArray returnArr = new JArray();
-            var partner = this.ObjContext.Partners;
+            var partner = this.ObjContext.Partners.Where(p => p.IsActive == true).ToList();
             foreach (var part in partner)
             {
                 JObject productObj = new JObject();
@@ -730,6 +730,31 @@ namespace HavaBusinessObjects.ControllerRepository
             }
         }
         #endregion
+
+        public bool DeletePartner(int id)
+        {
+            try
+            {
+                var partner = this.ObjContext.Partners.Find(id);
+                if (partner != null)
+                {
+                    partner.IsActive = false;
+                    partner.ModifiedDate = DateTime.Now;
+                    this.ObjContext.Entry(partner).State = System.Data.Entity.EntityState.Modified;
+                    this.ObjContext.SaveChanges();
+                    return true;
+
+                }
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         #region Dispose
         /// <summary>

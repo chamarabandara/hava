@@ -57,20 +57,20 @@ namespace HavaWeb.Controllers
         }
 
         [HttpGet]
-        public JObject GetPartnerSite(int partnerId, int siteId)
+        public JObject GetPartnerSite(int partnerId , int siteId)
         {
             PartnerRepository partnerRepository = new PartnerRepository();
-            var site = partnerRepository.GetPartnerSiteBySiteId(partnerId, siteId);
+            var site = partnerRepository.GetPartnerSiteBySiteId(partnerId , siteId);
 
             JObject siteObj = new JObject();
-            siteObj.Add("id", site.Id);
-            siteObj.Add("siteName", site.siteName);
-            siteObj.Add("siteAlias", site.siteAlias);
-            siteObj.Add("bannerPath", site.SiteBannerPath);
-            siteObj.Add("bannerName", site.siteBannerName);
+            siteObj.Add("id" , site.Id);
+            siteObj.Add("siteName" , site.siteName);
+            siteObj.Add("siteAlias" , site.siteAlias);
+            siteObj.Add("bannerPath" , site.SiteBannerPath);
+            siteObj.Add("bannerName" , site.siteBannerName);
 
             JObject returnObj = new JObject();
-            returnObj.Add("data", siteObj);
+            returnObj.Add("data" , siteObj);
             return returnObj;
         }
 
@@ -136,5 +136,25 @@ namespace HavaWeb.Controllers
             }
         }
         #endregion
+
+
+        [HttpPost]
+        public JObject DeletePartner(int id)
+        {
+            try
+            {
+                JObject obj = new JObject();
+                PartnerRepository partnerRepository = new PartnerRepository();
+                bool status = partnerRepository.DeletePartner(id);
+                obj.Add("status" , status);
+                return obj;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

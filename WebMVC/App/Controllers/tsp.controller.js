@@ -115,12 +115,23 @@ tspControllers.controller('TSPCtrl', ['$scope', '$http', 'HavaTSPService', '$sta
 
         }
         else if (task == 'delete') {
-            //$scope.claimRow = row;
-            //console.log($scope.claimRow);
-            //$scope.viewTask = 'confirmDelete';
+            $scope.data = row;
+            $scope.viewTask = 'confirmDelete';
             window.scrollTo(0, 0);
 
+
         }
+    }
+    $scope.delete = function (row) {
+        $scope.viewTask = '';
+        HavaTSPService.delete({ id: row.id }).$promise.then(
+        function (result) {
+            if (result.status == true) {
+               
+                $scope.viewTask = '';
+                $scope.infoMsgDelete = "'" + row.name + "' has been deleted successfully.";
+            }
+        });
     }
 
 

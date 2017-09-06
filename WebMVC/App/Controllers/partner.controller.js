@@ -122,12 +122,22 @@ $scope.create = function () {
             $state.go('^.add');
         }
         else if (task == 'delete') {
-            //$scope.claimRow = row;
-            //console.log($scope.claimRow);
-            //$scope.viewTask = 'confirmDelete';
+            $scope.data = row;
+            $scope.viewTask = 'confirmDelete';
             window.scrollTo(0, 0);
 
         }
+    }
+    $scope.delete = function (row) {
+        $scope.viewTask = '';
+        HavaPartnerService.delete({ id: row.id }).$promise.then(
+        function (result) {
+            if (result.status == true) {
+               
+                $scope.viewTask = '';
+                $scope.infoMsgDelete = "'" + row.id + "' has been deleted successfully.";
+            }
+        });
     }
 
 

@@ -13,7 +13,8 @@ partnerService.factory('HavaTSPService', ['$resource', function ($resource) {
         create: { method: 'POST', url: appUrl + 'TSP/AddTSP' },
         getProduct: { method: 'GET', url: appUrl + 'TSP/GetProducts' },
         getTSP: { method: 'GET', url: appUrl + 'TSP/GetTSPById', params: { id: '@id' } },
-        updateTSP:{ method: 'POST', url: appUrl + 'TSP/EditTSP' }
+        updateTSP:{ method: 'POST', url: appUrl + 'TSP/EditTSP' },
+        delete:{ method: 'POST', url: appUrl + 'TSP/DeleteTSP' ,params: { id: '@id' },}
     });
 }]);
 

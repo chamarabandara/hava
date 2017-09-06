@@ -375,7 +375,7 @@ namespace HavaBusinessObjects.ControllerRepository
         {
             JObject obj = new JObject();
             JArray returnArr = new JArray();
-            var tsps = this.ObjContext.TSPs;
+            var tsps = this.ObjContext.TSPs.Where(x => x.IsActive == true).ToList(); ;
             foreach (var tsp in tsps)
             {
                 JObject tspObj = new JObject();
