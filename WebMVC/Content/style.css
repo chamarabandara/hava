@@ -135,5 +135,8 @@ td.details-control {
     background: url('http://i.imgur.com/SD7Dz.png') no-repeat center center;
     cursor: pointer;
 }
-tr.shown td.details-control {
-    b
+/*tr.shown td.details-control {
+    b*/
+span.x-btn {
+    float: right;
+}
