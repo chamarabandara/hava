@@ -40,11 +40,11 @@ namespace HavaBusinessObjects
         #endregion
 
         #region GEt User by Id
-        public User GetUserById(int id)
+        public AspNetUser GetUserById(int id)
         {
             try
             {
-                return this.ObjContext.Users.Where(u => u.Id == id).FirstOrDefault<User>();
+                return this.ObjContext.AspNetUsers.Where(u => u.Id == id).FirstOrDefault();
             }
             catch (Exception ex)
             {

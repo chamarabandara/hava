@@ -99,6 +99,8 @@
         <AssociationConnector Association="HAVA_DBModel.FK_BookingPayment_Booking" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingProducts_Booking" />
         <AssociationConnector Association="HAVA_DBModel.FK_Promotions_PromotionDiscounts" />
+        <EntityTypeShape EntityType="HAVA_DBModel.AspNetUser" Width="1.5" PointX="20.375" PointY="16" />
+        <AssociationConnector Association="HAVA_DBModel.FK_Booking_BookedUser" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

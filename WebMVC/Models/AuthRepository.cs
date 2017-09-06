@@ -19,7 +19,7 @@ namespace WebMVC.Models
         private ApplicationDbContext ctx ;
         private ApplicationUserManager _userManager;
        
-        private UserManager<AspNetUser> userManager;
+        private UserManager<ModelViews.AspNetUser> userManager;
         public ApplicationUserManager UserManager
         {
             get
@@ -47,7 +47,7 @@ namespace WebMVC.Models
         public AuthRepository()
         {
             ctx = new ApplicationDbContext();
-            userManager = new UserManager<AspNetUser>(new UserStore<AspNetUser>(ObjContext));
+            userManager = new UserManager<ModelViews.AspNetUser>(new UserStore<ModelViews.AspNetUser>(ObjContext));
         }
        
 

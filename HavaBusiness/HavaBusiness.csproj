@@ -99,6 +99,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Booking.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
