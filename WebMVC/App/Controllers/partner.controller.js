@@ -183,6 +183,11 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.representativeGridData = [];
     $scope.products = [];
 
+    $scope.viewPartnerSites = function (obj) {
+        var url = $state.href('app.site', { 'id': $stateParams.id + 'S' + obj.id});
+        $window.open(url, '_blank');
+    }
+
     HavaPartnerService.getProduct().$promise.then(
               function (result) {
                   $scope.productList = result.data;

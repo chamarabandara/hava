@@ -129,7 +129,7 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
             templateUrl: 'App/Views/Users/list.html',
         })
          .state('app.site', {
-            url: '/sites-{id:int}',
+            url: '/sites-{id:string}',
            // controller: function ($scope, $stateParams, $controller) {
               //  alert($stateParams.);
                 //alert($stateParams.url);

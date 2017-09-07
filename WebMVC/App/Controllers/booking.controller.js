@@ -30,10 +30,18 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     }
 
     $scope.urlparms = $scope.parseQueryString(window.location.href);
+    $scope.paramData = $scope.urlparms.P.split('S');
+    $scope.PartnerIdTemp = $scope.paramData[0];
+    $scope.siteIdTemp = $scope.paramData[1];
 
-    HavaSiteService.getLocations({ id: parseInt($scope.urlparms.P) }).$promise.then(
+    HavaSiteService.getLocations({ id: parseInt($scope.PartnerIdTemp) }).$promise.then(
+                 function (result) {
+                     $scope.locations = result.data;
+                 });
+
+    HavaSiteService.getPartnerIstest({ partnerId: parseInt($scope.PartnerIdTemp), siteId: parseInt($scope.siteIdTemp) }).$promise.then(
              function (result) {
-                 $scope.locations = result.data;
+                 $scope.siteDetails = result.data;
              });
     $scope.isMain = true;
     $scope.durantions = [
@@ -65,7 +73,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
             var urlparms = $scope.parseQueryString(window.location.href);
           
-            HavaSiteService.getProductDetails({ partnerId: parseInt($scope.urlparms.P), locationId: ($scope.search.dropLocation != undefined)? $scope.search.dropLocation.Id:0, PromotionCode: ($scope.promotionCode != undefined)?$scope.promotionCode:0 }).$promise.then(
+            HavaSiteService.getProductDetails({ partnerId: parseInt(PartnerIdTemp), locationId: ($scope.search.dropLocation != undefined) ? $scope.search.dropLocation.Id : 0, PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
                      function (result) {
                         $scope.Products = result.data;
                          console.log(result.data);
@@ -163,7 +171,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         $scope.CardHolderNameRequired = false;
         $scope.CardNoRequired = false;
         if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "") {
-            $scope.selectedProduct.Partner.Id = $scope.urlparms.P;
+            $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
             var data = {
                 "Id":0,
                 "BookingType": {

@@ -11,6 +11,8 @@ partnerService.factory('HavaSiteService', ['$resource', function ($resource) {
        // createBooking: { method: 'POST', url: appUrl + 'api/Account/CreateAppUser' },
         getLocations: { method: 'GET', url: appUrl + 'locationDetails/GetAllByPartnerId', params: { id: '@id' },isArray: false  },
         getProductDetails: { method: 'GET', url: appUrl + 'booking/GetProducts', params: { partnerId: '@partnerId', locationId: '@locationId', PromotionCode: '@PromotionCode' } },
+        getPartnerIstest: { method: 'GET', url: appUrl + 'Partner/GetPartnerSite', params: { partnerId: '@partnerId', siteId: '@siteId' }, }
+
     });
 }]);
 
