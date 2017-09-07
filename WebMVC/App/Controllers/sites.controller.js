@@ -134,7 +134,7 @@ sitesControllers.controller('SitesCreateCtrl', ['$scope', '$http', 'HavaSiteServ
     }
 }]);
 
-sitesControllers.controller('SitesListCtrl', ['$scope', '$http', 'HavaSiteService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'SiteServiceLocal', function ($scope, $http, HavaSiteService, $stateParams, $state, $sce, $window, $timeout, SiteServiceLocal) {
+sitesControllers.controller('SitesListCtrl', ['$scope', '$http', 'HavaSiteService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'SiteServiceLocal','localStorageService', function ($scope, $http, HavaSiteService, $stateParams, $state, $sce, $window, $timeout, SiteServiceLocal, localStorageService) {
     var tmp = SiteServiceLocal;
 
     $scope.infoMsg = $sce.trustAsHtml(SiteServiceLocal.infoMsg);
@@ -174,7 +174,7 @@ sitesControllers.controller('SitesListCtrl', ['$scope', '$http', 'HavaSiteServic
         actionButtons += '</div>';
         return actionButtons;
     }
-
+    var accessToken = localStorageService.get('accessToken');
     $('#datatable-partner').DataTable({
         //  "processing": true,
         //  "serverSide": true,
@@ -183,7 +183,9 @@ sitesControllers.controller('SitesListCtrl', ['$scope', '$http', 'HavaSiteServic
             'type': 'GET',
          
             contentType: 'application/json',
-
+            'beforeSend': function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + accessToken);
+            },
             "data": function (d) {
                 return JSON.stringify(d);
             },
