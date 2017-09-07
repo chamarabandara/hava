@@ -42,6 +42,11 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     HavaSiteService.getPartnerIstest({ partnerId: parseInt($scope.PartnerIdTemp), siteId: parseInt($scope.siteIdTemp) }).$promise.then(
              function (result) {
                  $scope.siteDetails = result.data;
+                 if ($scope.siteDetails && $scope.siteDetails.bannerPath != '') {
+                     $("#slide-3 .bcg").css('cssText', 'background-image :url(/hava' + $scope.siteDetails.bannerPath + ') !important');
+                    
+                 }
+                 
              });
     $scope.isMain = true;
     $scope.durantions = [
