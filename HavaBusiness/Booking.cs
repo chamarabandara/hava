@@ -51,7 +51,6 @@ namespace HavaBusiness
         public virtual BookingStatu BookingStatu { get; set; }
         public virtual BookingType BookingType { get; set; }
         public virtual Partner Partner { get; set; }
-        public virtual Promotion Promotion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingOption> BookingOptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -59,5 +58,6 @@ namespace HavaBusiness
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingProduct> BookingProducts { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Promotion Promotion { get; set; }
     }
 }

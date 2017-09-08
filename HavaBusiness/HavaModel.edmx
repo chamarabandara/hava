@@ -364,7 +364,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PromoDiscountTypeId" Type="int" />
           <Property Name="AmountOrPercentage" Type="decimal" Precision="6" Scale="2" />
         </EntityType>
@@ -384,7 +384,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
           <Property Name="IsAvtive" Type="bit" />
-          <Property Name="PromosionTypeId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -914,6 +913,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Promotions_Partner">
+          <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
+          <End Role="Promotions" Type="Self.Promotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partners">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotions">
+              <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Promotions_PromotionDiscounts">
           <End Role="PromotionDiscounts" Type="Self.PromotionDiscounts" Multiplicity="0..1" />
           <End Role="Promotions" Type="Self.Promotions" Multiplicity="*" />
@@ -1423,6 +1434,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />
             <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
           </AssociationSet>
+          <AssociationSet Name="FK_Promotions_Partner" Association="Self.FK_Promotions_Partner">
+            <End Role="Partners" EntitySet="Partners" />
+            <End Role="Promotions" EntitySet="Promotions" />
+          </AssociationSet>
           <AssociationSet Name="FK_Promotions_PromotionDiscounts" Association="Self.FK_Promotions_PromotionDiscounts">
             <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
             <End Role="Promotions" EntitySet="Promotions" />
@@ -1668,6 +1683,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts" FromRole="Partner" ToRole="PartnerProduct" />
           <NavigationProperty Name="PartnerRepresentatives" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Partner" FromRole="Partner" ToRole="PartnerRepresentative" />
           <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_Partner" FromRole="Partner" ToRole="Booking" />
+          <NavigationProperty Name="Promotions" Relationship="HAVA_DBModel.FK_Promotions_Partner" FromRole="Partner" ToRole="Promotion" />
           </EntityType>
         <EntityType Name="PaymentType">
           <Key>
@@ -1692,25 +1708,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="LastModifiedByUserID" Type="Int32" />
           <Property Name="LastModifiedOnDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="RolePermisions" Relationship="Self.FK_RolePermision_Permission" FromRole="Permission" ToRole="RolePermision" />
-        </EntityType>
-        <EntityType Name="PromotionDiscount">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="PromoDiscountTypeId" Type="Int32" />
-          <Property Name="AmountOrPercentage" Type="Decimal" Precision="6" Scale="2" />
-          <NavigationProperty Name="PromotionDiscountType" Relationship="Self.FK_PromotionDiscounts_PromotionDiscountTypes" FromRole="PromotionDiscounts" ToRole="PromotionDiscountTypes" />
-          <NavigationProperty Name="Promotions" Relationship="HAVA_DBModel.FK_Promotions_PromotionDiscounts" FromRole="PromotionDiscount" ToRole="Promotion" />
-        </EntityType>
-        <EntityType Name="PromotionDiscountType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="PromotionDiscount" Relationship="Self.FK_PromotionDiscounts_PromotionDiscountTypes" FromRole="PromotionDiscountTypes" ToRole="PromotionDiscounts" />
         </EntityType>
         <EntityType Name="RolePermision">
           <Key>
@@ -2004,18 +2001,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PromotionDiscounts_PromotionDiscountTypes">
-          <End Role="PromotionDiscountTypes" Type="Self.PromotionDiscountType" Multiplicity="1" />
-          <End Role="PromotionDiscounts" Type="Self.PromotionDiscount" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PromotionDiscountTypes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PromotionDiscounts">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RolePermision_UserRoles">
           <End Role="UserRoles" Type="Self.UserRole" Multiplicity="1" />
           <End Role="RolePermision" Type="Self.RolePermision" Multiplicity="*" />
@@ -2185,8 +2170,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySet Name="Partners" EntityType="Self.Partner" />
           <EntitySet Name="PaymentTypes" EntityType="Self.PaymentType" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
-          <EntitySet Name="PromotionDiscounts" EntityType="Self.PromotionDiscount" />
-          <EntitySet Name="PromotionDiscountTypes" EntityType="Self.PromotionDiscountType" />
           <EntitySet Name="RolePermisions" EntityType="Self.RolePermision" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Sites" EntityType="Self.Site" />
@@ -2236,10 +2219,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_RolePermision_Permission" Association="Self.FK_RolePermision_Permission">
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="RolePermision" EntitySet="RolePermisions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="Self.FK_PromotionDiscounts_PromotionDiscountTypes">
-            <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />
-            <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
           </AssociationSet>
           <AssociationSet Name="FK_RolePermision_UserRoles" Association="Self.FK_RolePermision_UserRoles">
             <End Role="UserRoles" EntitySet="UserRoles" />
@@ -2426,7 +2405,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="BookingProduct" EntitySet="BookingProducts" />
           </AssociationSet>
           <EntitySet Name="Bookings" EntityType="HAVA_DBModel.Booking" />
-          <EntitySet Name="Promotions" EntityType="HAVA_DBModel.Promotion" />
           <AssociationSet Name="FK_Booking_BookingStatus" Association="HAVA_DBModel.FK_Booking_BookingStatus">
             <End Role="BookingStatu" EntitySet="BookingStatus" />
             <End Role="Booking" EntitySet="Bookings" />
@@ -2437,10 +2415,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           </AssociationSet>
           <AssociationSet Name="FK_Booking_Partner" Association="HAVA_DBModel.FK_Booking_Partner">
             <End Role="Partner" EntitySet="Partners" />
-            <End Role="Booking" EntitySet="Bookings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Booking_Promotion" Association="HAVA_DBModel.FK_Booking_Promotion">
-            <End Role="Promotion" EntitySet="Promotions" />
             <End Role="Booking" EntitySet="Bookings" />
           </AssociationSet>
           <AssociationSet Name="FK_BookingOptions_Booking" Association="HAVA_DBModel.FK_BookingOptions_Booking">
@@ -2455,14 +2429,29 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="BookingProduct" EntitySet="BookingProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Promotions_PromotionDiscounts" Association="HAVA_DBModel.FK_Promotions_PromotionDiscounts">
-            <End Role="PromotionDiscount" EntitySet="PromotionDiscounts" />
-            <End Role="Promotion" EntitySet="Promotions" />
-          </AssociationSet>
           <EntitySet Name="AspNetUsers" EntityType="HAVA_DBModel.AspNetUser" />
           <AssociationSet Name="FK_Booking_BookedUser" Association="HAVA_DBModel.FK_Booking_BookedUser">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <EntitySet Name="PromotionDiscounts" EntityType="HAVA_DBModel.PromotionDiscount" />
+          <EntitySet Name="PromotionDiscountTypes" EntityType="HAVA_DBModel.PromotionDiscountType" />
+          <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="HAVA_DBModel.FK_PromotionDiscounts_PromotionDiscountTypes">
+            <End Role="PromotionDiscountType" EntitySet="PromotionDiscountTypes" />
+            <End Role="PromotionDiscount" EntitySet="PromotionDiscounts" />
+          </AssociationSet>
+          <EntitySet Name="Promotions" EntityType="HAVA_DBModel.Promotion" />
+          <AssociationSet Name="FK_Booking_Promotion" Association="HAVA_DBModel.FK_Booking_Promotion">
+            <End Role="Promotion" EntitySet="Promotions" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotions_Partner" Association="HAVA_DBModel.FK_Promotions_Partner">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotions_PromotionDiscounts" Association="HAVA_DBModel.FK_Promotions_PromotionDiscounts">
+            <End Role="PromotionDiscount" EntitySet="PromotionDiscounts" />
+            <End Role="Promotion" EntitySet="Promotions" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -3013,29 +3002,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="BookingStatu" Relationship="HAVA_DBModel.FK_Booking_BookingStatus" FromRole="Booking" ToRole="BookingStatu" />
           <NavigationProperty Name="BookingType" Relationship="HAVA_DBModel.FK_Booking_BookingTypes" FromRole="Booking" ToRole="BookingType" />
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_Booking_Partner" FromRole="Booking" ToRole="Partner" />
-          <NavigationProperty Name="Promotion" Relationship="HAVA_DBModel.FK_Booking_Promotion" FromRole="Booking" ToRole="Promotion" />
           <NavigationProperty Name="BookingOptions" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="Booking" ToRole="BookingOption" />
           <NavigationProperty Name="BookingPayments" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="Booking" ToRole="BookingPayment" />
           <NavigationProperty Name="BookingProducts" Relationship="HAVA_DBModel.FK_BookingProducts_Booking" FromRole="Booking" ToRole="BookingProduct" />
           <NavigationProperty Name="AspNetUser" Relationship="HAVA_DBModel.FK_Booking_BookedUser" FromRole="Booking" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="Promotion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsAvtive" Type="Boolean" />
-          <Property Name="PromosionTypeId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="PromotionDiscountId" Type="Int32" />
-          <Property Name="PartnerId" Type="Int32" />
-          <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_Promotion" FromRole="Promotion" ToRole="Booking" />
-          <NavigationProperty Name="PromotionDiscount" Relationship="HAVA_DBModel.FK_Promotions_PromotionDiscounts" FromRole="Promotion" ToRole="PromotionDiscount" />
+          <NavigationProperty Name="Promotion" Relationship="HAVA_DBModel.FK_Booking_Promotion" FromRole="Booking" ToRole="Promotion" />
         </EntityType>
         <Association Name="FK_Booking_BookingStatus">
           <End Type="HAVA_DBModel.BookingStatu" Role="BookingStatu" Multiplicity="0..1" />
@@ -3070,18 +3041,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="Booking">
               <PropertyRef Name="PartnerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Booking_Promotion">
-          <End Type="HAVA_DBModel.Promotion" Role="Promotion" Multiplicity="0..1" />
-          <End Type="HAVA_DBModel.Booking" Role="Booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Promotion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Booking">
-              <PropertyRef Name="PromotionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3121,18 +3080,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Promotions_PromotionDiscounts">
-          <End Type="HAVA_DBModel.PromotionDiscount" Role="PromotionDiscount" Multiplicity="0..1" />
-          <End Type="HAVA_DBModel.Promotion" Role="Promotion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PromotionDiscount">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Promotion">
-              <PropertyRef Name="PromotionDiscountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -3162,6 +3109,91 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="Booking">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PromotionDiscount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PromoDiscountTypeId" Type="Int32" />
+          <Property Name="AmountOrPercentage" Type="Decimal" Precision="6" Scale="2" />
+          <NavigationProperty Name="PromotionDiscountType" Relationship="HAVA_DBModel.FK_PromotionDiscounts_PromotionDiscountTypes" FromRole="PromotionDiscount" ToRole="PromotionDiscountType" />
+          <NavigationProperty Name="Promotions" Relationship="HAVA_DBModel.FK_Promotions_PromotionDiscounts" FromRole="PromotionDiscount" ToRole="Promotion" />
+        </EntityType>
+        <EntityType Name="PromotionDiscountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PromotionDiscount" Relationship="HAVA_DBModel.FK_PromotionDiscounts_PromotionDiscountTypes" FromRole="PromotionDiscountType" ToRole="PromotionDiscount" />
+        </EntityType>
+        <Association Name="FK_PromotionDiscounts_PromotionDiscountTypes">
+          <End Type="HAVA_DBModel.PromotionDiscountType" Role="PromotionDiscountType" Multiplicity="1" />
+          <End Type="HAVA_DBModel.PromotionDiscount" Role="PromotionDiscount" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDiscountType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionDiscount">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAvtive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="PromotionDiscountId" Type="Int32" />
+          <Property Name="PartnerId" Type="Int32" />
+          <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_Promotion" FromRole="Promotion" ToRole="Booking" />
+          <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_Promotions_Partner" FromRole="Promotion" ToRole="Partner" />
+          <NavigationProperty Name="PromotionDiscount" Relationship="HAVA_DBModel.FK_Promotions_PromotionDiscounts" FromRole="Promotion" ToRole="PromotionDiscount" />
+        </EntityType>
+        <Association Name="FK_Booking_Promotion">
+          <End Type="HAVA_DBModel.Promotion" Role="Promotion" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="PromotionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotions_Partner">
+          <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.Promotion" Role="Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotions_PromotionDiscounts">
+          <End Type="HAVA_DBModel.PromotionDiscount" Role="PromotionDiscount" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.Promotion" Role="Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDiscount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="PromotionDiscountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3320,24 +3352,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
                 <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
                 <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
                 <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PromotionDiscounts">
-            <EntityTypeMapping TypeName="HAVA_DBModel.PromotionDiscount">
-              <MappingFragment StoreEntitySet="PromotionDiscounts">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PromoDiscountTypeId" ColumnName="PromoDiscountTypeId" />
-                <ScalarProperty Name="AmountOrPercentage" ColumnName="AmountOrPercentage" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PromotionDiscountTypes">
-            <EntityTypeMapping TypeName="HAVA_DBModel.PromotionDiscountType">
-              <MappingFragment StoreEntitySet="PromotionDiscountTypes">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3753,23 +3767,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Promotions">
-            <EntityTypeMapping TypeName="HAVA_DBModel.Promotion">
-              <MappingFragment StoreEntitySet="Promotions">
-                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-                <ScalarProperty Name="PromotionDiscountId" ColumnName="PromotionDiscountId" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="PromosionTypeId" ColumnName="PromosionTypeId" />
-                <ScalarProperty Name="IsAvtive" ColumnName="IsAvtive" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="HAVA_DBModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
@@ -3786,6 +3783,40 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionDiscounts">
+            <EntityTypeMapping TypeName="HAVA_DBModel.PromotionDiscount">
+              <MappingFragment StoreEntitySet="PromotionDiscounts">
+                <ScalarProperty Name="AmountOrPercentage" ColumnName="AmountOrPercentage" />
+                <ScalarProperty Name="PromoDiscountTypeId" ColumnName="PromoDiscountTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionDiscountTypes">
+            <EntityTypeMapping TypeName="HAVA_DBModel.PromotionDiscountType">
+              <MappingFragment StoreEntitySet="PromotionDiscountTypes">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotions">
+            <EntityTypeMapping TypeName="HAVA_DBModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotions">
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="PromotionDiscountId" ColumnName="PromotionDiscountId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsAvtive" ColumnName="IsAvtive" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

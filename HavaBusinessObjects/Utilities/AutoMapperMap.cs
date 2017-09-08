@@ -34,6 +34,11 @@ namespace HavaBusinessObjects.Utilities
 
             CreateMap<ProductFeature , ProductFeaturesViewMOdel>().ReverseMap();
 
+            CreateMap<Promotion, PromotionViewModel>().MaxDepth(2).ReverseMap();
+
+            CreateMap<PromotionDiscount, PromotionDiscountViewModel>().ReverseMap();
+            CreateMap<PromotionDiscountType, PromotionDiscountTypeViewModel>().ReverseMap();
+
         }
 
     }

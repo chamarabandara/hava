@@ -39,8 +39,6 @@ namespace HavaBusiness
         public virtual DbSet<Partner> Partners { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
-        public virtual DbSet<PromotionDiscount> PromotionDiscounts { get; set; }
-        public virtual DbSet<PromotionDiscountType> PromotionDiscountTypes { get; set; }
         public virtual DbSet<RolePermision> RolePermisions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
@@ -66,8 +64,10 @@ namespace HavaBusiness
         public virtual DbSet<ProductFeature> ProductFeatures { get; set; }
         public virtual DbSet<BookingProduct> BookingProducts { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
-        public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<PromotionDiscount> PromotionDiscounts { get; set; }
+        public virtual DbSet<PromotionDiscountType> PromotionDiscountTypes { get; set; }
+        public virtual DbSet<Promotion> Promotions { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

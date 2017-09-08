@@ -24,7 +24,6 @@ namespace HavaBusiness
         public string Name { get; set; }
         public string Code { get; set; }
         public Nullable<bool> IsAvtive { get; set; }
-        public int PromosionTypeId { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -34,6 +33,7 @@ namespace HavaBusiness
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual Partner Partner { get; set; }
         public virtual PromotionDiscount PromotionDiscount { get; set; }
     }
 }

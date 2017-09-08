@@ -25,6 +25,7 @@ namespace HavaBusiness
             this.PartnerProducts = new HashSet<PartnerProduct>();
             this.PartnerRepresentatives = new HashSet<PartnerRepresentative>();
             this.Bookings = new HashSet<Booking>();
+            this.Promotions = new HashSet<Promotion>();
         }
     
         public int Id { get; set; }
@@ -60,5 +61,7 @@ namespace HavaBusiness
         public virtual ICollection<PartnerRepresentative> PartnerRepresentatives { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Promotion> Promotions { get; set; }
     }
 }
