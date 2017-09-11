@@ -241,6 +241,7 @@
     <Content Include="App\Controllers\booking.controller.js" />
     <Content Include="App\Controllers\sites.controller.js" />
     <Content Include="App\Controllers\tsp.controller.js" />
+    <Content Include="App\Controllers\common.controller.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\filterstring.js" />
     <Content Include="App\Services\account.js" />

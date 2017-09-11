@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using System;
 using System.Configuration;
+using System.Web.Http;
+using WebMVC.Models;
 using WebMVC.ModelViews;
 using WebMVC.Providers;
-using WebMVC.Models;
-using System.Web.Http;
 
 namespace WebMVC
 {
@@ -26,15 +23,15 @@ namespace WebMVC
 
             //get token expire time from web config
             double expireTime = 0;
-            double.TryParse(ConfigurationManager.AppSettings["TokenTimeOut"].ToString(), out expireTime);
+            double.TryParse(ConfigurationManager.AppSettings["TokenTimeOut"].ToString() , out expireTime);
 
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId, UserManagerFactory),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(expireTime),
-                RefreshTokenProvider = new SimpleRefreshTokenProvider(),
+                TokenEndpointPath = new PathString("/Token") ,
+                Provider = new ApplicationOAuthProvider(PublicClientId , UserManagerFactory) ,
+                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin") ,
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(expireTime) ,
+                RefreshTokenProvider = new SimpleRefreshTokenProvider() ,
                 AllowInsecureHttp = true
             };
 
@@ -59,6 +56,11 @@ namespace WebMVC
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie ,
+                LoginPath = new PathString("/Account/Login")
+            });
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -66,7 +68,7 @@ namespace WebMVC
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             /*
