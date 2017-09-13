@@ -16,7 +16,7 @@ var partnerControllers = angular.module('partnerControllers', ['ngCookies', 'par
 partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'PartnerServiceLocal', 'localStorageService', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, PartnerServiceLocal, localStorageService) {
     var tmp = PartnerServiceLocal;
     $scope.infoMsg = $sce.trustAsHtml(PartnerServiceLocal.infoMsg);
-$scope.create = function () {
+    $scope.create = function () {
         $scope.submitted = true;
         if ($scope.partnerForm.$invalid == false) {
             $scope.isLegelNameExistsValidation();

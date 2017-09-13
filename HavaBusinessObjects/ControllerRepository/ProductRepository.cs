@@ -2,7 +2,6 @@
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -30,6 +29,25 @@ namespace HavaBusinessObjects.ControllerRepository
         }
         #endregion db context
 
+        #region Get Product List
+        public JObject GetProductsList()
+        {
+            JObject obj = new JObject();
+            JArray returnArr = new JArray();
+            var products = this.ObjContext.Products.ToList();
+            foreach (var product in products)
+            {
+                JObject productObj = new JObject();
+                productObj.Add("id" , product.Id);
+                productObj.Add("code" , product.Code);
+                productObj.Add("description" , product.Name);
+                productObj.Add("isMainProduct" , product.IsMainProduct == true ? "Yes" : "-");
+                returnArr.Add(productObj);
+            }
+            obj.Add("data" , returnArr);
+            return obj;
+        }
+        #endregion
 
         #region save product
         /// <summary>
@@ -65,12 +83,12 @@ namespace HavaBusinessObjects.ControllerRepository
 
                         var name = Path.GetFileNameWithoutExtension(productViewModel.productLogoImage.name);
                         var ext = Path.GetExtension(productViewModel.productLogoImage.name);
-                        var generatedName = new StringBuilder().Append(name).Append("_").Append(Guid.NewGuid().ToString().Substring(0, 4)).Append(ext).ToString();
+                        var generatedName = new StringBuilder().Append(name).Append("_").Append(Guid.NewGuid().ToString().Substring(0 , 4)).Append(ext).ToString();
 
                         using (WebClient client = new WebClient())
                         {
                             client.UseDefaultCredentials = true;
-                            client.DownloadFile(new Uri(productViewModel.productLogoImage.documentPath), fileNameBuilder.Append(HttpContext.Current.Server.MapPath("~" + productLogoImagePath)).Append(generatedName).ToString());
+                            client.DownloadFile(new Uri(productViewModel.productLogoImage.documentPath) , fileNameBuilder.Append(HttpContext.Current.Server.MapPath("~" + productLogoImagePath)).Append(generatedName).ToString());
                             File.Delete(productViewModel.productLogoImage.documentPath);
 
                             if (!string.IsNullOrEmpty(objProduct.ProductImagePath))

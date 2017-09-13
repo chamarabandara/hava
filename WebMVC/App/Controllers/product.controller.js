@@ -131,7 +131,7 @@ productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPart
     }
 }]);
 
-productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout) {
+productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'localStorageService', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, localStorageService) {
     $scope.model = {};
     $scope.submitted = false;
     $scope.create = function () {
@@ -168,13 +168,16 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
         actionButtons += '</div>';
         return actionButtons;
     }
-
+    var accessToken = localStorageService.get('accessToken');
     $('#datatable-partner').DataTable({
         //  "processing": true,
         //  "serverSide": true,
         'ajax': {
             'url': appUrl + 'Product/GetList',
             'type': 'GET',
+            'beforeSend': function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + accessToken);
+            },
             //'beforeSend': function (request) {
             //    //  $("#loadingWidget").css({ display: 'block' });
             //  //  headers.append('Access-Control-Allow-Origin', apiUrl);

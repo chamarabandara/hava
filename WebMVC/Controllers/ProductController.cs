@@ -46,7 +46,7 @@ namespace HavaWeb.Controllers
                 JObject obj = new JObject();
                 ProductRepository productRepository = new ProductRepository();
                 bool status = productRepository.SaveProduct(productViewModel);
-                obj.Add("status", status);
+                obj.Add("status" , status);
                 return obj;
 
             }
@@ -57,13 +57,13 @@ namespace HavaWeb.Controllers
         }
         #endregion
 
-        //public JObject GetList()
-        //{
+        public JObject GetList()
+        {
 
-        //    ProductRepository productRepository = new ProductRepository();
+            ProductRepository productRepository = new ProductRepository();
 
-        //    return productRepository.GetProductsList();
-        //}
+            return productRepository.GetProductsList();
+        }
 
     }
 }
