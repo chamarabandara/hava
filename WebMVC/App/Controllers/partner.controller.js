@@ -184,7 +184,8 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.products = [];
 
     $scope.viewPartnerSites = function (obj) {
-        var url = $state.href('app.site', { 'id': $stateParams.id + 'S' + obj.id});
+        //var url = $state.href('app.site', { 'id': $stateParams.id + 'S' + obj.id});
+        var url = 'http://52.14.195.144/hava/home/Sites?P=' + $stateParams.id + 'S' + obj.id;
         $window.open(url, '_blank');
     }
 

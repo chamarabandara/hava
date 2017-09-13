@@ -277,6 +277,11 @@ D:\hava project git\hava\WebMVC\obj\Debug\WebMVC.Migrations.InitialCreate.resour
 D:\hava project git\hava\WebMVC\obj\Debug\WebMVC.csproj.GenerateResource.Cache
 D:\hava project git\hava\WebMVC\obj\Debug\WebMVC.dll
 D:\hava project git\hava\WebMVC\obj\Debug\WebMVC.pdb
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.csprojResolveAssemblyReference.cache
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.Migrations.InitialCreate.resources
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.csproj.GenerateResource.Cache
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.pdb
 E:\VISH\WorkStation\HAVA Dev\WebMVC\bin\WebMVC.dll.config
 E:\VISH\WorkStation\HAVA Dev\WebMVC\bin\WebMVC.dll
 E:\VISH\WorkStation\HAVA Dev\WebMVC\bin\WebMVC.pdb
@@ -348,8 +353,3 @@ E:\VISH\WorkStation\HAVA Dev\WebMVC\obj\Debug\WebMVC.Migrations.InitialCreate.re
 E:\VISH\WorkStation\HAVA Dev\WebMVC\obj\Debug\WebMVC.csproj.GenerateResource.Cache
 E:\VISH\WorkStation\HAVA Dev\WebMVC\obj\Debug\WebMVC.dll
 E:\VISH\WorkStation\HAVA Dev\WebMVC\obj\Debug\WebMVC.pdb
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.csprojResolveAssemblyReference.cache
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.Migrations.InitialCreate.resources
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.csproj.GenerateResource.Cache
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.dll
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\WebMVC\obj\Debug\WebMVC.pdb

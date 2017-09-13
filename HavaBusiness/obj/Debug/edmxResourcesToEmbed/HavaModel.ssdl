@@ -10,6 +10,25 @@
     <Property Name="Model" Type="varbinary(max)" Nullable="false" />
     <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
   </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" />
+    <Property Name="LastName" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
   <EntityType Name="Booking">
     <Key>
       <PropertyRef Name="Id" />
@@ -53,6 +72,7 @@
     <Property Name="PickupSignReffNo" Type="nvarchar" MaxLength="50" />
     <Property Name="NoteToDriver" Type="nvarchar" MaxLength="500" />
     <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="PickupAddress" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="BookingPayment">
     <Key>
@@ -169,6 +189,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Property Name="IsActive" Type="bit" />
     <Property Name="FromLocation" Type="nvarchar" MaxLength="500" />
     <Property Name="ToLocation" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsAirPortTour" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Menues">
     <Key>
@@ -223,6 +244,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Property Name="ChufferDailyRate" Type="money" />
     <Property Name="ChufferKMRate" Type="money" />
     <Property Name="ChildSeatRate" Type="money" />
+    <Property Name="CreateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="PartnerProducts">
     <Key>
@@ -337,7 +359,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PromoDiscountTypeId" Type="int" />
     <Property Name="AmountOrPercentage" Type="decimal" Precision="6" Scale="2" />
   </EntityType>
@@ -357,7 +379,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Property Name="Name" Type="nvarchar" MaxLength="500" />
     <Property Name="Code" Type="nvarchar" MaxLength="50" />
     <Property Name="IsAvtive" Type="bit" />
-    <Property Name="PromosionTypeId" Type="int" Nullable="false" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
@@ -535,6 +556,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <Property Name="MaxPasengers" Type="int" />
     <Property Name="MaxLuggages" Type="int" />
   </EntityType>
+  <Association Name="FK_Booking_BookedUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Booking_BookingStatus">
     <End Role="BookingStatus" Type="Self.BookingStatus" Multiplicity="0..1" />
     <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
@@ -872,6 +905,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
       </Principal>
       <Dependent Role="PromotionDiscounts">
         <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotions_Partner">
+    <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
+    <End Role="Promotions" Type="Self.Promotions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Promotions">
+        <PropertyRef Name="PartnerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1220,6 +1265,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="HAVA_DBModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BookingOptions" EntityType="Self.BookingOptions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BookingPayment" EntityType="Self.BookingPayment" Schema="dbo" store:Type="Tables" />
@@ -1267,6 +1313,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     [Currency].[symbol] AS [symbol]
     FROM [dbo].[Currency] AS [Currency]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_Booking_BookedUser" Association="Self.FK_Booking_BookedUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
     <AssociationSet Name="FK_Booking_BookingStatus" Association="Self.FK_Booking_BookingStatus">
       <End Role="BookingStatus" EntitySet="BookingStatus" />
       <End Role="Booking" EntitySet="Booking" />
@@ -1378,6 +1428,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="Self.FK_PromotionDiscounts_PromotionDiscountTypes">
       <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />
       <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotions_Partner" Association="Self.FK_Promotions_Partner">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="Promotions" EntitySet="Promotions" />
     </AssociationSet>
     <AssociationSet Name="FK_Promotions_PromotionDiscounts" Association="Self.FK_Promotions_PromotionDiscounts">
       <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />

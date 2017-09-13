@@ -76,6 +76,9 @@ D:\hava project git\hava\HavaBusinessObjects\bin\System.Web.Http.xml
 D:\hava project git\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
 D:\hava project git\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
 D:\hava project git\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
 E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
 E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusinessObjects.dll
 E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
@@ -92,6 +95,3 @@ E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\System.Web.Http.xml
 E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
 E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
 E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
