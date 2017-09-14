@@ -214,13 +214,13 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
                      return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
                  }
              },
-            {
-                "data": null,
-                "bSortable": false,
-                "mRender": function (o) {
-                    return $scope.bindActionButtons(o);
-                }
-            }
+            //{
+            //    "data": null,
+            //    "bSortable": false,
+            //    "mRender": function (o) {
+            //        return $scope.bindActionButtons(o);
+            //    }
+            //}
         ]
     });
 
