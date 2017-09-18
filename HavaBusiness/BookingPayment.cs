@@ -20,7 +20,9 @@ namespace HavaBusiness
         public string ExpireDate { get; set; }
         public string CardNo { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> CardType { get; set; }
     
         public virtual Booking Booking { get; set; }
+        public virtual Common Common { get; set; }
     }
 }

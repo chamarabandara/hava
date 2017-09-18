@@ -1,97 +1,16 @@
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.dll
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\EntityFramework.dll
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusiness.dll
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\Newtonsoft.Json.dll
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Web.Http.dll
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusiness.pdb
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\EntityFramework.xml
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\Newtonsoft.Json.xml
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Web.Http.xml
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
-C:\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.dll
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\EntityFramework.dll
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusiness.dll
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\Newtonsoft.Json.dll
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Web.Http.dll
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\HavaBusiness.pdb
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\EntityFramework.xml
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\Newtonsoft.Json.xml
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\bin\System.Web.Http.xml
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
-D:\c backup\projects\AutoConceptWeb\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.dll
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\HavaBusiness.dll
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\Newtonsoft.Json.dll
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\System.Web.Http.dll
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\HavaBusiness.pdb
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\Newtonsoft.Json.xml
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
-D:\havaapp\HavaApp\HavaBusinessObjects\bin\System.Web.Http.xml
-D:\havaapp\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
-D:\havaapp\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
-D:\havaapp\HavaApp\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusiness.dll
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\Newtonsoft.Json.dll
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Web.Http.dll
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\HavaBusiness.pdb
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\Newtonsoft.Json.xml
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\System.Web.Http.xml
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\AutoMapper.dll
-E:\Udayangana\Per\Hava APP\HAVA_Live\hava\HavaBusinessObjects\bin\AutoMapper.xml
-D:\hava project git\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
-D:\hava project git\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll
-D:\hava project git\hava\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
-D:\hava project git\hava\HavaBusinessObjects\bin\AutoMapper.dll
-D:\hava project git\hava\HavaBusinessObjects\bin\HavaBusiness.dll
-D:\hava project git\hava\HavaBusinessObjects\bin\Newtonsoft.Json.dll
-D:\hava project git\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
-D:\hava project git\hava\HavaBusinessObjects\bin\System.Web.Http.dll
-D:\hava project git\hava\HavaBusinessObjects\bin\HavaBusiness.pdb
-D:\hava project git\hava\HavaBusinessObjects\bin\AutoMapper.xml
-D:\hava project git\hava\HavaBusinessObjects\bin\Newtonsoft.Json.xml
-D:\hava project git\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
-D:\hava project git\hava\HavaBusinessObjects\bin\System.Web.Http.xml
-D:\hava project git\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
-D:\hava project git\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
-D:\hava project git\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
 E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\HavaBusinessObjects.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\AutoMapper.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\HavaBusiness.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\Newtonsoft.Json.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\System.Web.Http.dll
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\HavaBusiness.pdb
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\AutoMapper.xml
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\Newtonsoft.Json.xml
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
+E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\bin\System.Web.Http.xml
 E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
 E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusinessObjects.dll.config
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusinessObjects.dll
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusinessObjects.pdb
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\AutoMapper.dll
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusiness.dll
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\Newtonsoft.Json.dll
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\System.Net.Http.Formatting.dll
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\System.Web.Http.dll
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\HavaBusiness.pdb
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\AutoMapper.xml
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\Newtonsoft.Json.xml
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\System.Net.Http.Formatting.xml
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\bin\System.Web.Http.xml
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.csprojResolveAssemblyReference.cache
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.dll
-E:\VISH\WorkStation\HAVA Dev\HavaBusinessObjects\obj\Debug\HavaBusinessObjects.pdb

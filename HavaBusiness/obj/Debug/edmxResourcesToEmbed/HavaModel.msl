@@ -399,6 +399,7 @@
     <EntitySetMapping Name="BookingPayments">
       <EntityTypeMapping TypeName="HAVA_DBModel.BookingPayment">
         <MappingFragment StoreEntitySet="BookingPayment">
+          <ScalarProperty Name="CardType" ColumnName="CardType" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="CardNo" ColumnName="CardNo" />
           <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
@@ -606,6 +607,7 @@
     <EntitySetMapping Name="Promotions">
       <EntityTypeMapping TypeName="HAVA_DBModel.Promotion">
         <MappingFragment StoreEntitySet="Promotions">
+          <ScalarProperty Name="PromosionTypeId" ColumnName="PromosionTypeId" />
           <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
           <ScalarProperty Name="PromotionDiscountId" ColumnName="PromotionDiscountId" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />

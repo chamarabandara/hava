@@ -89,6 +89,7 @@
           <Property Name="ExpireDate" Type="nvarchar" MaxLength="50" />
           <Property Name="CardNo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CardType" Type="int" />
         </EntityType>
         <EntityType Name="BookingProducts">
           <Key>
@@ -364,7 +365,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="PromoDiscountTypeId" Type="int" />
           <Property Name="AmountOrPercentage" Type="decimal" Precision="6" Scale="2" />
         </EntityType>
@@ -384,6 +385,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
           <Property Name="IsAvtive" Type="bit" />
+          <Property Name="PromosionTypeId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -642,6 +644,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="BookingPayment">
               <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingPayment_CardType">
+          <End Role="Common" Type="Self.Common" Multiplicity="0..1" />
+          <End Role="BookingPayment" Type="Self.BookingPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Common">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingPayment">
+              <PropertyRef Name="CardType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -910,18 +924,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="PromotionDiscounts">
               <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Promotions_Partner">
-          <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
-          <End Role="Promotions" Type="Self.Promotions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Partners">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Promotions">
-              <PropertyRef Name="PartnerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1346,6 +1348,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Booking" EntitySet="Booking" />
             <End Role="BookingPayment" EntitySet="BookingPayment" />
           </AssociationSet>
+          <AssociationSet Name="FK_BookingPayment_CardType" Association="Self.FK_BookingPayment_CardType">
+            <End Role="Common" EntitySet="Common" />
+            <End Role="BookingPayment" EntitySet="BookingPayment" />
+          </AssociationSet>
           <AssociationSet Name="FK_BookingProducts_Booking" Association="Self.FK_BookingProducts_Booking">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="BookingProducts" EntitySet="BookingProducts" />
@@ -1433,10 +1439,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_PromotionDiscounts_PromotionDiscountTypes" Association="Self.FK_PromotionDiscounts_PromotionDiscountTypes">
             <End Role="PromotionDiscountTypes" EntitySet="PromotionDiscountTypes" />
             <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Promotions_Partner" Association="Self.FK_Promotions_Partner">
-            <End Role="Partners" EntitySet="Partners" />
-            <End Role="Promotions" EntitySet="Promotions" />
           </AssociationSet>
           <AssociationSet Name="FK_Promotions_PromotionDiscounts" Association="Self.FK_Promotions_PromotionDiscounts">
             <End Role="PromotionDiscounts" EntitySet="PromotionDiscounts" />
@@ -2453,6 +2455,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="PromotionDiscount" EntitySet="PromotionDiscounts" />
             <End Role="Promotion" EntitySet="Promotions" />
           </AssociationSet>
+          <AssociationSet Name="FK_BookingPayment_CardType" Association="HAVA_DBModel.FK_BookingPayment_CardType">
+            <End Role="Common" EntitySet="Commons" />
+            <End Role="BookingPayment" EntitySet="BookingPayments" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -2661,6 +2667,8 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="CardNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="BookingPayment" ToRole="Booking" />
+          <Property Name="CardType" Type="Int32" />
+          <NavigationProperty Name="Common" Relationship="HAVA_DBModel.FK_BookingPayment_CardType" FromRole="BookingPayment" ToRole="Common" />
         </EntityType>
         <EntityType Name="Common">
           <Key>
@@ -2670,6 +2678,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BookingPayments" Relationship="HAVA_DBModel.FK_BookingPayment_CardType" FromRole="Common" ToRole="BookingPayment" />
         </EntityType>
         <EntityType Name="PartnerSite">
           <Key>
@@ -3160,6 +3169,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_Promotion" FromRole="Promotion" ToRole="Booking" />
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_Promotions_Partner" FromRole="Promotion" ToRole="Partner" />
           <NavigationProperty Name="PromotionDiscount" Relationship="HAVA_DBModel.FK_Promotions_PromotionDiscounts" FromRole="Promotion" ToRole="PromotionDiscount" />
+          <Property Name="PromosionTypeId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Booking_Promotion">
           <End Type="HAVA_DBModel.Promotion" Role="Promotion" Multiplicity="0..1" />
@@ -3194,6 +3204,18 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="Promotion">
               <PropertyRef Name="PromotionDiscountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingPayment_CardType">
+          <End Type="HAVA_DBModel.Common" Role="Common" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.BookingPayment" Role="BookingPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Common">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingPayment">
+              <PropertyRef Name="CardType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3601,6 +3623,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="BookingPayments">
             <EntityTypeMapping TypeName="HAVA_DBModel.BookingPayment">
               <MappingFragment StoreEntitySet="BookingPayment">
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CardNo" ColumnName="CardNo" />
                 <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
@@ -3808,6 +3831,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="Promotions">
             <EntityTypeMapping TypeName="HAVA_DBModel.Promotion">
               <MappingFragment StoreEntitySet="Promotions">
+                <ScalarProperty Name="PromosionTypeId" ColumnName="PromosionTypeId" />
                 <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
                 <ScalarProperty Name="PromotionDiscountId" ColumnName="PromotionDiscountId" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />

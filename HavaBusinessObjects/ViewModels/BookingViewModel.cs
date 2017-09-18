@@ -56,6 +56,7 @@ namespace HavaBusinessObjects.ViewModels
         public string CardHolderName { get; set; }
         public string ExpireDate { get; set; }
         public string CardNo { get; set; }
+        public int CardType { get; set; }
     }
 
     public class BookingProductsViewModel

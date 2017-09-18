@@ -16,6 +16,7 @@ namespace WebMVC.Controllers
 
     public class BookingController : Controller
     {
+        private CommonRepository _commonRepository = new CommonRepository();
         private PartnerRepository _partnerRepository = new PartnerRepository();
         private BookingRepository _bookingRepository = new BookingRepository();
         private UserRepository _userRepository = new UserRepository();
@@ -30,6 +31,24 @@ namespace WebMVC.Controllers
             try
             {
                 returnObj.Add("data", _bookingRepository.BookingStatus());
+                return returnObj;
+
+            }
+            catch (Exception ex)
+            {
+                returnObj.Add("error", "General Error");
+                return returnObj;
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public JObject CardTypes()
+        {
+            JObject returnObj = new JObject();
+            try
+            {
+                returnObj.Add("data", _commonRepository.GetAllCardTypes());
                 return returnObj;
 
             }
@@ -95,7 +114,16 @@ namespace WebMVC.Controllers
                         itemObj.Add("Rate", item.Rate);
                         itemObj.Add("HavaPrice", item.HavaPrice);
                         itemObj.Add("MarketPrice", item.MarketPrice);
-                        itemObj.Add("PartnerSellingPrice", item.PartnerSellingPrice);
+
+                        if (promotion != null)
+                        {
+                            itemObj.Add("PartnerSellingPrice", (item.PartnerSellingPrice * ((100 - promotion.PromotionDiscount.AmountOrPercentage)/100)));
+                        }
+                        else
+                        {
+                            itemObj.Add("PartnerSellingPrice", item.PartnerSellingPrice);
+                        }
+                        
                         itemObj.Add("IsMarkUp", item.IsMarkUp);
                         itemObj.Add("Markup", item.Markup);
                         itemObj.Add("Percentage", item.Percentage);
@@ -335,6 +363,7 @@ namespace WebMVC.Controllers
                 paymentsObj.Add("CardHolderName", payment.CardHolderName);
                 paymentsObj.Add("ExpireDate", payment.ExpireDate);
                 paymentsObj.Add("CardNo", payment.CardNo);
+                paymentsObj.Add("CardType", payment.CardType);
 
                 paymentsArr.Add(paymentsObj);
             }

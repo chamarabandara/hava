@@ -300,6 +300,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             extBookingPayment.CardHolderName = bookingPayment.CardHolderName;
                             extBookingPayment.ExpireDate = bookingPayment.ExpireDate;
                             extBookingPayment.CardNo = bookingPayment.CardNo;
+                            extBookingPayment.CardType = bookingPayment.CardType;
 
                             this.ObjContext.Entry(extBookingPayment).State = EntityState.Modified;
                             this.ObjContext.SaveChanges();

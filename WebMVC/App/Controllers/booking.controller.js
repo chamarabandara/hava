@@ -29,7 +29,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
         return urlParams;
     }
-
+    debugger;
     $scope.urlparms = $scope.parseQueryString(window.location.href);
     $scope.paramData = $scope.urlparms.P.split('S');
     $scope.PartnerIdTemp = $scope.paramData[0];
@@ -39,7 +39,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                  function (result) {
                      $scope.locations = result.data;
                  });
-
+    
     HavaSiteService.getPartnerIstest({ partnerId: parseInt($scope.PartnerIdTemp), siteId: parseInt($scope.siteIdTemp) }).$promise.then(
              function (result) {
                  $scope.siteDetails = result.data;

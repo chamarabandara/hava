@@ -102,6 +102,7 @@
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_Promotion" />
         <AssociationConnector Association="HAVA_DBModel.FK_Promotions_Partner" />
         <AssociationConnector Association="HAVA_DBModel.FK_Promotions_PromotionDiscounts" />
+        <AssociationConnector Association="HAVA_DBModel.FK_BookingPayment_CardType" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
