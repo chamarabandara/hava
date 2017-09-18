@@ -1129,11 +1129,11 @@ ul.menaimenu-v3 li a {
 }
 
 .option-price {
-    float: right;
+        float: right;
     margin-right: 50px;
     margin-top: 20px;
-    color: #168ccc;
-    background-color:#EEEEEE;
+    color: white;
+    background-color: red;
     padding: 10px 20px;
 
 }
@@ -1154,4 +1154,25 @@ hr {
     margin-top: 33px;
     position: absolute;
     margin-left: 94px;
+}
+
+.hedding{
+        background-color: red;
+    height: 40px;
+    color: white;
+    padding: 10px 0px 10px 10px;
+    font-weight: bold;
+    font-style: unset;
+    width: 400px;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+.td-first-cloumn{
+border: 1px solid;
+    width: 329px;
+}
+.td-others{
+width: 80px;
 }

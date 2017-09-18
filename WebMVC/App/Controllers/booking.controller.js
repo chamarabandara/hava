@@ -17,6 +17,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
     $scope.search = {};
 
+
     $scope.parseQueryString = function (url) {
         var urlParams = {};
         url.replace(
@@ -78,10 +79,10 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
             var urlparms = $scope.parseQueryString(window.location.href);
           
-            HavaSiteService.getProductDetails({ partnerId: parseInt(PartnerIdTemp), locationId: ($scope.search.dropLocation != undefined) ? $scope.search.dropLocation.Id : 0, PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
+            HavaSiteService.getProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), locationId: ($scope.search.dropLocation != undefined) ? $scope.search.dropLocation.Id : 0, PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
                      function (result) {
-                        $scope.Products = result.data;
-                         console.log(result.data);
+                         $scope.Products = result.data;
+                        
                      });
         } else
             return true;
@@ -104,6 +105,11 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     $scope.setBookingProduct = function (product) {
         $scope.selectedProduct = product;
         $scope.totalSellingPrice = angular.copy($scope.selectedProduct.PartnerSellingPrice);
+
+        $scope.AditionalDayUnit = $scope.selectedProduct.AdditionaDayRate != null?$scope.selectedProduct.AdditionaDayRate:0;
+        $scope.AdHoursUnit = $scope.selectedProduct.AdditionaHourRate != null ? $scope.selectedProduct.AdditionaHourRate : 0;
+        $scope.cildSetUnit = $scope.selectedProduct.ChildSeatRate!= null ? $scope.selectedProduct.ChildSeatRate : 0;
+       // console.log(result.data[0]);
 
     }
     //calculate price
@@ -177,6 +183,8 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         $scope.CardNoRequired = false;
         if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "") {
             $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
+            //$scope.selectedProduct.price = ($scope.total + $scope.selectedProduct.promotionAmount);
+            $scope.selectedProduct.price = $scope.totalSellingPrice;
             var data = {
                 "Id":0,
                 "BookingType": {
@@ -227,6 +235,53 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                 $scope.CardNoRequired = true;
             
         }
+    }
+
+    $scope.AdHoursUnit = 0;
+    $scope.cildSetUnit = 0;
+    $scope.AditionalDayUnit = 0;
+    $scope.countAddHours = 0;
+    $scope.countAddDay = 0;
+    $scope.countAddhildSet = 0;
+    $scope.addCount = function (type, isAdd) {
+
+        if (type == "ah") {
+
+            if (isAdd == "1")
+                $scope.countAddHours++;
+            else
+                $scope.countAddHours--;
+
+
+        }
+        if (type == "ad") {
+
+            if (isAdd == "1")
+                $scope.countAddDay++;
+            else
+                $scope.countAddDay--;
+
+
+        }
+        if (type == "ac") {
+
+            if (isAdd == "1")
+                $scope.countAddhildSet++;
+            else
+                $scope.countAddhildSet--;
+
+
+        }
+        $scope.getTotal();
+    }
+    $scope.total = 0;
+    $scope.getTotal = function () {
+       var partPrice = 0;
+       var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
+        $scope.total = ($scope.countAddDay * $scope.AditionalDayUnit) + ($scope.countAddhildSet * $scope.cildSetUnit) + ($scope.countAddHours * $scope.AdHoursUnit)
+        if ($scope.selectedProduct.promotionAmount == null)
+            $scope.selectedProduct.promotionAmount = 0;
+        $scope.totalSellingPrice = partPrice + $scope.total - $scope.selectedProduct.promotionAmount;
     }
 
 

@@ -668,71 +668,157 @@
                         <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h3>Additional info</h3>
+                                    <h3 class="hedding">Additional Services</h3>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Additional Hours(Hourly rete: {{selectedProduct.AdditionaHourRate}})</label>
-                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.AdditionalHours" ng-pattern="/^[0-9]*$/" ng-change="calculateTotal(BookingOptions.AdditionalHours,BookingOptions.NoOfChildSeats)" only-digits>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>No Of Child Seats</label>
-                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.NoOfChildSeats" ng-pattern="/^[0-9]*$/" ng-change="calculateTotal(BookingOptions.AdditionalHours,BookingOptions.NoOfChildSeats)" only-digits>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Additional Days</label>
-                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.AdditionalDays">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Child Seat Days</label>
-                                        <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.ChildSeatDays">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Pickup Address</label>
-                                        <textarea class="form-control" rows="4" id="comment" ng-model="BookingOptions.PickupAddress"></textarea>
-                                        @* <input type="text" class="form-control" id="" placeholder="" ng-model="option.pickupSign">*@
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Note  To Driver</label>
-                                        <textarea class="form-control" rows="3" id="comment" ng-model="BookingOptions.NoteToDriver"></textarea>
-                                    </div>
+                                <div class="col-sm-12">
+                                    <table class="table borderless table-hover table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>
+
+                                                </th>
+                                                <th>
+                                                    Price
+                                                </th>
+                                                <th>
+                                                    Qnty
+                                                </th>
+                                                <th>
+                                                    Fee
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="td-first-cloumn">
+                                                    Additional Hours
+                                                </td>
+                                                <td class="td-others">
+                                                    {{AdHoursUnit}}
+                                                </td>
+                                                <td class="td-others">
+                                                    <span ng-click="addCount('ah','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                                                    <input type="text" style="width:20px" readonly ng-model="countAddHours"/>
+                                                    <span ng-click="addCount('ah',0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+                                                </td>
+                                                <td>
+                                                    {{countAddHours * AdHoursUnit}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-first-cloumn">
+                                                    No Of Child Seats
+                                                </td>
+                                                <td class="td-others">
+                                                    {{cildSetUnit}}
+                                                </td>
+                                                <td class="td-others">
+                                                    <span ng-click="addCount('ac','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                                                    <input type="text" style="width:20px" readonly ng-model="countAddhildSet"/>
+                                                    <span ng-click="addCount('ac',0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+                                                </td>
+                                                <td>
+                                                    {{countAddhildSet * cildSetUnit}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-first-cloumn">
+                                                    Additional Days
+                                                </td>
+                                                <td class="td-others">
+                                                    {{AditionalDayUnit}}
+                                                </td>
+                                                <td class="td-others">
+                                                    <span ng-click="addCount('ad','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                                                    <input type="text" style="width:20px" readonly ng-model="countAddDay"/>
+                                                    <span ng-click="addCount('ad',0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+                                                </td>
+                                                <td>
+                                                    {{countAddDay * AditionalDayUnit}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    Total
+                                                </td>
+
+                                                <td>
+                                                    {{total}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
 
-                                <div class="col-sm-12" ng-show="selectedProduct.LocationDetail.IsAirPortTour==true">
-                                    <h3>Airport dropoff details</h3>
-                                    <p class="medium-text">Enter your flight number to ensure your driver brings you to the correct terminal and gate.</p>
                                 </div>
-                                <div class="col-sm-12" ng-show="selectedProduct.LocationDetail.IsAirPortTour==true">
-                                    <div class="form-group">
-                                        <label>Flight details</label>
-                                        <input type="text" class="form-control" id="" placeholder="LH 2054" ng-model="BookingOptions.FlightNo">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3 class="hedding">Additional info</h3>
                                     </div>
-                                </div>
-                            
-                                
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <label>Help us provide you with a better service and add any special requests</label>
+                                   
+                                    @*<div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Additional Hours(Hourly rete: {{selectedProduct.AdditionaHourRate}})</label>
+                                            <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.AdditionalHours" ng-pattern="/^[0-9]*$/" ng-change="calculateTotal(BookingOptions.AdditionalHours,BookingOptions.NoOfChildSeats)" only-digits>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12" style="padding-top:20px;">
-                                    <button type="button" class="btn btn-default" ng-click="navigateSteps(3)">Skip</button>
-                                    <button type="button" class="btn btn-primary" ng-click="saveBookingOptions(BookingOptions)">Continue</button>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>No Of Child Seats</label>
+                                            <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.NoOfChildSeats" ng-pattern="/^[0-9]*$/" ng-change="calculateTotal(BookingOptions.AdditionalHours,BookingOptions.NoOfChildSeats)" only-digits>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Additional Days</label>
+                                            <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.AdditionalDays">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Child Seat Days</label>
+                                            <input type="text" class="form-control" id="" placeholder="" ng-model="BookingOptions.ChildSeatDays">
+                                        </div>
+                                    </div>*@
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Pickup Address</label>
+                                            <textarea class="form-control" rows="4" id="comment" ng-model="BookingOptions.PickupAddress"></textarea>
+                                            @* <input type="text" class="form-control" id="" placeholder="" ng-model="option.pickupSign">*@
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Note  To Driver</label>
+                                            <textarea class="form-control" rows="3" id="comment" ng-model="BookingOptions.NoteToDriver"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12" ng-show="selectedProduct.LocationDetail.IsAirPortTour==true">
+                                        <h3>Airport dropoff details</h3>
+                                        <p class="medium-text">Enter your flight number to ensure your driver brings you to the correct terminal and gate.</p>
+                                    </div>
+                                    <div class="col-sm-12" ng-show="selectedProduct.LocationDetail.IsAirPortTour==true">
+                                        <div class="form-group">
+                                            <label>Flight details</label>
+                                            <input type="text" class="form-control" id="" placeholder="LH 2054" ng-model="BookingOptions.FlightNo">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label>Help us provide you with a better service and add any special requests</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="padding-top:20px;">
+                                        <button type="button" class="btn btn-default" ng-click="navigateSteps(3)">Skip</button>
+                                        <button type="button" class="btn btn-primary" ng-click="saveBookingOptions(BookingOptions)">Continue</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <div class="container" id="logInDiv" ng-if="step==3">
                         <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg">
