@@ -101,14 +101,15 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         else
             return "";
     }
-
+    $scope.BookingOptions = {};
     $scope.setBookingProduct = function (product) {
         $scope.selectedProduct = product;
         $scope.totalSellingPrice = angular.copy($scope.selectedProduct.PartnerSellingPrice);
 
         $scope.AditionalDayUnit = $scope.selectedProduct.AdditionaDayRate != null?$scope.selectedProduct.AdditionaDayRate:0;
         $scope.AdHoursUnit = $scope.selectedProduct.AdditionaHourRate != null ? $scope.selectedProduct.AdditionaHourRate : 0;
-        $scope.cildSetUnit = $scope.selectedProduct.ChildSeatRate!= null ? $scope.selectedProduct.ChildSeatRate : 0;
+        $scope.cildSetUnit = $scope.selectedProduct.ChildSeatRate != null ? $scope.selectedProduct.ChildSeatRate : 0
+        $scope.BookingOptions.PickupAddress = $scope.search.pickupLocation;
        // console.log(result.data[0]);
 
     }

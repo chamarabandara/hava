@@ -86,13 +86,13 @@ footer, header, hgroup, menu, nav, section {
     margin-right: 10px;
 }
 .btn-primary {
-    background-image: -webkit-linear-gradient(top,#168ccc 0,#168ccc 100%);
-    background-image: linear-gradient(to bottom,#168ccc 0,#168ccc 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff2d6ca2', GradientType=0);
+    background-image: -webkit-linear-gradient(top,#ff0000 0,#ff0000 100%);
+    background-image: linear-gradient(to bottom,#ff0000 0,#ff0000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#ff0000', GradientType=0);
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
-    border-color: #2b669a;
-    border: 1px solid #168ccc !important;
+    border-color: #ff0000;
+    border: 1px solid #ff0000 !important;
     padding: 10px 60px !important;
 }
 .btn-default {
@@ -1175,4 +1175,13 @@ border: 1px solid;
 }
 .td-others{
 width: 80px;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  color: #ffffff !important;
+  background-color: red !important;
+  border-color: red !important;
+  background-image: linear-gradient(to bottom,red 0,red 100%);
 }
