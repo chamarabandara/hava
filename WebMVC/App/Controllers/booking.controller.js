@@ -39,6 +39,11 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                  function (result) {
                      $scope.locations = result.data;
                  });
+
+    HavaSiteService.getCardTypes().$promise.then(
+             function (result) {
+                 $scope.cardTypes = result.data;
+             });
     
     HavaSiteService.getPartnerIstest({ partnerId: parseInt($scope.PartnerIdTemp), siteId: parseInt($scope.siteIdTemp) }).$promise.then(
              function (result) {
@@ -103,6 +108,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     }
     $scope.BookingOptions = {};
     $scope.setBookingProduct = function (product) {
+        debugger;
         $scope.selectedProduct = product;
         $scope.totalSellingPrice = angular.copy($scope.selectedProduct.PartnerSellingPrice);
 
@@ -181,18 +187,20 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
     $scope.creditCardDetails = function (booking) {
         $scope.CardHolderNameRequired = false;
+        $scope.CVVRequired = false;
         $scope.CardNoRequired = false;
-        if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "") {
+        if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "" && booking.CardType != undefined && booking.CardType != "") {
             $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
             //$scope.selectedProduct.price = ($scope.total + $scope.selectedProduct.promotionAmount);
             $scope.selectedProduct.price = $scope.totalSellingPrice;
+            console.log(booking.CardType);
             var data = {
                 "Id":0,
                 "BookingType": {
                     "id":1
                 },
                 "UserId": $scope.UserId,
-                'BookingProducts': $scope.selectedProduct,
+                'BookingProducts': [$scope.selectedProduct],
                 "BookingStatu": {
                     "Id": 1,
                     "Name": "Pending",
@@ -202,12 +210,14 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                 "PickupDate": $scope.search.pickupDate,
                 "PickupTime": $scope.search.pickupTime,
                 "DropLocation": $scope.dropLocation.Id,
-                "BookingOptions": $scope.bookingOptionData,
-                "BookingPayments": {
+                "BookingOptions": [$scope.bookingOptionData],
+                "BookingPayments": [{
                     "CardHolderName": booking.CardHolderName,
-                    "BookingPayments": booking.CardNo,
-                    "ExpireDate": booking.ExpireDateMM + "/" + booking.ExpireDateYY
-                },
+                    "CardNo": booking.CardNo,
+                    "ExpireDate": booking.ExpireDateMM + "/" + booking.ExpireDateYY,
+                    "CardType": booking.CardType.id,
+                    "CVV": booking.CVV
+                }],
                 "UserConfirmed": true,
                 "IsAirportTransfer": $scope.selectedProduct.LocationDetail.IsAirPortTour,
                 "Partner": $scope.selectedProduct.Partner,
@@ -218,6 +228,8 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                 },
                 "IsReturn":false
             }
+
+            debugger;
             HavaSiteService.createBooking(data, function (data) {
                 if (data.success == true) {
                     $scope.infoMsg = "Booking sucessfully created.";
@@ -234,6 +246,8 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                 $scope.CardHolderNameRequired = true;
             if (booking.CardNo == undefined || booking.CardNo == "")
                 $scope.CardNoRequired = true;
+            if(booking.CardType == undefined || booking.CardHolderName == "")
+                $scope.CVVRequired = true;
             
         }
     }

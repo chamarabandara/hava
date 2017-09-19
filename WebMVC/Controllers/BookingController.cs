@@ -364,6 +364,7 @@ namespace WebMVC.Controllers
                 paymentsObj.Add("ExpireDate", payment.ExpireDate);
                 paymentsObj.Add("CardNo", payment.CardNo);
                 paymentsObj.Add("CardType", payment.CardType);
+                paymentsObj.Add("CVV", payment.CVV);
 
                 paymentsArr.Add(paymentsObj);
             }

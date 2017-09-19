@@ -35,6 +35,7 @@ namespace HavaBusiness
         public Nullable<decimal> ChufferKMRate { get; set; }
         public Nullable<decimal> ChildSeatRate { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<decimal> AdditionalKMRate { get; set; }
     
         public virtual LocationDetail LocationDetail { get; set; }
         public virtual Partner Partner { get; set; }

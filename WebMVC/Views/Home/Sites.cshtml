@@ -901,14 +901,28 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label>Card number</label>
-                                                        <input type="text" class="form-control" id="" placeholder="5007100222110033" ng-model="BookingPayments.CardNo" ng-class="{'has-error' : (CardNoRequired && submitted)}">
+                                                        <label>Card Type</label>
+                                                        <select class="form-control" name="CardType" ng-options="cType.name for cType in cardTypes track by cType.id" ng-model="BookingPayments.CardType">
+                                                            <option value="">-- Select Card Type --</option>
+                                                        </select>
+
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Card number</label>
+                                                                <input type="text" class="form-control" id="" placeholder="5007100222110033" ng-model="BookingPayments.CardNo" ng-class="{'has-error' : (CardNoRequired && submitted)}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -925,16 +939,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @*<div class="col-sm-6">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <label>cvv</label>
-                                                                <input type="text" class="form-control" id="" placeholder="">
-                                                            </div>
-                                                        </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>CVV</label>
+                                                        <input type="text" class="form-control" id="" placeholder="Security Number" ng-model="BookingPayments.CVV" ng-class="{'has-error' : (CVVRequired && submitted)}">
                                                     </div>
-                                                </div>*@
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

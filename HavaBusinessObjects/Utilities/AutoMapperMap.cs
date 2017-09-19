@@ -20,17 +20,25 @@ namespace HavaBusinessObjects.Utilities
             //    .ReverseMap();
             CreateMap<ProductViewModel , Product>().ReverseMap();
             CreateMap<BookingTypeViewModel , BookingType>().ReverseMap();
-            CreateMap<BookingPaymentViewModel , BookingPayment>()
-                .ReverseMap();
+            
+            CreateMap<BookingPayment, BookingPaymentViewModel>()
+                 .ReverseMap();
+
+            //CreateMap<BookingPaymentViewModel, BookingPayment>()
+            //    .ForMember(dest => dest.CardType.Value, opt => opt.MapFrom(src => src.CardType.Id))
+            //     .MaxDepth(2);
+
+            CreateMap<CommonViewModel, Common>().ReverseMap();
+
             CreateMap<BookingProductsViewModel , BookingProduct>().ReverseMap();
             CreateMap<BookingOptionViewModel , BookingOption>().ReverseMap();
             CreateMap<BookingStatusViewModel , BookingStatu>().ReverseMap();
             CreateMap<Booking, BookingViewModel>()
-                .MaxDepth(2);
+                .MaxDepth(3);
 
             CreateMap<BookingViewModel, Booking>()
                .ForMember(dest => dest.BookingStatusId, opt => opt.MapFrom(src => src.BookingStatu.Id))
-               .MaxDepth(2);
+               .MaxDepth(3);
 
             CreateMap<ProductFeature , ProductFeaturesViewMOdel>().ReverseMap();
 

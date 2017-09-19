@@ -106,6 +106,7 @@
           <Property Name="AdditionalChufferHours" Type="int" />
           <Property Name="NoOfChildSeats" Type="int" />
           <Property Name="ChildSeatDays" Type="int" />
+          <Property Name="AdditionalKM" Type="int" />
         </EntityType>
         <EntityType Name="BookingStatus">
           <Key>
@@ -251,6 +252,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="ChufferKMRate" Type="money" />
           <Property Name="ChildSeatRate" Type="money" />
           <Property Name="CreateDate" Type="datetime" />
+          <Property Name="AdditionalKMRate" Type="money" />
         </EntityType>
         <EntityType Name="PartnerProducts">
           <Key>
@@ -2754,6 +2756,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="PartnerProductRate" ToRole="Partner" />
           <NavigationProperty Name="PartnerProduct" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="PartnerProductRate" ToRole="PartnerProduct" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="AdditionalKMRate" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="PartnerProduct">
           <Key>
@@ -2966,6 +2969,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="ChildSeatDays" Type="Int32" />
           <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_BookingProducts_Products" FromRole="BookingProduct" ToRole="Product" />
           <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingProducts_Booking" FromRole="BookingProduct" ToRole="Booking" />
+          <Property Name="AdditionalKM" Type="Int32" />
         </EntityType>
         <Association Name="FK_BookingProducts_Products">
           <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
@@ -3655,6 +3659,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="PartnerProductRates">
             <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProductRate">
               <MappingFragment StoreEntitySet="PartnerProductRate">
+                <ScalarProperty Name="AdditionalKMRate" ColumnName="AdditionalKMRate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ChildSeatRate" ColumnName="ChildSeatRate" />
                 <ScalarProperty Name="ChufferKMRate" ColumnName="ChufferKMRate" />
@@ -3745,6 +3750,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySetMapping Name="BookingProducts">
             <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
               <MappingFragment StoreEntitySet="BookingProducts">
+                <ScalarProperty Name="AdditionalKM" ColumnName="AdditionalKM" />
                 <ScalarProperty Name="ChildSeatDays" ColumnName="ChildSeatDays" />
                 <ScalarProperty Name="NoOfChildSeats" ColumnName="NoOfChildSeats" />
                 <ScalarProperty Name="AdditionalChufferHours" ColumnName="AdditionalChufferHours" />
