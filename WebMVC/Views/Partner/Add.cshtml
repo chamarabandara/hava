@@ -287,155 +287,17 @@
                                 <h4 class="panel-title">Products Details </h4>
                             </div>
                             <div>
-                                @*<div class="row">
+                                <div class="row">
                                     <div class="col-sm-6 margin-top">
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
                                                 <select class="form-control" ng-options="prod.name for prod in productList track by prod.id" ng-model="product.product" ng-class="{'parsley-error' : (productNameRequired && submittedProd)}">
-                                                     <option value="">-- Select a Product --</option>
+                                                    <option value="">-- Select a Product --</option>
                                                 </select>
                                                 <ul ng-show="productNameRequired && submittedProd" class="parsley-errors-list filled" id="parsley-id-5">
                                                     <li class="parsley-required" ng-show="productNameRequired && submittedProd">Please Select Product.</li>
                                                 </ul>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location Name:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control"  ng-model="product.locationName" maxlength="300">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>From Location:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" ng-model="product.fromLocation" maxlength="300">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>To Location:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" ng-model="product.toLocation" maxlength="300">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv221">
-                                                <strong>
-                                                    Is Airport Tour:
-                                                </strong>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <div class="col-lg-7 col-md-7 col-sm-6">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" id="rv221" name="checkbox-demo-v" ng-model="product.isAirPortTour" />
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.havaPrice" maxlength="300">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.marketPrice" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerSellingPrice" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv222">
-                                                <strong>
-                                                    Is MarkUp
-                                                </strong>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <div class="col-lg-7 col-md-7 col-sm-6">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" id="rv222" name="checkbox-demo-v" ng-model="product.isMarkup" />
-
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" ng-show="product.isMarkup==true">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Markup:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerMarkup" maxlength="20">
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="col-sm-6 margin-top">
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Percentage:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerPercentage" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Air Port Rate:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.airPortRate" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price Return:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.havaPriceReturn" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price Return:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.marketPriceReturn" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price Return:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.partnerSellPriceReturn" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Day Rate:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.additionalDayRate" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Hour Rate:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.additionalHourRate" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer Daily Rate:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.chufferDailyRate" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer KM Rate:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.chufferKMRate" maxlength="20">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Child Seat Rate:</strong></label>
-                                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="text" placeholder="" class="form-control" format="number" ng-model="product.childSeatRate" maxlength="20">
                                             </div>
                                         </div>
                                     </div>
@@ -445,100 +307,92 @@
                                                 <div class="form-group">
                                                     <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
                                                     <div class="col-lg-7 col-md-7 col-sm-6">
-                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProducts(product)" ng-hide="updateProduct">Save</button>
-                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="updateProductFunc(product)" ng-show="updateProduct">Update</button>
+                                                        <button class="btn btn-primary ng-cloak" type="button" ng-click="addProduct(product.product)" ng-hide="updateProduct">Save</button>
+                                                        @*<button class="btn btn-primary ng-cloak" type="button" ng-click="updateProductFunc(product)" ng-show="updateProduct">Update</button>*@
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>*@
+
+                                </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        @*<div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteProduct'">
-                                            <div class="row">
-                                                <div class="col-sm-12">
+                                            <div class="col-sm-12">
+                                                <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteProduct'">
                                                     <div class="row">
-                                                        <span>
-                                                            You are about to delete ' {{productRow.productName}} ', do you want to proceed?
-                                                        </span>
-                                                        <span class="info-btn">
-                                                            <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteProduct(productRow)">Delete</button>
-                                                            <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
-                                                        </span>
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <span>
+                                                                    You are about to delete ' {{prodRow.productName}} ', do you want to proceed?
+                                                                </span>
+                                                                <span class="info-btn">
+                                                                    <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteProduct(prodRow)">Delete</button>
+                                                                    <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteProduct">
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <span>{{infoMsgDeleteProduct}}</span>
-                                                    <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteProd">
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <span>{{infoMsgDeleteProd}}</span>
+                                                            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="infobar cf error dark pos-reletive-z grid-infobar ng-cloak ng-hide" id="del-box" ng-show="viewTask == 'confirmDeleteRate'">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <span>
+                                                                    You are about to delete ' {{rateRow.locationName}} ', do you want to proceed?
+                                                                </span>
+                                                                <span class="info-btn">
+                                                                    <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteRate(rateRow)">Delete</button>
+                                                                    <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteSiteRate">
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <span>{{infoMsgDeleteRate}}</span>
+                                                            <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered" id="productdt">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>Product Id</th>
+                                                                <th>Product Name</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
+                                                <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
+                                                    <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
                                                 </div>
                                             </div>
-                                        </div>*@
-                                        @* old table *@
-                                        @*<div class="table-responsive">
-                                            <table class="table table-bordered " id="">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Product Name</th>
-                                                        <th>Location Name</th>
-                                                        <th>Location From</th>
-                                                        <th>Location To</th>
+                                        </div>
+                                    </div>
 
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="click-row off-click" ng-repeat="pData in productGridData">
-                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.productName">{{pData.productName}}</a><span ng-hide="pData.productName"><left>-</left></span></td>
-                                                        <td style="width:15%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.locationName">{{pData.locationName}}</a><span ng-hide="pData.locationName"><left>-</left></span></td>
-                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.fromLocation">{{pData.fromLocation}}</a><span ng-hide="pData.fromLocation"><left>-</left></span></td>
-                                                        <td style="width:10%;"><a class="click-cell" ng-click="priductViewAction(pData)" ng-show="pData.toLocation">{{pData.toLocation}}</a><span ng-hide="pData.toLocation"><left>-</left></span></td>                                                        
-                                                        <td style="width:5%;" class="action">
-                                                            <a class="link-action" ng-click="priductViewAction(pData,'view')" title="Edit"><i class="access-link fa fa-eye"></i></a>
-                                                            <a class="link-action" ng-click="priductViewAction(pData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>
-                                                            <a class="link-action" ng-click="priductViewAction(pData, 'delete')" id="test_action_product"><i class="access-link fa fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="odd gradeX" ng-hide="productGridData.length > 0">
-                                                        <td colspan="8">
-                                                            <center>No results found.</center>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>*@
-                                        @* old table *@
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered" id="productdt">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Product Id</th>
-                                                        <th>Product Name</th>
-                                                    </tr>
-                                                </thead>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                            @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
-                                            <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
-                                                <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
-                                            </div>
-                                        </div>
+
                                 </div>
                             </div>
-
-
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="panel panel-default">
@@ -653,134 +507,181 @@
 </div>
 
 <!-- location prices -->
-<div class="modal fade" data-backdrop="static" id="pro-location-prices">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" id="close-picture">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-6 margin-top">
-
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv221">
-                                <strong>
-                                    Is Airport Tour:
-                                </strong>
-                            </label>
-                                <div class="col-lg-7 col-md-7 col-sm-6">
-                                    <label>
-                                    <input type="checkbox" readonly id="rv221" name="checkbox-demo-v" ng-model="selectedProd.isAirPortTour" />
-                                    </label> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.havaPrice}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.marketPrice}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.partnerSellingPrice}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for="rv222">
-                                <strong>
-                                    Is MarkUp
-                                </strong>
-                            </label>
-                          
-                                <div class="col-lg-7 col-md-7 col-sm-6">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" readonly id="rv222" name="checkbox-demo-v" ng-model="selectedProd.isMarkup" />
-                                        </label>
+<div class="modal fade" data-backdrop="static" id="pro-location-prices" >
+    <form id="addRateForm" method="post" class="form-horizontal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" id="close-picture">&times;</span></button>
+                    <h3 class="bold-700">New Product</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location From:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" class="form-control" ng-model="rate.fromLocation" maxlength="100">
+                                        </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location Name:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" class="form-control" ng-model="rate.locationName" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Day Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.additionalDayRate" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Air Port Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.airPortRate" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer Daily Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.chufferDailyRate" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.havaPrice" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for="rv222">
+                                            <strong>
+                                                Is MarkUp:
+                                            </strong>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="rv222" name="checkbox-demo-v" ng-model="rate.isMarkup" />
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price Return:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.marketPriceReturn" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.partnerSellingPrice" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Percentage:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.partnerPercentage" maxlength="20">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" ng-show="selectedProd.isMarkup==true">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Markup:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.partnerMarkup}}</label>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-6 margin-top">
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Percentage:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.partnerPercentage}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Air Port Rate:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.airPortRate}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price Return:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.havaPriceReturn}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price Return:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.marketPriceReturn}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling Price Return:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.partnerSellPriceReturn}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Day Rate:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.additionalDayRate}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Hour Rate:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.additionalHourRate}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer Daily Rate:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.chufferDailyRate}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer KM Rate:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.chufferKMRate}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Child Seat Rate:</strong></label>
-                            <div class="col-lg-7 col-md-7 col-sm-6">
-                                <label>{{selectedProd.childSeatRate}}</label>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location To:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" class="form-control" ng-model="rate.toLocation" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for="rv221">
+                                            <strong>
+                                                Is Airport Tour:
+                                            </strong>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="rv221" name="checkbox-demo-v" ng-model="rate.isAirPortTour" />
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional Hour Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.additionalHourRate" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Additional KM Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.additionalKMRate" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Child Seat Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.childSeatRate" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Chuffer KM Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.chufferKMRate" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Hava Price Return:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.havaPriceReturn" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Market Price:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.marketPrice" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Markup:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.partnerMarkup" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Partner Selling PriceReturn:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.partnerSellPriceReturn" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Rate:</strong></label>
+                                        <div class="col-lg-7 col-md-7 col-sm-6">
+                                            <input type="text" placeholder="" format="number" class="form-control" ng-model="rate.rate" maxlength="20">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="addRate()" id="addrate" ng-hide="isRateEdit">Save</button>
+                    <button type="button" class="btn btn-primary" ng-click="editRate()" id="editrate" ng-show="isRateEdit">Update</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </form>
 </div>
 <!--End location prices-->

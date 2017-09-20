@@ -35,7 +35,7 @@ namespace HavaBusinessObjects.ViewModels
         public int id { get; set; }
         public int productId { get; set; }
         public bool isActive { get; set; }
-        public List<PrtnerLocations> partnerLocations { get; set; }
+        public List<PrtnerLocations> rates { get; set; }
 
     }
 

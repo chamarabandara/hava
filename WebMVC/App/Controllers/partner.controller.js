@@ -40,7 +40,7 @@ partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerSer
     }
     $scope.bindActionButtons = function (o) {
         var actionButtons = "";
-        actionButtons = '<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">';
+        actionButtons = '<div class="ngCellText"  ng-class="col.colIndex()">';
         var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
         var editButton = '<a data-dataId="' + o.id + '" class="link-action action-button"  data-view="edit" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>';
         var deleteButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
@@ -176,12 +176,13 @@ partnerControllers.controller('PartnerCtrl', ['$scope', '$http', 'HavaPartnerSer
     });
 }]);
 
-partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', 'PartnerServiceLocal','$filter', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, filterFilter, PartnerServiceLocal, $filter) {
+partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'filterFilter', 'PartnerServiceLocal', '$filter', '$compile', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, filterFilter, PartnerServiceLocal, $filter, $compile) {
     var tmp = PartnerServiceLocal;
     $scope.representative = {};
     $scope.submittedRep = false;
     $scope.representativeGridData = [];
     $scope.products = [];
+
 
     $scope.viewPartnerSites = function (obj) {
         //var url = $state.href('app.site', { 'id': $stateParams.id + 'S' + obj.id});
@@ -490,23 +491,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         }
     }
 
-    $scope.confirmDeleteProduct = function (row) {
-        var ky = null;
-        angular.forEach($scope.productGridData, function (v, k) {
-            if (row.productId == v.productId) {
-                ky = k;
-            }
-        });
-        $scope.productGridData.splice(ky, 1);
 
-        $scope.viewTask = '';
-        $scope.infoMsgDeleteProduct = "'" + row.productName + "' has been deleted successfully.";
-        $timeout(function () { $scope.infoMsgDeleteProduct = ''; }, 1000);
-
-        if ($scope.productGridData.length <= 0) {
-            $scope.repRequired = false;
-        }
-    }
 
     $scope.deleteSite = function(row){
         $scope.siteRow = row;
@@ -575,65 +560,17 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
             }
         }
     }
-   // var products = [];
-  //{
-  //  "id": 1,
-  //  "productName": "test",
-  //  "locationName": "test2",
-  //  "locationFrom": "test3",
-  //  "locationTo": "test4",
-  //  "rates": [{
-  //    "id": 1,
-  //    "havaPrice": 2312312,
-  //    "havaPriceReturn": 1212331233,
-  //    "marketPrice": 333,
-  //    "partnerSellingPrice": 2322
-  //    },
-  //        {
-  //      "id": 2,
-  //    "havaPrice": 23,
-  //    "havaPriceReturn": 123,
-  //    "marketPrice": 333,
-  //    "partnerSellingPrice": 2322
-  //  }
-  //  ]
-  //  },
-    //  {
-    //"id": 2,
-    //"productName": "test2",
-    //"locationName": "test22",
-    //"locationFrom": "test32",
-    //"locationTo": "test42",
-    //"rates": [{
-    //  "id": 1,
-    //  "havaPrice": 23,
-    //  "havaPriceReturn": 123,
-    //  "marketPrice": 333,
-    //  "partnerSellingPrice": 2322
-    //},
-    //{
-    //  "id": 2,
-    //  "havaPrice": 23,
-    //  "havaPriceReturn": 1235555,
-    //  "marketPrice": 33355,
-    //  "partnerSellingPrice": 2322
-    //}
-    //]
-    //}
-    //  ];
-
+  
     $scope.format = function(table_id) {
         return '<table class="table table-striped" id="productdt_' + table_id + '">' +
-        '<thead><tr><th>From Location</th><th>To Location</th><th>Is AirPort Tour</th><th>Location Name</th><th>Hava Price</th><th>Hava Price Return</th><th>Market Price</th><th>Partner Selling Price</th><th>Percentage</th></tr></thead>' +
+        '<thead><tr><th>Location Name</th><th>From Location</th><th>To Location</th><th>Partner Selling Price</th><th>Market Price</th><th>Hava Price</th><th></th></tr></thead>' +
         '<tr>'+
           '<td></td>'+
           '<td></td>'+
           '<td></td>' +
           '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
+          '<td></td>' +
+          '<td></td>' +
             '<td></td>' +
         '</tr>'
         '</table>';
@@ -657,10 +594,20 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                   data: null,
                   defaultContent: ''
               },
-              { data:'id' },
-              { data: 'productName' }
+              { data:'productId' },
+              { data: 'productName' },
+              {
+                  "data": null,
+                  "bSortable": false,
+                  "mRender": function (o) {
+                      return $scope.bindActionButtons(o);
+                  }
+              }
             ],
-            order: [[1, 'asc']]
+            order: [[1, 'asc']],
+            createdRow: function (row, data, dataIndex) {
+                $compile(angular.element(row).contents())($scope);
+            }
         });
         /* Add event listener for opening and closing details
          * Note that the indicator for showing which row is open is not controlled by DataTables,
@@ -681,8 +628,9 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                 row.child($scope.format(rowData.id)).show();
                 tr.addClass('shown');
                 // try datatable stuff
-                oInnerTable = $('#productdt_' + rowData.id).dataTable({
-                    data: rowData.rates,
+                var ratesData = rowData.rates;
+                oInnerTable = $('#productdt_' + rowData.id).DataTable({
+                    data: ratesData,
                     autoWidth: true,
                     deferRender: true,
                     info: false,
@@ -693,21 +641,224 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                     scrollY: false,
                     searching: false,
                     columns: [
-                        { data : 'fromLocation'},
-                        { data : 'toLocation'}, 
-                        { data : 'isAirPortTour'},
-                        { data : 'locationName' },
-                        { data : 'havaPrice' },
-                        { data : 'havaPriceReturn' },
-                        { data : 'marketPrice' },
-                        { data: 'partnerSellingPrice' },
-                        { data : 'percentage'}
+                        {data: 'locationName' },
+                        {data: 'fromLocation' },
+                        {data: 'toLocation' },
+                        {data: 'partnerSellingPrice' },
+                        {data: 'marketPrice' },
+                        { data: 'havaPrice' },
+                        {
+                            "data": null,
+                            "bSortable": false,
+                            "mRender": function (o) {
+                                return $scope.bindActionButtonsRates(o);
+                            }
+                        }
 
-                    ]
+                    ],
+                    createdRow: function (row, data, dataIndex) {
+                        $compile(angular.element(row).contents())($scope);
+                    }
                 });
                 iTableCounter = iTableCounter + 1;
             }
         });
+
+
+
     });
+    $scope.bindActionButtons = function (o) {
+        var actionButtons = "";
+        actionButtons = '<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">';
+        var addButton = '<a data-dataId="' + o.id + '" ng-click="showAddRate($event)" class="link-action action-button" data-view="add" title="View"><i class="fa fa-plus"></i></a>';
+        var deleteButton = '<a data-dataId="' + o.id + '" ng-click="deleteProduct($event)" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
+        actionButtons += addButton + deleteButton;
+        
+        actionButtons += '</div>';
+        return actionButtons;
+    }
+
+    $scope.bindActionButtonsRates = function (o) {
+        var actionButtons = "";
+        actionButtons = '<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">';
+        var addButton = '<a data-dataId="' + o.id + '" ng-click="showEditRate($event)" class="link-action action-button" data-view="edit" title="Edit"><i class="fa fa-edit"></i></a>';
+        var deleteButton = '<a data-dataId="' + o.id + '" ng-click="deleteRate($event)" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
+        actionButtons += addButton + deleteButton;
+
+        actionButtons += '</div>';
+        return actionButtons;
+    }
+
+    
+    $scope.showAddRate = function ($event) {
+        var t = $event.currentTarget;
+        var tr = $(t).closest('tr');
+        var rowData = $('#productdt').DataTable().row(tr).data();
+        $scope.selprod = rowData;
+        $scope.rate = {};
+        $scope.isRateEdit = false;
+        $("#pro-location-prices").modal('show');
+        
+    }
+    $scope.deleteProduct = function ($event) {
+        var t = $event.currentTarget;
+        var tr = $(t).closest('tr');
+        var rowData = $('#productdt').DataTable().row(tr).data();
+        $scope.prodRow = rowData;
+        $scope.viewTask = 'confirmDeleteProduct';
+
+    }
+    $scope.confirmDeleteProduct = function (row) {
+        var ky = null;
+        angular.forEach($scope.productGridData, function (v, k) {
+            if (row.productId == v.productId) {
+                v.isActive = false;
+            }
+        });
+       
+        $scope.viewTask = '';
+        $scope.infoMsgDeleteProd = "'" + row.productName + "' has been deleted successfully.";
+        $timeout(function () { $scope.infoMsgDeleteProduct = ''; }, 1000);
+
+    }
+
+    $scope.isRateEdit = false;
+    $scope.showEditRate = function ($event) {
+        var t = $event.currentTarget;
+        var tr = $(t).closest('tr');
+        var tableName = $(t).closest('table')[0].id;
+        var childTbl = $("#" + tableName).DataTable();
+        var row = childTbl.row(tr);
+        var rowData = childTbl.row(tr).data()
+
+        $scope.rate = rowData;
+        $scope.isRateEdit = true;
+        $("#pro-location-prices").modal('show');
+        
+    }
+    $scope.editRate = function () {
+        angular.forEach($scope.products, function (product, k) {
+            angular.forEach(product.rates, function (rt, k) {
+                if (rt.id == $scope.rate.id) {
+                    rate = {
+                        'id': $scope.rate.id,
+                        'locationName': $scope.rate.locationName,
+                        'fromLocation': $scope.rate.fromLocation,
+                        'toLocation': $scope.rate.toLocation,
+                        'isAirPortTour': $scope.rate.isAirPortTour,
+                        'partnerPercentage': $scope.rate.partnerPercentage,
+                        'partnerMarkup': $scope.rate.partnerMarkup,
+                        'isMarkup': $scope.rate.isMarkup,
+                        'partnerSellingPrice': $scope.rate.partnerSellingPrice,
+                        'marketPrice': $scope.rate.marketPrice,
+                        'havaPrice': $scope.rate.havaPrice,
+                        'airPortRate': $scope.rate.airPortRate,
+                        'havaPriceReturn': $scope.rate.havaPriceReturn,
+                        'marketPriceReturn': $scope.rate.marketPriceReturn,
+                        'partnerSellPriceReturn': $scope.rate.partnerSellPriceReturn,
+                        'additionalDayRate': $scope.rate.additionalDayRate,
+                        'additionalHourRate': $scope.rate.additionalHourRate,
+                        'chufferDailyRate': $scope.rate.chufferDailyRate,
+                        'chufferKMRate': $scope.rate.chufferKMRate,
+                        'childSeatRate': $scope.rate.childSeatRate,
+                        'rate': $scope.rate.rate,
+                        'productId': product.productId,
+                        'isActive': true,
+                        'locationId': ($scope.rate.locationId != undefined && $scope.rate.locationId) > 0 ? $scope.rate.locationId : 0,
+                        'productRateId': ($scope.rate.productRateId != undefined && $scope.rate.productRateId) > 0 ? $scope.rate.productRateId : 0
+                    }
+                    $("#pro-location-prices").modal('hide');
+                }
+            });
+        });
+        
+    }
+
+    $scope.deleteRate = function ($event) {
+        var t = $event.currentTarget;
+        var tr = $(t).closest('tr');
+        var rowData = $('#productdt').DataTable().row(tr).data();
+        $scope.rateRow =rowData;
+        $scope.viewTask = 'confirmDeleteRate';
+    }
+    $scope.confirmDeleteRate = function (row) {
+        //var ky = null;
+        //angular.forEach($scope.productGridData, function (v, k) {
+        //    if (row.productId == v.productId) {
+        //        v.isActive = false;
+        //    }
+        //});
+
+        //$scope.viewTask = '';
+        //$scope.infoMsgDeleteProd = "'" + row.productName + "' has been deleted successfully.";
+        //$timeout(function () { $scope.infoMsgDeleteProduct = ''; }, 1000);
+
+    }
+
+    $scope.addProduct = function (product) {
+        var alreadyAdded = false;
+        //$scope.submittedSite = true;
+        if (product != null || product != undefined) {
+            //$scope.siteRequired = false;
+            angular.forEach($scope.products, function (v, k) {
+                if (product.id == v.productId)
+                    alreadyAdded = true;
+            });
+            if (!alreadyAdded) {
+                var newProd = {
+                    'id': 'X' + Math.floor(Math.random()*(999-100+1)+100),
+                    'productId': product.id,
+                    'productName': product.name,
+                    'isActive': true,
+                };
+                $scope.products.push(newProd);
+                var table = $('#productdt').DataTable();
+                table.row.add(newProd).draw();
+            }
+            
+        }
+    }
+    $scope.addRate = function (rate)
+    {
+       
+        angular.forEach($scope.products, function (product, k) {
+            if (product.id == $scope.selprod.id)
+                if (!product.rates)
+                    product.rates = [];
+                product.rates.push({
+                    'id': 'X' + Math.floor(Math.random()*(999-100+1)+100),
+                    'locationName' : $scope.rate.locationName ,
+                    'fromLocation' : $scope.rate.fromLocation ,
+                    'toLocation' : $scope.rate.toLocation ,
+                    'isAirPortTour' : $scope.rate.isAirPortTour ,
+                    'productRateId' : 0 ,
+                    'partnerPercentage' : $scope.rate.partnerPercentage ,
+                    'partnerMarkup' : $scope.rate.partnerMarkup ,
+                    'isMarkup' : $scope.rate.isMarkup ,
+                    'partnerSellingPrice': $scope.rate.partnerSellingPrice,
+                    'marketPrice' : $scope.rate.marketPrice ,
+                    'havaPrice' : $scope.rate.havaPrice ,
+                    'airPortRate' : $scope.rate.airPortRate ,
+                    'havaPriceReturn' : $scope.rate.havaPriceReturn ,
+                    'marketPriceReturn' : $scope.rate.marketPriceReturn ,
+                    'partnerSellPriceReturn' : $scope.rate.partnerSellPriceReturn ,
+                    'additionalDayRate' : $scope.rate.additionalDayRate ,
+                    'additionalHourRate' : $scope.rate.additionalHourRate ,
+                    'chufferDailyRate' : $scope.rate.chufferDailyRate ,
+                    'chufferKMRate' : $scope.rate.chufferKMRate ,
+                    'childSeatRate' : $scope.rate.childSeatRate ,
+                    'rate': $scope.rate.rate,
+                    'productId': $scope.selprod.productId,
+                    'isActive':true,
+                    'locationId':0,
+                    'productRateId':0
+                });
+                var table = $('#productdt_' + $scope.selprodId).DataTable();
+                table.clear().draw();
+                table.rows.add(product.rates).draw();
+                $("#pro-location-prices").modal('hide');
+        });
+        
+    }
 
 }]);
