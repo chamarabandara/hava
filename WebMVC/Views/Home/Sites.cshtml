@@ -597,8 +597,8 @@
                             <li ng-click="navigateSteps(1)"><a ng-class='whatClassIsIt(1)'>car class</a></li>
                             <li ng-click="navigateSteps(2)"><a ng-class='whatClassIsIt(2)'>options</a></li>
                             <li ng-click="navigateSteps(3)"><a ng-class='whatClassIsIt(3)'>login</a></li>
-                            <li ng-click="navigateSteps(4)"><a ng-class='whatClassIsIt(4)'>credit card</a></li>
-                            <li ng-click="navigateSteps(5)"><a ng-class='whatClassIsIt(5)'>Completed</a></li>
+                            <li ng-click="navigateSteps(4)"><a>credit card</a></li>
+                            <li ng-click="navigateSteps(5)"><a>Completed</a></li>
 
                            @* <li ng-click="navigateSteps(5)"><a ng-class='whatClassIsIt(5)'>check out</a></li>*@
                         </ul>
@@ -698,11 +698,29 @@
                                                 </td>
                                                 <td class="td-others">
                                                     <span ng-click="addCount('ah','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
-                                                    <input type="text" style="width:20px" readonly ng-model="countAddHours"/>
-                                                    <span ng-click="addCount('ah',0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+                                                    <input type="text" style="width:50px" ng-model="countAddHours" />
+                                                    <span ng-click="addCount('ah',0, 0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+
                                                 </td>
                                                 <td>
                                                     {{countAddHours * AdHoursUnit}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-first-cloumn">
+                                                    Additional kilometer
+                                                </td>
+                                                <td class="td-others">
+                                                    {{AdHoursKmUnit}}
+                                                </td>
+                                                <td class="td-others">
+                                                    <span ng-click="addCount('km','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                                                    @*<input type="text" style="width:50px" ng-model="countAddKm" ng-blur="addCount(1,1,1)" />*@
+                                                    <input type="text" style="width:50px" ng-model="countAddKm"/>
+                                                    <span ng-click="addCount('km',0, 0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+                                                </td>
+                                                <td>
+                                                    {{countAddKm * AdditionalKM}}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -713,8 +731,8 @@
                                                     {{cildSetUnit}}
                                                 </td>
                                                 <td class="td-others">
-                                                    <span ng-click="addCount('ac','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
-                                                    <input type="text" style="width:20px" readonly ng-model="countAddhildSet"/>
+                                                    <span ng-click="addCount('ac','1', 0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                                                    <input type="text" style="width:50px" ng-model="countAddhildSet"/>
                                                     <span ng-click="addCount('ac',0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
                                                 </td>
                                                 <td>
@@ -730,8 +748,8 @@
                                                 </td>
                                                 <td class="td-others">
                                                     <span ng-click="addCount('ad','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
-                                                    <input type="text" style="width:20px" readonly ng-model="countAddDay"/>
-                                                    <span ng-click="addCount('ad',0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+                                                    <input type="text" style="width:50px" ng-model="countAddDay" ng-blur="addCount(1,1,1)" />
+                                                    <span ng-click="addCount('ad',0,0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
                                                 </td>
                                                 <td>
                                                     {{countAddDay * AditionalDayUnit}}
@@ -823,7 +841,7 @@
                     <div class="container" id="logInDiv" ng-if="step==3">
                         <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-12" ng-hide="loginForm">
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-3">
@@ -877,10 +895,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-12" ng-show="loginForm">
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <label class="col-sm-4">
+                                                    UserName <span class="required">*</span>
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <input class="form-control" ng-model="login.loginUsername" type="text" autocomplete="off" placeholder="Username" name="username" ng-keyup="Login(login)" />
+                                                    </div>
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <label class="col-sm-4">
+                                                    Password <span class="required">*</span>
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" ng-model="login.loginPassword" autocomplete="off" placeholder="Password" name="password" ng-keyup="Login(login)"/>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-sm-12 text-right">
                                     <div class="row">
-                                        @*<a href="" style="padding-right:10px;">Have an account? Log in to book faster</a>*@
-                                        <button type="button" class="btn btn-primary" ng-click="createUser(user)" ng-class="{'disabled' : disabledButton}">Register</button>
+                                        <a href="" style="padding-right:10px;" ng-show="loginForm" ng-click="gotoLogin(false)">Don't have an account?</a>
+                                        <a href="" style="padding-right:10px;" ng-hide="loginForm" ng-click="gotoLogin(true)">go to login</a>
+                                        <button type="button" ng-hide="loginForm" class="btn btn-primary" ng-click="createUser(user)" ng-class="{'disabled' : disabledButton}">Register</button>
+                                        <button type="button" ng-show="loginForm" class="btn btn-primary" ng-click="login(login)">Login</button>
                                     </div>
                                 </div>
                             </div>

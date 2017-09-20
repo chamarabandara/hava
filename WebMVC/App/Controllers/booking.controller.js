@@ -16,8 +16,8 @@ var sitesControllers = angular.module('Sites', ['siteService', 'ui.router']);
 sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$state', '$stateParams', '$timeout', function ($scope, $http, HavaSiteService, $state, $stateParams, $timeout) {
 
     $scope.search = {};
-
-
+    $scope.loginForm = true;
+    $scope.makeRegister = false;
     $scope.parseQueryString = function (url) {
         var urlParams = {};
         url.replace(
@@ -29,7 +29,41 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
         return urlParams;
     }
-    debugger;
+    
+    $scope.gotoLogin = function (st) {
+        if (st == true) {
+            $scope.loginForm = true;
+        }else{
+            $scope.loginForm = false;
+        }
+
+    }
+
+    $scope.Login = function (login) {
+        $scope.submitted = true;
+
+        if (login.loginUsername && login.loginPassword) {
+
+            var loginData = {
+                grant_type: 'password',
+                username: login.loginUsername,
+                password: login.loginPassword,
+                client_id: 'HavaApp'
+            };
+            //window.location.href = appUrl;
+
+            $http.post(appUrl + '/Token', $.param(loginData)).
+            success(function (data, status, headers, config) {
+                $scope.UserId = 0;
+                $scope.navigateSteps(3);
+            }).
+            error(function (data, status, headers, config) {
+                $scope.invalidUserNamePassword = true;
+            });
+
+        } else {
+        }
+    }
     $scope.urlparms = $scope.parseQueryString(window.location.href);
     $scope.paramData = $scope.urlparms.P.split('S');
     $scope.PartnerIdTemp = $scope.paramData[0];
@@ -114,7 +148,8 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
         $scope.AditionalDayUnit = $scope.selectedProduct.AdditionaDayRate != null?$scope.selectedProduct.AdditionaDayRate:0;
         $scope.AdHoursUnit = $scope.selectedProduct.AdditionaHourRate != null ? $scope.selectedProduct.AdditionaHourRate : 0;
-        $scope.cildSetUnit = $scope.selectedProduct.ChildSeatRate != null ? $scope.selectedProduct.ChildSeatRate : 0
+        $scope.cildSetUnit = $scope.selectedProduct.ChildSeatRate != null ? $scope.selectedProduct.ChildSeatRate : 0;
+        $scope.AdditionalKM = $scope.selectedProduct.AdditionalKM != null ? $scope.selectedProduct.AdditionalKM : 0;
         $scope.BookingOptions.PickupAddress = $scope.search.pickupLocation;
        // console.log(result.data[0]);
 
@@ -258,42 +293,55 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     $scope.countAddHours = 0;
     $scope.countAddDay = 0;
     $scope.countAddhildSet = 0;
+    $scope.countAddKm = 0;
     $scope.addCount = function (type, isAdd) {
+      //  if (inp == 0) {
+            if (type == "ah") {
 
-        if (type == "ah") {
-
-            if (isAdd == "1")
-                $scope.countAddHours++;
-            else
-                $scope.countAddHours--;
-
-
-        }
-        if (type == "ad") {
-
-            if (isAdd == "1")
-                $scope.countAddDay++;
-            else
-                $scope.countAddDay--;
+                if (isAdd == "1")
+                    $scope.countAddHours++;
+                else
+                    $scope.countAddHours--;
 
 
-        }
-        if (type == "ac") {
+            }
+            if (type == "ad") {
 
-            if (isAdd == "1")
-                $scope.countAddhildSet++;
-            else
-                $scope.countAddhildSet--;
+                if (isAdd == "1")
+                    $scope.countAddDay++;
+                else
+                    $scope.countAddDay--;
 
 
-        }
+            }
+            if (type == "ac") {
+
+                if (isAdd == "1")
+                    $scope.countAddhildSet++;
+                else
+                    $scope.countAddhildSet--;
+
+
+            }
+            if (type == "km") {
+
+                if (isAdd == "1")
+                    $scope.countAddKm++;
+                else
+                    $scope.countAddKm--;
+
+
+            }
+        
+       
         $scope.getTotal();
     }
     $scope.total = 0;
     $scope.getTotal = function () {
+        console.log($scope.countAddHours);
        var partPrice = 0;
        var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
-        $scope.total = ($scope.countAddDay * $scope.AditionalDayUnit) + ($scope.countAddhildSet * $scope.cildSetUnit) + ($scope.countAddHours * $scope.AdHoursUnit)
+       $scope.total = ($scope.countAddDay * $scope.AditionalDayUnit) + ($scope.countAddhildSet * $scope.cildSetUnit) + ($scope.countAddHours * $scope.AdHoursUnit);
         if ($scope.selectedProduct.promotionAmount == null)
             $scope.selectedProduct.promotionAmount = 0;
         $scope.totalSellingPrice = partPrice + $scope.total - $scope.selectedProduct.promotionAmount;
