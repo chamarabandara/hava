@@ -239,10 +239,10 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             if ($scope.totalSellingPrice > 0)
                 $scope.selectedProduct.price = $scope.totalSellingPrice;
            
-            $scope.bookingOptionData.AdditionalHours = $scope.additional.countAddHours;
-            $scope.bookingOptionData.NoOfChildSeats = $scope.additional.countAddhildSet;
-            $scope.bookingOptionData.AdditionalDays = $scope.additional.countAddDay;
-            $scope.bookingOptionData.AdditionalKM = $scope.additional.AdditionalKM;
+            $scope.selectedProduct.AdditionalHours = $scope.additional.countAddHours;
+            $scope.selectedProduct.NoOfChildSeats = $scope.additional.countAddhildSet;
+            $scope.selectedProduct.AdditionalDays = $scope.additional.countAddDay;
+            $scope.selectedProduct.AdditionalKM = $scope.additional.AdditionalKM;
            
             var data = {
                 "Id":0,
@@ -409,28 +409,31 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         //$(function () {
         //    $("#datepicker").datepicker();
         //});
+        var dateToday = new Date();
         $('#timepicker').timepicker({
+            startDate: dateToday,
             timeFormat: 'HH:mm:ss',
             showSecond: true,
             ampm: false
         });
         $('#timepicker2').timepicker({
             timeFormat: 'HH:mm:ss',
+            startDate: dateToday,
             showSecond: true,
             ampm: false
         });
 
-        var dateToday = new Date();
+      
 
         $('#inputGroupSuccessDate').datepicker({
             format: 'yyyy-mm-dd',
-            endDate: dateToday,
+            startDate: dateToday,
             todayBtn: 'linked',
             autoclose: true,
         });
         $('#inputGroupSuccessDate2').datepicker({
             format: 'yyyy-mm-dd',
-            endDate: dateToday,
+            startDate: dateToday,
             todayBtn: 'linked',
             autoclose: true,
         });
