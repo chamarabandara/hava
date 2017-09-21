@@ -18,6 +18,16 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     $scope.search = {};
     $scope.loginForm = true;
     $scope.makeRegister = false;
+    $scope.additional = {};
+    $scope.AdHoursUnit = 0;
+    $scope.cildSetUnit = 0;
+    $scope.AditionalDayUnit = 0;
+    $scope.AdditionalKMRate = 0;
+    $scope.additional.countAddHours = 0;
+    $scope.additional.countAddDay = 0;
+    $scope.additional.countAddhildSet = 0;
+    $scope.additional.AdditionalKM = 0;
+
     $scope.parseQueryString = function (url) {
         var urlParams = {};
         url.replace(
@@ -149,7 +159,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         $scope.AditionalDayUnit = $scope.selectedProduct.AdditionaDayRate != null?$scope.selectedProduct.AdditionaDayRate:0;
         $scope.AdHoursUnit = $scope.selectedProduct.AdditionaHourRate != null ? $scope.selectedProduct.AdditionaHourRate : 0;
         $scope.cildSetUnit = $scope.selectedProduct.ChildSeatRate != null ? $scope.selectedProduct.ChildSeatRate : 0;
-        $scope.AdditionalKM = $scope.selectedProduct.AdditionalKM != null ? $scope.selectedProduct.AdditionalKM : 0;
+        $scope.AdditionalKMRate = $scope.selectedProduct.AdditionalKMRate != null ? $scope.selectedProduct.AdditionalKMRate : 0;
         $scope.BookingOptions.PickupAddress = $scope.search.pickupLocation;
        // console.log(result.data[0]);
 
@@ -226,9 +236,14 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         $scope.CardNoRequired = false;
         if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "" && booking.CardType != undefined && booking.CardType != "") {
             $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
-            //$scope.selectedProduct.price = ($scope.total + $scope.selectedProduct.promotionAmount);
-            $scope.selectedProduct.price = $scope.totalSellingPrice;
-            console.log(booking.CardType);
+            if ($scope.totalSellingPrice > 0)
+                $scope.selectedProduct.price = $scope.totalSellingPrice;
+           
+            $scope.bookingOptionData.AdditionalHours = $scope.additional.countAddHours;
+            $scope.bookingOptionData.NoOfChildSeats = $scope.additional.countAddhildSet;
+            $scope.bookingOptionData.AdditionalDays = $scope.additional.countAddDay;
+            $scope.bookingOptionData.AdditionalKM = $scope.additional.AdditionalKM;
+           
             var data = {
                 "Id":0,
                 "BookingType": {
@@ -286,49 +301,91 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             
         }
     }
+  
+    $scope.getSubTotal = function (val) {
+        return (val == null) ? 0 : val;
+    }
 
-    $scope.AdHoursUnit = 0;
-    $scope.cildSetUnit = 0;
-    $scope.AditionalDayUnit = 0;
-    $scope.countAddHours = 0;
-    $scope.countAddDay = 0;
-    $scope.countAddhildSet = 0;
-    $scope.countAddKm = 0;
     $scope.addCount = function (type, isAdd) {
       //  if (inp == 0) {
             if (type == "ah") {
 
-                if (isAdd == "1")
-                    $scope.countAddHours++;
-                else
-                    $scope.countAddHours--;
+                if (isAdd == "1") {
+                    if ($scope.additional.countAddHours <= 0)
+                        $scope.additional.countAddHours = 0;
+                    else
+                        $scope.additional.countAddHours++;
+                }
+                else {
+                    if ($scope.additional.countAddHours >= 0)
+                        $scope.additional.countAddHours = 0;
+                    else
+                    $scope.additional.countAddHours--;
+
+                }
 
 
             }
             if (type == "ad") {
 
-                if (isAdd == "1")
-                    $scope.countAddDay++;
-                else
-                    $scope.countAddDay--;
+                if (isAdd == "1") {
+                    if ($scope.additional.countAddDay <= 0)
+                        $scope.additional.countAddDay = 0;
+                    else
+                        $scope.additional.countAddDay++;
+                   
+
+                }
+                else {
+                    if ($scope.additional.countAddDay >= 0)
+                        $scope.additional.countAddDay = 0;
+                    else
+                        $scope.additional.countAddDay--;
+                   
+
+                }
 
 
             }
             if (type == "ac") {
+                if (isAdd == "1") {
+                    if ($scope.additional.countAddhildSet <= 0)
+                        $scope.additional.countAddhildSet = 0;
+                    else
+                        $scope.additional.countAddhildSet++;
 
-                if (isAdd == "1")
-                    $scope.countAddhildSet++;
-                else
-                    $scope.countAddhildSet--;
+
+                }
+                else {
+                    if ($scope.additional.countAddhildSet >= 0)
+                        $scope.additional.countAddhildSet = 0;
+                    else
+                        $scope.additional.countAddhildSet--;
+
+
+                }
+               
 
 
             }
             if (type == "km") {
+                if (isAdd == "1") {
+                    if ($scope.additional.AdditionalKM <= 0)
+                        $scope.additional.AdditionalKM = 0;
+                    else
+                        $scope.additional.AdditionalKM++;
 
-                if (isAdd == "1")
-                    $scope.countAddKm++;
-                else
-                    $scope.countAddKm--;
+
+                }
+                else {
+                    if ($scope.additional.AdditionalKM >= 0)
+                        $scope.additional.AdditionalKM = 0;
+                    else
+                        $scope.additional.AdditionalKM--;
+
+
+                }
+                
 
 
             }
@@ -338,10 +395,10 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
     }
     $scope.total = 0;
     $scope.getTotal = function () {
-        console.log($scope.countAddHours);
+      
        var partPrice = 0;
        var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
-       $scope.total = ($scope.countAddDay * $scope.AditionalDayUnit) + ($scope.countAddhildSet * $scope.cildSetUnit) + ($scope.countAddHours * $scope.AdHoursUnit);
+       $scope.total = (parseInt($scope.additional.countAddDay) * parseInt($scope.AditionalDayUnit)) + (parseInt($scope.additional.countAddhildSet) * parseInt($scope.cildSetUnit)) + (parseInt($scope.additional.countAddHours) * parseInt($scope.AdHoursUnit)) + (parseInt($scope.additional.AdditionalKM) * parseInt($scope.AdditionalKMRate));
         if ($scope.selectedProduct.promotionAmount == null)
             $scope.selectedProduct.promotionAmount = 0;
         $scope.totalSellingPrice = partPrice + $scope.total - $scope.selectedProduct.promotionAmount;
@@ -545,6 +602,36 @@ sitesControllers.directive('onlyDigits', function ($filter) {
                 }
 
                 return transformedInput;
+            });
+        }
+    };
+});
+sitesControllers.directive('changeOnBlur', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, elm, attrs, ngModelCtrl) {
+            if (attrs.type === 'radio' || attrs.type === 'checkbox')
+                return;
+
+            var expressionToCall = attrs.changeOnBlur;
+
+            var oldValue = null;
+            elm.bind('focus', function () {
+                scope.$apply(function () {
+                    oldValue = elm.val();
+                    console.log(oldValue);
+                });
+            })
+            elm.bind('blur', function () {
+                scope.$apply(function () {
+                    var newValue = elm.val();
+                    console.log(newValue);
+                    if (newValue !== oldValue) {
+                        scope.$eval(expressionToCall);
+                    }
+                    //alert('changed ' + oldValue);
+                });
             });
         }
     };
