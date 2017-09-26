@@ -587,7 +587,8 @@
                             <li ng-click="navigateSteps(2)"><a ng-class='whatClassIsIt(2)'>options</a></li>
                             <li ng-click="navigateSteps(3)"><a ng-class='whatClassIsIt(3)'>login</a></li>
                             <li><a ng-class='whatClassIsIt(4)'>credit card</a></li>
-                            <li><a ng-class='whatClassIsIt(5)'>Completed</a></li>
+                            <li><a ng-class='whatClassIsIt(5)'>passenger details</a></li>
+                            <li><a ng-class='whatClassIsIt(6)'>Completed</a></li>
 
                         </ul>
                     </div>
@@ -980,6 +981,73 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <button type="button" class="btn btn-primary" ng-click="creditCardDetails(BookingPayments)">Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" id="passengerDiv" ng-if="step==5">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg ">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Passenger First Name</label>
+                                                        <input type="text" class="form-control" id="" placeholder="First Name" ng-model="BookingOptions.PassengerFirstName" ng-class="{'has-error' : (PassengerFirstNameRequired && submitted)}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Passenger First Name</label>
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="BookingOptions.PassengerLastName">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Passenger Mobile</label>
+                                                        <input type="text" class="form-control" id="" placeholder="Mobile No" ng-model="BookingOptions.PassengerMobile" ng-class="{'has-error' : (PassengerMobileRequired && submitted)}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Passenger Email</label>
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="BookingOptions.PassengerEmail" ng-class="{'has-error' : (PassengerEmailRequired && submitted)}">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Country</label>
+                                                        <select class="form-control" name="CardType" ng-options="country.name for country in countries track by country.id" ng-model="BookingOptions.PassengerCountry" ng-class="{'has-error' : (PassengerCountryRequired && submitted)}">
+                                                            <option value="">-- Select Country --</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-left">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button type="button" class="btn btn-primary" ng-click="passengerDetails(BookingOptions)">Continue</button>
                                         </div>
                                     </div>
                                 </div>

@@ -84,6 +84,7 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingOptions)
+                     .Include(x => x.BookingOptions.Select(y => y.Country))
                      .Include(x => x.BookingProducts.Select(y => y.Product))
                      .Include(x => x.BookingPayments)
                      .Where(a => a.Id == booking.Id).FirstOrDefault();

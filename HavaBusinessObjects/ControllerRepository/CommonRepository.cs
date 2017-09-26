@@ -46,6 +46,30 @@ namespace HavaBusinessObjects.ControllerRepository
             }
         }
 
+        public JArray GetAllCountry()
+        {
+            try
+            {
+                var countries = this.ObjContext.Countries.ToList();
+
+                JArray returnArr = new JArray();
+                foreach (Country item in countries)
+                {
+                    JObject bk = new JObject();
+                    bk.Add("id", item.Id);
+                    bk.Add("name", item.Name);
+
+                    returnArr.Add(bk);
+                }
+                return returnArr;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #region Dispose
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

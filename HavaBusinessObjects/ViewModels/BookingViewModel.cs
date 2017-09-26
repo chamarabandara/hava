@@ -89,6 +89,11 @@ namespace HavaBusinessObjects.ViewModels
         public string NoteToDriver { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string PickupAddress { get; set; }
+        public string PassengerFirstName { get; set; }
+        public string PassengerLastName { get; set; }
+        public string PassengerMobile { get; set; }
+        public string PassengerEmail { get; set; }
+        public CountryViewModel PassengerCountry { get; set; }
     }
 
     public class CommonViewModel

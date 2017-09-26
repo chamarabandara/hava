@@ -9,6 +9,7 @@ partnerService.factory('HavaSiteService', ['$resource', function ($resource) {
         createUser: { method: 'POST', url: appUrl + 'api/Account/CreateAppUser' },
         getProduct: { method: 'GET', url: appUrl + 'Partner/GetProductList' },
         getCardTypes: { method: 'GET', url: appUrl + 'booking/CardTypes', isArray: false },
+        getCountries: { method: 'GET', url: appUrl + 'booking/GetAllCountry', isArray: false },
         getLocations: { method: 'GET', url: appUrl + 'locationDetails/GetAllByPartnerId', params: { id: '@id' },isArray: false  },
         getProductDetails: { method: 'GET', url: appUrl + 'booking/GetProducts', params: { partnerId: '@partnerId', locationId: '@locationId', PromotionCode: '@PromotionCode' } },
         getPartnerIstest: { method: 'GET', url: appUrl + 'Partner/GetPartnerSite', params: { partnerId: '@partnerId', siteId: '@siteId' }, }

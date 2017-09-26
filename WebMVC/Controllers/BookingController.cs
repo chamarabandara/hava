@@ -402,8 +402,24 @@ namespace WebMVC.Controllers
 
             return returnObj;
         }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public JObject GetAllCountry()
+        {
+            JObject returnObj = new JObject();
+            try
+            {
+                returnObj.Add("data", _commonRepository.GetAllCountry());
+                return returnObj;
 
-
+            }
+            catch (Exception ex)
+            {
+                returnObj.Add("error", "General Error");
+                return returnObj;
+            }
+        }
 
         private int GetAppUser()
         {

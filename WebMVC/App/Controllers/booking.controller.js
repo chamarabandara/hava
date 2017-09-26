@@ -88,6 +88,11 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
              function (result) {
                  $scope.cardTypes = result.data;
              });
+
+    HavaSiteService.getCountries().$promise.then(
+             function (result) {
+                 $scope.countries = result.data;
+             });
     
     HavaSiteService.getPartnerIstest({ partnerId: parseInt($scope.PartnerIdTemp), siteId: parseInt($scope.siteIdTemp) }).$promise.then(
              function (result) {
@@ -151,6 +156,7 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             return "";
     }
     $scope.BookingOptions = {};
+    $scope.BookingPayments = {};
     $scope.setBookingProduct = function (product) {
         debugger;
         $scope.selectedProduct = product;
@@ -230,32 +236,23 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         $scope.navigateSteps(3);
     }
 
-    $scope.creditCardDetails = function (booking) {
-        $scope.CardHolderNameRequired = false;
-        $scope.CVVRequired = false;
-        $scope.CardNoRequired = false;
+    $scope.passengerDetails = function (booking) {
+        $scope.PassengerFirstNameRequired = false;
+        $scope.PassengerMobileRequired = false;
+        $scope.PassengerEmailRequired = false;
+        $scope.PassengerCountryRequired = false;
         debugger;
-        if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "" && booking.CardType != undefined && booking.CardType != "") {
-            if (data === parseInt(data, 10)) {
-                $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
-            }
-            else {
-                $scope.selectedProduct.Partner.Id = parseInt(($scope.urlparms.P).slice(0, -2));
-            }
+        if (booking.PassengerFirstName != "" && booking.PassengerMobile != "" && booking.PassengerEmail != "" && booking.PassengerCountry != undefined && booking.PassengerCountry != "") {
+            $scope.BookingOptions.PassengerFirstName = booking.PassengerFirstName;
+            $scope.BookingOptions.PassengerMobile = booking.PassengerMobile;
+            $scope.BookingOptions.PassengerEmail = booking.PassengerEmail;
+            $scope.BookingOptions.PassengerCountry = booking.PassengerCountry;
+            $scope.BookingOptions.PassengerLastName = booking.PassengerLastName;
 
-            
-            if ($scope.totalSellingPrice > 0)
-                $scope.selectedProduct.price = $scope.totalSellingPrice;
-           
-            $scope.selectedProduct.AdditionalHours = $scope.additional.countAddHours;
-            $scope.selectedProduct.NoOfChildSeats = $scope.additional.countAddhildSet;
-            $scope.selectedProduct.AdditionalDays = $scope.additional.countAddDay;
-            $scope.selectedProduct.AdditionalKM = $scope.additional.AdditionalKM;
-           
             var data = {
                 "Id":0,
                 "BookingType": {
-                    "id":1
+                    "Id":1
                 },
                 "UserId": $scope.UserId,
                 'BookingProducts': [$scope.selectedProduct],
@@ -269,13 +266,14 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
                 "PickupTime": $scope.search.pickupTime,
                 "DropLocation": $scope.dropLocation.Id,
                 "BookingOptions": [$scope.bookingOptionData],
-                "BookingPayments": [{
-                    "CardHolderName": booking.CardHolderName,
-                    "CardNo": booking.CardNo,
-                    "ExpireDate": booking.ExpireDateMM + "/" + booking.ExpireDateYY,
-                    "CardType": booking.CardType.id,
-                    "CVV": booking.CVV
-                }],
+                //"BookingPayments": [{
+                //    "CardHolderName": booking.CardHolderName,
+                //    "CardNo": booking.CardNo,
+                //    "ExpireDate": booking.ExpireDateMM + "/" + booking.ExpireDateYY,
+                //    "CardType": booking.CardType.id,
+                //    "CVV": booking.CVV
+                //}],
+                "BookingPayments": [$scope.BookingPayments],
                 "UserConfirmed": true,
                 "IsAirportTransfer": $scope.selectedProduct.LocationDetail.IsAirPortTour,
                 "Partner": $scope.selectedProduct.Partner,
@@ -299,6 +297,51 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
 
                 }
             })
+
+        } else {
+            if (booking.PassengerFirstName == undefined || booking.PassengerFirstName == "")
+                $scope.PassengerFirstNameRequired = true;
+            if (booking.PassengerMobile == undefined || booking.PassengerMobile == "")
+                $scope.PassengerMobileRequired = true;
+            if (booking.PassengerEmail == undefined || booking.PassengerEmail == "")
+                $scope.PassengerEmailRequired = true;
+            if (booking.PassengerCountry == undefined || booking.PassengerCountry == "")
+                $scope.PassengerCountryRequired = true;
+
+        }
+    }
+
+
+    $scope.creditCardDetails = function (booking) {
+        $scope.CardHolderNameRequired = false;
+        $scope.CVVRequired = false;
+        $scope.CardNoRequired = false;
+        debugger;
+        if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "" && booking.CardType != undefined && booking.CardType != "") {
+            if (($scope.urlparms.P) === parseInt(($scope.urlparms.P), 10)) {
+                $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
+            }
+            else {
+                $scope.selectedProduct.Partner.Id = parseInt(($scope.urlparms.P).slice(0, -2));
+            }
+
+            
+            if ($scope.totalSellingPrice > 0)
+                $scope.selectedProduct.price = $scope.totalSellingPrice;
+           
+            $scope.selectedProduct.AdditionalHours = $scope.additional.countAddHours;
+            $scope.selectedProduct.NoOfChildSeats = $scope.additional.countAddhildSet;
+            $scope.selectedProduct.AdditionalDays = $scope.additional.countAddDay;
+            $scope.selectedProduct.AdditionalKM = $scope.additional.AdditionalKM;
+
+            
+            $scope.BookingPayments.CardHolderName =  booking.CardHolderName;
+            $scope.BookingPayments.CardNo = booking.CardNo;
+            $scope.BookingPayments.ExpireDate = booking.ExpireDateMM + "/" + booking.ExpireDateYY;
+            $scope.BookingPayments.CardType = booking.CardType.id;
+            $scope.BookingPayments.CVV = booking.CVV;
+           
+            $scope.navigateSteps(5);
         } else {
             if (booking.CardHolderName == undefined || booking.CardHolderName == "")
                 $scope.CardHolderNameRequired = true;

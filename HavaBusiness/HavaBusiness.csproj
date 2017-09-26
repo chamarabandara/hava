@@ -126,6 +126,9 @@
     <Compile Include="ContactType.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Country.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Currency.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
