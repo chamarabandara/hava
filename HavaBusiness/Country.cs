@@ -12,18 +12,19 @@ namespace HavaBusiness
     using System;
     using System.Collections.Generic;
     
-    public partial class BookingPayment
+    public partial class Country
     {
-        public int Id { get; set; }
-        public int BookingId { get; set; }
-        public string CardHolderName { get; set; }
-        public string ExpireDate { get; set; }
-        public string CardNo { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<int> CardType { get; set; }
-        public string CVV { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Country()
+        {
+            this.BookingOptions = new HashSet<BookingOption>();
+        }
     
-        public virtual Booking Booking { get; set; }
-        public virtual Common Common { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingOption> BookingOptions { get; set; }
     }
 }

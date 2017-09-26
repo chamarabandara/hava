@@ -24,7 +24,13 @@ namespace HavaBusiness
         public string NoteToDriver { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string PickupAddress { get; set; }
+        public string PassengerFirstName { get; set; }
+        public string PassengerLastName { get; set; }
+        public string PassengerMobile { get; set; }
+        public string PassengerEmail { get; set; }
+        public Nullable<int> PassengerCountry { get; set; }
     
         public virtual Booking Booking { get; set; }
+        public virtual Country Country { get; set; }
     }
 }

@@ -17,9 +17,9 @@ namespace HavaBusiness
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Booking()
         {
-            this.BookingOptions = new HashSet<BookingOption>();
             this.BookingPayments = new HashSet<BookingPayment>();
             this.BookingProducts = new HashSet<BookingProduct>();
+            this.BookingOptions = new HashSet<BookingOption>();
         }
     
         public int Id { get; set; }
@@ -52,12 +52,12 @@ namespace HavaBusiness
         public virtual BookingType BookingType { get; set; }
         public virtual Partner Partner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BookingOption> BookingOptions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingPayment> BookingPayments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingProduct> BookingProducts { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Promotion Promotion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingOption> BookingOptions { get; set; }
     }
 }

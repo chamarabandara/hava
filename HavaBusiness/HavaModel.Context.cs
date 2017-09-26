@@ -53,7 +53,6 @@ namespace HavaBusiness
         public virtual DbSet<TSPProduct> TSPProducts { get; set; }
         public virtual DbSet<TSPVehicle> TSPVehicles { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<BookingOption> BookingOptions { get; set; }
         public virtual DbSet<BookingPayment> BookingPayments { get; set; }
         public virtual DbSet<Common> Commons { get; set; }
         public virtual DbSet<PartnerSite> PartnerSites { get; set; }
@@ -68,6 +67,8 @@ namespace HavaBusiness
         public virtual DbSet<PromotionDiscount> PromotionDiscounts { get; set; }
         public virtual DbSet<PromotionDiscountType> PromotionDiscountTypes { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
+        public virtual DbSet<BookingOption> BookingOptions { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
