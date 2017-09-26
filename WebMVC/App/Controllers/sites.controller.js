@@ -271,4 +271,15 @@ sitesControllers.controller('SitesManageCtrl', ['$scope', '$http', 'HavaSiteServ
     angular.element(document).ready(function () {
 
     });
+    //logout function
+    //$scope.LogOut = function () {
+    //    localStorageService.remove('accessToken');
+    //    localStorageService.remove('refreshToken');
+    //    localStorageService.remove('refreshToken');
+    //    localStorageService.remove('refreshTokenTimeOut');
+    //    localStorageService.remove('refreshOn');
+
+    //    localStorageService.remove('queries');
+    //    window.location.href = $scope.loginURL;
+    //}
 }]);

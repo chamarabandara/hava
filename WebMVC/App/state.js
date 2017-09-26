@@ -63,6 +63,7 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
            { name: 'tspControllers', serie: true, files: ['App/Controllers/tsp.controller.js?v=' + jsVersion] },
             { name: 'bookingControllers', serie: true, files: ['App/Controllers/booking.controller.js?v=' + jsVersion] },
             { name: 'filterString', files: ['App/filterstring.js?v=' + jsVersion] },
+             { name: 'CommonController', files: ['App/Controllers/common.controller.js?v=' + jsVersion] },
        //service modules  
          { name: 'partnerService', serie: true, files: ['App/Services/partnerservice.js?v=' + jsVersion] },
            { name: 'navBarService', serie: true, files: ['App/Services/navbarservice.js?v=' + jsVersion] },
@@ -429,6 +430,20 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
           }
 
       })
+         .state('app.booking.history', {
+             url: '/history',
+             templateUrl: 'Booking/BookingHistory',
+             controller: function ($scope, $stateParams, $controller) { $controller("BookingHistoryCtrl", { $scope: $scope }); },
+             resolve: {
+                 loadMyController: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                     return $ocLazyLoad.load('bookingControllers');
+                 }],
+                 loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                     return $ocLazyLoad.load(['siteService']);
+                 }]
+             }
+
+         })
     .state('app.error', {
         template: '<div class="col-sm-12"><div class="" ui-view></div></div>'
     })

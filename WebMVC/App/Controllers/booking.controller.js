@@ -11,12 +11,12 @@
 *
 */
 
-var sitesControllers = angular.module('Sites', ['siteService', 'ui.router']);
+var sitesControllers = angular.module('Sites', ['siteService', 'ui.router', 'LocalStorageModule']);
 
-sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$state', '$stateParams', '$timeout', function ($scope, $http, HavaSiteService, $state, $stateParams, $timeout) {
+sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$state', '$stateParams', '$timeout','$injector','localStorageService',  function ($scope, $http, HavaSiteService, $state, $stateParams, $timeout, $injector,localStorageService) {
 
     $scope.search = {};
-    $scope.loginForm = true;
+    $scope.loginForm = true,
     $scope.makeRegister = false;
     $scope.additional = {};
     $scope.AdHoursUnit = 0;
@@ -489,6 +489,60 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
             autoclose: true,
         });
     });
+    //logout function
+    $scope.LogOut = function () {
+        localStorageService.remove('accessToken');
+        localStorageService.remove('refreshToken');
+        localStorageService.remove('refreshToken');
+        localStorageService.remove('refreshTokenTimeOut');
+        localStorageService.remove('refreshOn');
+
+        localStorageService.remove('queries');
+        location.reload();
+    }
+
+    $scope.goToHistory = function(){
+        window.location = appUrl +'#/'+ 'booking/history';
+    }
+
+    $scope.Login = function (login) {
+        $scope.submitted = true;
+
+        if ($scope.loginForm.$invalid == false) {
+
+            var loginData = {
+                grant_type: 'password',
+                username: login.loginUsername,
+                password: login.loginPassword,
+                client_id: 'HavaApp'
+            };
+            //window.location.href = appUrl;
+
+            $http.post(appUrl + '/Token', $.param(loginData)).
+            success(function (data, status, headers, config) {
+                var expireTime = Date.now() + parseInt(data.refreshToken_timeout) * 60000;
+                localStorageService.set('accessToken', data.access_token);
+                localStorageService.set('refreshToken', data.refresh_token);
+                localStorageService.set('refreshTokenTimeOut', parseInt(data.refreshToken_timeout));
+                localStorageService.set('refreshOn', expireTime);
+                //var redirectUrl = location.href;
+                //var a = redirectUrl.indexOf("ref=");
+                //if (redirectUrl.indexOf("ref=") < 0) {
+                //    window.location.href = appUrl;
+                //} else {
+                //    window.location.href = redirectUrl.substring(redirectUrl.indexOf("ref=") + 4);
+                //}
+                location.reload();
+
+            }).
+            error(function (data, status, headers, config) {
+                $scope.invalidUserNamePassword = true;
+            });
+
+        } else {
+        }
+    }
+
 }]);
 
 sitesControllers.controller('BookingCtrl', ['$scope', '$http', 'HavaSiteService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaSiteService, $stateParams, $state, $sce, $window, $timeout) {
@@ -640,7 +694,170 @@ sitesControllers.controller('BookingCtrl', ['$scope', '$http', 'HavaSiteService'
         //    autoclose: true,
         //});
     });
+    //logout function
+    $scope.LogOut = function () {
+        localStorageService.remove('accessToken');
+        localStorageService.remove('refreshToken');
+        localStorageService.remove('refreshToken');
+        localStorageService.remove('refreshTokenTimeOut');
+        localStorageService.remove('refreshOn');
+
+        localStorageService.remove('queries');
+        window.location.href = $scope.loginURL;
+    }
 }]);
+
+sitesControllers.controller('BookingHistoryCtrl', ['$scope', '$http', 'HavaSiteService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaSiteService, $stateParams, $state, $sce, $window, $timeout) {
+
+    //$scope.bindActionButtons = function (o) {
+    //    var actionButtons = "";
+    //    actionButtons = '<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">';
+    //    var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
+    //    var editButton = '<a data-dataId="' + o.id + '" class="link-action action-button"  data-view="edit" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>';
+    //    var deleteButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
+    //    actionButtons += viewButton + editButton;
+    //    if (o.status != "Closed")
+    //        actionButtons += deleteButton;
+    //    actionButtons += '</div>';
+    //    return actionButtons;
+    //}
+
+    $('#datatable-booking').DataTable({
+        //  "processing": true,
+        //  "serverSide": true,
+        'ajax': {
+            'url': appUrl + 'Booking/GetBookingList',
+            'type': 'GET',
+            //'beforeSend': function (request) {
+            //    //  $("#loadingWidget").css({ display: 'block' });
+            //  //  headers.append('Access-Control-Allow-Origin', apiUrl);
+            //  //  headers.append('Access-Control-Allow-Credentials', 'true');
+            //    request.setRequestHeader('Access-Control-Allow-Origin', apiUrl);
+            //    request.setRequestHeader('Access-Control-Allow-Credentials', true);
+            //    //request.header('Access-Control-Allow-Origin', '*');
+            //},
+            contentType: 'application/json',
+
+            "data": function (d) {
+                return JSON.stringify(d);
+            },
+        },
+
+        "aoColumns": [
+             {
+                 "data": "refNo", sWidth: "25%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "partner", sWidth: "25%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "bookingType", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "pickupDate", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "pickupTime", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "pickupLocation", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "returnDate", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "returnTime", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "dropLocation", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+             {
+                 "data": "bookingStatus", sWidth: "20%", "render": function (data, type, row, meta) {
+                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+                 }
+             },
+            //{
+            //    "data": null,
+            //    "bSortable": false,
+            //    "mRender": function (o) {
+            //        return $scope.bindActionButtons(o);
+            //    }
+            //}
+        ]
+    });
+
+    $scope.action = function (row, task) {
+        if (task == 'edit') {
+            $state.go('^.update', { 'id': row.id });
+
+        } else if (task == 'view') {
+            //var url = $state.href('app.tsp', { 'id': row.id });
+            //$window.open(url, '_blank');
+            $state.go('^.view', { 'id': row.id });
+
+
+        } else if (task == 'copy') {
+
+        }
+        else if (task == 'delete') {
+            //$scope.claimRow = row;
+            //console.log($scope.claimRow);
+            //$scope.viewTask = 'confirmDelete';
+            window.scrollTo(0, 0);
+
+        }
+    }
+
+
+    //angular.element(document).ready(function () {
+    //    $('#claim-grid').on('click', '.search-cleardata', function (e) {
+    //        e.preventDefault();
+    //        $('#claim-grid .searchInputs:input').val('');
+    //        $("#claim-grid").dataTable().fnDestroy();
+    //        $scope.claimFilterFunction();
+    //    });
+
+    //    $('#datatable-partner').on('click', 'tbody tr td a', function () {
+    //        var id = $(this).attr('data-dataId');
+    //        var view = $(this).attr('data-view');
+    //        $timeout(function () {
+    //            $scope.action({ 'id': parseInt(id) }, view);
+    //        }, 100);
+    //    });
+    //    //var dateToday = new Date();
+    //    //$('.date .endDate').datepicker({
+    //    //    format: 'yyyy-mm-dd',
+    //    //    startDate: dateToday,
+    //    //    todayBtn: 'linked',
+    //    //    autoclose: true,
+    //    //});
+
+    //    //$('.date .startDate').datepicker({
+    //    //    format: 'yyyy-mm-dd',
+    //    //    todayBtn: 'linked',
+    //    //    autoclose: true,
+    //    //});
+    //});
+}]);
+
 
 sitesControllers.directive('onlyDigits', function ($filter) {
     return {

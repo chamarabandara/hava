@@ -2,14 +2,25 @@
     <div class="menu_section">
         <h3>General</h3>
         <ul class="nav side-menu">
-     
+     @if (HttpContext.Current.User.IsInRole("Administrator"))
+     {
             <li ng-repeat="dataM in menuList.dataMain">
                 <a><i class="{{dataM.icon}}"></i> {{dataM.name}} <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li ng-repeat="cData in getMenuList(dataM.id)"><a ui-sref="{{cData.route}}">{{cData.name}}</a></li>
-
                 </ul>
             </li>
+     }
+@if (HttpContext.Current.User.IsInRole("SiteUser"))
+{
+    <li>
+        <a><i class="fa fa-home"></i> Booking <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+            <li><a ui-sref="app.booking.history">Booking History</a></li>
+        </ul>
+    </li>
+}
+
             @*<li>
                 <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">

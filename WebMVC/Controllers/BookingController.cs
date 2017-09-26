@@ -403,7 +403,7 @@ namespace WebMVC.Controllers
             return returnObj;
         }
         
-        [HttpGet]
+[HttpGet]
         [AllowAnonymous]
         public JObject GetAllCountry()
         {
@@ -424,6 +424,10 @@ namespace WebMVC.Controllers
         private int GetAppUser()
         {
             return _userRepository.GetUserIdByUserName(User.Identity.Name);
+        }
+ public ActionResult BookingHistory()
+        {
+            return View();
         }
     }
 }
