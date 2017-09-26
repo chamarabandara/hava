@@ -20,7 +20,7 @@ namespace HavaBusinessObjects.Utilities
             //    .ReverseMap();
             CreateMap<ProductViewModel , Product>().ReverseMap();
             CreateMap<BookingTypeViewModel , BookingType>().ReverseMap();
-            
+            CreateMap<BookedProductViewModel, Product>().ReverseMap();
             CreateMap<BookingPayment, BookingPaymentViewModel>()
                  .ReverseMap();
 

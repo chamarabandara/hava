@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using WebMVC.ModelViews;
 
 namespace WebMVC.Controllers
 {
@@ -19,7 +20,7 @@ namespace WebMVC.Controllers
         private CommonRepository _commonRepository = new CommonRepository();
         private PartnerRepository _partnerRepository = new PartnerRepository();
         private BookingRepository _bookingRepository = new BookingRepository();
-        private UserRepository _userRepository = new UserRepository();
+        private Models.UserRepository _userRepository = new Models.UserRepository();
         private HavaBusinessObjects.Utility _utility = new HavaBusinessObjects.Utility();
 
 
@@ -194,6 +195,11 @@ namespace WebMVC.Controllers
 
             if (ModelState.IsValid)
             {
+                if (vm.UserId == 0)
+                {
+                    vm.UserId = GetAppUser();
+                }
+
                 var booking = _bookingRepository.Insert(vm);
                 var user = _utility.GetUserById(vm.UserId.Value);
 
@@ -205,8 +211,10 @@ namespace WebMVC.Controllers
                 ccmail[0] = user.Email;
 
                 bool isSend = _utility.SendMailToRecepients(tomail, ccmail, messageBody, "Confirm booking");
+                
 
                 returnObj.Add("data", this.ReturnBookingJson(booking));
+                returnObj.Add("success", true);
                 return returnObj;
 
             }
@@ -397,6 +405,9 @@ namespace WebMVC.Controllers
 
 
 
-        //public System.Web.Mvc
+        private int GetAppUser()
+        {
+            return _userRepository.GetUserIdByUserName(User.Identity.Name);
+        }
     }
 }

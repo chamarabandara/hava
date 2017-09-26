@@ -234,8 +234,16 @@ sitesControllers.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteSe
         $scope.CardHolderNameRequired = false;
         $scope.CVVRequired = false;
         $scope.CardNoRequired = false;
+        debugger;
         if (booking.CardHolderName != undefined && booking.CardHolderName != "" && booking.CardNo != undefined && booking.CardNo != "" && booking.CardType != undefined && booking.CardType != "") {
-            $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
+            if (data === parseInt(data, 10)) {
+                $scope.selectedProduct.Partner.Id = parseInt($scope.urlparms.P);
+            }
+            else {
+                $scope.selectedProduct.Partner.Id = parseInt(($scope.urlparms.P).slice(0, -2));
+            }
+
+            
             if ($scope.totalSellingPrice > 0)
                 $scope.selectedProduct.price = $scope.totalSellingPrice;
            
@@ -609,6 +617,7 @@ sitesControllers.directive('onlyDigits', function ($filter) {
         }
     };
 });
+
 sitesControllers.directive('changeOnBlur', function () {
     return {
         restrict: 'A',
