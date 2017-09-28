@@ -31,7 +31,7 @@ bookingHistoryControllers.controller('BookingCtrl', ['$scope', '$http', 'HavaSit
         //  "processing": true,
         //  "serverSide": true,
         'ajax': {
-            'url': appUrl + 'Booking/GetBookingList',
+            'url': appUrl + 'booking/GetUsersBookingHistory',
             'type': 'GET',
             //'beforeSend': function (request) {
             //    //  $("#loadingWidget").css({ display: 'block' });

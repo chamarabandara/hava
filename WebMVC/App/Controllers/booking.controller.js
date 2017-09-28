@@ -81,7 +81,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 localStorageService.set('refreshTokenTimeOut', parseInt(data.refreshToken_timeout));
                 localStorageService.set('refreshOn', expireTime);
                 $scope.isUserLogged = true;
-                $scope.navigateSteps(3);
+                $scope.navigateSteps(4);
 
             }).
             error(function (data, status, headers, config) {
@@ -523,7 +523,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         window.location = appUrl +'#/'+ 'booking/history';
     }
 
-    $scope.Login = function (login) {
+    $scope.MainLogin = function (login) {
         $scope.submitted = true;
 
         if ($scope.loginForm.$invalid == false) {

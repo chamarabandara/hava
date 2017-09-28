@@ -1179,7 +1179,7 @@
                                         <div class="form-group" ng-class="{'has-error' : (loginForm.username.$error.required && submitted)}">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location From:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input class="form-control" ng-model="login.loginUsername" type="text" autocomplete="off" placeholder="Username" name="username" required ng-change="submitted=false" ng-keyup="$event.keyCode == 13 && Login(login)" />
+                                                <input class="form-control" ng-model="mainlogin.loginUsername" type="text" autocomplete="off" placeholder="Username" name="username" required ng-change="submitted=false" ng-keyup="$event.keyCode == 13 && Login(login)" />
                                                 <div ng-show="loginForm.username.$invalid && submitted" class="ng-hide">
                                                     <span class="help-block error-label" ng-show="loginForm.username.$error.required">Username is Required.</span>
                                                 </div>
@@ -1188,7 +1188,7 @@
                                         <div class="form-group" ng-class="{'has-error' : (loginForm.username.$error.required && submitted)}">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location Name:</strong></label>
                                             <div class="col-lg-7 col-md-7 col-sm-6">
-                                                <input type="password" class="form-control" ng-model="login.loginPassword" autocomplete="off" placeholder="Password" name="password" ng-keyup="$event.keyCode == 13 && Login(login)" required ng-change="submitted=false" />
+                                                <input type="password" class="form-control" ng-model="mainlogin.loginPassword" autocomplete="off" placeholder="Password" name="password" ng-keyup="$event.keyCode == 13 && Login(mainlogin)" required ng-change="submitted=false" />
                                                 <div ng-show="loginForm.password.$invalid && submitted" class="ng-hide">
                                                     <span class="help-block error-label" ng-show="loginForm.password.$error.required">Password is Required.</span>
                                                 </div>
@@ -1201,7 +1201,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-lg" ng-click="Login(login)">Log In</button>
+                        <button type="button" class="btn btn-lg" ng-click="MainLogin(mainlogin)">Log In</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
