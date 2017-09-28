@@ -23,6 +23,7 @@ namespace WebMVC.Controllers
             try
             {
                 var result = _locationDetailsRepository.GetAllByPartnerId(id);
+                var tt = User.Identity.Name;
                 //JArray albums = JArray.Parse(JsonConvert.SerializeObject(result).Replace("\r\n", string.Empty)) as JArray;
                 //returnObj.Add("data", albums);
                 //return returnObj;

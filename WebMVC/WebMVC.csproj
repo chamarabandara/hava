@@ -235,6 +235,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\appSites.js" />
+    <Content Include="App\Controllers\booking.history.controller.js" />
     <Content Include="App\Controllers\home.controller.js" />
     <Content Include="App\Controllers\login.controller.js" />
     <Content Include="App\Controllers\navbar.controller.js" />
@@ -597,6 +599,7 @@
     <Content Include="Content\images\shared\logo-hava-app.png" />
     <Content Include="Content\images\svgsprite.svg" />
     <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\user1.png" />
     <Content Include="Content\images\visa.png" />
     <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\ProductImagePath\fff_e1d5.png" />
@@ -4981,6 +4984,7 @@
     <Content Include="Views\TSP\TSPView.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\List.cshtml" />
+    <Content Include="Views\Booking\BookingHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
