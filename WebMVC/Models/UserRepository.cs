@@ -228,6 +228,20 @@ namespace WebMVC.Models
 
 
         }
+        public string GetNameByUserName(string userName)
+        {
+            JArray jsonArray = new JArray();
+            string userFullName = string.Empty;
+
+            var userDetails = (from user in db.Users
+                               where user.UserName == userName
+                               select user).FirstOrDefault();
+
+            if (userDetails != null)
+                userFullName = userDetails.FirstName + ' ' + userDetails.LastName;
+
+            return userFullName;
+        }
 
         //public AppUserViewModel GetUserViewModel(string userName)
         //{
@@ -261,7 +275,7 @@ namespace WebMVC.Models
 
 
         //}
-        
+
         //#region  Delete User
 
         //public bool DeleteUser(int userId)
@@ -284,7 +298,7 @@ namespace WebMVC.Models
         //                    db.SaveChanges();
         //                }
 
-                     
+
         //            }
         //            using (var db = new ApplicationDbContext())
         //            {
@@ -312,11 +326,11 @@ namespace WebMVC.Models
         //        return false;
         //    }
 
-          
+
 
         //}
 
-       
+
         //public int GetEmployeeNoByUserId(int userId)
         //{
         //    JArray jsonArray = new JArray();
@@ -331,7 +345,7 @@ namespace WebMVC.Models
         //    return employeeNo;
         //}
 
-       
+
         //public bool SendEmailForForgetPassword(string  userName , out int errorType)
         //{
         //    try
@@ -358,10 +372,10 @@ namespace WebMVC.Models
         //        errorType = 2;
         //        return false;
         //    }
-         
+
         //}
 
-       
+
         //#region Read Setting
         static string ReadSetting(string key)
         {
