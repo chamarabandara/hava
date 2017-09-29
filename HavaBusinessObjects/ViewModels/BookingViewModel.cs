@@ -14,7 +14,7 @@ namespace HavaBusinessObjects.ViewModels
         public string PickupLocation { get; set; }
         public System.TimeSpan? ReturnTime { get; set; }
         public string ReturnPickupLocation { get; set; }
-        public string DropLocation { get; set; }
+        public LocationDetailViewModel DropLocation { get; set; }
         public System.DateTime? ReturnDate { get; set; }
         public string RefNo { get; set; }
         public PartnerViewModel Partner { get; set; }

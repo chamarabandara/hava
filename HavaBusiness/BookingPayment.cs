@@ -23,7 +23,7 @@ namespace HavaBusiness
         public Nullable<int> CardType { get; set; }
         public string CVV { get; set; }
     
-        public virtual Booking Booking { get; set; }
         public virtual Common Common { get; set; }
+        public virtual Booking Booking { get; set; }
     }
 }

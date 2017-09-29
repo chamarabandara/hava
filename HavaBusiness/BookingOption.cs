@@ -30,7 +30,7 @@ namespace HavaBusiness
         public string PassengerEmail { get; set; }
         public Nullable<int> PassengerCountry { get; set; }
     
-        public virtual Booking Booking { get; set; }
         public virtual Country Country { get; set; }
+        public virtual Booking Booking { get; set; }
     }
 }

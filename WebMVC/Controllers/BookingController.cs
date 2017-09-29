@@ -302,7 +302,7 @@ namespace WebMVC.Controllers
             returnObj.Add("PickupLocation" , vm.PickupLocation);
             returnObj.Add("ReturnTime" , vm.ReturnTime);
             returnObj.Add("ReturnPickupLocation" , vm.ReturnPickupLocation);
-            returnObj.Add("DropLocation" , vm.DropLocation);
+            returnObj.Add("DropLocation" , vm.DropLocation.name);
             returnObj.Add("ReturnDate" , vm.ReturnDate);
             returnObj.Add("RefNo" , vm.RefNo);
             returnObj.Add("NumberOfDays" , vm.NumberOfDays);

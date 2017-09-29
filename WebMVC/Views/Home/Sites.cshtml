@@ -977,7 +977,7 @@
                                                         <div class="col-sm-12">
                                                             <div class="form-group">
                                                                 <label>Card number</label>
-                                                                <input type="text" class="form-control" id="" placeholder="5007100222110033" ng-model="BookingPayments.CardNo" ng-class="{'has-error' : (CardNoRequired && submitted)}">
+                                                                <input type="number" class="form-control" id="" placeholder="5007100222110033" ng-model="BookingPayments.CardNo" ng-pattern="/^\d{1,16}$/" ng-class="{'has-error' : (CardNoRequired && submitted)}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -987,13 +987,13 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label>Expiration date</label>
-                                                                <input type="text" class="form-control" id="" placeholder="MM" ng-model="BookingPayments.ExpireDateMM">
+                                                                <input type="number" class="form-control" id="" placeholder="MM" ng-model="BookingPayments.ExpireDateMM" maxlength="2" ng-pattern="/[1-9]|1[012]/">
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <label> </label>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" id="" placeholder="YY" ng-model="BookingPayments.ExpireDateYY">
+                                                                <input type="number" class="form-control" id="" placeholder="YY" ng-model="BookingPayments.ExpireDateYY" maxlength="2" min="17" max="50">
                                                             </div>
                                                         </div>
                                                     </div>

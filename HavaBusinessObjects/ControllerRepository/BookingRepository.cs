@@ -31,9 +31,9 @@ namespace HavaBusinessObjects.ControllerRepository
             {
                 try
                 {
-                    booking.CreatedBy = 1;
+                    booking.CreatedBy = vm.UserId;
                     booking.CreatedDate = DateTime.UtcNow;
-                    booking.ModifiedBy = 1;
+                    booking.ModifiedBy = vm.UserId;
                     booking.ModifiedDate = DateTime.UtcNow;
 
                     booking.BookingStatu = null;
@@ -104,6 +104,7 @@ namespace HavaBusinessObjects.ControllerRepository
             try
             {
                 var booking = this.ObjContext.Bookings
+                     .Include(x => x.LocationDetail)
                      .Include(x => x.Partner)
                      .Include(x => x.BookingStatu)
                      .Include(x => x.BookingType)
@@ -242,7 +243,7 @@ namespace HavaBusinessObjects.ControllerRepository
                     booking.PickupLocation      = vm.PickupLocation;
                     booking.ReturnTime          = vm.ReturnTime;
                     booking.ReturnPickupLocation= vm.ReturnPickupLocation;
-                    booking.DropLocation        = vm.DropLocation;
+                    booking.DropLocation        = vm.DropLocation.Id;
                     booking.ReturnDate          = vm.ReturnDate;
                     booking.RefNo               = vm.RefNo;
                     booking.ModifiedBy          = 1;
