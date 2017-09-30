@@ -108,6 +108,9 @@
     <Compile Include="BookingOption.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BookingPassenger.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BookingPayment.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>

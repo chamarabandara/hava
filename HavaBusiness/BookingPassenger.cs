@@ -12,19 +12,17 @@ namespace HavaBusiness
     using System;
     using System.Collections.Generic;
     
-    public partial class BookingOption
+    public partial class BookingPassenger
     {
         public int Id { get; set; }
-        public int BookingId { get; set; }
-        public string FlightNo { get; set; }
-        public Nullable<int> FlyerProgramId { get; set; }
-        public string FlyerReffNo { get; set; }
-        public string PickupSign { get; set; }
-        public string PickupSignReffNo { get; set; }
-        public string NoteToDriver { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string PickupAddress { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> Country { get; set; }
+        public Nullable<int> BookingId { get; set; }
     
+        public virtual Country Country1 { get; set; }
         public virtual Booking Booking { get; set; }
     }
 }

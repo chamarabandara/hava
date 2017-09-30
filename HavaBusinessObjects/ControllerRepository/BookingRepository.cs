@@ -76,6 +76,16 @@ namespace HavaBusinessObjects.ControllerRepository
                         this.ObjContext.SaveChanges();
                     }
 
+                    if (vm.BookingPassenger != null && vm.BookingPassenger.Count() > 0)
+                    {
+                        List<BookingPassenger> bookingPassengers = Mapper.Map<List<BookingPassengerViewModel>, List<BookingPassenger>>(vm.BookingPassenger.ToList());
+
+                        bookingPassengers.ForEach(a => a.BookingId = bookingId);
+
+                        this.ObjContext.BookingPassengers.AddRange(bookingPassengers);
+                        this.ObjContext.SaveChanges();
+                    }
+
                     dbContextTransaction.Commit();
 
                     var newBooking = this.ObjContext.Bookings
@@ -84,9 +94,10 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingOptions)
-                     .Include(x => x.BookingOptions.Select(y => y.Country))
+                     .Include(x => x.BookingOptions)
                      .Include(x => x.BookingProducts.Select(y => y.Product))
                      .Include(x => x.BookingPayments)
+                     .Include(x => x.BookingPassengers)
                      .Where(a => a.Id == booking.Id).FirstOrDefault();
 
                     return Mapper.Map<Booking, BookingViewModel>(newBooking);
@@ -112,6 +123,7 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingOptions)
                      .Include(x => x.BookingProducts.Select(y => y.Product))
                      .Include(x => x.BookingPayments)
+                     .Include(x => x.BookingPassengers)
                      .Where(a => a.Id == id).FirstOrDefault();
 
                 return Mapper.Map<Booking, BookingViewModel>(booking);

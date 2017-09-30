@@ -32,12 +32,17 @@ namespace HavaBusinessObjects.Utilities
             CreateMap<CountryViewModel, Country>().ReverseMap();
 
             CreateMap<BookingProductsViewModel , BookingProduct>().ReverseMap();
-            CreateMap<BookingOptionViewModel, BookingOption>()
-                .ForMember(dest => dest.PassengerCountry, opt => opt.MapFrom(src => src.PassengerCountry.Id))
+                        
+            CreateMap<BookingOption, BookingOptionViewModel>()
+                .ReverseMap()
                         .MaxDepth(2);
 
-            CreateMap<BookingOption, BookingOptionViewModel>()
-                 .ForMember(dest => dest.PassengerCountry , opt => opt.MapFrom(src => src.Country))
+            CreateMap<BookingPassengerViewModel, BookingPassenger>()
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Id))
+                        .MaxDepth(2);
+
+            CreateMap<BookingPassenger, BookingPassengerViewModel>()
+                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country))
                         .MaxDepth(2);
 
             CreateMap<BookingStatusViewModel , BookingStatu>().ReverseMap();

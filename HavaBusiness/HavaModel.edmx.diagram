@@ -93,10 +93,11 @@
         <AssociationConnector Association="HAVA_DBModel.FK_Promotions_Partner" />
         <AssociationConnector Association="HAVA_DBModel.FK_Promotions_PromotionDiscounts" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingPayment_CardType" />
-        <EntityTypeShape EntityType="HAVA_DBModel.BookingOption" Width="1.5" PointX="22.75" PointY="18.375" />
         <EntityTypeShape EntityType="HAVA_DBModel.Country" Width="1.5" PointX="20.5" PointY="25.625" />
-        <AssociationConnector Association="HAVA_DBModel.FK_BookingOptions_PassengerCountry" />
-        <EntityTypeShape EntityType="HAVA_DBModel.Booking" Width="1.5" PointX="23.625" PointY="8.875" />
+        <EntityTypeShape EntityType="HAVA_DBModel.BookingPassenger" Width="1.5" PointX="22.75" PointY="25.375" />
+        <AssociationConnector Association="HAVA_DBModel.FK_BookingPassenger_Country" />
+        <EntityTypeShape EntityType="HAVA_DBModel.Booking" Width="1.5" PointX="23.625" PointY="8.75" />
+        <EntityTypeShape EntityType="HAVA_DBModel.BookingOption" Width="1.5" PointX="25.875" PointY="11" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_BookedUser" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_BookingStatus" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_BookingTypes" />
@@ -104,6 +105,7 @@
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_Partner" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_Promotion" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingOptions_Booking" />
+        <AssociationConnector Association="HAVA_DBModel.FK_BookingPassenger_Booking" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingPayment_Booking" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingProducts_Booking" />
         </Diagram>

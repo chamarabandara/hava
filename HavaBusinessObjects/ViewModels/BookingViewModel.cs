@@ -32,6 +32,7 @@ namespace HavaBusinessObjects.ViewModels
         public List<BookingProductsViewModel> BookingProducts { get; set; }
         public List<BookingPaymentViewModel> BookingPayments { get; set; }
         public List<BookingOptionViewModel> BookingOptions { get; set; }
+        public List<BookingPassengerViewModel> BookingPassenger { get; set; }
     }
 
     public class BookingStatusViewModel
@@ -89,11 +90,16 @@ namespace HavaBusinessObjects.ViewModels
         public string NoteToDriver { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string PickupAddress { get; set; }
-        public string PassengerFirstName { get; set; }
-        public string PassengerLastName { get; set; }
-        public string PassengerMobile { get; set; }
-        public string PassengerEmail { get; set; }
-        public CountryViewModel PassengerCountry { get; set; }
+        
+    }
+
+    public class BookingPassengerViewModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public CountryViewModel Country { get; set; }
     }
 
     public class CommonViewModel
@@ -102,4 +108,6 @@ namespace HavaBusinessObjects.ViewModels
         public string Code { get; set; }
         public string Name { get; set; }
     }
+
+
 }
