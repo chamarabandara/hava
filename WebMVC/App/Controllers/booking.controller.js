@@ -251,19 +251,19 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
     $scope.addPasengger = function (repData) {
         $scope.submittedRep = true;
-        if (repData.PassengerFirstName != undefined && repData.PassengerFirstName != "")
+        if (repData.FirstName != undefined && repData.FirstName != "")
             $scope.PassengerFirstNameRequired = false;
         else
             $scope.PassengerFirstNameRequired = true;
-        if (repData.PassengerMobile != undefined && repData.PassengerMobile != "")
+        if (repData.Mobile != undefined && repData.Mobile != "")
             $scope.PassengerMobileRequired = false;
         else
             $scope.PassengerMobileRequired = true;
-        if (repData.PassengerEmail != undefined && repData.PassengerEmail != "")
+        if (repData.Email != undefined && repData.Email != "")
             $scope.PassengerEmailRequired = false;
         else
             $scope.PassengerEmailRequired = true;
-        if (repData.PassengerCountry != undefined && repData.PassengerCountry != "")
+        if (repData.Country != undefined && repData.Country != "")
             $scope.PassengerCountryRequired = false;
         else
             $scope.PassengerCountryRequired = true;
@@ -272,11 +272,11 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
           {
 
               $scope.passengerGridData.push({
-                    'PassengerFirstName': (repData.PassengerFirstName) ? repData.PassengerFirstName : null, 
-                    'PassengerMobile': (repData.PassengerMobile) ? repData.PassengerMobile : null,
-                    'PassengerEmail': repData.mobileNo, 'email': (repData.email) ? repData.email : null,
-                    'PassengerLastName':repData.PassengerLastName, 'email': (repData.PassengerLastName) ? repData.PassengerLastName : null,
-                    'PassengerCountry': (repData.PassengerCountry) ? repData.PassengerCountry.name : null,
+                    'FirstName': (repData.FirstName) ? repData.FirstName : null, 
+                    'Mobile': (repData.Mobile) ? repData.Mobile : null,
+                    'Email': repData.mobileNo,
+                    'LastName':repData.LastName,
+                    'Country': (repData.Country) ? repData.Country.name : null,
                     'id': '-1' + Math.random()
                 });
                 $scope.pasengger = {};
@@ -287,27 +287,27 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     }
 
     $scope.updatePasengger = function (repData) {
-        $scope.submittedRep = true;
-        if (repData.PassengerFirstName != undefined && repData.PassengerFirstName != "")
+       $scope.submittedRep = true;
+        if (repData.FirstName != undefined && repData.FirstName != "")
             $scope.PassengerFirstNameRequired = false;
         else
             $scope.PassengerFirstNameRequired = true;
-        if (repData.PassengerMobile != undefined && repData.PassengerMobile != "")
+        if (repData.Mobile != undefined && repData.Mobile != "")
             $scope.PassengerMobileRequired = false;
         else
             $scope.PassengerMobileRequired = true;
-        if (repData.PassengerEmail != undefined && repData.PassengerEmail != "")
+        if (repData.Email != undefined && repData.Email != "")
             $scope.PassengerEmailRequired = false;
         else
             $scope.PassengerEmailRequired = true;
-        if (repData.PassengerCountry != undefined && repData.PassengerCountry != "")
+        if (repData.Country != undefined && repData.Country != "")
             $scope.PassengerCountryRequired = false;
         else
             $scope.PassengerCountryRequired = true;
 
         if ($scope.PassengerFirstNameRequired == false && $scope.PassengerMobileRequired != true && $scope.PassengerEmailRequired == false && $scope.PassengerCountryRequired == false) {
-    
-            var gridData = angular.copy($scope.passengerGridData);
+        //  {
+      var gridData = angular.copy($scope.passengerGridData);
                     var rowIndex = null;
                     angular.forEach(gridData, function (v, k) {
                         if (v.id == repData.id) {
@@ -335,9 +335,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             $scope.updateRep = true;
             $scope.submittedRep = false;
             var rData = angular.copy(row);
-            $scope.representative = rData;
-            $scope.representative.status = ($scope.representative.status == "Active") ? { 'id': 1, 'name': 'Active' } : { 'id': 0, 'name': 'Inactive' };
-            //$scope.representative.status = { 'id': 1, 'name': 'Active' };
+            $scope.pasengger = rData;
         } else if (task == "delete") {
             $scope.repRow = row;
             $scope.viewTask = 'confirmDeleteRepresentative';
@@ -397,6 +395,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 "PickupTime": $scope.search.pickupTime,
                 "DropLocation": $scope.dropLocation.Id,
                 "BookingOptions": [$scope.bookingOptionData],
+                "BookingPassenger": $scope.$scope.passengerGridData,
                 //"BookingPayments": [{
                 //    "CardHolderName": booking.CardHolderName,
                 //    "CardNo": booking.CardNo,

@@ -1036,13 +1036,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Passenger First Name</label>
-                                                        <input type="text" class="form-control" id="" placeholder="First Name" ng-model="pasengger.PassengerFirstName" ng-class="{'has-error' : (PassengerFirstNameRequired && submittedRep)}">
+                                                        <input type="text" class="form-control" id="" placeholder="First Name" ng-model="pasengger.FirstName" ng-class="{'has-error' : (PassengerFirstNameRequired && submittedRep)}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Passenger First Name</label>
-                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasengger.PassengerLastName">
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasengger.LastName">
                                                     </div>
                                                 </div>
 
@@ -1053,13 +1053,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Passenger Mobile</label>
-                                                        <input type="text" class="form-control" id="" placeholder="Mobile No" ng-model="pasengger.PassengerMobile" ng-class="{'has-error' : (PassengerMobileRequired && submittedRep)}">
+                                                        <input type="text" class="form-control" id="" placeholder="Mobile No" ng-model="pasengger.Mobile" ng-class="{'has-error' : (PassengerMobileRequired && submittedRep)}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Passenger Email</label>
-                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasengger.PassengerEmail" ng-class="{'has-error' : (PassengerEmailRequired && submittedRep)}">
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasengger.Email" ng-class="{'has-error' : (PassengerEmailRequired && submittedRep)}">
                                                     </div>
                                                 </div>
 
@@ -1070,7 +1070,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Country</label>
-                                                        <select class="form-control" name="CardType" ng-options="country.name for country in countries track by country.id" ng-model="pasengger.PassengerCountry" ng-class="{'has-error' : (PassengerCountryRequired && submittedRep)}">
+                                                        <select class="form-control" name="CardType" ng-options="country.name for country in countries track by country.id" ng-model="pasengger.Country" ng-class="{'has-error' : (PassengerCountryRequired && submittedRep)}">
                                                             <option value="">-- Select Country --</option>
                                                         </select>
                                                     </div>
@@ -1138,11 +1138,11 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="click-row off-click" ng-repeat="cData in passengerGridData">
-                                                            <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.PassengerFirstName">{{cData.PassengerFirstName}}</a><span ng-hide="cData.PassengerFirstName"><left>-</left></span></td>
-                                                            <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.PassengerLastName">{{cData.PassengerLastName}}</a><span ng-hide="cData.PassengerLastName"><left>-</left></span></td>
-                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.PassengerMobile">{{cData.PassengerMobile}}</a><span ng-hide="cData.PassengerMobile"><left>-</left></span></td>
-                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.PassengerEmail">{{cData.PassengerEmail}}</a><span ng-hide="cData.PassengerEmail"><left>-</left></span></td>
-                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.PassengerCountry">{{cData.PassengerCountry.name}}</a><span ng-hide="cData.PassengerCountry"><left>-</left></span></td>
+                                                            <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.FirstName">{{cData.FirstName}}</a><span ng-hide="cData.FirstName"><left>-</left></span></td>
+                                                            <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.LastName">{{cData.LastName}}</a><span ng-hide="cData.LastName"><left>-</left></span></td>
+                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Mobile">{{cData.Mobile}}</a><span ng-hide="cData.Mobile"><left>-</left></span></td>
+                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Email">{{cData.Email}}</a><span ng-hide="cData.Email"><left>-</left></span></td>
+                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Country">{{cData.Country.name}}</a><span ng-hide="cData.Country"><left>-</left></span></td>
                                                             
                                                             <td style="width:5%;" class="action">
                                                                 <a class="link-action" ng-click="repGridAction(cData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>
