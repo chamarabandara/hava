@@ -248,6 +248,152 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
        
 
     }
+
+    $scope.addPasengger = function (repData) {
+        $scope.submittedRep = true;
+        $scope.userExist = false;
+
+        if (repData.name != "" && repData.name != undefined)
+            $scope.representativeNameRequired = false;
+        else
+            $scope.representativeNameRequired = true;
+
+        if (repData.password && repData.password != undefined && repData.password != "") {
+            if (repData.password != "" && repData.password != undefined && repData.password.length > 2) {
+                $scope.pswMinLength = false;
+            } else {
+                $scope.pswMinLength = true;
+            }
+        } else {
+            $scope.pswMinLength = false;
+        }
+
+
+        if ($scope.pswMinLength != true && $scope.representativeNameRequired == false && $scope.partnerForm.representativeEmail.$error.email != true) {
+            if (repData.password && repData.password != undefined && repData.password != "" && repData.userName) {
+
+                $scope.representativeGridData.push({
+                    'name': (repData.name) ? repData.name : null, 'teleNo': (repData.teleNo) ? repData.teleNo : null,
+                    'mobileNo': repData.mobileNo, 'email': (repData.email) ? repData.email : null,
+                    'userName': repData.userName, 'password': repData.password, 'status': (repData.status) ? repData.status.name : 'Active',
+                    'id': '-1' + Math.random()
+                });
+                $scope.representative = {};
+                $scope.representative.status = { 'id': 1, 'name': 'Active' };
+                $scope.repRequired = false;
+
+
+            } else {
+
+                var repD = filterFilter($scope.representativeGridData, function (item) {
+                    if (item.userName && item.userName == repData.userName && item.password == repData.password) {
+                        return item;
+                    }
+                });
+                if (repD.length > 0) {
+                    $scope.userExist = true;
+                } else {
+                    $scope.representativeGridData.push({
+                        'name': (repData.name) ? repData.name : null, 'teleNo': (repData.teleNo) ? repData.teleNo : null,
+                        'mobileNo': repData.mobileNo, 'email': (repData.email) ? repData.email : null,
+                        'userName': repData.userName, 'password': repData.password, 'status': (repData.status) ? repData.status.name : 'Active',
+                        'id': '-1' + Math.random()
+                    });
+                    $scope.representative = {};
+                    $scope.representative.status = { 'id': 1, 'name': 'Active' };
+                    $scope.repRequired = false;
+                }
+
+            }
+
+
+        }
+
+
+    }
+
+    $scope.updatePasengger = function (repData) {
+        $scope.submittedRep = true;
+        $scope.userExist = false;
+
+        if (repData.name != "" && repData.name != undefined)
+            $scope.representativeNameRequired = false;
+        else
+            $scope.representativeNameRequired = true;
+
+
+        if (repData.password && repData.password != undefined && repData.password != "") {
+            if (repData.password != "" && repData.password != undefined && repData.password.length > 2) {
+                $scope.pswMinLength = false;
+            } else {
+                $scope.pswMinLength = true;
+            }
+        } else {
+            $scope.pswMinLength = false;
+        }
+
+        if ($scope.pswMinLength != true && $scope.partnerForm.representativeEmail.$error.email != true && $scope.representativeNameRequired == false) {
+
+            if (repData.password && repData.password != undefined && repData.password != "" && repData.userName) {
+                //AutoConceptCustomerService.isUserNamePasswordExists({ username: repData.userName, id: (repData.rId) ? repData.rId : 0, password: repData.password }).$promise.then(
+                //      function (result) {
+                //          if (result.status == false) {
+                var repD = filterFilter($scope.representativeGridData, function (item) {
+                    if (item.userName == repData.userName && item.password == repData.password && item.id != repData.id) {
+                        return item;
+                    }
+                });
+                if (repD.length > 0) {
+                    $scope.userExist = true;
+                } else {
+                    var gridData = angular.copy($scope.representativeGridData);
+                    var rowIndex = null;
+                    angular.forEach(gridData, function (v, k) {
+                        if (v.id == repData.id) {
+                            rowIndex = k;
+                        }
+                    });
+                    repData.status = repData.status.name;
+                    gridData[rowIndex] = repData;
+                    $scope.representative = {};
+                    $scope.representative.status = { 'id': 1, 'name': 'Active' };
+                    $scope.updateRep = false;
+                    $scope.representativeGridData = gridData;
+                }
+
+
+                //} else {
+                //    $scope.userExist = true;
+                //}
+                //});
+            } else {
+
+                var repD = filterFilter($scope.representativeGridData, function (item) {
+                    if (item.userName && item.userName == repData.userName && item.password == repData.password && item.id != repData.id) {
+                        return item;
+                    }
+                });
+                if (repD.length > 0) {
+                    $scope.userExist = true;
+                } else {
+                    var gridData = angular.copy($scope.representativeGridData);
+                    var rowIndex = null;
+                    angular.forEach(gridData, function (v, k) {
+                        if (v.id == repData.id) {
+                            rowIndex = k;
+                        }
+                    });
+                    repData.status = repData.status.name;
+                    gridData[rowIndex] = repData;
+                    $scope.representative = {};
+                    $scope.representative.status = { 'id': 1, 'name': 'Active' };
+                    $scope.updateRep = false;
+                    $scope.representativeGridData = gridData;
+                }
+            }
+        }
+
+    }
     $scope.saveBookingOptions = function (optionData) {
         $scope.bookingOptionData = optionData;
         $scope.navigateSteps(3);
