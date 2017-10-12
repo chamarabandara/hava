@@ -62,6 +62,106 @@ namespace WebMVC.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        public JObject GetProductsChauffer(int partnerId, string PromotionCode)
+        {
+            JObject returnObj = new JObject();
+            try
+            {
+                var prodPrices = _partnerRepository.GetPartnerProductsChuffer(partnerId);
+                var promotion = _bookingRepository.GetPromotionCode(PromotionCode, partnerId);
+
+                if (prodPrices.Count() > 0)
+                {
+                    JArray returnArr = new JArray();
+
+                    foreach (var item in prodPrices)
+                    {
+                        JObject itemObj = new JObject();
+                        itemObj.Add("Id", item.Id);
+
+                        itemObj.Add("partnerPercentage", item.Percentage);
+                        itemObj.Add("productId", item.ProductId);
+
+                        itemObj.Add("description", item.Product.Description);
+                        itemObj.Add("code", item.Product.Code);
+                        itemObj.Add("name", item.Product.Name);
+                        itemObj.Add("isMainProduct", item.Product.IsMainProduct);
+                        itemObj.Add("maxPassengers", item.Product.MaxPassengers);
+                        itemObj.Add("maxLuggage", item.Product.MaxLuggage);
+                        itemObj.Add("imageName", item.Product.ProductImageName);
+                        itemObj.Add("imagePath", item.Product.ProductImagePath);
+
+                        JArray featureArr = new JArray();
+                        if (item.Product.ProductFeatures.Count() > 0)
+                        {
+
+                            foreach (var feature in item.Product.ProductFeatures)
+                            {
+                                JObject productFeaturesObj = new JObject();
+                                productFeaturesObj.Add("id", feature.Id);
+                                productFeaturesObj.Add("description", feature.Description);
+
+                                featureArr.Add(productFeaturesObj);
+                            }
+
+                        }
+
+                        itemObj.Add("productFeatures", featureArr);
+
+                        //itemObj.Add("Rate", item.Rate);
+                        itemObj.Add("HavaPrice", item.HavaPrice);
+                        itemObj.Add("PartnerSellingPrice", item.PartnerSellingPrice);
+
+                        if (promotion != null)
+                        {
+                            itemObj.Add("MarketPrice", (item.MarketPrice * ((100 - promotion.PromotionDiscount.AmountOrPercentage) / 100)));
+                        }
+                        else
+                        {
+                            itemObj.Add("MarketPrice", item.MarketPrice);
+                        }
+
+                        itemObj.Add("IsMarkUp", item.IsMarkUp);
+                        itemObj.Add("Markup", item.Markup);
+                        itemObj.Add("Percentage", item.Percentage);
+
+                        itemObj.Add("promotionCode", promotion == null ? string.Empty : promotion.Code);
+                        itemObj.Add("promotionAmount", promotion == null ? 0 : promotion.PromotionDiscount.AmountOrPercentage);
+
+                        JObject partnerObj = new JObject();
+                        if (item.Partner != null)
+                        {
+                            partnerObj.Add("name", item.Partner.Name);
+                            partnerObj.Add("code", item.Partner.Code);
+                            partnerObj.Add("address", item.Partner.FullAddress);
+                            partnerObj.Add("email", item.Partner.Email);
+                            partnerObj.Add("telephoneLand", item.Partner.TelLandLine);
+                            partnerObj.Add("telephoneMobile", item.Partner.TelMobile);
+                        }
+
+                        itemObj.Add("Partner", partnerObj);
+                        
+                        returnArr.Add(itemObj);
+                    }
+
+                    returnObj.Add("data", returnArr);
+                    return returnObj;
+                }
+                else
+                {
+                    return returnObj;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                returnObj.Add("error", ex.Message.ToString());
+                return returnObj;
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public JObject GetProducts(int partnerId , int locationId , string PromotionCode)
         {
             JObject returnObj = new JObject();
@@ -83,23 +183,23 @@ namespace WebMVC.Controllers
                         JObject itemObj = new JObject();
                         itemObj.Add("Id" , item.Id);
 
-                        itemObj.Add("partnerPercentage" , item.PartnerProduct.Percentage);
-                        itemObj.Add("productId" , item.PartnerProduct.ProductId);
+                        itemObj.Add("partnerPercentage" , item.Percentage);
+                        itemObj.Add("productId" , item.ProductId);
 
-                        itemObj.Add("description" , item.PartnerProduct.Product.Description);
-                        itemObj.Add("code" , item.PartnerProduct.Product.Code);
-                        itemObj.Add("name" , item.PartnerProduct.Product.Name);
-                        itemObj.Add("isMainProduct" , item.PartnerProduct.Product.IsMainProduct);
-                        itemObj.Add("maxPassengers" , item.PartnerProduct.Product.MaxPassengers);
-                        itemObj.Add("maxLuggage" , item.PartnerProduct.Product.MaxLuggage);
-                        itemObj.Add("imageName" , item.PartnerProduct.Product.ProductImageName);
-                        itemObj.Add("imagePath" , item.PartnerProduct.Product.ProductImagePath);
+                        itemObj.Add("description" , item.Product.Description);
+                        itemObj.Add("code" , item.Product.Code);
+                        itemObj.Add("name" , item.Product.Name);
+                        itemObj.Add("isMainProduct" , item.Product.IsMainProduct);
+                        itemObj.Add("maxPassengers" , item.Product.MaxPassengers);
+                        itemObj.Add("maxLuggage" , item.Product.MaxLuggage);
+                        itemObj.Add("imageName" , item.Product.ProductImageName);
+                        itemObj.Add("imagePath" , item.Product.ProductImagePath);
 
                         JArray featureArr = new JArray();
-                        if (item.PartnerProduct.Product.ProductFeatures.Count() > 0)
+                        if (item.Product.ProductFeatures.Count() > 0)
                         {
 
-                            foreach (var feature in item.PartnerProduct.Product.ProductFeatures)
+                            foreach (var feature in item.Product.ProductFeatures)
                             {
                                 JObject productFeaturesObj = new JObject();
                                 productFeaturesObj.Add("id" , feature.Id);
@@ -111,32 +211,22 @@ namespace WebMVC.Controllers
                         }
 
                         itemObj.Add("productFeatures" , featureArr);
-
-                        itemObj.Add("Rate" , item.Rate);
+                        
                         itemObj.Add("HavaPrice" , item.HavaPrice);
-                        itemObj.Add("MarketPrice" , item.MarketPrice);
+                        itemObj.Add("PartnerSellingPrice", item.PartnerSellingPrice);
 
                         if (promotion != null)
                         {
-                            itemObj.Add("PartnerSellingPrice" , (item.PartnerSellingPrice * ((100 - promotion.PromotionDiscount.AmountOrPercentage) / 100)));
+                            itemObj.Add("MarketPrice", (item.MarketPrice * ((100 - promotion.PromotionDiscount.AmountOrPercentage) / 100)));
                         }
                         else
                         {
-                            itemObj.Add("PartnerSellingPrice" , item.PartnerSellingPrice);
+                            itemObj.Add("MarketPrice", item.MarketPrice);
                         }
 
                         itemObj.Add("IsMarkUp" , item.IsMarkUp);
                         itemObj.Add("Markup" , item.Markup);
                         itemObj.Add("Percentage" , item.Percentage);
-                        itemObj.Add("AirportRate" , item.AirportRate);
-                        itemObj.Add("HavaPriceReturn" , item.HavaPriceReturn);
-                        itemObj.Add("MarketPriceReturn" , item.MarketPriceReturn);
-                        itemObj.Add("PartnerSellingPriceReturn" , item.PartnerSellingPriceReturn);
-                        itemObj.Add("AdditionaDayRate" , item.AdditionaDayRate);
-                        itemObj.Add("AdditionaHourRate" , item.AdditionaHourRate);
-                        itemObj.Add("ChufferDailyRate" , item.ChufferDailyRate);
-                        itemObj.Add("ChufferKMRate" , item.ChufferKMRate);
-                        itemObj.Add("ChildSeatRate" , item.ChildSeatRate);
 
                         itemObj.Add("promotionCode" , promotion == null ? string.Empty : promotion.Code);
                         itemObj.Add("promotionAmount" , promotion == null ? 0 : promotion.PromotionDiscount.AmountOrPercentage);
@@ -186,6 +276,104 @@ namespace WebMVC.Controllers
                 return returnObj;
             }
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public JObject GetPartnerSubProducts(int partnerId)
+        {
+            JObject returnObj = new JObject();
+            try
+            {
+                var prodPrices = _partnerRepository.GetPartnerSubProducts(partnerId);
+
+                if (prodPrices.Count() > 0)
+                {
+                    //JArray albums = JArray.Parse(JsonConvert.SerializeObject(prodPrices).Replace("\\", "")) as JArray;
+                    ////JObject jalbum = albums[0] as JObject;
+                    //returnObj.Add("data", albums);
+
+                    JArray returnArr = new JArray();
+
+                    foreach (var item in prodPrices)
+                    {
+                        JObject itemObj = new JObject();
+                        itemObj.Add("Id", item.Id);
+
+                        itemObj.Add("partnerPercentage", item.Percentage);
+                        itemObj.Add("productId", item.ProductId);
+
+                        itemObj.Add("description", item.Product.Description);
+                        itemObj.Add("code", item.Product.Code);
+                        itemObj.Add("name", item.Product.Name);
+                        itemObj.Add("isMainProduct", item.Product.IsMainProduct);
+                        itemObj.Add("maxPassengers", item.Product.MaxPassengers);
+                        itemObj.Add("maxLuggage", item.Product.MaxLuggage);
+                        itemObj.Add("imageName", item.Product.ProductImageName);
+                        itemObj.Add("imagePath", item.Product.ProductImagePath);
+
+                        JArray featureArr = new JArray();
+                        if (item.Product.ProductFeatures.Count() > 0)
+                        {
+
+                            foreach (var feature in item.Product.ProductFeatures)
+                            {
+                                JObject productFeaturesObj = new JObject();
+                                productFeaturesObj.Add("id", feature.Id);
+                                productFeaturesObj.Add("description", feature.Description);
+
+                                featureArr.Add(productFeaturesObj);
+                            }
+
+                        }
+
+                        itemObj.Add("productFeatures", featureArr);
+
+                        itemObj.Add("HavaPrice", item.HavaPrice);
+                        itemObj.Add("PartnerSellingPrice", item.PartnerSellingPrice);
+                        itemObj.Add("MarketPrice", item.MarketPrice);
+                        itemObj.Add("IsMarkUp", item.IsMarkUp);
+                        itemObj.Add("Markup", item.Markup);
+                        itemObj.Add("Percentage", item.Percentage);
+
+                        itemObj.Add("promotionCode", string.Empty);
+                        itemObj.Add("promotionAmount", 0);
+
+                        JObject partnerObj = new JObject();
+                        if (item.Partner != null)
+                        {
+                            partnerObj.Add("name", item.Partner.Name);
+                            partnerObj.Add("code", item.Partner.Code);
+                            partnerObj.Add("address", item.Partner.FullAddress);
+                            partnerObj.Add("email", item.Partner.Email);
+                            partnerObj.Add("telephoneLand", item.Partner.TelLandLine);
+                            partnerObj.Add("telephoneMobile", item.Partner.TelMobile);
+                        }
+
+                        itemObj.Add("Partner", partnerObj);
+
+                        JObject locationObj = new JObject();
+                        itemObj.Add("LocationDetail", locationObj);
+
+                        returnArr.Add(itemObj);
+                    }
+
+                    returnObj.Add("data", returnArr);
+                    return returnObj;
+                }
+                else
+                {
+                    return returnObj;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                returnObj.Add("error", ex.Message.ToString());
+                return returnObj;
+            }
+        }
+
+
 
         [HttpPost]
         [AllowAnonymous]

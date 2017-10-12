@@ -12,12 +12,11 @@ namespace HavaBusiness
     using System;
     using System.Collections.Generic;
     
-    public partial class PartnerProduct
+    public partial class PartnerChauffeurProduct
     {
         public int Id { get; set; }
         public Nullable<int> ProductId { get; set; }
         public Nullable<int> PartnerId { get; set; }
-        public Nullable<int> LocationId { get; set; }
         public Nullable<decimal> HavaPrice { get; set; }
         public Nullable<decimal> MarketPrice { get; set; }
         public Nullable<decimal> PartnerSellingPrice { get; set; }
@@ -30,7 +29,6 @@ namespace HavaBusiness
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual LocationDetail LocationDetail { get; set; }
         public virtual Partner Partner { get; set; }
         public virtual Product Product { get; set; }
     }

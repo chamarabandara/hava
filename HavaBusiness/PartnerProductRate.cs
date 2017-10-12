@@ -39,6 +39,6 @@ namespace HavaBusiness
     
         public virtual LocationDetail LocationDetail { get; set; }
         public virtual Partner Partner { get; set; }
-        public virtual PartnerProduct PartnerProduct { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

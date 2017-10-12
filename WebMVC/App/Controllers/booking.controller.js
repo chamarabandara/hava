@@ -133,28 +133,42 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     $scope.titleList = [{ 'name': "Mr", id: 1 }, { 'name': "Mrs.", id: 2 }];
     $scope.searchBooking = function (model) {
         $scope.submitted = true;
-        if ($('#searchTextField').val() != "" && (($scope.dropLocation != undefined && $scope.dropLocation) || $scope.duration != undefined)) {
+        debugger;
+        if (($('#searchTextField').val() != "" && (($scope.dropLocation != undefined && $scope.dropLocation) || $scope.duration != undefined)) || ($('#searchTextField2').val() != "")) {
             $scope.isMain = false;
-
+            debugger;
             $scope.search.pickupLocation = $('#searchTextField').val();
             $scope.search.dropLocation = $scope.dropLocation;
+            //$scope.search.isAirportTransfer = $scope.isAirportTransfer;
 
-            if ($('#inputGroupSuccessDate').val() != "")
+            if ($scope.search.isAirportTransfer) {
                 $scope.search.pickupDate = $('#inputGroupSuccessDate').val();
-            else
-                $scope.search.pickupDate = $('#inputGroupSuccessDate2').val();
-            if ($('#timepicker').val() != "")
                 $scope.search.pickupTime = $('#timepicker').val();
-            else
+            }
+            else {
+                $scope.search.pickupDate = $('#inputGroupSuccessDate2').val();
                 $scope.search.pickupTime = $('#timepicker2').val();
+            }
+            //if ($scope.isAirportTransfer)
+                
+            //else
+            //    $scope.search.pickupTime = $('#timepicker2').val();
 
             var urlparms = $scope.parseQueryString(window.location.href);
           
-            HavaSiteService.getProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), locationId: ($scope.search.dropLocation != undefined) ? $scope.search.dropLocation.Id : 0, PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
-                     function (result) {
-                         $scope.Products = result.data;
-                        
-                     });
+            if ($scope.search.isAirportTransfer) {
+                HavaSiteService.getProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), locationId: ($scope.search.dropLocation != undefined) ? $scope.search.dropLocation.Id : 0, PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
+                         function (result) {
+                             $scope.Products = result.data;
+
+                         });
+            } else {
+                HavaSiteService.getChauffeurProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
+                         function (result) {
+                             $scope.Products = result.data;
+
+                         });
+            }
         } else
             return true;
 
@@ -613,6 +627,12 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             autoclose: true,
         });
         $('#inputGroupSuccessDate2').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: dateToday,
+            todayBtn: 'linked',
+            autoclose: true,
+        });
+        $('#inputGroupSuccessDate3').datepicker({
             format: 'yyyy-mm-dd',
             startDate: dateToday,
             todayBtn: 'linked',

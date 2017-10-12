@@ -27,8 +27,6 @@ namespace HavaBusiness
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BookingStatu> BookingStatus { get; set; }
-        public virtual DbSet<BookingType> BookingTypes { get; set; }
         public virtual DbSet<ContactType> ContactTypes { get; set; }
         public virtual DbSet<CustomerPaymentRecord> CustomerPaymentRecords { get; set; }
         public virtual DbSet<FAQ> FAQs { get; set; }
@@ -53,23 +51,27 @@ namespace HavaBusiness
         public virtual DbSet<TSPProduct> TSPProducts { get; set; }
         public virtual DbSet<TSPVehicle> TSPVehicles { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<BookingPayment> BookingPayments { get; set; }
         public virtual DbSet<Common> Commons { get; set; }
         public virtual DbSet<PartnerSite> PartnerSites { get; set; }
         public virtual DbSet<PartnerProductRate> PartnerProductRates { get; set; }
-        public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
         public virtual DbSet<PartnerRepresentative> PartnerRepresentatives { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductFeature> ProductFeatures { get; set; }
-        public virtual DbSet<BookingProduct> BookingProducts { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<PromotionDiscount> PromotionDiscounts { get; set; }
         public virtual DbSet<PromotionDiscountType> PromotionDiscountTypes { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<BookingPassenger> BookingPassengers { get; set; }
-        public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BookingOption> BookingOptions { get; set; }
+        public virtual DbSet<BookingPayment> BookingPayments { get; set; }
+        public virtual DbSet<BookingStatu> BookingStatus { get; set; }
+        public virtual DbSet<BookingType> BookingTypes { get; set; }
+        public virtual DbSet<BookingSubProduct> BookingSubProducts { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<BookingProduct> BookingProducts { get; set; }
+        public virtual DbSet<PartnerChauffeurProduct> PartnerChauffeurProducts { get; set; }
+        public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

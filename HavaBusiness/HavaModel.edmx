@@ -63,6 +63,8 @@
           <Property Name="UserId" Type="int" />
           <Property Name="IsReturn" Type="bit" Nullable="false" />
           <Property Name="IsAirportTransfer" Type="bit" />
+          <Property Name="TotalCost" Type="money" Nullable="false" />
+          <Property Name="IsChaffeur" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BookingOptions">
           <Key>
@@ -112,14 +114,9 @@
           <Property Name="BookingId" Type="int" />
           <Property Name="ProductId" Type="int" />
           <Property Name="Price" Type="money" />
+          <Property Name="PartnerPrice" Type="money" />
+          <Property Name="MarketPrice" Type="money" />
           <Property Name="IsAirPortTour" Type="bit" Nullable="false" />
-          <Property Name="AdditionalDays" Type="int" />
-          <Property Name="AdditionalHours" Type="int" />
-          <Property Name="AdditionalChufferDate" Type="int" />
-          <Property Name="AdditionalChufferHours" Type="int" />
-          <Property Name="NoOfChildSeats" Type="int" />
-          <Property Name="ChildSeatDays" Type="int" />
-          <Property Name="AdditionalKM" Type="int" />
         </EntityType>
         <EntityType Name="BookingStatus">
           <Key>
@@ -128,6 +125,18 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="BookingSubProducts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="HavaPrice" Type="money" />
+          <Property Name="MarketPrice" Type="money" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="money" />
         </EntityType>
         <EntityType Name="BookingTypes">
           <Key>
@@ -238,6 +247,25 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="IsActive" Type="bit" />
           <Property Name="icon" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="PartnerChauffeurProducts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="PartnerId" Type="int" />
+          <Property Name="HavaPrice" Type="money" />
+          <Property Name="MarketPrice" Type="money" />
+          <Property Name="PartnerSellingPrice" Type="money" />
+          <Property Name="IsMarkUp" Type="bit" />
+          <Property Name="Markup" Type="money" />
+          <Property Name="Percentage" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="PartnerCommissions">
           <Key>
             <PropertyRef Name="Id" />
@@ -282,6 +310,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" />
           <Property Name="PartnerId" Type="int" />
+          <Property Name="LocationId" Type="int" />
           <Property Name="HavaPrice" Type="money" />
           <Property Name="MarketPrice" Type="money" />
           <Property Name="PartnerSellingPrice" Type="money" />
@@ -742,6 +771,30 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BookingSubProducts_Booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="BookingSubProducts" Type="Self.BookingSubProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingSubProducts">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingSubProducts_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="BookingSubProducts" Type="Self.BookingSubProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingSubProducts">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ContactTypes_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="ContactTypes" Type="Self.ContactTypes" Multiplicity="*" />
@@ -814,6 +867,30 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PartnerChauffeurProducts_Partner">
+          <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
+          <End Role="PartnerChauffeurProducts" Type="Self.PartnerChauffeurProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partners">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerChauffeurProducts">
+              <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerChauffeurProducts_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="PartnerChauffeurProducts" Type="Self.PartnerChauffeurProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerChauffeurProducts">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PartnerCommissions_Partners">
           <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
           <End Role="PartnerCommissions" Type="Self.PartnerCommissions" Multiplicity="*" />
@@ -851,10 +928,10 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PartnerProductRate_PartnerProduct">
-          <End Role="PartnerProducts" Type="Self.PartnerProducts" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="PartnerProductRate" Type="Self.PartnerProductRate" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PartnerProducts">
+            <Principal Role="Products">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PartnerProductRate">
@@ -862,10 +939,20 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PartnerProducts_PartnerProducts">
-          <End Role="Partners" Type="Self.Partners" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_PartnerProducts_Location">
+          <End Role="LocationDetails" Type="Self.LocationDetails" Multiplicity="0..1" />
+          <End Role="PartnerProducts" Type="Self.PartnerProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerProducts">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerProducts_Partner">
+          <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
           <End Role="PartnerProducts" Type="Self.PartnerProducts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Partners">
@@ -1338,6 +1425,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySet Name="BookingPayment" EntityType="Self.BookingPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingProducts" EntityType="Self.BookingProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingStatus" EntityType="Self.BookingStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingSubProducts" EntityType="Self.BookingSubProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingTypes" EntityType="Self.BookingTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Common" EntityType="Self.Common" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactTypes" EntityType="Self.ContactTypes" Schema="dbo" store:Type="Tables" />
@@ -1347,6 +1435,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <EntitySet Name="LocationDetails" EntityType="Self.LocationDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menues" EntityType="Self.Menues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MenuTypes" EntityType="Self.MenuTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartnerChauffeurProducts" EntityType="Self.PartnerChauffeurProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerCommissions" EntityType="Self.PartnerCommissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerProductRate" EntityType="Self.PartnerProductRate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerProducts" EntityType="Self.PartnerProducts" Schema="dbo" store:Type="Tables" />
@@ -1433,6 +1522,14 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Products" EntitySet="Products" />
             <End Role="BookingProducts" EntitySet="BookingProducts" />
           </AssociationSet>
+          <AssociationSet Name="FK_BookingSubProducts_Booking" Association="Self.FK_BookingSubProducts_Booking">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="BookingSubProducts" EntitySet="BookingSubProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingSubProducts_Products" Association="Self.FK_BookingSubProducts_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="BookingSubProducts" EntitySet="BookingSubProducts" />
+          </AssociationSet>
           <AssociationSet Name="FK_ContactTypes_Users" Association="Self.FK_ContactTypes_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ContactTypes" EntitySet="ContactTypes" />
@@ -1457,6 +1554,14 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="Partners" EntitySet="Partners" />
             <End Role="LocationDetails" EntitySet="LocationDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_PartnerChauffeurProducts_Partner" Association="Self.FK_PartnerChauffeurProducts_Partner">
+            <End Role="Partners" EntitySet="Partners" />
+            <End Role="PartnerChauffeurProducts" EntitySet="PartnerChauffeurProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerChauffeurProducts_Products" Association="Self.FK_PartnerChauffeurProducts_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PartnerChauffeurProducts" EntitySet="PartnerChauffeurProducts" />
+          </AssociationSet>
           <AssociationSet Name="FK_PartnerCommissions_Partners" Association="Self.FK_PartnerCommissions_Partners">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="PartnerCommissions" EntitySet="PartnerCommissions" />
@@ -1470,10 +1575,14 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="PartnerProductRate" EntitySet="PartnerProductRate" />
           </AssociationSet>
           <AssociationSet Name="FK_PartnerProductRate_PartnerProduct" Association="Self.FK_PartnerProductRate_PartnerProduct">
-            <End Role="PartnerProducts" EntitySet="PartnerProducts" />
+            <End Role="Products" EntitySet="Products" />
             <End Role="PartnerProductRate" EntitySet="PartnerProductRate" />
           </AssociationSet>
-          <AssociationSet Name="FK_PartnerProducts_PartnerProducts" Association="Self.FK_PartnerProducts_PartnerProducts">
+          <AssociationSet Name="FK_PartnerProducts_Location" Association="Self.FK_PartnerProducts_Location">
+            <End Role="LocationDetails" EntitySet="LocationDetails" />
+            <End Role="PartnerProducts" EntitySet="PartnerProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerProducts_Partner" Association="Self.FK_PartnerProducts_Partner">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="PartnerProducts" EntitySet="PartnerProducts" />
           </AssociationSet>
@@ -1622,24 +1731,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HAVA_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="BookingStatu">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_BookingStatus" FromRole="BookingStatu" ToRole="Booking" />
-        </EntityType>
-        <EntityType Name="BookingType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_BookingTypes" FromRole="BookingType" ToRole="Booking" />
-        </EntityType>
         <EntityType Name="ContactType">
           <Key>
             <PropertyRef Name="Id" />
@@ -1700,6 +1791,7 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Location" FromRole="LocationDetail" ToRole="PartnerProductRate" />
           <Property Name="IsAirPortTour" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_DropLocation" FromRole="LocationDetail" ToRole="Booking" />
+          <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_Location" FromRole="LocationDetail" ToRole="PartnerProduct" />
         </EntityType>
         <EntityType Name="Menue">
           <Key>
@@ -1756,10 +1848,11 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="User1" Relationship="Self.FK_Partners_Users1" FromRole="Partners" ToRole="Users" />
           <NavigationProperty Name="PartnerSites" Relationship="HAVA_DBModel.FK_PartnerSites_Partners" FromRole="Partner" ToRole="PartnerSite" />
           <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="Partner" ToRole="PartnerProductRate" />
-          <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts" FromRole="Partner" ToRole="PartnerProduct" />
           <NavigationProperty Name="PartnerRepresentatives" Relationship="HAVA_DBModel.FK_PartnerRepresentative_Partner" FromRole="Partner" ToRole="PartnerRepresentative" />
           <NavigationProperty Name="Promotions" Relationship="HAVA_DBModel.FK_Promotions_Partner" FromRole="Partner" ToRole="Promotion" />
           <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_Partner" FromRole="Partner" ToRole="Booking" />
+          <NavigationProperty Name="PartnerChauffeurProducts" Relationship="HAVA_DBModel.FK_PartnerChauffeurProducts_Partner" FromRole="Partner" ToRole="PartnerChauffeurProduct" />
+          <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_Partner" FromRole="Partner" ToRole="PartnerProduct" />
           </EntityType>
         <EntityType Name="PaymentType">
           <Key>
@@ -2234,8 +2327,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="HAVA_DBModelEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BookingStatus" EntityType="Self.BookingStatu" />
-          <EntitySet Name="BookingTypes" EntityType="Self.BookingType" />
           <EntitySet Name="ContactTypes" EntityType="Self.ContactType" />
           <EntitySet Name="CustomerPaymentRecords" EntityType="Self.CustomerPaymentRecord" />
           <EntitySet Name="FAQs" EntityType="Self.FAQ" />
@@ -2414,7 +2505,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="TSPVehicle" EntitySet="TSPVehicles" />
           </AssociationSet>
           <EntitySet Name="C__MigrationHistory" EntityType="HAVA_DBModel.C__MigrationHistory" />
-          <EntitySet Name="BookingPayments" EntityType="HAVA_DBModel.BookingPayment" />
           <EntitySet Name="Commons" EntityType="HAVA_DBModel.Common" />
           <EntitySet Name="PartnerSites" EntityType="HAVA_DBModel.PartnerSite" />
           <AssociationSet Name="FK_PartnerSites_Partners" Association="HAVA_DBModel.FK_PartnerSites_Partners">
@@ -2430,7 +2520,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="User1" EntitySet="Users" />
           </AssociationSet>
           <EntitySet Name="PartnerProductRates" EntityType="HAVA_DBModel.PartnerProductRate" />
-          <EntitySet Name="PartnerProducts" EntityType="HAVA_DBModel.PartnerProduct" />
           <AssociationSet Name="FK_PartnerProductRate_Location" Association="HAVA_DBModel.FK_PartnerProductRate_Location">
             <End Role="LocationDetail" EntitySet="LocationDetails" />
             <End Role="PartnerProductRate" EntitySet="PartnerProductRates" />
@@ -2438,14 +2527,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_PartnerProductRate_Partner" Association="HAVA_DBModel.FK_PartnerProductRate_Partner">
             <End Role="Partner" EntitySet="Partners" />
             <End Role="PartnerProductRate" EntitySet="PartnerProductRates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartnerProductRate_PartnerProduct" Association="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct">
-            <End Role="PartnerProduct" EntitySet="PartnerProducts" />
-            <End Role="PartnerProductRate" EntitySet="PartnerProductRates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartnerProducts_PartnerProducts" Association="HAVA_DBModel.FK_PartnerProducts_PartnerProducts">
-            <End Role="Partner" EntitySet="Partners" />
-            <End Role="PartnerProduct" EntitySet="PartnerProducts" />
           </AssociationSet>
           <EntitySet Name="PartnerRepresentatives" EntityType="HAVA_DBModel.PartnerRepresentative" />
           <AssociationSet Name="FK_PartnerRepresentative_Partner" Association="HAVA_DBModel.FK_PartnerRepresentative_Partner">
@@ -2457,10 +2538,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="PartnerRepresentative" EntitySet="PartnerRepresentatives" />
           </AssociationSet>
           <EntitySet Name="Products" EntityType="HAVA_DBModel.Product" />
-          <AssociationSet Name="FK_PartnerProducts_Products" Association="HAVA_DBModel.FK_PartnerProducts_Products">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="PartnerProduct" EntitySet="PartnerProducts" />
-          </AssociationSet>
           <AssociationSet Name="FK_TSPProducts_Products" Association="HAVA_DBModel.FK_TSPProducts_Products">
             <End Role="Product" EntitySet="Products" />
             <End Role="TSPProduct" EntitySet="TSPProducts" />
@@ -2473,11 +2550,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_ProductFeatures_Product" Association="HAVA_DBModel.FK_ProductFeatures_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductFeature" EntitySet="ProductFeatures" />
-          </AssociationSet>
-          <EntitySet Name="BookingProducts" EntityType="HAVA_DBModel.BookingProduct" />
-          <AssociationSet Name="FK_BookingProducts_Products" Association="HAVA_DBModel.FK_BookingProducts_Products">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="BookingProduct" EntitySet="BookingProducts" />
           </AssociationSet>
           <EntitySet Name="AspNetUsers" EntityType="HAVA_DBModel.AspNetUser" />
           <EntitySet Name="PromotionDiscounts" EntityType="HAVA_DBModel.PromotionDiscount" />
@@ -2495,18 +2567,33 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             <End Role="PromotionDiscount" EntitySet="PromotionDiscounts" />
             <End Role="Promotion" EntitySet="Promotions" />
           </AssociationSet>
-          <AssociationSet Name="FK_BookingPayment_CardType" Association="HAVA_DBModel.FK_BookingPayment_CardType">
-            <End Role="Common" EntitySet="Commons" />
-            <End Role="BookingPayment" EntitySet="BookingPayments" />
-          </AssociationSet>
           <EntitySet Name="Countries" EntityType="HAVA_DBModel.Country" />
           <EntitySet Name="BookingPassengers" EntityType="HAVA_DBModel.BookingPassenger" />
           <AssociationSet Name="FK_BookingPassenger_Country" Association="HAVA_DBModel.FK_BookingPassenger_Country">
             <End Role="Country" EntitySet="Countries" />
             <End Role="BookingPassenger" EntitySet="BookingPassengers" />
           </AssociationSet>
-          <EntitySet Name="Bookings" EntityType="HAVA_DBModel.Booking" />
           <EntitySet Name="BookingOptions" EntityType="HAVA_DBModel.BookingOption" />
+          <EntitySet Name="BookingPayments" EntityType="HAVA_DBModel.BookingPayment" />
+          <EntitySet Name="BookingStatus" EntityType="HAVA_DBModel.BookingStatu" />
+          <EntitySet Name="BookingTypes" EntityType="HAVA_DBModel.BookingType" />
+          <AssociationSet Name="FK_BookingPayment_CardType" Association="HAVA_DBModel.FK_BookingPayment_CardType">
+            <End Role="Common" EntitySet="Commons" />
+            <End Role="BookingPayment" EntitySet="BookingPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerProductRate_PartnerProduct" Association="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="PartnerProductRate" EntitySet="PartnerProductRates" />
+          </AssociationSet>
+          <EntitySet Name="BookingSubProducts" EntityType="HAVA_DBModel.BookingSubProduct" />
+          <AssociationSet Name="FK_BookingSubProducts_Products" Association="HAVA_DBModel.FK_BookingSubProducts_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="BookingSubProduct" EntitySet="BookingSubProducts" />
+          </AssociationSet>
+          <EntitySet Name="Bookings" EntityType="HAVA_DBModel.Booking" />
+          <EntitySet Name="BookingProducts" EntityType="HAVA_DBModel.BookingProduct" />
+          <EntitySet Name="PartnerChauffeurProducts" EntityType="HAVA_DBModel.PartnerChauffeurProduct" />
+          <EntitySet Name="PartnerProducts" EntityType="HAVA_DBModel.PartnerProduct" />
           <AssociationSet Name="FK_Booking_BookedUser" Association="HAVA_DBModel.FK_Booking_BookedUser">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Booking" EntitySet="Bookings" />
@@ -2546,6 +2633,34 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <AssociationSet Name="FK_BookingProducts_Booking" Association="HAVA_DBModel.FK_BookingProducts_Booking">
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="BookingProduct" EntitySet="BookingProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingSubProducts_Booking" Association="HAVA_DBModel.FK_BookingSubProducts_Booking">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="BookingSubProduct" EntitySet="BookingSubProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingProducts_Products" Association="HAVA_DBModel.FK_BookingProducts_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="BookingProduct" EntitySet="BookingProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerProducts_Location" Association="HAVA_DBModel.FK_PartnerProducts_Location">
+            <End Role="LocationDetail" EntitySet="LocationDetails" />
+            <End Role="PartnerProduct" EntitySet="PartnerProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerChauffeurProducts_Partner" Association="HAVA_DBModel.FK_PartnerChauffeurProducts_Partner">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="PartnerChauffeurProduct" EntitySet="PartnerChauffeurProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerChauffeurProducts_Products" Association="HAVA_DBModel.FK_PartnerChauffeurProducts_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="PartnerChauffeurProduct" EntitySet="PartnerChauffeurProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerProducts_Partner" Association="HAVA_DBModel.FK_PartnerProducts_Partner">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="PartnerProduct" EntitySet="PartnerProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerProducts_Products" Association="HAVA_DBModel.FK_PartnerProducts_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="PartnerProduct" EntitySet="PartnerProducts" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -2728,21 +2843,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="BookingPayment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookingId" Type="Int32" Nullable="false" />
-          <Property Name="CardHolderName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ExpireDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CardNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CardType" Type="Int32" />
-          <NavigationProperty Name="Common" Relationship="HAVA_DBModel.FK_BookingPayment_CardType" FromRole="BookingPayment" ToRole="Common" />
-          <Property Name="CVV" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="BookingPayment" ToRole="Booking" />
-        </EntityType>
         <EntityType Name="Common">
           <Key>
             <PropertyRef Name="Id" />
@@ -2825,31 +2925,9 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="ChildSeatRate" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="LocationDetail" Relationship="HAVA_DBModel.FK_PartnerProductRate_Location" FromRole="PartnerProductRate" ToRole="LocationDetail" />
           <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProductRate_Partner" FromRole="PartnerProductRate" ToRole="Partner" />
-          <NavigationProperty Name="PartnerProduct" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="PartnerProductRate" ToRole="PartnerProduct" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="AdditionalKMRate" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="PartnerProduct">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="PartnerId" Type="Int32" />
-          <Property Name="HavaPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MarketPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PartnerSellingPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="IsMarkUp" Type="Boolean" />
-          <Property Name="Markup" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Percentage" Type="Decimal" Precision="6" Scale="2" />
-          <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="PartnerProduct" ToRole="PartnerProductRate" />
-          <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProducts_PartnerProducts" FromRole="PartnerProduct" ToRole="Partner" />
-          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="PartnerProduct" ToRole="Product" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="PartnerProductRate" ToRole="Product" />
         </EntityType>
         <Association Name="FK_PartnerProductRate_Location">
           <End Type="HAVA_DBModel.LocationDetail" Role="LocationDetail" Multiplicity="1" />
@@ -2871,32 +2949,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PartnerProductRate">
-              <PropertyRef Name="PartnerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartnerProductRate_PartnerProduct">
-          <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="1" />
-          <End Type="HAVA_DBModel.PartnerProductRate" Role="PartnerProductRate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PartnerProduct">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PartnerProductRate">
-              <PropertyRef Name="PartnerProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartnerProducts_PartnerProducts">
-          <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Partner">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PartnerProduct">
               <PropertyRef Name="PartnerId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2960,24 +3012,15 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="ProductImageSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaxPassengers" Type="Int32" />
           <Property Name="MaxLuggage" Type="Int32" />
-          <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="Product" ToRole="PartnerProduct" />
           <NavigationProperty Name="TSPProducts" Relationship="HAVA_DBModel.FK_TSPProducts_Products" FromRole="Product" ToRole="TSPProduct" />
           <NavigationProperty Name="TSPVehicles" Relationship="HAVA_DBModel.FK_TSPVehicles_Products" FromRole="Product" ToRole="TSPVehicle" />
           <NavigationProperty Name="ProductFeatures" Relationship="HAVA_DBModel.FK_ProductFeatures_Product" FromRole="Product" ToRole="ProductFeature" />
+          <NavigationProperty Name="PartnerProductRates" Relationship="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" FromRole="Product" ToRole="PartnerProductRate" />
+          <NavigationProperty Name="BookingSubProducts" Relationship="HAVA_DBModel.FK_BookingSubProducts_Products" FromRole="Product" ToRole="BookingSubProduct" />
           <NavigationProperty Name="BookingProducts" Relationship="HAVA_DBModel.FK_BookingProducts_Products" FromRole="Product" ToRole="BookingProduct" />
+          <NavigationProperty Name="PartnerChauffeurProducts" Relationship="HAVA_DBModel.FK_PartnerChauffeurProducts_Products" FromRole="Product" ToRole="PartnerChauffeurProduct" />
+          <NavigationProperty Name="PartnerProducts" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="Product" ToRole="PartnerProduct" />
         </EntityType>
-        <Association Name="FK_PartnerProducts_Products">
-          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PartnerProduct">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TSPProducts_Products">
           <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
           <End Type="HAVA_DBModel.TSPProduct" Role="TSPProduct" Multiplicity="*" />
@@ -3020,37 +3063,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Principal>
             <Dependent Role="ProductFeature">
               <PropertyRef Name="ProdcutId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="BookingProduct">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookingId" Type="Int32" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="IsAirPortTour" Type="Boolean" Nullable="false" />
-          <Property Name="AdditionalDays" Type="Int32" />
-          <Property Name="AdditionalHours" Type="Int32" />
-          <Property Name="AdditionalChufferDate" Type="Int32" />
-          <Property Name="AdditionalChufferHours" Type="Int32" />
-          <Property Name="NoOfChildSeats" Type="Int32" />
-          <Property Name="ChildSeatDays" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_BookingProducts_Products" FromRole="BookingProduct" ToRole="Product" />
-          <Property Name="AdditionalKM" Type="Int32" />
-          <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingProducts_Booking" FromRole="BookingProduct" ToRole="Booking" />
-        </EntityType>
-        <Association Name="FK_BookingProducts_Products">
-          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="HAVA_DBModel.BookingProduct" Role="BookingProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BookingProduct">
-              <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3148,18 +3160,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BookingPayment_CardType">
-          <End Type="HAVA_DBModel.Common" Role="Common" Multiplicity="0..1" />
-          <End Type="HAVA_DBModel.BookingPayment" Role="BookingPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Common">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BookingPayment">
-              <PropertyRef Name="CardType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
@@ -3195,6 +3195,105 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BookingOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="FlightNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FlyerProgramId" Type="Int32" />
+          <Property Name="FlyerReffNo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PickupSign" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PickupSignReffNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoteToDriver" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="PickupAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="BookingOption" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="BookingPayment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="CardHolderName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExpireDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CardType" Type="Int32" />
+          <Property Name="CVV" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Common" Relationship="HAVA_DBModel.FK_BookingPayment_CardType" FromRole="BookingPayment" ToRole="Common" />
+          <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="BookingPayment" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="BookingStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_BookingStatus" FromRole="BookingStatu" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="BookingType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Bookings" Relationship="HAVA_DBModel.FK_Booking_BookingTypes" FromRole="BookingType" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK_BookingPayment_CardType">
+          <End Type="HAVA_DBModel.Common" Role="Common" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.BookingPayment" Role="BookingPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Common">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingPayment">
+              <PropertyRef Name="CardType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerProductRate_PartnerProduct">
+          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="HAVA_DBModel.PartnerProductRate" Role="PartnerProductRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerProductRate">
+              <PropertyRef Name="PartnerProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BookingSubProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="HavaPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MarketPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_BookingSubProducts_Products" FromRole="BookingSubProduct" ToRole="Product" />
+          <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingSubProducts_Booking" FromRole="BookingSubProduct" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK_BookingSubProducts_Products">
+          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="HAVA_DBModel.BookingSubProduct" Role="BookingSubProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingSubProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="Id" />
@@ -3224,6 +3323,8 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <Property Name="UserId" Type="Int32" />
           <Property Name="IsReturn" Type="Boolean" Nullable="false" />
           <Property Name="IsAirportTransfer" Type="Boolean" />
+          <Property Name="TotalCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="IsChaffeur" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="HAVA_DBModel.FK_Booking_BookedUser" FromRole="Booking" ToRole="AspNetUser" />
           <NavigationProperty Name="BookingStatu" Relationship="HAVA_DBModel.FK_Booking_BookingStatus" FromRole="Booking" ToRole="BookingStatu" />
           <NavigationProperty Name="BookingType" Relationship="HAVA_DBModel.FK_Booking_BookingTypes" FromRole="Booking" ToRole="BookingType" />
@@ -3234,22 +3335,65 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
           <NavigationProperty Name="BookingPassengers" Relationship="HAVA_DBModel.FK_BookingPassenger_Booking" FromRole="Booking" ToRole="BookingPassenger" />
           <NavigationProperty Name="BookingPayments" Relationship="HAVA_DBModel.FK_BookingPayment_Booking" FromRole="Booking" ToRole="BookingPayment" />
           <NavigationProperty Name="BookingProducts" Relationship="HAVA_DBModel.FK_BookingProducts_Booking" FromRole="Booking" ToRole="BookingProduct" />
+          <NavigationProperty Name="BookingSubProducts" Relationship="HAVA_DBModel.FK_BookingSubProducts_Booking" FromRole="Booking" ToRole="BookingSubProduct" />
         </EntityType>
-        <EntityType Name="BookingOption">
+        <EntityType Name="BookingProduct">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookingId" Type="Int32" Nullable="false" />
-          <Property Name="FlightNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FlyerProgramId" Type="Int32" />
-          <Property Name="FlyerReffNo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PickupSign" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="PickupSignReffNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NoteToDriver" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BookingId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PartnerPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MarketPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsAirPortTour" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingProducts_Booking" FromRole="BookingProduct" ToRole="Booking" />
+          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_BookingProducts_Products" FromRole="BookingProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="PartnerChauffeurProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="PartnerId" Type="Int32" />
+          <Property Name="HavaPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MarketPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PartnerSellingPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsMarkUp" Type="Boolean" />
+          <Property Name="Markup" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Percentage" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="PickupAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Booking" Relationship="HAVA_DBModel.FK_BookingOptions_Booking" FromRole="BookingOption" ToRole="Booking" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerChauffeurProducts_Partner" FromRole="PartnerChauffeurProduct" ToRole="Partner" />
+          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_PartnerChauffeurProducts_Products" FromRole="PartnerChauffeurProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="PartnerProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="PartnerId" Type="Int32" />
+          <Property Name="LocationId" Type="Int32" />
+          <Property Name="HavaPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MarketPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PartnerSellingPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsMarkUp" Type="Boolean" />
+          <Property Name="Markup" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Percentage" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LocationDetail" Relationship="HAVA_DBModel.FK_PartnerProducts_Location" FromRole="PartnerProduct" ToRole="LocationDetail" />
+          <NavigationProperty Name="Partner" Relationship="HAVA_DBModel.FK_PartnerProducts_Partner" FromRole="PartnerProduct" ToRole="Partner" />
+          <NavigationProperty Name="Product" Relationship="HAVA_DBModel.FK_PartnerProducts_Products" FromRole="PartnerProduct" ToRole="Product" />
         </EntityType>
         <Association Name="FK_Booking_BookedUser">
           <End Type="HAVA_DBModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
@@ -3371,30 +3515,96 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BookingSubProducts_Booking">
+          <End Type="HAVA_DBModel.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="HAVA_DBModel.BookingSubProduct" Role="BookingSubProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingSubProduct">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingProducts_Products">
+          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.BookingProduct" Role="BookingProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerProducts_Location">
+          <End Type="HAVA_DBModel.LocationDetail" Role="LocationDetail" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerProduct">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerChauffeurProducts_Partner">
+          <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.PartnerChauffeurProduct" Role="PartnerChauffeurProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerChauffeurProduct">
+              <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerChauffeurProducts_Products">
+          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.PartnerChauffeurProduct" Role="PartnerChauffeurProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerChauffeurProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerProducts_Partner">
+          <End Type="HAVA_DBModel.Partner" Role="Partner" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerProduct">
+              <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerProducts_Products">
+          <End Type="HAVA_DBModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="HAVA_DBModel.PartnerProduct" Role="PartnerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartnerProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HAVA_DBModelStoreContainer" CdmEntityContainer="HAVA_DBModelEntities">
-          <EntitySetMapping Name="BookingStatus">
-            <EntityTypeMapping TypeName="HAVA_DBModel.BookingStatu">
-              <MappingFragment StoreEntitySet="BookingStatus">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BookingTypes">
-            <EntityTypeMapping TypeName="HAVA_DBModel.BookingType">
-              <MappingFragment StoreEntitySet="BookingTypes">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ContactTypes">
             <EntityTypeMapping TypeName="HAVA_DBModel.ContactType">
               <MappingFragment StoreEntitySet="ContactTypes">
@@ -3756,20 +3966,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BookingPayments">
-            <EntityTypeMapping TypeName="HAVA_DBModel.BookingPayment">
-              <MappingFragment StoreEntitySet="BookingPayment">
-                <ScalarProperty Name="CVV" ColumnName="CVV" />
-                <ScalarProperty Name="CardType" ColumnName="CardType" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
-                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
-                <ScalarProperty Name="CardHolderName" ColumnName="CardHolderName" />
-                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Commons">
             <EntityTypeMapping TypeName="HAVA_DBModel.Common">
               <MappingFragment StoreEntitySet="Common">
@@ -3817,26 +4013,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PartnerProducts">
-            <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProduct">
-              <MappingFragment StoreEntitySet="PartnerProducts">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
-                <ScalarProperty Name="Markup" ColumnName="Markup" />
-                <ScalarProperty Name="IsMarkUp" ColumnName="IsMarkUp" />
-                <ScalarProperty Name="PartnerSellingPrice" ColumnName="PartnerSellingPrice" />
-                <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
-                <ScalarProperty Name="HavaPrice" ColumnName="HavaPrice" />
-                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PartnerRepresentatives">
             <EntityTypeMapping TypeName="HAVA_DBModel.PartnerRepresentative">
               <MappingFragment StoreEntitySet="PartnerRepresentative">
@@ -3876,24 +4052,6 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
               <MappingFragment StoreEntitySet="ProductFeatures">
                 <ScalarProperty Name="ProdcutId" ColumnName="ProdcutId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BookingProducts">
-            <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
-              <MappingFragment StoreEntitySet="BookingProducts">
-                <ScalarProperty Name="AdditionalKM" ColumnName="AdditionalKM" />
-                <ScalarProperty Name="ChildSeatDays" ColumnName="ChildSeatDays" />
-                <ScalarProperty Name="NoOfChildSeats" ColumnName="NoOfChildSeats" />
-                <ScalarProperty Name="AdditionalChufferHours" ColumnName="AdditionalChufferHours" />
-                <ScalarProperty Name="AdditionalChufferDate" ColumnName="AdditionalChufferDate" />
-                <ScalarProperty Name="AdditionalHours" ColumnName="AdditionalHours" />
-                <ScalarProperty Name="AdditionalDays" ColumnName="AdditionalDays" />
-                <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3975,9 +4133,72 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BookingOptions">
+            <EntityTypeMapping TypeName="HAVA_DBModel.BookingOption">
+              <MappingFragment StoreEntitySet="BookingOptions">
+                <ScalarProperty Name="PickupAddress" ColumnName="PickupAddress" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="NoteToDriver" ColumnName="NoteToDriver" />
+                <ScalarProperty Name="PickupSignReffNo" ColumnName="PickupSignReffNo" />
+                <ScalarProperty Name="PickupSign" ColumnName="PickupSign" />
+                <ScalarProperty Name="FlyerReffNo" ColumnName="FlyerReffNo" />
+                <ScalarProperty Name="FlyerProgramId" ColumnName="FlyerProgramId" />
+                <ScalarProperty Name="FlightNo" ColumnName="FlightNo" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingPayments">
+            <EntityTypeMapping TypeName="HAVA_DBModel.BookingPayment">
+              <MappingFragment StoreEntitySet="BookingPayment">
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="CardHolderName" ColumnName="CardHolderName" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingStatus">
+            <EntityTypeMapping TypeName="HAVA_DBModel.BookingStatu">
+              <MappingFragment StoreEntitySet="BookingStatus">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingTypes">
+            <EntityTypeMapping TypeName="HAVA_DBModel.BookingType">
+              <MappingFragment StoreEntitySet="BookingTypes">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingSubProducts">
+            <EntityTypeMapping TypeName="HAVA_DBModel.BookingSubProduct">
+              <MappingFragment StoreEntitySet="BookingSubProducts">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+                <ScalarProperty Name="HavaPrice" ColumnName="HavaPrice" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Bookings">
             <EntityTypeMapping TypeName="HAVA_DBModel.Booking">
               <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="IsChaffeur" ColumnName="IsChaffeur" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
                 <ScalarProperty Name="IsAirportTransfer" ColumnName="IsAirportTransfer" />
                 <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -4006,18 +4227,56 @@ warning 6002: The table/view 'HAVA_DB.dbo.Currency' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BookingOptions">
-            <EntityTypeMapping TypeName="HAVA_DBModel.BookingOption">
-              <MappingFragment StoreEntitySet="BookingOptions">
-                <ScalarProperty Name="PickupAddress" ColumnName="PickupAddress" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="NoteToDriver" ColumnName="NoteToDriver" />
-                <ScalarProperty Name="PickupSignReffNo" ColumnName="PickupSignReffNo" />
-                <ScalarProperty Name="PickupSign" ColumnName="PickupSign" />
-                <ScalarProperty Name="FlyerReffNo" ColumnName="FlyerReffNo" />
-                <ScalarProperty Name="FlyerProgramId" ColumnName="FlyerProgramId" />
-                <ScalarProperty Name="FlightNo" ColumnName="FlightNo" />
+          <EntitySetMapping Name="BookingProducts">
+            <EntityTypeMapping TypeName="HAVA_DBModel.BookingProduct">
+              <MappingFragment StoreEntitySet="BookingProducts">
+                <ScalarProperty Name="IsAirPortTour" ColumnName="IsAirPortTour" />
+                <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+                <ScalarProperty Name="PartnerPrice" ColumnName="PartnerPrice" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartnerChauffeurProducts">
+            <EntityTypeMapping TypeName="HAVA_DBModel.PartnerChauffeurProduct">
+              <MappingFragment StoreEntitySet="PartnerChauffeurProducts">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Markup" ColumnName="Markup" />
+                <ScalarProperty Name="IsMarkUp" ColumnName="IsMarkUp" />
+                <ScalarProperty Name="PartnerSellingPrice" ColumnName="PartnerSellingPrice" />
+                <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+                <ScalarProperty Name="HavaPrice" ColumnName="HavaPrice" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartnerProducts">
+            <EntityTypeMapping TypeName="HAVA_DBModel.PartnerProduct">
+              <MappingFragment StoreEntitySet="PartnerProducts">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Markup" ColumnName="Markup" />
+                <ScalarProperty Name="IsMarkUp" ColumnName="IsMarkUp" />
+                <ScalarProperty Name="PartnerSellingPrice" ColumnName="PartnerSellingPrice" />
+                <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+                <ScalarProperty Name="HavaPrice" ColumnName="HavaPrice" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

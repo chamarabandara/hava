@@ -17,11 +17,14 @@ namespace HavaBusiness
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.PartnerProducts = new HashSet<PartnerProduct>();
             this.TSPProducts = new HashSet<TSPProduct>();
             this.TSPVehicles = new HashSet<TSPVehicle>();
             this.ProductFeatures = new HashSet<ProductFeature>();
+            this.PartnerProductRates = new HashSet<PartnerProductRate>();
+            this.BookingSubProducts = new HashSet<BookingSubProduct>();
             this.BookingProducts = new HashSet<BookingProduct>();
+            this.PartnerChauffeurProducts = new HashSet<PartnerChauffeurProduct>();
+            this.PartnerProducts = new HashSet<PartnerProduct>();
         }
     
         public int Id { get; set; }
@@ -36,14 +39,20 @@ namespace HavaBusiness
         public Nullable<int> MaxLuggage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSPProduct> TSPProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSPVehicle> TSPVehicles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductFeature> ProductFeatures { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerProductRate> PartnerProductRates { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingSubProduct> BookingSubProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingProduct> BookingProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerChauffeurProduct> PartnerChauffeurProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
     }
 }

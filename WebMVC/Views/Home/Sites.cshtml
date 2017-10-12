@@ -23,9 +23,17 @@
     <script>(typeof angular != 'undefined') || document.write('<script src="~/Scripts/AngularJS/angular.min.js"><\/script>')</script>
     <script src="~/Scripts/AngularJS/angular-file-upload-shim.js"></script>
     <script src="~/Scripts/AngularJS/angular-file-upload.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107672624-1"></script>
     @*<script src="~/Scripts/AngularJS/angular-local-storage.min.js"></script>*@
     <script src="~/common.js"></script>
     <script type="text/javascript">
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-107672624-1');
+
         function initialize() {
             var options = {
                 types: ['geocode'],
@@ -161,18 +169,24 @@
                                                                     <div id="ChaufDiv" style="display:none;" class="tabPane">
                                                                         <div class="col-sm-6 col-xs-6 form-section-input">
                                                                             <div class="form-group">
-                                                                                <input type="text" class="form-control" placeholder="FROM" id="searchTextField2" autocomplete="on" ng-model="pickupLocation">
+                                                                                <input type="text" class="form-control" placeholder="FROM" id="searchTextField2" autocomplete="on" ng-model="pickupLocation2">
 
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm-6 col-xs-6 form-section-input ">
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
                                                                             <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
+                                                                                    <input type="text" class="form-control" id="timepicker2" aria-describedby="timepicker" ng-model="pickupTime2">
+                                                                                </div>
+                                                                            </div>
+                                                                            @*<div class="form-group">
                                                                                 <select class="form-control" name="toLocation" ng-options="due.name for due in durantions track by due.id" ng-model="duration">
                                                                                     <option value="">-- Select Duration --</option>
                                                                                 </select>
-                                                                            </div>
+                                                                            </div>*@
                                                                         </div>
-                                                                        <div class="col-sm-6 col-xs-6 form-section-input  ">
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
 
@@ -188,8 +202,13 @@
                                                                         <div class="col-sm-6 col-xs-6 form-section-input">
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
-                                                                                    <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                    <input type="text" class="form-control" id="timepicker2" aria-describedby="timepicker" ng-model="search.pickupTime2">
+
+                                                                                    <div id="ddp4">
+                                                                                        <div class="input-group input-append date date-picker">
+                                                                                            <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;" ng-click="selectDate('inputGroupSuccessDate3')"></i></span>
+                                                                                            <input type="text" class="form-control" id="inputGroupSuccessDate3" aria-describedby="inputGroupSuccess1Status" ng-model="search.ReturnDate2">
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -824,7 +843,7 @@
                                         <h3>Airport dropoff details</h3>
                                         <p class="medium-text">Enter your flight number to ensure your driver brings you to the correct terminal and gate.</p>
                                     </div>
-                                    <div class="col-sm-12" ng-show="selectedProduct.LocationDetail.IsAirPortTour==true">
+                                    <div class="col-sm-12" ng-show="search.isAirportTransfer==true">
                                         <div class="form-group">
                                             <label>Flight details</label>
                                             <input type="text" class="form-control" id="" placeholder="LH 2054" ng-model="BookingOptions.FlightNo">

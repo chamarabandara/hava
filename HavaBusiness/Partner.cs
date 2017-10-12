@@ -22,10 +22,11 @@ namespace HavaBusiness
             this.PartnerCommissions = new HashSet<PartnerCommission>();
             this.PartnerSites = new HashSet<PartnerSite>();
             this.PartnerProductRates = new HashSet<PartnerProductRate>();
-            this.PartnerProducts = new HashSet<PartnerProduct>();
             this.PartnerRepresentatives = new HashSet<PartnerRepresentative>();
             this.Promotions = new HashSet<Promotion>();
             this.Bookings = new HashSet<Booking>();
+            this.PartnerChauffeurProducts = new HashSet<PartnerChauffeurProduct>();
+            this.PartnerProducts = new HashSet<PartnerProduct>();
         }
     
         public int Id { get; set; }
@@ -56,12 +57,14 @@ namespace HavaBusiness
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProductRate> PartnerProductRates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerRepresentative> PartnerRepresentatives { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion> Promotions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerChauffeurProduct> PartnerChauffeurProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
     }
 }

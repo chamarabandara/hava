@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HavaBusinessObjects.ViewModels
 {
@@ -13,6 +14,7 @@ namespace HavaBusinessObjects.ViewModels
         public string telephoneMobile { get; set; }
         public List<RepresentativeViewModel> representativeData { get; set; }
         public List<PartnerProductViewModel> productGridData { get; set; }
+        public List<PartnerProductViewModel> subProductData { get; set; }
         public List<PartnerSitesViewModel> siteGridData { get; set; }
         public int createdBy { get; set; }
 
@@ -30,12 +32,38 @@ namespace HavaBusinessObjects.ViewModels
         public string status { get; set; }
     }
 
+    public class PartnerChauffeurProductViewModel
+    {
+        public int id { get; set; }
+        public ProductViewModel Product { get; set; }
+        public bool isActive { get; set; }
+        public decimal? HavaPrice { get; set; }
+        public decimal? MarketPrice { get; set; }
+        public decimal? PartnerSellingPrice { get; set; }
+        public bool? IsMarkUp { get; set; }
+        public decimal? Markup { get; set; }
+        public decimal? Percentage { get; set; }
+        public bool? IsActive { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+    }
+
     public class PartnerProductViewModel
     {
         public int id { get; set; }
-        public int productId { get; set; }
+        public ProductViewModel Product { get; set; }
         public bool isActive { get; set; }
-        public List<PrtnerLocations> rates { get; set; }
+        public LocationDetailViewModel LocationDetail { get; set; }
+        public decimal? HavaPrice { get; set; }
+        public decimal? MarketPrice { get; set; }
+        public decimal? PartnerSellingPrice { get; set; }
+        public bool? IsMarkUp { get; set; }
+        public decimal? Markup { get; set; }
+        public decimal? Percentage { get; set; }
+        public bool? IsActive { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
 
     }
 

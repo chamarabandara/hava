@@ -21,6 +21,7 @@ namespace HavaBusiness
             this.BookingPassengers = new HashSet<BookingPassenger>();
             this.BookingPayments = new HashSet<BookingPayment>();
             this.BookingProducts = new HashSet<BookingProduct>();
+            this.BookingSubProducts = new HashSet<BookingSubProduct>();
         }
     
         public int Id { get; set; }
@@ -48,6 +49,8 @@ namespace HavaBusiness
         public Nullable<int> UserId { get; set; }
         public bool IsReturn { get; set; }
         public Nullable<bool> IsAirportTransfer { get; set; }
+        public decimal TotalCost { get; set; }
+        public bool IsChaffeur { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual BookingStatu BookingStatu { get; set; }
@@ -63,5 +66,7 @@ namespace HavaBusiness
         public virtual ICollection<BookingPayment> BookingPayments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingProduct> BookingProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingSubProduct> BookingSubProducts { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace HavaBusinessObjects.Utilities
             CreateMap<PartnerViewModel , Partner>().ReverseMap();
             CreateMap<PartnerProductRateViewModel , PartnerProductRate>()
                 .ForMember(dest => dest.Partner , opt => opt.MapFrom(src => src.Partner))
-                .ForMember(dest => dest.PartnerProduct , opt => opt.MapFrom(src => src.PartnerProduct))
+                //.ForMember(dest => dest.PartnerProduct , opt => opt.MapFrom(src => src.PartnerProduct))
                 .ReverseMap();
             //CreateMap<PartnerProductViewModel, PartnerProduct>()
             //    .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.productVM))

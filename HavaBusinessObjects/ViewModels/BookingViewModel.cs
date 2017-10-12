@@ -78,6 +78,17 @@ namespace HavaBusinessObjects.ViewModels
         public BookedProductViewModel Product { get; set; }
     }
 
+    public class BookingSubProductViewModel
+    {
+        public int Id { get; set; }
+        public BookingViewModel Booking { get; set; }
+        public ProductViewModel Product { get; set; }
+        public decimal? HavaPrice { get; set; }
+        public decimal? MarketPrice { get; set; }
+        public int? Quantity { get; set; }
+        public decimal? Price { get; set; }
+    }
+
     public class BookingOptionViewModel
     {
         public int Id { get; set; }

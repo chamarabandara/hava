@@ -289,12 +289,6 @@ namespace HavaBusinessObjects.ControllerRepository
                             extBookingProduct.ProductId = bookingProduct.ProductId;
                             extBookingProduct.Price = bookingProduct.Price;
                             extBookingProduct.IsAirPortTour = bookingProduct.IsAirPortTour;
-                            extBookingProduct.AdditionalDays = bookingProduct.AdditionalDays;
-                            extBookingProduct.AdditionalHours = bookingProduct.AdditionalHours;
-                            extBookingProduct.AdditionalChufferDate = bookingProduct.AdditionalChufferDate;
-                            extBookingProduct.AdditionalChufferHours = bookingProduct.AdditionalChufferHours;
-                            extBookingProduct.NoOfChildSeats = bookingProduct.NoOfChildSeats;
-                            extBookingProduct.ChildSeatDays = bookingProduct.ChildSeatDays;
 
                             this.ObjContext.Entry(extBookingProduct).State = EntityState.Modified;
                             this.ObjContext.SaveChanges();
