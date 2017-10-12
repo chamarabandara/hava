@@ -536,13 +536,6 @@ namespace WebMVC.Controllers
                 bookingProductObj.Add("Id" , product.Id);
                 bookingProductObj.Add("ProductId" , product.ProductId);
                 bookingProductObj.Add("Price" , product.Price);
-                bookingProductObj.Add("IsAirPortTour" , product.IsAirPortTour);
-                bookingProductObj.Add("AdditionalDays" , product.AdditionalDays);
-                bookingProductObj.Add("AdditionalHours" , product.AdditionalHours);
-                bookingProductObj.Add("AdditionalChufferDate" , product.AdditionalChufferDate);
-                bookingProductObj.Add("AdditionalChufferHours" , product.AdditionalChufferHours);
-                bookingProductObj.Add("NoOfChildSeats" , product.NoOfChildSeats);
-                bookingProductObj.Add("ChildSeatDays" , product.ChildSeatDays);
 
                 var path = ConfigurationManager.AppSettings["SiteUrl"].ToString() + product.Product.ProductImagePath;
                 bookingProductObj.Add("ProductImagePath" , path);

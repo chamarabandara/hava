@@ -30,6 +30,7 @@ namespace HavaBusinessObjects.ViewModels
         public bool IsAirportTransfer { get; set; }
 
         public List<BookingProductsViewModel> BookingProducts { get; set; }
+        public List<BookingSubProductViewModel> BookingSubProducts { get; set; }
         public List<BookingPaymentViewModel> BookingPayments { get; set; }
         public List<BookingOptionViewModel> BookingOptions { get; set; }
         public List<BookingPassengerViewModel> BookingPassenger { get; set; }
@@ -67,14 +68,8 @@ namespace HavaBusinessObjects.ViewModels
         public BookingViewModel Booking { get; set; }
         public int? ProductId { get; set; }
         public decimal? Price { get; set; }
-        public bool IsAirPortTour { get; set; }
-        public int? AdditionalDays { get; set; }
-        public int? AdditionalHours { get; set; }
-        public int? AdditionalChufferDate { get; set; }
-        public int? AdditionalChufferHours { get; set; }
-        public int? AdditionalKM { get; set; }
-        public int? NoOfChildSeats { get; set; }
-        public int? ChildSeatDays { get; set; }
+        public decimal? PartnerPrice { get; set; }
+        public decimal? MarketPrice { get; set; }
         public BookedProductViewModel Product { get; set; }
     }
 
