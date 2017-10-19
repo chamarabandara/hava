@@ -15,6 +15,7 @@ partnerService.factory('HavaSiteService', ['$resource', function ($resource) {
         getChauffeurProductDetails: { method: 'GET', url: appUrl + 'booking/GetProductsChauffer', params: { partnerId: '@partnerId', PromotionCode: '@PromotionCode' } },
         getPartnerIstest: { method: 'GET', url: appUrl + 'Partner/GetPartnerSite', params: { partnerId: '@partnerId', siteId: '@siteId' }, },
         getAppUser: { method: 'GET', url: appUrl + 'booking/GetAppUserName', isArray: false },
+        getPartnerSubProducts: { method: 'GET', url: appUrl + 'booking/GetPartnerSubProducts', params: { partnerId: '@partnerId' } },
 
     });
 }]);

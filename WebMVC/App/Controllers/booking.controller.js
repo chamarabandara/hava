@@ -177,6 +177,12 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     $scope.step = 1;
     $scope.navigateSteps = function (stp) {
         $scope.step = stp;
+        if (stp == 2) {
+            HavaSiteService.getPartnerSubProducts({ partnerId: parseInt($scope.PartnerIdTemp) }).$promise.then(
+                 function (result) {
+                     $scope.bookingSubProducts = result.data;
+                 });
+        }
 
     }
 
@@ -375,6 +381,18 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         }
     }
     $scope.saveBookingOptions = function (optionData) {
+        
+        var BookingSubProducts = [];
+        angular.forEach($scope.bookingSubProducts, function (v, k) {
+            BookingSubProducts.push({
+                'Id': v.id,
+                'HavaPrice': v.HavaPrice,
+                'MarketPrice': v.MarketPrice,
+                'Quantity': v.Quantity,
+                'Price': v.Price
+            });
+        });
+        optionData.BookingSubProducts = BookingSubProducts;
         $scope.bookingOptionData = optionData;
         $scope.navigateSteps(3);
     }
@@ -593,7 +611,13 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
       
        var partPrice = 0;
        var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
-       $scope.total = (parseInt($scope.additional.countAddDay) * parseInt($scope.AditionalDayUnit)) + (parseInt($scope.additional.countAddhildSet) * parseInt($scope.cildSetUnit)) + (parseInt($scope.additional.countAddHours) * parseInt($scope.AdHoursUnit)) + (parseInt($scope.additional.AdditionalKM) * parseInt($scope.AdditionalKMRate));
+       $scope.total = 0;
+       if ($scope.bookingSubProducts) {
+           angular.forEach($scope.bookingSubProducts, function (v, k) {
+               $scope.total += ((v.Quantity != undefined ? v.Quantity : 0) * (v.MarketPrice != undefined ? v.MarketPrice : 0));
+           });
+       }
+      // $scope.total = (parseInt($scope.additional.countAddDay) * parseInt($scope.AditionalDayUnit)) + (parseInt($scope.additional.countAddhildSet) * parseInt($scope.cildSetUnit)) + (parseInt($scope.additional.countAddHours) * parseInt($scope.AdHoursUnit)) + (parseInt($scope.additional.AdditionalKM) * parseInt($scope.AdditionalKMRate));
         if ($scope.selectedProduct.promotionAmount == null)
             $scope.selectedProduct.promotionAmount = 0;
         $scope.totalSellingPrice = partPrice + $scope.total - $scope.selectedProduct.promotionAmount;
@@ -687,6 +711,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         } else {
         }
     }
+
 
 }]);
 site.controller('BookingCtrl', ['$scope', '$http', 'HavaSiteService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaSiteService, $stateParams, $state, $sce, $window, $timeout) {

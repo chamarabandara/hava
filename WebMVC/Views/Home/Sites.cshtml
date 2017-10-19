@@ -728,7 +728,7 @@
                                                     Price
                                                 </th>
                                                 <th>
-                                                    Qnty
+                                                    Qty
                                                 </th>
                                                 <th>
                                                     Fee
@@ -736,24 +736,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr ng-repeat="cData in bookingSubProducts">
                                                 <td class="td-first-cloumn">
-                                                    Additional Hours
+                                                   {{cData.name}}
                                                 </td>
                                                 <td class="td-others">
-                                                    {{AdHoursUnit}}
+                                                    {{cData.MarketPrice}}
                                                 </td>
                                                 <td class="td-others">
                                                     <span ng-click="addCount('ah','1')"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
-                                                    <input type="text" style="width:50px" ng-model="additional.countAddHours" ng-blur="getTotal()" only-digits />
+                                                    <input type="text" style="width:50px" ng-model="cData.Quantity" ng-blur="getTotal()" only-digits />
                                                     <span ng-click="addCount('ah',0)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
                                                 </td>
                                                 <td>
-                                                   {{additional.countAddHours * AdHoursUnit}}
+                                                   {{cData.Quantity * cData.MarketPrice}}
                                                  
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            @*<tr>
                                                 <td class="td-first-cloumn">
                                                     Additional kilometer
                                                 </td>
@@ -814,7 +814,7 @@
                                                 <td>
                                                     {{total}}
                                                 </td>
-                                            </tr>
+                                            </tr>*@
                                         </tbody>
                                     </table>
                                 </div>

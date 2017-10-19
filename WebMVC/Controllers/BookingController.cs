@@ -337,6 +337,7 @@ namespace WebMVC.Controllers
 
                         itemObj.Add("promotionCode", string.Empty);
                         itemObj.Add("promotionAmount", 0);
+                        itemObj.Add("Quantity" , 0);
 
                         JObject partnerObj = new JObject();
                         if (item.Partner != null)
