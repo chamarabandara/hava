@@ -180,7 +180,8 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         if (stp == 2) {
             HavaSiteService.getPartnerSubProducts({ partnerId: parseInt($scope.PartnerIdTemp) }).$promise.then(
                  function (result) {
-                     $scope.bookingSubProducts = result.data;
+                     if ($scope.bookingSubProducts == undefined || $scope.bookingSubProducts.length <= 0)
+                        $scope.bookingSubProducts = result.data;
                  });
         }
 
