@@ -1,9 +1,11 @@
-﻿using HavaBusinessObjects;
+﻿using HavaBusiness;
+using HavaBusinessObjects;
 using HavaBusinessObjects.ControllerRepository;
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -20,6 +22,7 @@ namespace WebMVC.Controllers
         private CommonRepository _commonRepository = new CommonRepository();
         private PartnerRepository _partnerRepository = new PartnerRepository();
         private BookingRepository _bookingRepository = new BookingRepository();
+        private ProductRepository _productRepository = new ProductRepository();
         private Models.UserRepository _userRepository = new Models.UserRepository();
         private HavaBusinessObjects.Utility _utility = new HavaBusinessObjects.Utility();
 
@@ -375,7 +378,6 @@ namespace WebMVC.Controllers
         }
 
 
-
         [HttpPost]
         [AllowAnonymous]
         public JObject Insert(BookingViewModel vm)
@@ -615,6 +617,44 @@ namespace WebMVC.Controllers
         public string GetAppUserName()
         {
             return _userRepository.GetNameByUserName(User.Identity.Name);
+        }
+
+        [HttpGet]
+        public JObject GetMainProducts()
+        {
+            var products = _productRepository.GetMainProducts();
+            JObject returnObj = new JObject();
+            returnObj.Add("data", this.ProductsJsonObj(products));
+            return returnObj;
+        }
+
+        [HttpGet]
+        public JObject GetSubProducts()
+        {
+            var products = _productRepository.GetSubProducts();
+            JObject returnObj = new JObject();
+            returnObj.Add("data", this.ProductsJsonObj(products));
+            return returnObj;
+        }
+
+        private JArray ProductsJsonObj(List<Product> productsList)
+        {
+            JArray products = new JArray();
+
+            foreach (var item in productsList)
+            {
+                JObject product = new JObject();
+                product.Add("Id", item.Id);
+                product.Add("Name", item.Name);
+                product.Add("Description", item.Description);
+                product.Add("IsMainProduct", item.IsMainProduct);
+                product.Add("ProductImagePath", item.ProductImagePath);
+
+                products.Add(product);
+
+            }
+
+            return products;
         }
     }
 }

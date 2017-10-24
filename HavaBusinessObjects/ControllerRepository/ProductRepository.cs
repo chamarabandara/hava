@@ -2,6 +2,7 @@
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -46,6 +47,28 @@ namespace HavaBusinessObjects.ControllerRepository
             }
             obj.Add("data" , returnArr);
             return obj;
+        }
+        #endregion
+
+        #region Get Main Product List
+        public List<Product> GetMainProducts()
+        {
+            JObject obj = new JObject();
+            JArray returnArr = new JArray();
+            var products = this.ObjContext.Products.Where(a => a.IsMainProduct == true).ToList();
+            
+            return products;
+        }
+        #endregion
+
+        #region Get Sub Product List
+        public List<Product> GetSubProducts()
+        {
+            JObject obj = new JObject();
+            JArray returnArr = new JArray();
+            var products = this.ObjContext.Products.Where(a => a.IsMainProduct == false).ToList();
+
+            return products;
         }
         #endregion
 

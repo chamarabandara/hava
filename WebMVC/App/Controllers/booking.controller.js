@@ -27,6 +27,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     $scope.additional.countAddDay = 0;
     $scope.additional.countAddhildSet = 0;
     $scope.additional.AdditionalKM = 0;
+    $scope.passengerGridData = []
     cookieToken = localStorageService.get('accessToken');
     if (cookieToken) {
         $scope.isUserLogged = true;
@@ -291,17 +292,16 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
         if ($scope.PassengerFirstNameRequired == false && $scope.PassengerMobileRequired != true && $scope.PassengerEmailRequired == false && $scope.PassengerCountryRequired == false) {
           {
-
               $scope.passengerGridData.push({
                     'FirstName': (repData.FirstName) ? repData.FirstName : null, 
                     'Mobile': (repData.Mobile) ? repData.Mobile : null,
-                    'Email': repData.mobileNo,
+                    'Email': repData.Email,
                     'LastName':repData.LastName,
                     'Country': (repData.Country) ? repData.Country.name : null,
                     'id': '-1' + Math.random()
                 });
-                $scope.pasengger = {};
-         
+              $scope.pasengger = {};
+              repData = {};
         }
 
 
@@ -399,17 +399,19 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     }
 
     $scope.passengerDetails = function (booking) {
-        $scope.PassengerFirstNameRequired = false;
-        $scope.PassengerMobileRequired = false;
-        $scope.PassengerEmailRequired = false;
-        $scope.PassengerCountryRequired = false;
-        debugger;
-        if (booking.PassengerFirstName != "" && booking.PassengerMobile != "" && booking.PassengerEmail != "" && booking.PassengerCountry != undefined && booking.PassengerCountry != "") {
-            $scope.BookingOptions.PassengerFirstName = booking.PassengerFirstName;
-            $scope.BookingOptions.PassengerMobile = booking.PassengerMobile;
-            $scope.BookingOptions.PassengerEmail = booking.PassengerEmail;
-            $scope.BookingOptions.PassengerCountry = booking.PassengerCountry;
-            $scope.BookingOptions.PassengerLastName = booking.PassengerLastName;
+        //$scope.PassengerFirstNameRequired = false;
+        //$scope.PassengerMobileRequired = false;
+        //$scope.PassengerEmailRequired = false;
+        //$scope.PassengerCountryRequired = false;
+        //debugger;
+        //if (booking.PassengerFirstName != "" && booking.PassengerMobile != "" && booking.PassengerEmail != "" && booking.PassengerCountry != undefined && booking.PassengerCountry != "") {
+        //    $scope.BookingOptions.PassengerFirstName = booking.PassengerFirstName;
+        //    $scope.BookingOptions.PassengerMobile = booking.PassengerMobile;
+        //    $scope.BookingOptions.PassengerEmail = booking.PassengerEmail;
+        //    $scope.BookingOptions.PassengerCountry = booking.PassengerCountry;
+        //    $scope.BookingOptions.PassengerLastName = booking.PassengerLastName;
+
+        if($scope.passengerGridData.length > 0){
 
             var data = {
                 "Id":0,
@@ -428,7 +430,8 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 "PickupTime": $scope.search.pickupTime,
                 "DropLocation": $scope.dropLocation.Id,
                 "BookingOptions": [$scope.bookingOptionData],
-                "BookingPassenger": $scope.$scope.passengerGridData,
+                "BookingPassenger": $scope.passengerGridData,
+                "BookingSubProducts": $scope.bookingOptionData.BookingSubProducts,
                 //"BookingPayments": [{
                 //    "CardHolderName": booking.CardHolderName,
                 //    "CardNo": booking.CardNo,
