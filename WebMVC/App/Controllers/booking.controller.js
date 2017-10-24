@@ -148,6 +148,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             }
             else {
                 $scope.search.pickupDate = $('#inputGroupSuccessDate2').val();
+                $scope.search.returnDate = $('#inputGroupSuccessDate3').val();
                 $scope.search.pickupTime = $('#timepicker2').val();
             }
             //if ($scope.isAirportTransfer)
@@ -164,8 +165,11 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
                          });
             } else {
-                HavaSiteService.getChauffeurProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
-                         function (result) {
+                var promoCd = ($scope.promotionCode != undefined) ? $scope.promotionCode : 0;
+                $scope.promotionCode
+               // HavaSiteService.getChauffeurProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
+                HavaSiteService.getChauffeurProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), pickupDate: ($scope.search.pickupDate), returnDate: ($scope.search.returnDate), PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
+                function (result) {
                              $scope.Products = result.data;
 
                          });
@@ -412,7 +416,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         //    $scope.BookingOptions.PassengerLastName = booking.PassengerLastName;
 
         if($scope.passengerGridData.length > 0){
-
+            debugger;
             var data = {
                 "Id":0,
                 "BookingType": {
@@ -427,8 +431,9 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 },
                 "PickupLocation": $scope.search.pickupLocation,
                 "PickupDate": $scope.search.pickupDate,
+                "ReturnDate": $scope.search.returnDate,
                 "PickupTime": $scope.search.pickupTime,
-                "DropLocation": $scope.dropLocation.Id,
+                "DropLocation": ($scope.dropLocation != undefined ? $scope.dropLocation.Id : 0),
                 "BookingOptions": [$scope.bookingOptionData],
                 "BookingPassenger": $scope.passengerGridData,
                 "BookingSubProducts": $scope.bookingOptionData.BookingSubProducts,
@@ -441,7 +446,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 //}],
                 "BookingPayments": [$scope.BookingPayments],
                 "UserConfirmed": true,
-                "IsAirportTransfer": $scope.selectedProduct.LocationDetail.IsAirPortTour,
+                "IsAirportTransfer": $scope.search.isAirportTransfer,
                 "Partner": $scope.selectedProduct.Partner,
                 "BookingType": {
                     "Id": 1,

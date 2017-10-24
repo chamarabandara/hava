@@ -65,13 +65,18 @@ namespace WebMVC.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public JObject GetProductsChauffer(int partnerId, string PromotionCode)
+        public JObject GetProductsChauffer(int partnerId, string pickupDate, string returnDate, string PromotionCode)
         {
             JObject returnObj = new JObject();
             try
             {
                 var prodPrices = _partnerRepository.GetPartnerProductsChuffer(partnerId);
                 var promotion = _bookingRepository.GetPromotionCode(PromotionCode, partnerId);
+
+                DateTime pickupDateChauffer = Convert.ToDateTime(pickupDate);
+                DateTime returnDateChauffer = Convert.ToDateTime(returnDate);
+
+                int dateDiff = ((int)(returnDateChauffer - pickupDateChauffer).TotalDays) + 1;
 
                 if (prodPrices.Count() > 0)
                 {
@@ -112,16 +117,16 @@ namespace WebMVC.Controllers
                         itemObj.Add("productFeatures", featureArr);
 
                         //itemObj.Add("Rate", item.Rate);
-                        itemObj.Add("HavaPrice", item.HavaPrice);
-                        itemObj.Add("PartnerSellingPrice", item.PartnerSellingPrice);
+                        itemObj.Add("HavaPrice", (item.HavaPrice * dateDiff));
+                        itemObj.Add("PartnerSellingPrice", (item.PartnerSellingPrice * dateDiff));
 
                         if (promotion != null)
                         {
-                            itemObj.Add("MarketPrice", (item.MarketPrice * ((100 - promotion.PromotionDiscount.AmountOrPercentage) / 100)));
+                            itemObj.Add("MarketPrice", ((item.MarketPrice * ((100 - promotion.PromotionDiscount.AmountOrPercentage) / 100)) * dateDiff));
                         }
                         else
                         {
-                            itemObj.Add("MarketPrice", item.MarketPrice);
+                            itemObj.Add("MarketPrice", (item.MarketPrice * dateDiff));
                         }
 
                         itemObj.Add("IsMarkUp", item.IsMarkUp);
