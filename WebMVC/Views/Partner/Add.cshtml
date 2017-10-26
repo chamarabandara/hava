@@ -287,7 +287,7 @@
                                 <h4 class="panel-title">Products Details </h4>
                             </div>
                             <div>
-                                <div class="row">
+                                @*<div class="row">
                                     <div class="col-sm-6 margin-top">
                                         <div class="form-group">
                                             <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Product:</strong></label>
@@ -308,7 +308,6 @@
                                                     <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
                                                     <div class="col-lg-7 col-md-7 col-sm-6">
                                                         <button class="btn btn-primary ng-cloak" type="button" ng-click="addProduct(product.product)" ng-hide="updateProduct">Save</button>
-                                                        @*<button class="btn btn-primary ng-cloak" type="button" ng-click="updateProductFunc(product)" ng-show="updateProduct">Update</button>*@
                                                     </div>
                                                 </div>
                                             </div>
@@ -382,13 +381,151 @@
                                                         </tr>
                                                     </table>
                                                 </div>
-                                                @*  <ac-grid options="representativeGridOptions" filter-criteria="filterCriteriaRepresentative" filter-function="filterFunctionRepresentative" data="representativeGridData" action="repGridAction" class="ang-grid"></ac-grid>*@
                                                 <div ng-show="repRequired && submitted" class="ng-hide ng-cloak">
                                                     <span class="help-block error-label ng-cloak" ng-show="repRequired && representativeGridData.length <= 0">Representative Details is Required for "Workshop" and "Dealer".</span>
                                                 </div>
                                             </div>
+                                        </div>*@
+
+                                <div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6 panel-title" for=""><strong>Main Products Daily Rates</strong></label>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered" id="mainProductsdt">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Partner Price</th>
+                                                        <th>Market Price</th>
+                                                        <th>Hava Price</th>
+                                                        <th>Is Include</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr class="click-row off-click" ng-repeat="cData in mainProductDetails">
+                                                    <td style="width:20%;"><a class="click-cell" ng-show="cData.Name">{{cData.Name}}</a><span ng-hide="cData.Name"><left>-</left></span></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.partnerPrice" /></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.marketPrice" required ng-class="{'parsley-error' : ( (cData.marketPrice==undefined || cData.marketPrice=='') && submitted)}" /></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.havaPrice"  required ng-class="{'parsley-error' : ( (cData.havaPrice==undefined || cData.havaPrice=='') && submitted)}"/></td>
+                                                    <td style="width:20%;"><input type="checkbox" id="rv251" name="checkbox-demo-v" ng-model="cData.isInclude"  /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*----------------------*@
+                                <div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6 panel-title" for=""><strong>Sub Products Rates</strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered" id="subProductsdt">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Partner Price</th>
+                                                        <th>Market Price</th>
+                                                        <th>Hava Price</th>
+                                                        <th>Is Include</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr class="click-row off-click" ng-repeat="cData in subProductDetails">
+                                                    <td style="width:20%;"><a class="click-cell" ng-show="cData.Name">{{cData.Name}}</a><span ng-hide="cData.Name"><left>-</left></span></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.partnerPrice" /></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.marketPrice" required ng-class="{'parsley-error' : ( (cData.marketPrice==undefined || cData.marketPrice=='') && submitted)}"/></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.havaPrice" required ng-class="{'parsley-error' : ( (cData.havaPrice==undefined || cData.havaPrice=='') && submitted)}"/></td>
+                                                    <td style="width:20%;"><input type="checkbox" id="rv251" name="checkbox-demo-v" ng-model="cData.isInclude" /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*----------------------*@
+                                <div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6 panel-title" for=""><strong>Main Products Fix Rates</strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 margin-top">
+                                        <div class="form-group">
+                                            <label class="col-lg-5 col-md-5 col-sm-6" for=""><strong>Location:</strong></label>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <select class="form-control" ng-options="location.name for location in locationList track by location.id" ng-model="location.location">
+                                                    <option value="">-- Select a Location --</option>
+                                                </select>
+                                                <ul ng-show="locationRequired && submittedLoc" class="parsley-errors-list filled" id="parsley-id-5">
+                                                    <li class="parsley-required" ng-show="locationRequired && submittedLoc">Please Select Location.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered" id="locationProductsdt">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Partner Price</th>
+                                                        <th>Market Price</th>
+                                                        <th>Hava Price</th>
+                                                        <th>Is Include</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr class="click-row off-click" ng-repeat="cData in location.products">
+                                                    <td style="width:20%;"><a class="click-cell" ng-show="cData.Name">{{cData.Name}}</a><span ng-hide="cData.Name"><left>-</left></span></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.partnerPrice" /></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.marketPrice" ng-class="{'parsley-error' : ( (cData.marketPrice==undefined || cData.marketPrice=='') && submittedLoc)}"/></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData.havaPrice" ng-class="{'parsley-error' : ( (cData.havaPrice==undefined || cData.havaPrice=='') && submittedLoc)}"/></td>
+                                                    <td style="width:20%;"><input type="checkbox" id="rv251" name="checkbox-demo-v" ng-model="cData.isInclude" /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-primary ng-cloak pull-right" type="button" ng-click="addLocationRate(location)" ng-hide="updateLocationRate">Add</button>
+                                            <button class="btn btn-primary ng-cloak pull-right" type="button" ng-click="updateLocationRate(location)" ng-show="updateLocationRate">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*----------------------*@
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered" id="locationGrid">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Location Name</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr class="click-row off-click" ng-repeat="cData in locationProducts">
+                                                    <td style="width:20%;"><a class="click-cell" ng-show="cData.location.name">{{cData.location.name}}</a><span ng-hide="cData.location.name"><left>-</left></span></td>
+                                                    <td style="width:5%;" class="action">
+                                                        <a class="link-action" ng-click="locationGridAction(cData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a> 
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                           </div>
 
 
                                 </div>

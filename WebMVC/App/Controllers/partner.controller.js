@@ -182,7 +182,8 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.submittedRep = false;
     $scope.representativeGridData = [];
     $scope.products = [];
-
+    $scope.location = {};
+    $scope.locationProducts = [];
 
     $scope.viewPartnerSites = function (obj) {
         //var url = $state.href('app.site', { 'id': $stateParams.id + 'S' + obj.id});
@@ -219,6 +220,24 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                              $scope.productGridData = result.productGridData;
                              $scope.siteGridData = result.siteGridData;
                          });
+                  }
+                  else {
+                      $scope.mainProductDetails = [];
+                       HavaPartnerService.getMainProducts().$promise.then(
+                         function (result) {
+                             $scope.mainProductDetails = result.data;
+                             $scope.location.products = $scope.mainProductDetails;
+                         });
+                       HavaPartnerService.getSubProducts().$promise.then(
+                          function (result) {
+                              $scope.subProductDetails = result.data;
+                          });
+                       //HavaPartnerService.getAllLocations().$promise.then(
+                       //   function (result) {
+                       //       $scope.locationList = result.data;
+                      //   });
+                       $scope.locationList = [{ id: 1, name: "name1" }, { id: 2, name: "name2" }, { id: 3, name: "name3" }];
+                       
                   }
               });
 
@@ -538,8 +557,11 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         if ($scope.partnerForm.$invalid == false) {
             if($scope.representativeGridData.length > 0){
                 partner.representativeData = $scope.representativeGridData;
-                partner.productGridData = $scope.products;//$scope.productGridData;
+                partner.productGridData = $scope.products;
                 partner.siteGridData = $scope.siteGridData;
+                partner.mainProductDetails = $scope.mainProductDetails;
+                partner.subProductDetails = $scope.subProductDetails;
+                partner.locationProducts = $scope.locationProducts;
 
                 if ($stateParams.id) {
                     HavaPartnerService.updatePartner(partner).$promise.then(function (data) {
@@ -859,6 +881,25 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                 $("#pro-location-prices").modal('hide');
         });
         
+    }
+   
+    $scope.addLocationRate = function (location) {
+        $scope.submittedLoc = true;
+        $scope.isError = false;
+        if (location.location && location.location.id) {
+            $scope.locationRequired = false;
+            angular.forEach(location.products, function (v, k) {
+                if ((v.marketPrice == undefined || v.marketPrice == "") || (v.havaPrice == undefined || v.havaPrice == "")) {
+                    $scope.isError = true;
+                }
+            });
+            if (!$scope.isError) {
+                $scope.locationProducts.push(location);
+            }
+        }
+        else {
+            $scope.locationRequired = true;
+        }
     }
 
 }]);
