@@ -214,6 +214,9 @@
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportTemplate.cs">
+      <DependentUpon>HavaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>HavaModel.tt</DependentUpon>
     </Compile>

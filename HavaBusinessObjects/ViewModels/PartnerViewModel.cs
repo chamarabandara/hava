@@ -13,8 +13,9 @@ namespace HavaBusinessObjects.ViewModels
         public string telephoneLand { get; set; }
         public string telephoneMobile { get; set; }
         public List<RepresentativeViewModel> representativeData { get; set; }
-        public List<PartnerProductViewModel> productGridData { get; set; }
-        public List<PartnerProductViewModel> subProductData { get; set; }
+        public List<PartnerProductViewModel> mainProductDetails { get; set; }
+        public List<PartnerProductViewModel> subProductDetails { get; set; }
+        public List<LocationProducts> locationProducts { get; set; }
         public List<PartnerSitesViewModel> siteGridData { get; set; }
         public int createdBy { get; set; }
 

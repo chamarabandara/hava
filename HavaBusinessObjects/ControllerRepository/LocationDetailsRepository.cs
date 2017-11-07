@@ -26,7 +26,14 @@ namespace HavaBusinessObjects.ControllerRepository
         {
             var locations = this.ObjContext.LocationDetails
                 .Where(a => a.PartnerId == id).ToList();
-            
+
+            return Mapper.Map<List<LocationDetail>, List<LocationDetailViewModel>>(locations);
+        }
+
+        public List<LocationDetailViewModel> GetAll()
+        {
+            var locations = this.ObjContext.LocationDetails.ToList();
+
             return Mapper.Map<List<LocationDetail>, List<LocationDetailViewModel>>(locations);
         }
 

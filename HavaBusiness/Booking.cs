@@ -25,6 +25,7 @@ namespace HavaBusiness
         }
     
         public int Id { get; set; }
+        public string BookingNo { get; set; }
         public Nullable<int> BookingTypeId { get; set; }
         public Nullable<System.DateTime> PickupDate { get; set; }
         public Nullable<System.TimeSpan> PickupTime { get; set; }

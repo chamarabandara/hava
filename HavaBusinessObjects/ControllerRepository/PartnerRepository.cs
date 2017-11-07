@@ -40,14 +40,14 @@ namespace HavaBusinessObjects.ControllerRepository
             foreach (var part in partner)
             {
                 JObject productObj = new JObject();
-                productObj.Add("id" , part.Id);
-                productObj.Add("name" , part.Name);
-                productObj.Add("telephone" , part.TelLandLine);
-                productObj.Add("address" , part.FullAddress);
-                productObj.Add("email" , part.Email);
+                productObj.Add("id", part.Id);
+                productObj.Add("name", part.Name);
+                productObj.Add("telephone", part.TelLandLine);
+                productObj.Add("address", part.FullAddress);
+                productObj.Add("email", part.Email);
                 returnArr.Add(productObj);
             }
-            obj.Add("data" , returnArr);
+            obj.Add("data", returnArr);
             return obj;
         }
         #endregion
@@ -66,18 +66,18 @@ namespace HavaBusinessObjects.ControllerRepository
             foreach (var part in product)
             {
                 JObject productObj = new JObject();
-                productObj.Add("id" , part.Id);
-                productObj.Add("name" , part.Name);
-                productObj.Add("code" , part.Code);
-                productObj.Add("imagePath" , part.ProductImagePath);
+                productObj.Add("id", part.Id);
+                productObj.Add("name", part.Name);
+                productObj.Add("code", part.Code);
+                productObj.Add("imagePath", part.ProductImagePath);
                 returnArr.Add(productObj);
             }
-            obj.Add("data" , returnArr);
+            obj.Add("data", returnArr);
             return obj;
         }
         #endregion
 
-        public Site GetPartnerSiteBySiteId(int partnerId , int siteId)
+        public Site GetPartnerSiteBySiteId(int partnerId, int siteId)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 var partnerProducts = this.ObjContext.PartnerProducts
                     .Include(a => a.Product)
                     .Include(a => a.LocationDetail)
-                    .Where(a => a.PartnerId == partnerId && a.LocationId == locationId && a.Product.IsMainProduct == true).ToList();
+                    .Where(a => a.PartnerId == partnerId && a.LocationId == locationId && a.Product.IsMainProduct == true && a.IsActive == true).ToList();
 
                 //var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
 
@@ -124,7 +124,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 JArray returnArr = new JArray();
                 var partnerProducts = this.ObjContext.PartnerProducts
                     .Include(a => a.Product)
-                    .Where(a => a.PartnerId == partnerId && a.Product.IsMainProduct == false).ToList();
+                    .Where(a => a.PartnerId == partnerId && a.Product.IsMainProduct == false && a.IsActive == true).ToList();
 
                 //var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
 
@@ -136,7 +136,7 @@ namespace HavaBusinessObjects.ControllerRepository
             }
         }
 
-        public List<PartnerProduct> GetPartnerProducts(int partnerId , int locationId)
+        public List<PartnerProduct> GetPartnerProducts(int partnerId, int locationId)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 var partnerProducts = this.ObjContext.PartnerProducts
                     .Include(x => x.Product)
                     .Include(x => x.LocationDetail)
-                    .Where(a => a.PartnerId == partnerId && a.LocationId == locationId && a.Product.IsMainProduct == true).ToList();
+                    .Where(a => a.PartnerId == partnerId && a.LocationId == locationId && a.Product.IsMainProduct == true && a.IsActive == true).ToList();
 
                 //var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
 
@@ -165,7 +165,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 JArray returnArr = new JArray();
                 var partnerProducts = this.ObjContext.PartnerChauffeurProducts
                     .Include(x => x.Product)
-                    .Where(a => a.PartnerId == partnerId && a.Product.IsMainProduct == true).ToList();
+                    .Where(a => a.PartnerId == partnerId && a.Product.IsMainProduct == true && a.IsActive == true).ToList();
 
                 //var partnerRouteProducts = Mapper.Map<List<PartnerProductRate> , List<PartnerProductRateViewModel>>(partnerProducts);
 
@@ -252,26 +252,13 @@ namespace HavaBusinessObjects.ControllerRepository
                     }
                     #endregion
 
-                    #region partner product details
-                    if (partnerViewModel.productGridData.Count > 0)
+                    #region partner main product with Location details
+
+                    if (partnerViewModel.locationProducts.Count > 0)
                     {
-                        var locations = partnerViewModel.productGridData.Where(a => a.Product.isMainProduct == true).Select(b => b.LocationDetail).ToList();
-
-                        foreach (var location in locations)
+                        foreach (var location in partnerViewModel.locationProducts)
                         {
-                            LocationDetail newLocation = new LocationDetail();
-                            newLocation.FromLocation = location.FromLocation;
-                            newLocation.ToLocation = location.ToLocation;
-                            newLocation.IsActive = true;
-                            newLocation.IsAirPortTour = location.IsAirPortTour;
-                            newLocation.name = location.name;
-                            newLocation.PartnerId = partnerId;
-                            this.ObjContext.LocationDetails.Add(newLocation);
-                            this.ObjContext.SaveChanges();
-
-                            var locationProducts = partnerViewModel.productGridData.Where(a => a.LocationDetail.ToLocation == location.ToLocation).ToList();
-
-                            foreach (var partProd in locationProducts)
+                            foreach (var partProd in location.products)
                             {
                                 PartnerProduct objProd = new PartnerProduct();
                                 objProd.PartnerId = partnerId;
@@ -281,7 +268,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                 objProd.MarketPrice = partProd.MarketPrice;
                                 objProd.PartnerSellingPrice = partProd.PartnerSellingPrice;
                                 objProd.Percentage = partProd.Percentage;
-                                objProd.LocationId = newLocation.Id;
+                                objProd.LocationId = location.location.Id;
                                 objProd.CreatedDate = DateTime.Now;
                                 objProd.ModifiedBy = partnerViewModel.createdBy;
                                 objProd.ModifiedDate = DateTime.Now;
@@ -291,14 +278,15 @@ namespace HavaBusinessObjects.ControllerRepository
 
                             }
                         }
-                        
+
                     }
                     #endregion
 
                     #region partner sub product details
-                    if (partnerViewModel.subProductData.Count > 0)
+
+                    if (partnerViewModel.subProductDetails.Count > 0)
                     {
-                        foreach (var partProd in partnerViewModel.subProductData)
+                        foreach (var partProd in partnerViewModel.subProductDetails)
                         {
                             PartnerProduct objProd = new PartnerProduct();
                             objProd.PartnerId = partnerId;
@@ -314,6 +302,32 @@ namespace HavaBusinessObjects.ControllerRepository
                             objProd.ModifiedDate = DateTime.Now;
                             objProd.IsActive = true;
                             this.ObjContext.PartnerProducts.Add(objProd);
+                            this.ObjContext.SaveChanges();
+
+                        }
+
+                    }
+                    #endregion
+
+                    #region partner Chauffeur product details
+
+                    if (partnerViewModel.mainProductDetails.Count > 0)
+                    {
+                        foreach (var partProd in partnerViewModel.mainProductDetails)
+                        {
+                            PartnerChauffeurProduct objProd = new PartnerChauffeurProduct();
+                            objProd.PartnerId = partnerId;
+                            objProd.ProductId = partProd.Product.Id;
+                            objProd.CreatedBy = partnerViewModel.createdBy;
+                            objProd.HavaPrice = partProd.HavaPrice;
+                            objProd.MarketPrice = partProd.MarketPrice;
+                            objProd.PartnerSellingPrice = partProd.PartnerSellingPrice;
+                            objProd.Percentage = partProd.Percentage;
+                            objProd.CreatedDate = DateTime.Now;
+                            objProd.ModifiedBy = partnerViewModel.createdBy;
+                            objProd.ModifiedDate = DateTime.Now;
+                            objProd.IsActive = true;
+                            this.ObjContext.PartnerChauffeurProducts.Add(objProd);
                             this.ObjContext.SaveChanges();
 
                         }
@@ -363,15 +377,16 @@ namespace HavaBusinessObjects.ControllerRepository
             JObject returnObj = new JObject();
             Partner objPartner = new Partner();
             objPartner = this.ObjContext.Partners.Find(Id);
+
             if (objPartner != null)
             {
-                returnObj.Add("id" , objPartner.Id);
-                returnObj.Add("code" , objPartner.Code);
-                returnObj.Add("name" , objPartner.Name);
-                returnObj.Add("address" , objPartner.FullAddress);
-                returnObj.Add("email" , objPartner.Email);
-                returnObj.Add("telephoneLand" , objPartner.TelLandLine);
-                returnObj.Add("telephoneMobile" , objPartner.TelMobile);
+                returnObj.Add("id", objPartner.Id);
+                returnObj.Add("code", objPartner.Code);
+                returnObj.Add("name", objPartner.Name);
+                returnObj.Add("address", objPartner.FullAddress);
+                returnObj.Add("email", objPartner.Email);
+                returnObj.Add("telephoneLand", objPartner.TelLandLine);
+                returnObj.Add("telephoneMobile", objPartner.TelMobile);
 
                 JArray repList = new JArray();
                 if (objPartner.PartnerRepresentatives.Count > 0)
@@ -379,20 +394,21 @@ namespace HavaBusinessObjects.ControllerRepository
                     foreach (var rep in objPartner.PartnerRepresentatives)
                     {
                         JObject objRep = new JObject();
-                        objRep.Add("id" , rep.Id);
-                        objRep.Add("repId" , rep.Id);
-                        objRep.Add("name" , rep.Name);
-                        objRep.Add("teleNo" , rep.TelephoneNo);
-                        objRep.Add("mobileNo" , rep.MobileNo);
-                        objRep.Add("email" , rep.Email);
-                        objRep.Add("status" , rep.IsActive == true ? "Active" : "Inactive");
-                        objRep.Add("userName" , rep.UserId != null ? rep.User.UserName : string.Empty);
-                        objRep.Add("password" , rep.UserId != null ? rep.User.PasswordEncrypt : string.Empty);
+                        objRep.Add("id", rep.Id);
+                        objRep.Add("repId", rep.Id);
+                        objRep.Add("name", rep.Name);
+                        objRep.Add("teleNo", rep.TelephoneNo);
+                        objRep.Add("mobileNo", rep.MobileNo);
+                        objRep.Add("email", rep.Email);
+                        objRep.Add("status", rep.IsActive == true ? "Active" : "Inactive");
+                        objRep.Add("userName", rep.UserId != null ? rep.User.UserName : string.Empty);
+                        objRep.Add("password", rep.UserId != null ? rep.User.PasswordEncrypt : string.Empty);
                         repList.Add(objRep);
                     }
                 }
-                returnObj.Add("representativeGridData" , repList);
+                returnObj.Add("representativeGridData", repList);
 
+                JArray chaffeurProducts = new JArray();
                 JArray mainProducts = new JArray();
                 JArray subProducts = new JArray();
 
@@ -400,34 +416,73 @@ namespace HavaBusinessObjects.ControllerRepository
                 if (objPartner.PartnerProducts.Count > 0)
                 {
                     var prodList = objPartner.PartnerProducts.Where(p => p.IsActive == true && p.Product.IsMainProduct == true).ToList();
+
+                    var locations = prodList.Select(a => a.LocationDetail).Distinct().ToList();
+
+                    foreach (var location in locations)
+                    {
+                        JObject productsRoute = new JObject();
+                        JArray mainProductArr = new JArray();
+                        JObject productLocation = new JObject();
+
+                        productLocation.Add("id", location.Id);
+                        productLocation.Add("name", location.name);
+                        productLocation.Add("fromLocation", location.FromLocation);
+                        productLocation.Add("toLocation", location.ToLocation);
+                        productLocation.Add("isAirportTour", location.IsAirPortTour);
+
+                        productsRoute.Add("location", productLocation);
+
+
+                        foreach (var partProd in prodList.Where(a => a.LocationId == location.Id))
+                        {
+                            JObject product = new JObject();
+
+                            product.Add("id", partProd.Id);
+                            product.Add("partnerId", objPartner.Id);
+                            product.Add("productId", partProd.ProductId);
+                            product.Add("productName", partProd.Product.Name);
+                            product.Add("LocationId", partProd.LocationId);
+                            product.Add("HavaPrice", partProd.HavaPrice);
+                            product.Add("MarketPrice", partProd.MarketPrice);
+                            product.Add("PartnerSellingPrice", partProd.PartnerSellingPrice);
+                            product.Add("Percentage", partProd.Percentage);
+
+                            mainProductArr.Add(product);
+                        }
+
+                        productsRoute.Add("products", mainProductArr);
+
+                        mainProducts.Add(productsRoute);
+                    }
+
+                }
+                returnObj.Add("locationProducts", mainProducts);
+                #endregion
+
+                #region partner chauffeur product details
+
+                if (objPartner.PartnerProducts.Count > 0)
+                {
+                    var prodList = objPartner.PartnerChauffeurProducts.Where(p => p.IsActive == true).ToList();
                     foreach (var partProd in prodList)
                     {
                         JObject product = new JObject();
                         JObject productLocation = new JObject();
 
-                        product.Add("id" , partProd.Id);
-                        product.Add("partnerId" , objPartner.Id);
-                        product.Add("productId" , partProd.ProductId);
-                        product.Add("productName" , partProd.Product.Name);
-                        product.Add("LocationId", partProd.LocationId);
+                        product.Add("id", partProd.Id);
+                        product.Add("partnerId", objPartner.Id);
+                        product.Add("productId", partProd.ProductId);
+                        product.Add("productName", partProd.Product.Name);
                         product.Add("HavaPrice", partProd.HavaPrice);
                         product.Add("MarketPrice", partProd.MarketPrice);
                         product.Add("PartnerSellingPrice", partProd.PartnerSellingPrice);
                         product.Add("Percentage", partProd.Percentage);
 
-
-                        productLocation.Add("id", partProd.LocationDetail.Id);
-                        productLocation.Add("name", partProd.LocationDetail.name);
-                        productLocation.Add("fromLocation", partProd.LocationDetail.FromLocation);
-                        productLocation.Add("toLocation", partProd.LocationDetail.ToLocation);
-                        productLocation.Add("isAirportTour", partProd.LocationDetail.IsAirPortTour);
-
-                        product.Add("LocationDetails", productLocation);
-
-                        mainProducts.Add(product);
+                        chaffeurProducts.Add(product);
                     }
                 }
-                returnObj.Add("products" , mainProducts);
+                returnObj.Add("mainProductDetails", chaffeurProducts);
                 #endregion
 
                 #region partner sub product details
@@ -448,7 +503,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         product.Add("MarketPrice", partProd.MarketPrice);
                         product.Add("PartnerSellingPrice", partProd.PartnerSellingPrice);
                         product.Add("Percentage", partProd.Percentage);
-                        
+
                         product.Add("LocationDetails", productLocation);
 
                         subProducts.Add(product);
@@ -464,14 +519,14 @@ namespace HavaBusinessObjects.ControllerRepository
                     foreach (var site in objPartner.PartnerSites)
                     {
                         JObject st = new JObject();
-                        st.Add("id" , site.ID);
-                        st.Add("siteId" , site.SiteId);
-                        st.Add("name" , site.Site.siteName);
+                        st.Add("id", site.ID);
+                        st.Add("siteId", site.SiteId);
+                        st.Add("name", site.Site.siteName);
 
                         siteList.Add(st);
                     }
                 }
-                returnObj.Add("siteGridData" , siteList);
+                returnObj.Add("siteGridData", siteList);
                 #endregion
             }
 
@@ -604,17 +659,17 @@ namespace HavaBusinessObjects.ControllerRepository
 
                                 #region Partner Sub Products
 
-                                foreach (var subProd in partnerViewModel.subProductData)
+                                foreach (var subProd in partnerViewModel.subProductDetails)
                                 {
                                     if (subProd.id > 0)
                                     {
                                         var partnerProd = this.ObjContext.PartnerProducts.Find(subProd.id);
-                                        partnerProd.HavaPrice   = subProd.HavaPrice;
-                                        partnerProd.IsActive    = subProd.isActive;
-                                        partnerProd.IsMarkUp    = subProd.IsMarkUp;
+                                        partnerProd.HavaPrice = subProd.HavaPrice;
+                                        partnerProd.IsActive = subProd.isActive;
+                                        partnerProd.IsMarkUp = subProd.IsMarkUp;
                                         partnerProd.MarketPrice = subProd.MarketPrice;
-                                        partnerProd.Markup      = subProd.Markup;
-                                        partnerProd.ModifiedBy  = partnerViewModel.createdBy;
+                                        partnerProd.Markup = subProd.Markup;
+                                        partnerProd.ModifiedBy = partnerViewModel.createdBy;
                                         partnerProd.ModifiedDate = DateTime.Now;
 
                                         this.ObjContext.Entry(partnerProd).State = System.Data.Entity.EntityState.Modified;
@@ -624,13 +679,13 @@ namespace HavaBusinessObjects.ControllerRepository
                                     {
                                         PartnerProduct partnerProd = new PartnerProduct();
                                         partnerProd.PartnerId = partner.Id;
-                                        partnerProd.HavaPrice   = subProd.HavaPrice;
-                                        partnerProd.IsActive    = subProd.isActive;
-                                        partnerProd.IsMarkUp    = subProd.IsMarkUp;
-                                        partnerProd.LocationId  = null;
+                                        partnerProd.HavaPrice = subProd.HavaPrice;
+                                        partnerProd.IsActive = subProd.isActive;
+                                        partnerProd.IsMarkUp = subProd.IsMarkUp;
+                                        partnerProd.LocationId = null;
                                         partnerProd.MarketPrice = subProd.MarketPrice;
-                                        partnerProd.Markup      = subProd.Markup;
-                                        partnerProd.CreatedBy   = partnerViewModel.createdBy;
+                                        partnerProd.Markup = subProd.Markup;
+                                        partnerProd.CreatedBy = partnerViewModel.createdBy;
                                         partnerProd.CreatedDate = DateTime.Now;
 
                                         this.ObjContext.PartnerProducts.Add(partnerProd);
@@ -640,62 +695,32 @@ namespace HavaBusinessObjects.ControllerRepository
 
                                 #endregion
 
-                                #region Partner Products
-                                foreach (var prod in partnerViewModel.productGridData)
+                                #region Partner Chauffeur Products
+                                foreach (var prod in partnerViewModel.mainProductDetails)
                                 {
                                     if (prod.id > 0)
                                     {
                                         if (prod.isActive == true)
                                         {
-                                            if (prod.LocationDetail.Id > 0)
-                                            {
-                                                var partnerProd = this.ObjContext.PartnerProducts.Find(prod.id);
-                                                partnerProd.HavaPrice = prod.HavaPrice;
-                                                partnerProd.IsActive = prod.isActive;
-                                                partnerProd.IsMarkUp = prod.IsMarkUp;
-                                                partnerProd.LocationId = prod.LocationDetail.Id;
-                                                partnerProd.MarketPrice = prod.MarketPrice;
-                                                partnerProd.Markup = prod.Markup;
-                                                partnerProd.ModifiedBy = partnerViewModel.createdBy;
-                                                partnerProd.ModifiedDate = DateTime.Now;
+                                            var partnerProd = this.ObjContext.PartnerChauffeurProducts.Find(prod.id);
+                                            partnerProd.HavaPrice = prod.HavaPrice;
+                                            partnerProd.IsActive = prod.isActive;
+                                            partnerProd.IsMarkUp = prod.IsMarkUp;
+                                            partnerProd.MarketPrice = prod.MarketPrice;
+                                            partnerProd.Markup = prod.Markup;
+                                            partnerProd.ModifiedBy = partnerViewModel.createdBy;
+                                            partnerProd.ModifiedDate = DateTime.Now;
 
-                                                this.ObjContext.Entry(partnerProd).State = System.Data.Entity.EntityState.Modified;
-
-                                                this.ObjContext.SaveChanges();
-                                            }
-                                            else
-                                            {
-                                                LocationDetail location = new LocationDetail();
-                                                location.FromLocation = prod.LocationDetail.FromLocation;
-                                                location.ToLocation = prod.LocationDetail.ToLocation;
-                                                location.IsActive = true;
-                                                location.IsAirPortTour = prod.LocationDetail.IsAirPortTour;
-                                                location.name = prod.LocationDetail.name;
-                                                location.PartnerId = partner.Id;
-                                                this.ObjContext.LocationDetails.Add(location);
-                                                this.ObjContext.SaveChanges();
-
-                                                PartnerProduct partnerProd = new PartnerProduct();
-                                                partnerProd.HavaPrice = prod.HavaPrice;
-                                                partnerProd.IsActive = prod.isActive;
-                                                partnerProd.IsMarkUp = prod.IsMarkUp;
-                                                partnerProd.LocationId = location.Id;
-                                                partnerProd.MarketPrice = prod.MarketPrice;
-                                                partnerProd.Markup = prod.Markup;
-                                                partnerProd.CreatedBy = partnerViewModel.createdBy;
-                                                partnerProd.CreatedDate = DateTime.Now;
-                                                
-                                                this.ObjContext.PartnerProducts.Add(partnerProd);
-                                                this.ObjContext.SaveChanges();
-                                            }
+                                            this.ObjContext.Entry(partnerProd).State = System.Data.Entity.EntityState.Modified;
+                                            this.ObjContext.SaveChanges();
                                         }
                                         else
                                         {
-                                            var removedProd = this.ObjContext.PartnerProducts.Find(prod.id);
+                                            var removedProd = this.ObjContext.PartnerChauffeurProducts.Find(prod.id);
                                             removedProd.IsActive = false;
                                             removedProd.ModifiedBy = partnerViewModel.createdBy;
                                             removedProd.ModifiedDate = DateTime.Now;
-                                            
+
                                             this.ObjContext.Entry(partner).State = System.Data.Entity.EntityState.Modified;
                                             this.ObjContext.SaveChanges();
 
@@ -703,10 +728,73 @@ namespace HavaBusinessObjects.ControllerRepository
                                     }
                                     else
                                     {
-                                        
+                                        PartnerChauffeurProduct objProd = new PartnerChauffeurProduct();
+                                        objProd.PartnerId = partnerViewModel.id;
+                                        objProd.ProductId = prod.Product.Id;
+                                        objProd.CreatedBy = partnerViewModel.createdBy;
+                                        objProd.HavaPrice = prod.HavaPrice;
+                                        objProd.MarketPrice = prod.MarketPrice;
+                                        objProd.PartnerSellingPrice = prod.PartnerSellingPrice;
+                                        objProd.Percentage = prod.Percentage;
+                                        objProd.CreatedDate = DateTime.Now;
+                                        objProd.ModifiedBy = partnerViewModel.createdBy;
+                                        objProd.ModifiedDate = DateTime.Now;
+                                        objProd.IsActive = true;
+                                        this.ObjContext.PartnerChauffeurProducts.Add(objProd);
+                                        this.ObjContext.SaveChanges();
                                     }
 
                                 }
+                                #endregion
+
+                                #region Partner Main Products for Locations
+
+                                if (partnerViewModel.locationProducts.Count > 0)
+                                {
+                                    foreach (var location in partnerViewModel.locationProducts)
+                                    {
+                                        foreach (var partProd in location.products)
+                                        {
+                                            if (partProd.id > 0)
+                                            {
+                                                var partnerProd = this.ObjContext.PartnerProducts.Find(partProd.id);
+                                                partnerProd.LocationId = location.location.Id;
+                                                partnerProd.HavaPrice = partProd.HavaPrice;
+                                                partnerProd.IsActive = partProd.isActive;
+                                                partnerProd.IsMarkUp = partProd.IsMarkUp;
+                                                partnerProd.PartnerSellingPrice =
+                                                partnerProd.MarketPrice = partProd.MarketPrice;
+                                                partnerProd.Markup = partProd.Markup;
+                                                partnerProd.ModifiedBy = partnerViewModel.createdBy;
+                                                partnerProd.ModifiedDate = DateTime.Now;
+
+                                                this.ObjContext.Entry(partnerProd).State = System.Data.Entity.EntityState.Modified;
+                                                this.ObjContext.SaveChanges();
+                                            }
+                                            else
+                                            {
+                                                PartnerProduct objProd = new PartnerProduct();
+                                                objProd.PartnerId = partnerViewModel.id;
+                                                objProd.ProductId = partProd.Product.Id;
+                                                objProd.CreatedBy = partnerViewModel.createdBy;
+                                                objProd.HavaPrice = partProd.HavaPrice;
+                                                objProd.MarketPrice = partProd.MarketPrice;
+                                                objProd.PartnerSellingPrice = partProd.PartnerSellingPrice;
+                                                objProd.Percentage = partProd.Percentage;
+                                                objProd.LocationId = location.location.Id;
+                                                objProd.CreatedDate = DateTime.Now;
+                                                objProd.ModifiedBy = partnerViewModel.createdBy;
+                                                objProd.ModifiedDate = DateTime.Now;
+                                                objProd.IsActive = true;
+                                                this.ObjContext.PartnerProducts.Add(objProd);
+                                                this.ObjContext.SaveChanges();
+
+                                            }
+                                        }
+                                    }
+
+                                }
+
                                 #endregion
 
                                 #region partner sites

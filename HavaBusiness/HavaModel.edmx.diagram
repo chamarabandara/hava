@@ -94,10 +94,17 @@
         <AssociationConnector Association="HAVA_DBModel.FK_PartnerProductRate_PartnerProduct" />
         <EntityTypeShape EntityType="HAVA_DBModel.BookingSubProduct" Width="1.5" PointX="25.875" PointY="16.125" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingSubProducts_Products" />
-        <EntityTypeShape EntityType="HAVA_DBModel.Booking" Width="1.5" PointX="23.625" PointY="14.75" />
         <EntityTypeShape EntityType="HAVA_DBModel.BookingProduct" Width="1.5" PointX="25.875" PointY="20.5" />
         <EntityTypeShape EntityType="HAVA_DBModel.PartnerChauffeurProduct" Width="1.5" PointX="17" PointY="5.75" />
         <EntityTypeShape EntityType="HAVA_DBModel.PartnerProduct" Width="1.5" PointX="18" PointY="17.625" />
+        <AssociationConnector Association="HAVA_DBModel.FK_BookingProducts_Products" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProducts_Location" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerChauffeurProducts_Partner" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerChauffeurProducts_Products" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProducts_Partner" />
+        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProducts_Products" />
+        <EntityTypeShape EntityType="HAVA_DBModel.Booking" Width="1.5" PointX="23.625" PointY="14.625" />
+        <EntityTypeShape EntityType="HAVA_DBModel.ReportTemplate" Width="1.5" PointX="5.375" PointY="0.75" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_BookedUser" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_BookingStatus" />
         <AssociationConnector Association="HAVA_DBModel.FK_Booking_BookingTypes" />
@@ -109,12 +116,6 @@
         <AssociationConnector Association="HAVA_DBModel.FK_BookingPayment_Booking" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingProducts_Booking" />
         <AssociationConnector Association="HAVA_DBModel.FK_BookingSubProducts_Booking" />
-        <AssociationConnector Association="HAVA_DBModel.FK_BookingProducts_Products" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProducts_Location" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerChauffeurProducts_Partner" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerChauffeurProducts_Products" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProducts_Partner" />
-        <AssociationConnector Association="HAVA_DBModel.FK_PartnerProducts_Products" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

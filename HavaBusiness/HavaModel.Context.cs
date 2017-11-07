@@ -68,10 +68,11 @@ namespace HavaBusiness
         public virtual DbSet<BookingStatu> BookingStatus { get; set; }
         public virtual DbSet<BookingType> BookingTypes { get; set; }
         public virtual DbSet<BookingSubProduct> BookingSubProducts { get; set; }
-        public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BookingProduct> BookingProducts { get; set; }
         public virtual DbSet<PartnerChauffeurProduct> PartnerChauffeurProducts { get; set; }
         public virtual DbSet<PartnerProduct> PartnerProducts { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<ReportTemplate> ReportTemplates { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

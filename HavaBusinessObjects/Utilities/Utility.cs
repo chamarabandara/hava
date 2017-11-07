@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 
 namespace HavaBusinessObjects
@@ -89,6 +90,36 @@ namespace HavaBusinessObjects
         }
 
         #endregion
+
+        public bool SendMails(string toMail, string[] ccMails, string mailBody, string mailSubject)
+        {
+            //SmtpClient client = new SmtpClient("mail.pandarix.com");
+            //If you need to authenticate
+            string userName = ConfigurationManager.AppSettings["From_Mail"].ToString();
+            string password = ConfigurationManager.AppSettings["From_PWD"].ToString();
+
+            //client.Credentials = new NetworkCredential(userName, password);
+
+            using (MailMessage mm = new MailMessage(userName, toMail))
+            {
+                mm.Subject = mailSubject;
+                mm.Body = mailBody;
+                mm.IsBodyHtml = true;
+                using (SmtpClient smtp = new SmtpClient())
+                {
+                    smtp.Host = "pop.1and1.co.uk";
+                    smtp.EnableSsl = true;
+                    NetworkCredential NetworkCred = new NetworkCredential(userName, password);
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = 587;
+                    smtp.Send(mm);
+                }
+            }
+
+            return true;
+
+        }
 
         #region Dispose
         /// <summary>

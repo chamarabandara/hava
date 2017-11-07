@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using HavaBusiness;
+using HavaBusinessObjects.Utilities;
 using HavaBusinessObjects.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
+using System.Web.UI.WebControls;
 
 namespace HavaBusinessObjects.ControllerRepository
 {
@@ -92,13 +96,20 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.Partner)
                      .Include(x => x.BookingStatu)
                      .Include(x => x.BookingType)
-                     .Include(x => x.BookingType)
-                     .Include(x => x.BookingOptions)
+                     .Include(x => x.BookingSubProducts.Select(y => y.Product))
                      .Include(x => x.BookingOptions)
                      .Include(x => x.BookingProducts.Select(y => y.Product))
                      .Include(x => x.BookingPayments)
                      .Include(x => x.BookingPassengers)
                      .Where(a => a.Id == booking.Id).FirstOrDefault();
+
+
+                    string htmlBody = this.BookingConfirmation(newBooking);
+                    Utility uty = new Utility();
+                    string[] ccMails = new string[1];
+                    ccMails[0] = "udayangana@alliontechnologies.com";
+
+                    uty.SendMails("udayangana1986@hotmail.com", ccMails, htmlBody, "Booking Confirmation");
 
                     return Mapper.Map<Booking, BookingViewModel>(newBooking);
                 }
@@ -125,6 +136,15 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingPayments)
                      .Include(x => x.BookingPassengers)
                      .Where(a => a.Id == id).FirstOrDefault();
+
+                Utility utiliy = new Utility();
+                var body = this.BookingConfirmation(booking);
+                string[] toMail = new string[1];
+                string[] ccMail = new string[1];
+
+                toMail[0] = "udayangana1986@hotmail.com";
+                ccMail[0] = "udayangana@alliontechnologies.com";
+                utiliy.SendMailToRecepients(toMail, ccMail, body, "Booking Confirmation - " + booking.BookingNo);
 
                 return Mapper.Map<Booking, BookingViewModel>(booking);
             }
@@ -187,7 +207,7 @@ namespace HavaBusinessObjects.ControllerRepository
         {
             try
             {
-                List<Booking> bookings = this.ObjContext.Bookings.Where(a=>a.UserId == userId).ToList();
+                List<Booking> bookings = this.ObjContext.Bookings.Where(a => a.UserId == userId).ToList();
                 bookings = bookings.OrderByDescending(x => x.CreatedDate).ToList();
                 JArray returnArr = new JArray();
                 foreach (Booking booking in bookings)
@@ -223,12 +243,12 @@ namespace HavaBusinessObjects.ControllerRepository
             {
                 List<BookingStatu> status = this.ObjContext.BookingStatus.ToList();
                 JArray returnArr = new JArray();
-                foreach (BookingStatu item in status.OrderBy(a=>a.Name))
+                foreach (BookingStatu item in status.OrderBy(a => a.Name))
                 {
                     JObject bk = new JObject();
                     bk.Add("id", item.Id);
                     bk.Add("name", item.Name);
-                    
+
                     returnArr.Add(bk);
                 }
                 return returnArr;
@@ -249,34 +269,34 @@ namespace HavaBusinessObjects.ControllerRepository
                 try
                 {
                     Booking booking = this.ObjContext.Bookings.Where(a => a.Id == vm.Id).FirstOrDefault();
-                    booking.BookingTypeId       = vm.BookingType.Id;
-                    booking.PickupDate          = vm.PickupDate;
-                    booking.PickupTime          = vm.PickupTime;
-                    booking.PickupLocation      = vm.PickupLocation;
-                    booking.ReturnTime          = vm.ReturnTime;
-                    booking.ReturnPickupLocation= vm.ReturnPickupLocation;
-                    booking.DropLocation        = vm.DropLocation.Id;
-                    booking.ReturnDate          = vm.ReturnDate;
-                    booking.RefNo               = vm.RefNo;
-                    booking.ModifiedBy          = 1;
-                    booking.ModifiedDate        = DateTime.UtcNow;
-                    booking.PartnerId           = vm.Partner.id;
-                    booking.NumberOfDays        = vm.NumberOfDays;
-                    booking.BookingStatusId     = vm.BookingStatu.Id;
-                    booking.TSPId               = vm.TSPId;
-                    booking.PaymentTypeId       = vm.PaymentTypeId;
-                    booking.PromotionId         = vm.PromotionId;
-                    booking.HasPromotions       = vm.HasPromotions;
-                    booking.UserConfirmed       = vm.UserConfirmed;
-                    booking.UserId              = vm.UserId;
-                    booking.IsReturn            = vm.IsReturn;
-                    booking.IsAirportTransfer   = vm.IsAirportTransfer;
+                    booking.BookingTypeId = vm.BookingType.Id;
+                    booking.PickupDate = vm.PickupDate;
+                    booking.PickupTime = vm.PickupTime;
+                    booking.PickupLocation = vm.PickupLocation;
+                    booking.ReturnTime = vm.ReturnTime;
+                    booking.ReturnPickupLocation = vm.ReturnPickupLocation;
+                    booking.DropLocation = vm.DropLocation.Id;
+                    booking.ReturnDate = vm.ReturnDate;
+                    booking.RefNo = vm.RefNo;
+                    booking.ModifiedBy = 1;
+                    booking.ModifiedDate = DateTime.UtcNow;
+                    booking.PartnerId = vm.Partner.id;
+                    booking.NumberOfDays = vm.NumberOfDays;
+                    booking.BookingStatusId = vm.BookingStatu.Id;
+                    booking.TSPId = vm.TSPId;
+                    booking.PaymentTypeId = vm.PaymentTypeId;
+                    booking.PromotionId = vm.PromotionId;
+                    booking.HasPromotions = vm.HasPromotions;
+                    booking.UserConfirmed = vm.UserConfirmed;
+                    booking.UserId = vm.UserId;
+                    booking.IsReturn = vm.IsReturn;
+                    booking.IsAirportTransfer = vm.IsAirportTransfer;
 
                     this.ObjContext.Entry(booking).State = EntityState.Modified;
                     this.ObjContext.SaveChanges();
-                    
-                   
-                   
+
+
+
 
                     if (vm.BookingPayments != null && vm.BookingPayments.Count() > 0)
                     {
@@ -356,7 +376,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             this.ObjContext.SaveChanges();
                         }
                     }
-                                                        
+
                     dbContextTransaction.Commit();
 
                     var updatedBooking = this.ObjContext.Bookings
@@ -377,6 +397,55 @@ namespace HavaBusinessObjects.ControllerRepository
                     throw ex;
                 }
             }
+        }
+
+        public string BookingConfirmation(Booking booking)
+        {
+            string reportType = Constants.Booking_Confirmation.ToString();
+            var reportTemplate = this.ObjContext.ReportTemplates.Where(a => a.Code == reportType).FirstOrDefault();
+
+            ListDictionary replacements = new ListDictionary();
+
+            // Delivery Address - Start
+            replacements.Add("{Title}", "Booking Confirmation " + DateTime.UtcNow.ToString("dd/MM/yyyy"));
+            if (booking.IsChaffeur)
+            {
+                replacements.Add("{subTitle}", "Your Journey Start from " + booking.PickupDate.Value.ToString("dd/MM/yyyy") + ". to  " + booking.ReturnDate.Value.ToString("dd/MM/yyyy"));
+            }
+            else
+            {
+                replacements.Add("{subTitle}", "Your Journey Start from " + booking.PickupLocation + ". to " + booking.LocationDetail.ToLocation);
+            }
+            replacements.Add("{bookingNo}", booking.BookingNo);
+            replacements.Add("{totalAmount}", booking.TotalCost.ToString("#,##0.00"));
+            replacements.Add("{bookingRoute}", booking.PickupLocation + " - " + booking.LocationDetail.ToLocation);
+
+            replacements.Add("{bookingDate}", (booking.CreatedDate.Value.ToString("dd/MM/yyyy")) + " - " + booking.PickupTime.Value.ToString());
+            replacements.Add("{pickupAddress}", booking.PickupLocation);
+            replacements.Add("{mainProduct}", booking.BookingProducts.FirstOrDefault().Product.Name);
+            replacements.Add("{mainProductPrice}", booking.BookingProducts.FirstOrDefault().Price.Value.ToString("#,##0.00"));
+
+            string information = "";
+
+            foreach (var orderRow in booking.BookingSubProducts.Where(a => a.Quantity > 0))
+            {
+                information += "<tr>";
+
+                information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px;'>" + orderRow.Product.Name + "</td>";
+                information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px;'>" + orderRow.MarketPrice.Value.ToString("#,##0.00") + "</td>";
+                information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px;'>" + orderRow.Quantity.Value.ToString() + "</td>";
+                information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px; white-space: nowrap;'>" + orderRow.Price.Value.ToString("#,##0.00") + "</td>";
+
+                information += "</tr>";
+            }
+
+            replacements.Add("{information}", information);
+
+            MailDefinition md = new MailDefinition();
+            md.From = "test@domain.com";
+            MailMessage msg = md.CreateMailMessage("test@domain.com", replacements, reportTemplate.HTMLBody, new System.Web.UI.Control());
+
+            return msg.Body;
         }
 
         #region Dispose

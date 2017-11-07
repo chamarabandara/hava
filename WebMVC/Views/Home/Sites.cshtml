@@ -14,6 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="~/Content/temp/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/temp/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/libs.min.css">
+    <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/docs.min.css">
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/temp/css/main.css">
     <link rel="stylesheet" type="text/css" href="~/Content/temp/css/font-awesome.min.css">
@@ -150,20 +153,21 @@
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                    <input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">
+                                                                                    @*<input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">*@
+                                                                                    <input type="text" class="form-control" id="timepicker" size="8" ng-model="search.pickupTime" data-time-format="HH:mm" data-time-type="number" ng-class="{'has-error' : (!search.pickupTime && submitted)}" data-autoclose="1" name="search.pickupTime" bs-timepicker>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-12 col-xs-12 form-section-input">
 
                                                                             <div class="form-group">
-                                                                               @* <label class="col-lg-6 col-md-6 col-sm-6" for=""><strong>Promotional Code:</strong></label>*@
+                                                                                @* <label class="col-lg-6 col-md-6 col-sm-6" for=""><strong>Promotional Code:</strong></label>*@
                                                                                 <div class="input-group">
-                                                                                        <input type="text" class="form-control" placeholder="Promotion Code" ng-model="promotionCode">
+                                                                                    <input type="text" class="form-control" placeholder="Promotion Code" ng-model="promotionCode">
 
                                                                                 </div>
 
-                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div id="ChaufDiv" style="display:none;" class="tabPane">
@@ -248,6 +252,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 <div id="slide-2" class="clearfix content-1">
                     <div class="bcg featured_product padding-0 padding-0-sm blue_background" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-2">
                         <div class="hsContainer">
@@ -1248,6 +1253,12 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/AngularJS/ocLazyLoad.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/angularjs/1.5.5/angular-sanitize.min.js" data-semver="1.5.5"></script>
+    <script src="//mgcrea.github.io/angular-strap/dist/angular-strap.js" data-semver="v2.3.8"></script>
+    <script src="//mgcrea.github.io/angular-strap/dist/angular-strap.tpl.js" data-semver="v2.3.8"></script>
+    <script src="//mgcrea.github.io/angular-strap/docs/angular-strap.docs.tpl.js" data-semver="v2.3.8"></script>
 
     <script>
     var jsVersion = 3.0;

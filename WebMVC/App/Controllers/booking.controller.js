@@ -674,6 +674,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     });
     //logout function
     $scope.LogOut = function () {
+        $scope.Login = {};
         localStorageService.remove('accessToken');
         localStorageService.remove('refreshToken');
         localStorageService.remove('refreshToken');

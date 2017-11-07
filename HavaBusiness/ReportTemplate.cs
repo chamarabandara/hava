@@ -12,17 +12,10 @@ namespace HavaBusiness
     using System;
     using System.Collections.Generic;
     
-    public partial class BookingProduct
+    public partial class ReportTemplate
     {
         public int Id { get; set; }
-        public Nullable<int> BookingId { get; set; }
-        public Nullable<int> ProductId { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<decimal> PartnerPrice { get; set; }
-        public Nullable<decimal> MarketPrice { get; set; }
-        public bool IsAirPortTour { get; set; }
-    
-        public virtual Product Product { get; set; }
-        public virtual Booking Booking { get; set; }
+        public string Code { get; set; }
+        public string HTMLBody { get; set; }
     }
 }
