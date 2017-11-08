@@ -74,6 +74,12 @@ namespace HavaBusinessObjects.ViewModels
         public int siteId { get; set; }
     }
 
+    public class LocationProducts
+    {
+        public LocationDetailViewModel location { get; set; }
+        public List<PartnerProductViewModel> products { get; set; }
+    }
+
     public class PrtnerLocations
     {
         public int locationId { get; set; }

@@ -12,8 +12,6 @@ namespace WebMVC.Common
         // This constant is used to determine the keysize of the encryption algorithm.
         public const int Keysize = 256;
         public const string PassPhrase = "tu89geji340t89u2ACB76ffhlm111";
-        
-
     }
 
    

@@ -147,6 +147,10 @@ $( window ).resize(function() {
   $('.dark-blue-filter').height(window.innerHeight+20);
  
 });
+
+
+
+
 function showCurrentTab(w){
   $('.tabPane').hide();
   $('.arrow-down').remove();

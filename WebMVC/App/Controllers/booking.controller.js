@@ -50,6 +50,16 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
         return urlParams;
     }
+
+    $scope.isNotColombo = function (chkb) {
+        debugger;
+        var checkbox = chkb.target;
+        if (checkbox.checked) {
+            $('#returnLocation').show();
+        } else {
+            $('#returnLocation').hide();
+        }
+    }
     
     $scope.gotoLogin = function (st) {
         if (st == true) {
@@ -59,7 +69,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         }
 
     }
-
+    
     $scope.Login = function (login) {
         $scope.submitted = true;
 

@@ -44,8 +44,10 @@
             };
             var input = document.getElementById('searchTextField');
             var input2 = document.getElementById('searchTextField2');
+            var input3 = document.getElementById('searchTextField3');
             var autocomplete = new google.maps.places.Autocomplete(input, options);
             var autocomplete = new google.maps.places.Autocomplete(input2, options);
+            var autocomplete = new google.maps.places.Autocomplete(input3, options);
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -193,7 +195,6 @@
                                                                         <div class="col-sm-6 col-xs-6 form-section-input">
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
-
                                                                                     <div id="ddp3">
                                                                                         <div class="input-group input-append date date-picker">
                                                                                             <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;" ng-click="selectDate('inputGroupSuccessDate2')"></i></span>
@@ -206,7 +207,6 @@
                                                                         <div class="col-sm-6 col-xs-6 form-section-input">
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
-
                                                                                     <div id="ddp4">
                                                                                         <div class="input-group input-append date date-picker">
                                                                                             <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;" ng-click="selectDate('inputGroupSuccessDate3')"></i></span>
@@ -216,15 +216,30 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm-12 col-xs-12 form-section-input">
-
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
                                                                             <div class="form-group">
-                                                                                @* <label class="col-lg-6 col-md-6 col-sm-6" for=""><strong>Promotional Code:</strong></label>*@
                                                                                 <div class="input-group">
                                                                                     <input type="text" class="form-control" placeholder="Promotion Code" ng-model="promotionCode">
-
                                                                                 </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-xs-6 form-section-input">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <span class="medium-text">
+                                                                                        <input type="checkbox" class="form-check-input" name="isNotColombo" ng-click="isNotColombo($event)" />
 
+                                                                                        If not return to Colombo
+                                                                                    </span>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-12 col-xs-12 form-section-input" style="display:none;" id="returnLocation" >
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <input type="text" id="searchTextField3" placeholder="Return Location" ng-model="ReturnPickupLocation">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                         @*<div class="col-sm-12 form-section-input">
@@ -1147,7 +1162,7 @@
                                             </div>
                                             <div class="infobar cf ng-cloak ng-hide" ng-show="infoMsgDeleteRep">
                                                 <div class="col-sm-12">
-                                                    <div class="row">
+                                                    <div class="row">       
                                                         <span>{{infoMsgDeleteRep}}</span>
                                                         <span class="x-btn"><a href="" ng-click="clearMsg()"><i class="fa fa-remove"></i></a></span>
                                                     </div>
