@@ -156,7 +156,7 @@
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
                                                                                     @*<input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">*@
-                                                                                    <input type="text" class="form-control" id="timepicker" size="8" ng-model="search.pickupTime" data-time-format="HH:mm" data-time-type="number" ng-class="{'has-error' : (!search.pickupTime && submitted)}" data-autoclose="1" name="search.pickupTime" bs-timepicker>
+                                                                                    <input type="text" class="" id="timepicker-jq" size="8" ng-model="search.pickupTime" data-time-format="HH:mm" data-time-type="number" ng-class="{'has-error' : (!search.pickupTime && submitted)}" data-autoclose="1" name="search.pickupTime" bs-timepicker>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1154,7 +1154,7 @@
                                                             </span>
                                                             <span class="info-btn">
                                                                 <button id="action2" class="btn-danger" type="button" ng-click="confirmDeleteRep(repRow)">Delete</button>
-                                                                <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()">Cancel</button>
+                                                                <button id="action1" class="btn-default" type="button" ng-click="cancelDelete()" style="padding: 0px 0px !important">Cancel</button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -1187,7 +1187,7 @@
                                                             <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.LastName">{{cData.LastName}}</a><span ng-hide="cData.LastName"><left>-</left></span></td>
                                                             <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Mobile">{{cData.Mobile}}</a><span ng-hide="cData.Mobile"><left>-</left></span></td>
                                                             <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Email">{{cData.Email}}</a><span ng-hide="cData.Email"><left>-</left></span></td>
-                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Country">{{cData.Country.name}}</a><span ng-hide="cData.Country"><left>-</left></span></td>
+                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Country">{{cData.Country}}</a><span ng-hide="cData.Country"><left>-</left></span></td>
                                                             
                                                             <td style="width:5%;" class="action">
                                                                 <a class="link-action" ng-click="repGridAction(cData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>

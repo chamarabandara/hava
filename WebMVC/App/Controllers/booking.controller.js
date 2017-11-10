@@ -320,9 +320,10 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
 
     }
-
+   $scope.updateRep = false;
     $scope.updatePasengger = function (repData) {
-       $scope.submittedRep = true;
+        $scope.submittedRep = true;
+        $scope.updateRep = true;
         if (repData.FirstName != undefined && repData.FirstName != "")
             $scope.PassengerFirstNameRequired = false;
         else
@@ -355,7 +356,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                     $scope.updateRep = false;
                     $scope.passengerGridData = gridData;
                 }
-
+        $scope.updateRep = false;
         }
 
     }
@@ -395,6 +396,11 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             $scope.repRequired = false;
         }
     }
+
+    $scope.cancelDelete = function () {
+        $scope.viewTask = '';
+    }
+
     $scope.saveBookingOptions = function (optionData) {
         
         var BookingSubProducts = [];
