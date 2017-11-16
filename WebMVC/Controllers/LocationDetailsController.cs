@@ -68,7 +68,7 @@ namespace WebMVC.Controllers
                 foreach (var item in result)
                 {
                     JObject itemObj = new JObject();
-                    itemObj.Add("Id", item.Id);
+                    itemObj.Add("id", item.Id);
                     itemObj.Add("name", item.name);
                     itemObj.Add("PartnerId", item.PartnerId);
                     itemObj.Add("IsActive", item.IsActive);

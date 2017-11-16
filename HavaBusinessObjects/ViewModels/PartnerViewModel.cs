@@ -53,6 +53,7 @@ namespace HavaBusinessObjects.ViewModels
     public class PartnerProductViewModel
     {
         public int id { get; set; }
+        public int ProductId { get; set; }
         public ProductViewModel Product { get; set; }
         public bool isActive { get; set; }
         public LocationDetailViewModel LocationDetail { get; set; }
@@ -76,6 +77,7 @@ namespace HavaBusinessObjects.ViewModels
 
     public class LocationProducts
     {
+        public int id { get; set; }
         public LocationDetailViewModel location { get; set; }
         public List<PartnerProductViewModel> products { get; set; }
     }

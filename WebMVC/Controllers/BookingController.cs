@@ -650,6 +650,7 @@ namespace WebMVC.Controllers
             {
                 JObject product = new JObject();
                 product.Add("Id", item.Id);
+                product.Add("ProductId" , item.Id);
                 product.Add("Name", item.Name);
                 product.Add("Description", item.Description);
                 product.Add("IsMainProduct", item.IsMainProduct);

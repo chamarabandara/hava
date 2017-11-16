@@ -184,6 +184,8 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.products = [];
     $scope.location = {};
     $scope.locationProducts = [];
+    $scope.location.loc = {};
+    $scope.location.products = [];
 
     $scope.viewPartnerSites = function (obj) {
         //var url = $state.href('app.site', { 'id': $stateParams.id + 'S' + obj.id});
@@ -207,6 +209,9 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                             $scope.productGridData = result.productGridData;
                             $scope.products = result.products;
                             $scope.siteGridData = result.siteGridData;
+                            $scope.mainProductDetails = result.mainProductDetails;
+                            $scope.subProductDetails = result.subProducts;
+                            result.locationProducts
                             var datatable = $('#productdt').dataTable().api();
                            datatable.clear();
                            datatable.rows.add($scope.products);
@@ -226,18 +231,16 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                        HavaPartnerService.getMainProducts().$promise.then(
                          function (result) {
                              $scope.mainProductDetails = result.data;
-                             $scope.location.products = $scope.mainProductDetails;
+                             $scope.location.products = angular.copy(result.data);
                          });
                        HavaPartnerService.getSubProducts().$promise.then(
                           function (result) {
                               $scope.subProductDetails = result.data;
                           });
-                       //HavaPartnerService.getAllLocations().$promise.then(
-                       //   function (result) {
-                       //       $scope.locationList = result.data;
-                      //   });
-                       $scope.locationList = [{ id: 1, name: "name1" }, { id: 2, name: "name2" }, { id: 3, name: "name3" }];
-                       
+                       HavaPartnerService.getAllLocations().$promise.then(
+                          function (result) {
+                              $scope.locationList = result.data;
+                         });
                   }
               });
 
@@ -557,11 +560,10 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         if ($scope.partnerForm.$invalid == false) {
             if($scope.representativeGridData.length > 0){
                 partner.representativeData = $scope.representativeGridData;
-                partner.productGridData = $scope.products;
                 partner.siteGridData = $scope.siteGridData;
                 partner.mainProductDetails = $scope.mainProductDetails;
                 partner.subProductDetails = $scope.subProductDetails;
-                partner.locationProducts = $scope.locationProducts;
+                partner.locationProducts = angular.copy($scope.locationProducts);
 
                 if ($stateParams.id) {
                     HavaPartnerService.updatePartner(partner).$promise.then(function (data) {
@@ -804,16 +806,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         $scope.viewTask = 'confirmDeleteRate';
     }
     $scope.confirmDeleteRate = function (row) {
-        //var ky = null;
-        //angular.forEach($scope.productGridData, function (v, k) {
-        //    if (row.productId == v.productId) {
-        //        v.isActive = false;
-        //    }
-        //});
-
-        //$scope.viewTask = '';
-        //$scope.infoMsgDeleteProd = "'" + row.productName + "' has been deleted successfully.";
-        //$timeout(function () { $scope.infoMsgDeleteProduct = ''; }, 1000);
+     
 
     }
 
@@ -886,20 +879,46 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     $scope.addLocationRate = function (location) {
         $scope.submittedLoc = true;
         $scope.isError = false;
-        if (location.location && location.location.id) {
+        if (location.loc && location.loc.id) {
             $scope.locationRequired = false;
             angular.forEach(location.products, function (v, k) {
                 if ((v.marketPrice == undefined || v.marketPrice == "") || (v.havaPrice == undefined || v.havaPrice == "")) {
                     $scope.isError = true;
                 }
             });
+            angular.forEach($scope.locationProducts, function (v, k) {
+                if (location.loc.id == v.location.id) {
+                    $scope.isError = true;
+                }
+            });
             if (!$scope.isError) {
-                $scope.locationProducts.push(location);
+                $scope.locationProducts.push({
+                    id: location.id == undefined ? 'X' + Math.floor(Math.random() * (999 - 100 + 1) + 100) : location.id,
+                    location: location.loc,
+                    products: angular.copy(location.products)
+                });
+                $scope.submittedLoc = false;
+                angular.forEach($scope.location.products, function (a, k) {
+                    a.marketPrice = "";
+                    a.havaPrice = "";
+                    a.partnerPrice = "";
+                    a.isInclude = false;
+                });
             }
+
         }
         else {
             $scope.locationRequired = true;
         }
+    }
+
+    $scope.locationGridAction = function (location, task) {
+        if (task == "edit") {
+            $scope.location.id = location.id;
+            $scope.location.products = location.products;
+            $scope.location.loc = location.location;
+        }
+
     }
 
 }]);
