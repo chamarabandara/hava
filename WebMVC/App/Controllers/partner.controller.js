@@ -192,10 +192,15 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         var url = 'http://52.14.195.144/hava/home/Sites?P=' + $stateParams.id + 'S' + obj.id;
         $window.open(url, '_blank');
     }
-
-    HavaPartnerService.getProduct().$promise.then(
+     $scope.mainProductDetails = [];
+     HavaPartnerService.getAllLocations().$promise.then(
+                          function (result) {
+                              $scope.locationList = result.data;
+                         });
+    HavaPartnerService.getMainProducts().$promise.then(
               function (result) {
-                  $scope.productList = result.data;
+                   $scope.mainProductDetails = result.data;
+                             $scope.location.products = angular.copy(result.data);
                   HavaPartnerService.getSites().$promise.then(
                      function (result) {
                          $scope.siteList = result.data;
@@ -210,12 +215,12 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                             $scope.products = result.products;
                             $scope.siteGridData = result.siteGridData;
                             $scope.mainProductDetails = result.mainProductDetails;
-                            $scope.subProductDetails = result.subProducts;
-                            result.locationProducts
-                            var datatable = $('#productdt').dataTable().api();
-                           datatable.clear();
-                           datatable.rows.add($scope.products);
-                            datatable.draw();
+                            $scope.subProductDetails = result.subProductDetails;
+                            $scope.locationProducts = result.locationProducts;
+                           // var datatable = $('#productdt').dataTable().api();
+                           //datatable.clear();
+                           //datatable.rows.add($scope.products);
+                           // datatable.draw();
                         });
                   } else if (PartnerServiceLocal.copyedData) {
                       HavaPartnerService.getPartner({ id: PartnerServiceLocal.copyedData.id }).$promise.then(
@@ -227,20 +232,11 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                          });
                   }
                   else {
-                      $scope.mainProductDetails = [];
-                       HavaPartnerService.getMainProducts().$promise.then(
-                         function (result) {
-                             $scope.mainProductDetails = result.data;
-                             $scope.location.products = angular.copy(result.data);
-                         });
                        HavaPartnerService.getSubProducts().$promise.then(
                           function (result) {
                               $scope.subProductDetails = result.data;
                           });
-                       HavaPartnerService.getAllLocations().$promise.then(
-                          function (result) {
-                              $scope.locationList = result.data;
-                         });
+                       
                   }
               });
 
