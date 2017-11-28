@@ -409,7 +409,7 @@
                                                 </thead>
                                                 <tr class="click-row off-click" ng-repeat="prod in mainProductDetails">
                                                     <td style="width:20%;"><a class="click-cell" ng-show="prod.Name">{{prod.Name}}</a><span ng-hide="prod.Name"><left>-</left></span></td>
-                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="prod.partnerPrice" /></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="prod.PartnerSellingPrice" /></td>
                                                     <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="prod.marketPrice" required ng-class="{'parsley-error' : ( (prod.marketPrice==undefined || prod.marketPrice=='') && submitted)}" /></td>
                                                     <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="prod.havaPrice"  required ng-class="{'parsley-error' : ( (prod.havaPrice==undefined || prod.havaPrice=='') && submitted)}"/></td>
                                                     <td style="width:20%;"><input type="checkbox" id="rv251" name="checkbox-demo-v" ng-model="prod.isInclude"  /></td>
@@ -441,7 +441,7 @@
                                                 </thead>
                                                 <tr class="click-row off-click" ng-repeat="subProd in subProductDetails">
                                                     <td style="width:20%;"><a class="click-cell" ng-show="subProd.Name">{{subProd.Name}}</a><span ng-hide="subProd.Name"><left>-</left></span></td>
-                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="subProd.partnerPrice" /></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="subProd.PartnerSellingPrice" /></td>
                                                     <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="subProd.marketPrice" required ng-class="{'parsley-error' : ( (subProd.marketPrice==undefined || subProd.marketPrice=='') && submitted)}"/></td>
                                                     <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="subProd.havaPrice" required ng-class="{'parsley-error' : ( (subProd.havaPrice==undefined || subProd.havaPrice=='') && submitted)}"/></td>
                                                     <td style="width:20%;"><input type="checkbox" id="rv251" name="checkbox-demo-v" ng-model="subProd.isInclude" /></td>
@@ -488,7 +488,7 @@
                                                 </thead>
                                                 <tr class="click-row off-click" ng-repeat="cData1 in location.products">
                                                     <td style="width:20%;"><a class="click-cell" ng-show="cData1.Name">{{cData1.Name}}</a><span ng-hide="cData1.Name"><left>-</left></span></td>
-                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData1.partnerPrice" /></td>
+                                                    <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData1.PartnerSellingPrice" /></td>
                                                     <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData1.marketPrice" ng-class="{'parsley-error' : ( (cData1.marketPrice==undefined || cData1.marketPrice=='') && submittedLoc)}"/></td>
                                                     <td style="width:20%;"><input format="number" class="form-control" maxlength="20" ng-model="cData1.havaPrice" ng-class="{'parsley-error' : ( (cData1.havaPrice==undefined || cData1.havaPrice=='') && submittedLoc)}"/></td>
                                                     <td style="width:20%;"><input type="checkbox" id="rv251" name="checkbox-demo-v" ng-model="cData1.isInclude" /></td>
