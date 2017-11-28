@@ -209,18 +209,15 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                   if ($stateParams.id) {
                       HavaPartnerService.getPartner({ id: $stateParams.id }).$promise.then(
                         function (result) {
+                            
                             $scope.model = result;
                             $scope.representativeGridData = result.representativeGridData;
                             $scope.productGridData = result.productGridData;
-                            $scope.products = result.products;
                             $scope.siteGridData = result.siteGridData;
                             $scope.mainProductDetails = result.mainProductDetails;
-                            $scope.subProductDetails = result.subProductDetails;
+                            $scope.subProductDetails = result.subProducts;
                             $scope.locationProducts = result.locationProducts;
-                           // var datatable = $('#productdt').dataTable().api();
-                           //datatable.clear();
-                           //datatable.rows.add($scope.products);
-                           // datatable.draw();
+                           
                         });
                   } else if (PartnerServiceLocal.copyedData) {
                       HavaPartnerService.getPartner({ id: PartnerServiceLocal.copyedData.id }).$promise.then(
@@ -229,6 +226,9 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                              $scope.representativeGridData = result.representativeGridData;
                              $scope.productGridData = result.productGridData;
                              $scope.siteGridData = result.siteGridData;
+                             $scope.mainProductDetails = result.mainProductDetails;
+                             $scope.subProductDetails = result.subProducts;
+                             $scope.locationProducts = result.locationProducts;
                          });
                   }
                   else {
@@ -664,9 +664,9 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                         {data: 'locationName' },
                         {data: 'fromLocation' },
                         {data: 'toLocation' },
-                        {data: 'partnerSellingPrice' },
-                        {data: 'marketPrice' },
-                        { data: 'havaPrice' },
+                        {data: 'PartnerSellingPrice' },
+                        {data: 'MarketPrice' },
+                        { data: 'HavaPrice' },
                         {
                             "data": null,
                             "bSortable": false,
@@ -770,7 +770,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                         'partnerMarkup': $scope.rate.partnerMarkup,
                         'isMarkup': $scope.rate.isMarkup,
                         'partnerSellingPrice': $scope.rate.partnerSellingPrice,
-                        'marketPrice': $scope.rate.marketPrice,
+                        'MarketPrice': $scope.rate.MarketPrice,
                         'havaPrice': $scope.rate.havaPrice,
                         'airPortRate': $scope.rate.airPortRate,
                         'havaPriceReturn': $scope.rate.havaPriceReturn,
@@ -878,7 +878,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         if (location.loc && location.loc.id) {
             $scope.locationRequired = false;
             angular.forEach(location.products, function (v, k) {
-                if ((v.marketPrice == undefined || v.marketPrice == "") || (v.havaPrice == undefined || v.havaPrice == "")) {
+                if ((v.MarketPrice == undefined || v.MarketPrice == "") || (v.havaPrice == undefined || v.havaPrice == "")) {
                     $scope.isError = true;
                 }
             });
@@ -895,10 +895,10 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                 });
                 $scope.submittedLoc = false;
                 angular.forEach($scope.location.products, function (a, k) {
-                    a.marketPrice = "";
-                    a.havaPrice = "";
-                    a.partnerPrice = "";
-                    a.isInclude = false;
+                    a.MarketPrice = "";
+                    a.HavaPrice = "";
+                    a.PartnerSellingPrice = "";
+                    a.IsInclude = false;
                 });
             }
 
