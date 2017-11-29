@@ -200,7 +200,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
     HavaPartnerService.getMainProducts().$promise.then(
               function (result) {
                    $scope.mainProductDetails = result.data;
-                             $scope.location.products = angular.copy(result.data);
+                  $scope.location.products = angular.copy(result.data);
                   HavaPartnerService.getSites().$promise.then(
                      function (result) {
                          $scope.siteList = result.data;
@@ -447,14 +447,14 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                 'fromLocation':product.fromLocation,
                 'toLocation':product.toLocation,
                 'isAirPortTour': product.isAirPortTour,
-                'havaPrice': product.havaPrice != undefined || product.havaPrice != "" ? product.havaPrice : 0,
+                'HavaPrice': product.HavaPrice != undefined || product.HavaPrice != "" ? product.HavaPrice : 0,
                 'marketPrice': product.marketPrice != undefined || product.marketPrice != "" ? product.marketPrice : 0,
                 'partnerSellingPrice': product.partnerSellingPrice != undefined || product.partnerSellingPrice != "" ? product.partnerSellingPrice : 0,
                 'isMarkup': product.isMarkup,
                 'partnerMarkup': product.isMarkup ? (product.partnerMarkup != "" ? product.partnerMarkup : 0) : 0,
                 'partnerPercentage': product.partnerPercentage != undefined || product.partnerPercentage != "" ? product.partnerPercentage : 0,
                 'airPortRate': product.airPortRate != undefined || product.airPortRate != "" ? product.airPortRate : 0,
-                'havaPriceReturn': product.havaPriceReturn != undefined || product.havaPriceReturn != "" ? product.havaPriceReturn : 0,
+                'HavaPriceReturn': product.HavaPriceReturn != undefined || product.HavaPriceReturn != "" ? product.HavaPriceReturn : 0,
                 'marketPriceReturn': product.marketPriceReturn != undefined || product.marketPriceReturn != "" ? product.marketPriceReturn : 0,
                 'partnerSellPriceReturn': product.partnerSellPriceReturn != undefined || product.partnerSellPriceReturn != "" ? product.partnerSellPriceReturn : 0,
                 'additionalDayRate': product.additionalDayRate != undefined || product.additionalDayRate != "" ? product.additionalDayRate : 0,
@@ -771,9 +771,9 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                         'isMarkup': $scope.rate.isMarkup,
                         'partnerSellingPrice': $scope.rate.partnerSellingPrice,
                         'MarketPrice': $scope.rate.MarketPrice,
-                        'havaPrice': $scope.rate.havaPrice,
+                        'HavaPrice': $scope.rate.HavaPrice,
                         'airPortRate': $scope.rate.airPortRate,
-                        'havaPriceReturn': $scope.rate.havaPriceReturn,
+                        'HavaPriceReturn': $scope.rate.HavaPriceReturn,
                         'marketPriceReturn': $scope.rate.marketPriceReturn,
                         'partnerSellPriceReturn': $scope.rate.partnerSellPriceReturn,
                         'additionalDayRate': $scope.rate.additionalDayRate,
@@ -848,9 +848,9 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
                     'isMarkup' : $scope.rate.isMarkup ,
                     'partnerSellingPrice': $scope.rate.partnerSellingPrice,
                     'marketPrice' : $scope.rate.marketPrice ,
-                    'havaPrice' : $scope.rate.havaPrice ,
+                    'HavaPrice' : $scope.rate.HavaPrice ,
                     'airPortRate' : $scope.rate.airPortRate ,
-                    'havaPriceReturn' : $scope.rate.havaPriceReturn ,
+                    'HavaPriceReturn' : $scope.rate.HavaPriceReturn ,
                     'marketPriceReturn' : $scope.rate.marketPriceReturn ,
                     'partnerSellPriceReturn' : $scope.rate.partnerSellPriceReturn ,
                     'additionalDayRate' : $scope.rate.additionalDayRate ,
@@ -878,7 +878,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
         if (location.loc && location.loc.id) {
             $scope.locationRequired = false;
             angular.forEach(location.products, function (v, k) {
-                if ((v.MarketPrice == undefined || v.MarketPrice == "") || (v.havaPrice == undefined || v.havaPrice == "")) {
+                if (((v.MarketPrice == undefined || v.MarketPrice == "") || (v.HavaPrice == undefined || v.HavaPrice == "")) && v.IsInclude) {
                     $scope.isError = true;
                 }
             });
@@ -889,7 +889,7 @@ partnerControllers.controller('PartnerCreateCtrl', ['$scope', '$http', 'HavaPart
             });
             if (!$scope.isError) {
                 $scope.locationProducts.push({
-                    id: location.id == undefined ? 'X' + Math.floor(Math.random() * (999 - 100 + 1) + 100) : location.id,
+                    id: location.id == undefined ? 0 : location.id,
                     location: location.loc,
                     products: angular.copy(location.products)
                 });

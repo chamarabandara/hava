@@ -262,7 +262,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             {
                                 PartnerProduct objProd = new PartnerProduct();
                                 objProd.PartnerId = partnerId;
-                                objProd.ProductId = partProd.productId;
+                                objProd.ProductId = partProd.ProductId;
                                 objProd.CreatedBy = partnerViewModel.createdBy;
                                 objProd.HavaPrice = partProd.HavaPrice;
                                 objProd.MarketPrice = partProd.MarketPrice;
@@ -290,7 +290,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         {
                             PartnerProduct objProd = new PartnerProduct();
                             objProd.PartnerId = partnerId;
-                            objProd.ProductId = partProd.productId;
+                            objProd.ProductId = partProd.ProductId;
                             objProd.CreatedBy = partnerViewModel.createdBy;
                             objProd.HavaPrice = partProd.HavaPrice;
                             objProd.MarketPrice = partProd.MarketPrice;
@@ -317,7 +317,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         {
                             PartnerChauffeurProduct objProd = new PartnerChauffeurProduct();
                             objProd.PartnerId = partnerId;
-                            objProd.ProductId = partProd.productId;
+                            objProd.ProductId = partProd.ProductId;
                             objProd.CreatedBy = partnerViewModel.createdBy;
                             objProd.HavaPrice = partProd.HavaPrice;
                             objProd.MarketPrice = partProd.MarketPrice;
@@ -446,7 +446,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             product.Add("id", partProd.Id);
                             product.Add("partnerId", objPartner.Id);
                             product.Add("productId", partProd.ProductId);
-                            product.Add("productName", partProd.Product.Name);
+                            product.Add("Name", partProd.Product.Name);
                             product.Add("LocationId", partProd.LocationId);
                             product.Add("HavaPrice", partProd.HavaPrice);
                             product.Add("MarketPrice", partProd.MarketPrice);
@@ -463,7 +463,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             product.Add("id", 0);
                             product.Add("partnerId", objPartner.Id);
                             product.Add("productId", notAddedPrd.Id);
-                            product.Add("productName", notAddedPrd.Name);
+                            product.Add("Name", notAddedPrd.Name);
                             product.Add("LocationId", location.Id);
                             product.Add("HavaPrice", 0);
                             product.Add("MarketPrice", 0);
@@ -494,10 +494,10 @@ namespace HavaBusinessObjects.ControllerRepository
                         JObject product = new JObject();
                         JObject productLocation = new JObject();
 
-                        product.Add("id", partProd.Id);
+                        product.Add("Id", partProd.Id);
                         product.Add("partnerId", objPartner.Id);
-                        product.Add("productId", partProd.ProductId);
-                        product.Add("productName", partProd.Product.Name);
+                        product.Add("ProductId", partProd.ProductId);
+                        product.Add("Name", partProd.Product.Name);
                         product.Add("HavaPrice", partProd.HavaPrice);
                         product.Add("MarketPrice", partProd.MarketPrice);
                         product.Add("PartnerSellingPrice", partProd.PartnerSellingPrice);
@@ -510,10 +510,10 @@ namespace HavaBusinessObjects.ControllerRepository
                     {
                         JObject product = new JObject();
 
-                        product.Add("id", 0);
+                        product.Add("Id", 0);
                         product.Add("partnerId", objPartner.Id);
-                        product.Add("productId", notAddedPrd.Id);
-                        product.Add("productName", notAddedPrd.Name);
+                        product.Add("ProductId", notAddedPrd.Id);
+                        product.Add("Name", notAddedPrd.Name);
                         product.Add("HavaPrice", 0);
                         product.Add("MarketPrice", 0);
                         product.Add("PartnerSellingPrice", 0);
@@ -528,10 +528,10 @@ namespace HavaBusinessObjects.ControllerRepository
                     {
                         JObject product = new JObject();
 
-                        product.Add("id", 0);
+                        product.Add("Id", 0);
                         product.Add("partnerId", objPartner.Id);
-                        product.Add("productId", notAddedPrd.Id);
-                        product.Add("productName", notAddedPrd.Name);
+                        product.Add("ProductId", notAddedPrd.Id);
+                        product.Add("Name", notAddedPrd.Name);
                         product.Add("HavaPrice", 0);
                         product.Add("MarketPrice", 0);
                         product.Add("PartnerSellingPrice", 0);
@@ -554,10 +554,10 @@ namespace HavaBusinessObjects.ControllerRepository
                         JObject product = new JObject();
                         JObject productLocation = new JObject();
 
-                        product.Add("id", partProd.Id);
+                        product.Add("Id", partProd.Id);
                         product.Add("partnerId", objPartner.Id);
-                        product.Add("productId", partProd.ProductId);
-                        product.Add("productName", partProd.Product.Name);
+                        product.Add("ProductId", partProd.ProductId);
+                        product.Add("Name", partProd.Product.Name);
                         product.Add("LocationId", partProd.LocationId);
                         product.Add("HavaPrice", partProd.HavaPrice);
                         product.Add("MarketPrice", partProd.MarketPrice);
@@ -574,10 +574,10 @@ namespace HavaBusinessObjects.ControllerRepository
                         JObject product = new JObject();
                         JObject productLocation = new JObject();
 
-                        product.Add("id", partProd.Id);
+                        product.Add("Id", partProd.Id);
                         product.Add("partnerId", objPartner.Id);
-                        product.Add("productId", partProd.Id);
-                        product.Add("productName", partProd.Name);
+                        product.Add("ProductId", partProd.Id);
+                        product.Add("Name", partProd.Name);
                         product.Add("LocationId", 0);
                         product.Add("HavaPrice", 0);
                         product.Add("MarketPrice", 0);
@@ -596,10 +596,10 @@ namespace HavaBusinessObjects.ControllerRepository
                         JObject product = new JObject();
                         JObject productLocation = new JObject();
 
-                        product.Add("id", partProd.Id);
+                        product.Add("Id", partProd.Id);
                         product.Add("partnerId", objPartner.Id);
-                        product.Add("productId", partProd.Id);
-                        product.Add("productName", partProd.Name);
+                        product.Add("ProductId", partProd.Id);
+                        product.Add("Name", partProd.Name);
                         product.Add("LocationId", 0);
                         product.Add("HavaPrice", 0);
                         product.Add("MarketPrice", 0);
@@ -764,9 +764,9 @@ namespace HavaBusinessObjects.ControllerRepository
 
                                 foreach (var subProd in partnerViewModel.subProductDetails)
                                 {
-                                    if (subProd.id > 0)
+                                    if (subProd.Id > 0)
                                     {
-                                        var partnerProd = this.ObjContext.PartnerProducts.Find(subProd.id);
+                                        var partnerProd = this.ObjContext.PartnerProducts.Find(subProd.Id);
                                         partnerProd.HavaPrice = subProd.HavaPrice;
                                         partnerProd.IsActive = subProd.IsActive;
                                         partnerProd.IsMarkUp = subProd.IsMarkUp;
@@ -801,11 +801,11 @@ namespace HavaBusinessObjects.ControllerRepository
                                 #region Partner Chauffeur Products
                                 foreach (var prod in partnerViewModel.mainProductDetails)
                                 {
-                                    if (prod.id > 0)
+                                    if (prod.Id > 0)
                                     {
                                         if (prod.IsActive == true)
                                         {
-                                            var partnerProd = this.ObjContext.PartnerChauffeurProducts.Find(prod.id);
+                                            var partnerProd = this.ObjContext.PartnerChauffeurProducts.Find(prod.Id);
                                             partnerProd.HavaPrice = prod.HavaPrice;
                                             partnerProd.IsActive = prod.IsActive;
                                             partnerProd.IsMarkUp = prod.IsMarkUp;
@@ -819,7 +819,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                         }
                                         else
                                         {
-                                            var removedProd = this.ObjContext.PartnerChauffeurProducts.Find(prod.id);
+                                            var removedProd = this.ObjContext.PartnerChauffeurProducts.Find(prod.Id);
                                             removedProd.IsActive = false;
                                             removedProd.ModifiedBy = partnerViewModel.createdBy;
                                             removedProd.ModifiedDate = DateTime.Now;
@@ -858,9 +858,9 @@ namespace HavaBusinessObjects.ControllerRepository
                                     {
                                         foreach (var partProd in location.products)
                                         {
-                                            if (partProd.id > 0)
+                                            if (partProd.Id > 0)
                                             {
-                                                var partnerProd = this.ObjContext.PartnerProducts.Find(partProd.id);
+                                                var partnerProd = this.ObjContext.PartnerProducts.Find(partProd.Id);
                                                 partnerProd.LocationId = location.location.Id;
                                                 partnerProd.HavaPrice = partProd.HavaPrice;
                                                 partnerProd.IsActive = partProd.IsActive;

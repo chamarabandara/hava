@@ -54,9 +54,9 @@ namespace HavaBusinessObjects.ViewModels
 
     public class PartnerProductViewModel
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string productName { get; set; }
-        public int productId { get; set; }
+        public int ProductId { get; set; }
         public ProductViewModel Product { get; set; }
         public bool? IsInclude { get; set; }
         public LocationDetailViewModel LocationDetail { get; set; }
