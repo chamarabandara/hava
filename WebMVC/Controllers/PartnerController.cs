@@ -5,7 +5,7 @@ using System;
 using System.Web.Mvc;
 namespace HavaWeb.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PartnerController : Controller
     {
         //

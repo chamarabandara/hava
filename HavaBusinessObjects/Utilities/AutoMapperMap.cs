@@ -53,6 +53,7 @@ namespace HavaBusinessObjects.Utilities
 
             CreateMap<BookingViewModel, Booking>()
                .ForMember(dest => dest.BookingStatusId, opt => opt.MapFrom(src => src.BookingStatu.Id))
+               .ForMember(dest => dest.DropLocation, opt => opt.MapFrom(src => src.DropLocation.Id))
                .MaxDepth(3);
 
             CreateMap<ProductFeature , ProductFeaturesViewMOdel>().ReverseMap();

@@ -262,7 +262,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             {
                                 PartnerProduct objProd = new PartnerProduct();
                                 objProd.PartnerId = partnerId;
-                                objProd.ProductId = partProd.Product.Id;
+                                objProd.ProductId = partProd.productId;
                                 objProd.CreatedBy = partnerViewModel.createdBy;
                                 objProd.HavaPrice = partProd.HavaPrice;
                                 objProd.MarketPrice = partProd.MarketPrice;
@@ -290,7 +290,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         {
                             PartnerProduct objProd = new PartnerProduct();
                             objProd.PartnerId = partnerId;
-                            objProd.ProductId = partProd.Product.Id;
+                            objProd.ProductId = partProd.productId;
                             objProd.CreatedBy = partnerViewModel.createdBy;
                             objProd.HavaPrice = partProd.HavaPrice;
                             objProd.MarketPrice = partProd.MarketPrice;
@@ -317,7 +317,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         {
                             PartnerChauffeurProduct objProd = new PartnerChauffeurProduct();
                             objProd.PartnerId = partnerId;
-                            objProd.ProductId = partProd.Product.Id;
+                            objProd.ProductId = partProd.productId;
                             objProd.CreatedBy = partnerViewModel.createdBy;
                             objProd.HavaPrice = partProd.HavaPrice;
                             objProd.MarketPrice = partProd.MarketPrice;
@@ -378,6 +378,9 @@ namespace HavaBusinessObjects.ControllerRepository
             Partner objPartner = new Partner();
             objPartner = this.ObjContext.Partners.Find(Id);
 
+            List<Product> extMainProducts = this.ObjContext.Products.Where(a => a.IsMainProduct == true).ToList();
+            List<Product> extSubProducts = this.ObjContext.Products.Where(a => a.IsMainProduct == false).ToList();
+
             if (objPartner != null)
             {
                 returnObj.Add("id", objPartner.Id);
@@ -419,6 +422,8 @@ namespace HavaBusinessObjects.ControllerRepository
 
                     var locations = prodList.Select(a => a.LocationDetail).Distinct().ToList();
 
+                    var notAdded = extMainProducts.Where(a => !prodList.Select(b => b.ProductId).ToList().Contains(a.Id));
+
                     foreach (var location in locations)
                     {
                         JObject productsRoute = new JObject();
@@ -451,6 +456,23 @@ namespace HavaBusinessObjects.ControllerRepository
                             mainProductArr.Add(product);
                         }
 
+                        foreach (var notAddedPrd in notAdded)
+                        {
+                            JObject product = new JObject();
+
+                            product.Add("id", 0);
+                            product.Add("partnerId", objPartner.Id);
+                            product.Add("productId", notAddedPrd.Id);
+                            product.Add("productName", notAddedPrd.Name);
+                            product.Add("LocationId", location.Id);
+                            product.Add("HavaPrice", 0);
+                            product.Add("MarketPrice", 0);
+                            product.Add("PartnerSellingPrice", 0);
+                            product.Add("Percentage", 0);
+
+                            mainProductArr.Add(product);
+                        }
+
                         productsRoute.Add("products", mainProductArr);
 
                         mainProducts.Add(productsRoute);
@@ -465,6 +487,8 @@ namespace HavaBusinessObjects.ControllerRepository
                 if (objPartner.PartnerProducts.Count > 0)
                 {
                     var prodList = objPartner.PartnerChauffeurProducts.Where(p => p.IsActive == true).ToList();
+                    var notAdded = extMainProducts.Where(a => !prodList.Select(b => b.ProductId).ToList().Contains(a.Id));
+
                     foreach (var partProd in prodList)
                     {
                         JObject product = new JObject();
@@ -481,6 +505,40 @@ namespace HavaBusinessObjects.ControllerRepository
 
                         chaffeurProducts.Add(product);
                     }
+
+                    foreach (var notAddedPrd in notAdded)
+                    {
+                        JObject product = new JObject();
+
+                        product.Add("id", 0);
+                        product.Add("partnerId", objPartner.Id);
+                        product.Add("productId", notAddedPrd.Id);
+                        product.Add("productName", notAddedPrd.Name);
+                        product.Add("HavaPrice", 0);
+                        product.Add("MarketPrice", 0);
+                        product.Add("PartnerSellingPrice", 0);
+                        product.Add("Percentage", 0);
+
+                        chaffeurProducts.Add(product);
+                    }
+                }
+                else
+                {
+                    foreach (var notAddedPrd in extMainProducts)
+                    {
+                        JObject product = new JObject();
+
+                        product.Add("id", 0);
+                        product.Add("partnerId", objPartner.Id);
+                        product.Add("productId", notAddedPrd.Id);
+                        product.Add("productName", notAddedPrd.Name);
+                        product.Add("HavaPrice", 0);
+                        product.Add("MarketPrice", 0);
+                        product.Add("PartnerSellingPrice", 0);
+                        product.Add("Percentage", 0);
+
+                        chaffeurProducts.Add(product);
+                    }
                 }
                 returnObj.Add("mainProductDetails", chaffeurProducts);
                 #endregion
@@ -489,6 +547,8 @@ namespace HavaBusinessObjects.ControllerRepository
                 if (objPartner.PartnerProducts.Count > 0)
                 {
                     var prodList = objPartner.PartnerProducts.Where(p => p.IsActive == true && p.Product.IsMainProduct == false).ToList();
+                    var notAddedSub = extSubProducts.Where(a => !prodList.Select(b => b.ProductId).ToList().Contains(a.Id));
+
                     foreach (var partProd in prodList)
                     {
                         JObject product = new JObject();
@@ -508,7 +568,50 @@ namespace HavaBusinessObjects.ControllerRepository
 
                         subProducts.Add(product);
                     }
+
+                    foreach (var partProd in notAddedSub)
+                    {
+                        JObject product = new JObject();
+                        JObject productLocation = new JObject();
+
+                        product.Add("id", partProd.Id);
+                        product.Add("partnerId", objPartner.Id);
+                        product.Add("productId", partProd.Id);
+                        product.Add("productName", partProd.Name);
+                        product.Add("LocationId", 0);
+                        product.Add("HavaPrice", 0);
+                        product.Add("MarketPrice", 0);
+                        product.Add("PartnerSellingPrice", 0);
+                        product.Add("Percentage", 0);
+
+                        product.Add("LocationDetails", productLocation);
+
+                        subProducts.Add(product);
+                    }
                 }
+                else
+                {
+                    foreach (var partProd in extSubProducts)
+                    {
+                        JObject product = new JObject();
+                        JObject productLocation = new JObject();
+
+                        product.Add("id", partProd.Id);
+                        product.Add("partnerId", objPartner.Id);
+                        product.Add("productId", partProd.Id);
+                        product.Add("productName", partProd.Name);
+                        product.Add("LocationId", 0);
+                        product.Add("HavaPrice", 0);
+                        product.Add("MarketPrice", 0);
+                        product.Add("PartnerSellingPrice", 0);
+                        product.Add("Percentage", 0);
+
+                        product.Add("LocationDetails", productLocation);
+
+                        subProducts.Add(product);
+                    }
+                }
+
                 returnObj.Add("subProducts", subProducts);
                 #endregion
 
@@ -665,7 +768,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                     {
                                         var partnerProd = this.ObjContext.PartnerProducts.Find(subProd.id);
                                         partnerProd.HavaPrice = subProd.HavaPrice;
-                                        partnerProd.IsActive = subProd.isActive;
+                                        partnerProd.IsActive = subProd.IsActive;
                                         partnerProd.IsMarkUp = subProd.IsMarkUp;
                                         partnerProd.MarketPrice = subProd.MarketPrice;
                                         partnerProd.Markup = subProd.Markup;
@@ -680,7 +783,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                         PartnerProduct partnerProd = new PartnerProduct();
                                         partnerProd.PartnerId = partner.Id;
                                         partnerProd.HavaPrice = subProd.HavaPrice;
-                                        partnerProd.IsActive = subProd.isActive;
+                                        partnerProd.IsActive = subProd.IsActive;
                                         partnerProd.IsMarkUp = subProd.IsMarkUp;
                                         partnerProd.LocationId = null;
                                         partnerProd.MarketPrice = subProd.MarketPrice;
@@ -700,11 +803,11 @@ namespace HavaBusinessObjects.ControllerRepository
                                 {
                                     if (prod.id > 0)
                                     {
-                                        if (prod.isActive == true)
+                                        if (prod.IsActive == true)
                                         {
                                             var partnerProd = this.ObjContext.PartnerChauffeurProducts.Find(prod.id);
                                             partnerProd.HavaPrice = prod.HavaPrice;
-                                            partnerProd.IsActive = prod.isActive;
+                                            partnerProd.IsActive = prod.IsActive;
                                             partnerProd.IsMarkUp = prod.IsMarkUp;
                                             partnerProd.MarketPrice = prod.MarketPrice;
                                             partnerProd.Markup = prod.Markup;
@@ -760,7 +863,7 @@ namespace HavaBusinessObjects.ControllerRepository
                                                 var partnerProd = this.ObjContext.PartnerProducts.Find(partProd.id);
                                                 partnerProd.LocationId = location.location.Id;
                                                 partnerProd.HavaPrice = partProd.HavaPrice;
-                                                partnerProd.IsActive = partProd.isActive;
+                                                partnerProd.IsActive = partProd.IsActive;
                                                 partnerProd.IsMarkUp = partProd.IsMarkUp;
                                                 partnerProd.PartnerSellingPrice =
                                                 partnerProd.MarketPrice = partProd.MarketPrice;

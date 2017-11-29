@@ -389,6 +389,17 @@ namespace WebMVC.Controllers
         {
             JObject returnObj = new JObject();
 
+             ModelState.Remove("DropLocation");
+            
+
+            foreach (ModelState modelState in ViewData.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                   // DoSomethingWith(error);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 if (vm.UserId == 0)

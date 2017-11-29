@@ -155,8 +155,8 @@
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                    @*<input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">*@
-                                                                                    <input type="text" class="" id="timepicker-jq" size="8" ng-model="search.pickupTime" data-time-format="HH:mm" data-time-type="number" ng-class="{'has-error' : (!search.pickupTime && submitted)}" data-autoclose="1" name="search.pickupTime" bs-timepicker>
+                                                                                    <input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">
+                                                                                    @*<input type="text" class="" id="timepicker-jq" size="8" ng-model="search.pickupTime" data-time-format="HH:mm" data-time-type="number" ng-class="{'has-error' : (!search.pickupTime && submitted)}" data-autoclose="1" name="search.pickupTime" bs-timepicker>*@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -238,7 +238,7 @@
                                                                         <div class="col-sm-12 col-xs-12 form-section-input" style="display:none;" id="returnLocation" >
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
-                                                                                    <input type="text" id="searchTextField3" placeholder="Return Location" ng-model="ReturnPickupLocation">
+                                                                                    <input type="text" class="form-control" id="searchTextField3" placeholder="Return Location" ng-model="ReturnPickupLocation">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1078,13 +1078,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>First Name</label>
-                                                        <input type="text" class="form-control" id="" placeholder="First Name" ng-model="pasengger.FirstName" ng-class="{'has-error' : (PassengerFirstNameRequired && submittedRep)}">
+                                                        <input type="text" class="form-control" id="" placeholder="First Name" ng-model="pasenggers.FirstName" ng-class="{'has-error' : (PassengerFirstNameRequired && submittedRep)}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Last Name</label>
-                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasengger.LastName">
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasenggers.LastName">
                                                     </div>
                                                 </div>
 
@@ -1095,13 +1095,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Mobile No.</label>
-                                                        <input type="text" class="form-control" id="" placeholder="Mobile No" ng-model="pasengger.Mobile" ng-class="{'has-error' : (PassengerMobileRequired && submittedRep)}">
+                                                        <input type="text" class="form-control" id="" placeholder="Mobile No" ng-model="pasenggers.Mobile" ng-class="{'has-error' : (PassengerMobileRequired && submittedRep)}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Email</label>
-                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasengger.Email" ng-class="{'has-error' : (PassengerEmailRequired && submittedRep)}">
+                                                        <input type="text" class="form-control" id="" placeholder="Last Name" ng-model="pasenggers.Email" ng-class="{'has-error' : (PassengerEmailRequired && submittedRep)}">
                                                     </div>
                                                 </div>
 
@@ -1112,7 +1112,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Country</label>
-                                                        <select class="form-control" name="CardType" ng-options="country.name for country in countries track by country.id" ng-model="pasengger.Country" ng-class="{'has-error' : (PassengerCountryRequired && submittedRep)}">
+                                                        <select class="form-control" name="CardType" ng-options="country.name for country in countries track by country.id" ng-model="pasenggers.Country" ng-class="{'has-error' : (PassengerCountryRequired && submittedRep)}">
                                                             <option value="">-- Select Country --</option>
                                                         </select>
                                                     </div>
@@ -1130,8 +1130,8 @@
                                                     <div class="form-group">
                                                         <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
                                                         <div class="col-lg-7 col-md-7 col-sm-6">
-                                                            <button class="btn btn-primary ng-cloak" type="button" ng-click="addPasengger(pasengger)" ng-hide="updateRep">Save</button>
-                                                            <button class="btn btn-primary ng-cloak" type="button" ng-click="updatePasengger(pasengger)" ng-show="updateRep">Update</button>
+                                                            <button class="btn btn-primary ng-cloak" type="button" ng-click="addPasengger(pasenggers)" ng-hide="updateRep">Save</button>
+                                                            <button class="btn btn-primary ng-cloak" type="button" ng-click="updatePasengger(pasenggers)" ng-show="updateRep">Update</button>
 
                                                         </div>
                                                     </div>
@@ -1187,7 +1187,7 @@
                                                             <td style="width:15%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.LastName">{{cData.LastName}}</a><span ng-hide="cData.LastName"><left>-</left></span></td>
                                                             <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Mobile">{{cData.Mobile}}</a><span ng-hide="cData.Mobile"><left>-</left></span></td>
                                                             <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Email">{{cData.Email}}</a><span ng-hide="cData.Email"><left>-</left></span></td>
-                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Country">{{cData.Country}}</a><span ng-hide="cData.Country"><left>-</left></span></td>
+                                                            <td style="width:10%;"><a class="click-cell" ng-click="coverViewAction(cData)" ng-show="cData.Country.name">{{cData.Country.name}}</a><span ng-hide="cData.Country"><left>-</left></span></td>
                                                             
                                                             <td style="width:5%;" class="action">
                                                                 <a class="link-action" ng-click="repGridAction(cData,'edit')" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>

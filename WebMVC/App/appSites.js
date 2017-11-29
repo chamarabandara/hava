@@ -6,7 +6,7 @@ var site = angular.module('Sites',
        // 'BookingCreateCtrl',
        // 'BookingCtrl',
         ///'BookingHistoryCtrl',
-        'ngSanitize', 'mgcrea.ngStrap',
+        'ngSanitize', //'mgcrea.ngStrap',
         'siteService',
         'ngCookies']
     );

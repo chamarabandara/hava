@@ -96,26 +96,53 @@ namespace HavaBusinessObjects
             //SmtpClient client = new SmtpClient("mail.pandarix.com");
             //If you need to authenticate
             string userName = ConfigurationManager.AppSettings["From_Mail"].ToString();
-            string password = ConfigurationManager.AppSettings["From_PWD"].ToString();
+            ////string password = ConfigurationManager.AppSettings["From_PWD"].ToString();
 
-            //client.Credentials = new NetworkCredential(userName, password);
+            //////client.Credentials = new NetworkCredential(userName, password);
 
-            using (MailMessage mm = new MailMessage(userName, toMail))
+            ////using (MailMessage mm = new MailMessage(userName, toMail))
+            ////{
+            ////    mm.Subject = mailSubject;
+            ////    mm.Body = mailBody;
+            ////    mm.IsBodyHtml = true;
+            ////    using (SmtpClient smtp = new SmtpClient())
+            ////    {
+            ////        smtp.Host = "pop.1and1.co.uk";
+            ////        smtp.EnableSsl = true;
+            ////        NetworkCredential NetworkCred = new NetworkCredential(userName, password);
+            ////        smtp.UseDefaultCredentials = true;
+            ////        smtp.Credentials = NetworkCred;
+            ////        smtp.Port = 587;
+            ////        smtp.Send(mm);
+            ////    }
+            ////}
+
+            using (SmtpClient smtpClient = new SmtpClient("auth.smpt.1and1.co.uk", 587))
             {
-                mm.Subject = mailSubject;
-                mm.Body = mailBody;
-                mm.IsBodyHtml = true;
-                using (SmtpClient smtp = new SmtpClient())
-                {
-                    smtp.Host = "pop.1and1.co.uk";
-                    smtp.EnableSsl = true;
-                    NetworkCredential NetworkCred = new NetworkCredential(userName, password);
-                    smtp.UseDefaultCredentials = true;
-                    smtp.Credentials = NetworkCred;
-                    smtp.Port = 587;
-                    smtp.Send(mm);
-                }
+                smtpClient.EnableSsl = true;
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.UseDefaultCredentials = true;
+                smtpClient.Credentials = new NetworkCredential("hava@pandarix.com", "Hava1234567");
+
+                smtpClient.Send("hava@pandarix.com", toMail, mailSubject, mailBody);
             }
+
+
+            MailMessage mail = new MailMessage();
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Host = "auth.smpt.1and1.co.uk"; 
+            
+            mail.To.Add(toMail);
+
+            mail.From = new MailAddress(userName);
+            mail.Subject = mailSubject;
+            mail.Body = mailBody;
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+            client.Send(mail);
 
             return true;
 

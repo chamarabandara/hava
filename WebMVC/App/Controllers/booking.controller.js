@@ -35,7 +35,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                  function (result) {
                      $scope.UserName = result.data;
                  });
-        
+
     }
     else
         $scope.isUserLogged = false;
@@ -60,16 +60,16 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             $('#returnLocation').hide();
         }
     }
-    
+
     $scope.gotoLogin = function (st) {
         if (st == true) {
             $scope.loginForm = true;
-        }else{
+        } else {
             $scope.loginForm = false;
         }
 
     }
-    
+
     $scope.Login = function (login) {
         $scope.submitted = true;
 
@@ -121,21 +121,21 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
              function (result) {
                  $scope.countries = result.data;
              });
-    
+
     HavaSiteService.getPartnerIstest({ partnerId: parseInt($scope.PartnerIdTemp), siteId: parseInt($scope.siteIdTemp) }).$promise.then(
              function (result) {
                  $scope.siteDetails = result.data;
                  if ($scope.siteDetails && $scope.siteDetails.bannerPath != '') {
                      $("#slide-3 .bcg").css('cssText', 'background-image :url(/hava' + $scope.siteDetails.bannerPath + ') !important');
-                    
+
                  }
-                 
+
              });
     $scope.isMain = true;
     $scope.durantions = [
         { 'name': "1 Day", id: 1 },
         { 'name': "2 Days", id: 2 },
-        { 'name': "3 Days", id: 3 }, 
+        { 'name': "3 Days", id: 3 },
         { 'name': "4 Days", id: 4 },
         { 'name': "5 Days", id: 5 }
     ];
@@ -162,12 +162,12 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 $scope.search.pickupTime = $('#timepicker2').val();
             }
             //if ($scope.isAirportTransfer)
-                
+
             //else
             //    $scope.search.pickupTime = $('#timepicker2').val();
 
             var urlparms = $scope.parseQueryString(window.location.href);
-          
+
             if ($scope.search.isAirportTransfer) {
                 HavaSiteService.getProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), locationId: ($scope.search.dropLocation != undefined) ? $scope.search.dropLocation.Id : 0, PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
                          function (result) {
@@ -177,12 +177,12 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             } else {
                 var promoCd = ($scope.promotionCode != undefined) ? $scope.promotionCode : 0;
                 $scope.promotionCode
-               // HavaSiteService.getChauffeurProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
+                // HavaSiteService.getChauffeurProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
                 HavaSiteService.getChauffeurProductDetails({ partnerId: parseInt($scope.PartnerIdTemp), pickupDate: ($scope.search.pickupDate), returnDate: ($scope.search.returnDate), PromotionCode: ($scope.promotionCode != undefined) ? $scope.promotionCode : 0 }).$promise.then(
                 function (result) {
-                             $scope.Products = result.data;
+                    $scope.Products = result.data;
 
-                         });
+                });
             }
         } else
             return true;
@@ -196,7 +196,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             HavaSiteService.getPartnerSubProducts({ partnerId: parseInt($scope.PartnerIdTemp) }).$promise.then(
                  function (result) {
                      if ($scope.bookingSubProducts == undefined || $scope.bookingSubProducts.length <= 0)
-                        $scope.bookingSubProducts = result.data;
+                         $scope.bookingSubProducts = result.data;
                  });
         }
 
@@ -215,22 +215,22 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         $scope.selectedProduct = product;
         $scope.totalSellingPrice = angular.copy($scope.selectedProduct.PartnerSellingPrice);
 
-        $scope.AditionalDayUnit = $scope.selectedProduct.AdditionaDayRate != null?$scope.selectedProduct.AdditionaDayRate:0;
+        $scope.AditionalDayUnit = $scope.selectedProduct.AdditionaDayRate != null ? $scope.selectedProduct.AdditionaDayRate : 0;
         $scope.AdHoursUnit = $scope.selectedProduct.AdditionaHourRate != null ? $scope.selectedProduct.AdditionaHourRate : 0;
         $scope.cildSetUnit = $scope.selectedProduct.ChildSeatRate != null ? $scope.selectedProduct.ChildSeatRate : 0;
         $scope.AdditionalKMRate = $scope.selectedProduct.AdditionalKMRate != null ? $scope.selectedProduct.AdditionalKMRate : 0;
         $scope.BookingOptions.PickupAddress = $scope.search.pickupLocation;
-       // console.log(result.data[0]);
+        // console.log(result.data[0]);
 
     }
     //calculate price
-    $scope.calculateTotal = function (hours,sets) {
-        var hrs = (hours != undefined && hours != "")?parseInt(hours):0;
+    $scope.calculateTotal = function (hours, sets) {
+        var hrs = (hours != undefined && hours != "") ? parseInt(hours) : 0;
         var st = (sets != undefined && sets != "") ? parseInt(sets) : 0;
-        var hrsTotal= 0, stTotal=0, partPrice = 0;
+        var hrsTotal = 0, stTotal = 0, partPrice = 0;
         var hrsTotal = (hrs * parseInt($scope.selectedProduct.AdditionaHourRate));
         var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
-        var stTotal = ($scope.selectedProduct.ChildSeatRate != null)?(st * parseInt($scope.selectedProduct.ChildSeatRate)):0;
+        var stTotal = ($scope.selectedProduct.ChildSeatRate != null) ? (st * parseInt($scope.selectedProduct.ChildSeatRate)) : 0;
         $scope.totalSellingPrice = partPrice + hrsTotal + stTotal;
     }
 
@@ -245,7 +245,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
     }
 
-  
+
 
     $scope.disabledButton = true;
 
@@ -261,16 +261,16 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         $scope.userNameRequired = false;
         $scope.firstNameRequired = false;
         $scope.submitted = true;
-        if (user.UserName != undefined && user.UserName != "" && user.FirstName != undefined && user.FirstName != "" && 
+        if (user.UserName != undefined && user.UserName != "" && user.FirstName != undefined && user.FirstName != "" &&
             user.Password != undefined && user.Password != "") {
             var data = angular.copy(user);
-           delete data.isTermsAcepted;
+            delete data.isTermsAcepted;
             HavaSiteService.createUser(data, function (data) {
                 if (data.data > 0) {
                     $scope.UserId = data.data;
                     $scope.navigateSteps(4);
                 } else {
-                   
+
                 }
             })
         } else {
@@ -281,7 +281,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             if (user.Password != undefined || user.Password != "")
                 $scope.PasswordRequired = true;
         }
-       
+
 
     }
 
@@ -305,58 +305,59 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             $scope.PassengerCountryRequired = true;
 
         if ($scope.PassengerFirstNameRequired == false && $scope.PassengerMobileRequired != true && $scope.PassengerEmailRequired == false && $scope.PassengerCountryRequired == false) {
-          {
-              $scope.passengerGridData.push({
-                    'FirstName': (repData.FirstName) ? repData.FirstName : null, 
+            {
+                $scope.passengerGridData.push({
+                    'FirstName': (repData.FirstName) ? repData.FirstName : null,
                     'Mobile': (repData.Mobile) ? repData.Mobile : null,
                     'Email': repData.Email,
-                    'LastName':repData.LastName,
-                    'Country': (repData.Country) ? repData.Country.name : null,
+                    'LastName': repData.LastName,
+                    'Country': (repData.Country), // ? repData.Country.name : null,
                     'id': '-1' + Math.random()
                 });
-              $scope.pasengger = {};
-              repData = {};
+                $scope.pasenggers = {};
+                $scope.pasenggers = null;
+                repData = {};
+            }
+
+
         }
-
-
-    }
-   $scope.updateRep = false;
-    $scope.updatePasengger = function (repData) {
-        $scope.submittedRep = true;
-        $scope.updateRep = true;
-        if (repData.FirstName != undefined && repData.FirstName != "")
-            $scope.PassengerFirstNameRequired = false;
-        else
-            $scope.PassengerFirstNameRequired = true;
-        if (repData.Mobile != undefined && repData.Mobile != "")
-            $scope.PassengerMobileRequired = false;
-        else
-            $scope.PassengerMobileRequired = true;
-        if (repData.Email != undefined && repData.Email != "")
-            $scope.PassengerEmailRequired = false;
-        else
-            $scope.PassengerEmailRequired = true;
-        if (repData.Country != undefined && repData.Country != "")
-            $scope.PassengerCountryRequired = false;
-        else
-            $scope.PassengerCountryRequired = true;
-
-        if ($scope.PassengerFirstNameRequired == false && $scope.PassengerMobileRequired != true && $scope.PassengerEmailRequired == false && $scope.PassengerCountryRequired == false) {
-        //  {
-      var gridData = angular.copy($scope.passengerGridData);
-                    var rowIndex = null;
-                    angular.forEach(gridData, function (v, k) {
-                        if (v.id == repData.id) {
-                            rowIndex = k;
-                        }
-                    });
-                    gridData[rowIndex] = repData;
-                    $scope.pasengger = {};
-                    
-                    $scope.updateRep = false;
-                    $scope.passengerGridData = gridData;
-                }
         $scope.updateRep = false;
+        $scope.updatePasengger = function (repData) {
+            $scope.submittedRep = true;
+            $scope.updateRep = true;
+            if (repData.FirstName != undefined && repData.FirstName != "")
+                $scope.PassengerFirstNameRequired = false;
+            else
+                $scope.PassengerFirstNameRequired = true;
+            if (repData.Mobile != undefined && repData.Mobile != "")
+                $scope.PassengerMobileRequired = false;
+            else
+                $scope.PassengerMobileRequired = true;
+            if (repData.Email != undefined && repData.Email != "")
+                $scope.PassengerEmailRequired = false;
+            else
+                $scope.PassengerEmailRequired = true;
+            if (repData.Country != undefined && repData.Country != "")
+                $scope.PassengerCountryRequired = false;
+            else
+                $scope.PassengerCountryRequired = true;
+
+            if ($scope.PassengerFirstNameRequired == false && $scope.PassengerMobileRequired != true && $scope.PassengerEmailRequired == false && $scope.PassengerCountryRequired == false) {
+                //  {
+                var gridData = angular.copy($scope.passengerGridData);
+                var rowIndex = null;
+                angular.forEach(gridData, function (v, k) {
+                    if (v.id == repData.id) {
+                        rowIndex = k;
+                    }
+                });
+                gridData[rowIndex] = repData;
+                $scope.pasenggers = {};
+
+                $scope.updateRep = false;
+                $scope.passengerGridData = gridData;
+            }
+            $scope.updateRep = false;
         }
 
     }
@@ -371,7 +372,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             $scope.updateRep = true;
             $scope.submittedRep = false;
             var rData = angular.copy(row);
-            $scope.pasengger = rData;
+            $scope.pasenggers = rData;
         } else if (task == "delete") {
             $scope.repRow = row;
             $scope.viewTask = 'confirmDeleteRepresentative';
@@ -402,7 +403,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     }
 
     $scope.saveBookingOptions = function (optionData) {
-        
+
         var BookingSubProducts = [];
         angular.forEach($scope.bookingSubProducts, function (v, k) {
             BookingSubProducts.push({
@@ -431,12 +432,12 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         //    $scope.BookingOptions.PassengerCountry = booking.PassengerCountry;
         //    $scope.BookingOptions.PassengerLastName = booking.PassengerLastName;
 
-        if($scope.passengerGridData.length > 0){
+        if ($scope.passengerGridData.length > 0) {
             debugger;
             var data = {
-                "Id":0,
+                "Id": 0,
                 "BookingType": {
-                    "Id":1
+                    "Id": 1
                 },
                 "UserId": $scope.UserId,
                 'BookingProducts': [$scope.selectedProduct],
@@ -449,7 +450,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 "PickupDate": $scope.search.pickupDate,
                 "ReturnDate": $scope.search.returnDate,
                 "PickupTime": $scope.search.pickupTime,
-                "DropLocation": ($scope.dropLocation != undefined ? $scope.dropLocation.Id : 0),
+                "DropLocation": ($scope.dropLocation != undefined ? $scope.dropLocation : null),
                 "BookingOptions": [$scope.bookingOptionData],
                 "BookingPassenger": $scope.passengerGridData,
                 "BookingSubProducts": $scope.bookingOptionData.BookingSubProducts,
@@ -469,7 +470,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                     "type": "Online",
                     "IsActive": true
                 },
-                "IsReturn":false
+                "IsReturn": false
             }
 
             debugger;
@@ -512,137 +513,137 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 $scope.selectedProduct.Partner.Id = parseInt(($scope.urlparms.P).slice(0, -2));
             }
 
-            
+
             if ($scope.totalSellingPrice > 0)
                 $scope.selectedProduct.price = $scope.totalSellingPrice;
-           
+
             $scope.selectedProduct.AdditionalHours = $scope.additional.countAddHours;
             $scope.selectedProduct.NoOfChildSeats = $scope.additional.countAddhildSet;
             $scope.selectedProduct.AdditionalDays = $scope.additional.countAddDay;
             $scope.selectedProduct.AdditionalKM = $scope.additional.AdditionalKM;
 
-            
-            $scope.BookingPayments.CardHolderName =  booking.CardHolderName;
+
+            $scope.BookingPayments.CardHolderName = booking.CardHolderName;
             $scope.BookingPayments.CardNo = booking.CardNo;
             $scope.BookingPayments.ExpireDate = booking.ExpireDateMM + "/" + booking.ExpireDateYY;
             $scope.BookingPayments.CardType = booking.CardType.id;
             $scope.BookingPayments.CVV = booking.CVV;
-           
+
             $scope.navigateSteps(5);
         } else {
             if (booking.CardHolderName == undefined || booking.CardHolderName == "")
                 $scope.CardHolderNameRequired = true;
             if (booking.CardNo == undefined || booking.CardNo == "")
                 $scope.CardNoRequired = true;
-            if(booking.CardType == undefined || booking.CardHolderName == "")
+            if (booking.CardType == undefined || booking.CardHolderName == "")
                 $scope.CVVRequired = true;
-            
+
         }
     }
-  
+
     $scope.getSubTotal = function (val) {
         return (val == null) ? 0 : val;
     }
 
     $scope.addCount = function (type, isAdd) {
-      //  if (inp == 0) {
-            if (type == "ah") {
+        //  if (inp == 0) {
+        if (type == "ah") {
 
-                if (isAdd == "1") {
-                    if ($scope.additional.countAddHours <= 0)
-                        $scope.additional.countAddHours = 0;
-                    else
-                        $scope.additional.countAddHours++;
-                }
-                else {
-                    if ($scope.additional.countAddHours >= 0)
-                        $scope.additional.countAddHours = 0;
-                    else
+            if (isAdd == "1") {
+                if ($scope.additional.countAddHours <= 0)
+                    $scope.additional.countAddHours = 0;
+                else
+                    $scope.additional.countAddHours++;
+            }
+            else {
+                if ($scope.additional.countAddHours >= 0)
+                    $scope.additional.countAddHours = 0;
+                else
                     $scope.additional.countAddHours--;
 
-                }
+            }
+
+
+        }
+        if (type == "ad") {
+
+            if (isAdd == "1") {
+                if ($scope.additional.countAddDay <= 0)
+                    $scope.additional.countAddDay = 0;
+                else
+                    $scope.additional.countAddDay++;
 
 
             }
-            if (type == "ad") {
-
-                if (isAdd == "1") {
-                    if ($scope.additional.countAddDay <= 0)
-                        $scope.additional.countAddDay = 0;
-                    else
-                        $scope.additional.countAddDay++;
-                   
-
-                }
-                else {
-                    if ($scope.additional.countAddDay >= 0)
-                        $scope.additional.countAddDay = 0;
-                    else
-                        $scope.additional.countAddDay--;
-                   
-
-                }
+            else {
+                if ($scope.additional.countAddDay >= 0)
+                    $scope.additional.countAddDay = 0;
+                else
+                    $scope.additional.countAddDay--;
 
 
             }
-            if (type == "ac") {
-                if (isAdd == "1") {
-                    if ($scope.additional.countAddhildSet <= 0)
-                        $scope.additional.countAddhildSet = 0;
-                    else
-                        $scope.additional.countAddhildSet++;
 
 
-                }
-                else {
-                    if ($scope.additional.countAddhildSet >= 0)
-                        $scope.additional.countAddhildSet = 0;
-                    else
-                        $scope.additional.countAddhildSet--;
-
-
-                }
-               
+        }
+        if (type == "ac") {
+            if (isAdd == "1") {
+                if ($scope.additional.countAddhildSet <= 0)
+                    $scope.additional.countAddhildSet = 0;
+                else
+                    $scope.additional.countAddhildSet++;
 
 
             }
-            if (type == "km") {
-                if (isAdd == "1") {
-                    if ($scope.additional.AdditionalKM <= 0)
-                        $scope.additional.AdditionalKM = 0;
-                    else
-                        $scope.additional.AdditionalKM++;
-
-
-                }
-                else {
-                    if ($scope.additional.AdditionalKM >= 0)
-                        $scope.additional.AdditionalKM = 0;
-                    else
-                        $scope.additional.AdditionalKM--;
-
-
-                }
-                
+            else {
+                if ($scope.additional.countAddhildSet >= 0)
+                    $scope.additional.countAddhildSet = 0;
+                else
+                    $scope.additional.countAddhildSet--;
 
 
             }
-        
-       
+
+
+
+        }
+        if (type == "km") {
+            if (isAdd == "1") {
+                if ($scope.additional.AdditionalKM <= 0)
+                    $scope.additional.AdditionalKM = 0;
+                else
+                    $scope.additional.AdditionalKM++;
+
+
+            }
+            else {
+                if ($scope.additional.AdditionalKM >= 0)
+                    $scope.additional.AdditionalKM = 0;
+                else
+                    $scope.additional.AdditionalKM--;
+
+
+            }
+
+
+
+        }
+
+
         $scope.getTotal();
     }
     $scope.total = 0;
     $scope.getTotal = function () {
-      
-       var partPrice = 0;
-       var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
-       $scope.total = 0;
-       if ($scope.bookingSubProducts) {
-           angular.forEach($scope.bookingSubProducts, function (v, k) {
-               $scope.total += ((v.Quantity != undefined ? v.Quantity : 0) * (v.MarketPrice != undefined ? v.MarketPrice : 0));
-           });
-       }
-      // $scope.total = (parseInt($scope.additional.countAddDay) * parseInt($scope.AditionalDayUnit)) + (parseInt($scope.additional.countAddhildSet) * parseInt($scope.cildSetUnit)) + (parseInt($scope.additional.countAddHours) * parseInt($scope.AdHoursUnit)) + (parseInt($scope.additional.AdditionalKM) * parseInt($scope.AdditionalKMRate));
+
+        var partPrice = 0;
+        var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
+        $scope.total = 0;
+        if ($scope.bookingSubProducts) {
+            angular.forEach($scope.bookingSubProducts, function (v, k) {
+                $scope.total += ((v.Quantity != undefined ? v.Quantity : 0) * (v.MarketPrice != undefined ? v.MarketPrice : 0));
+            });
+        }
+        // $scope.total = (parseInt($scope.additional.countAddDay) * parseInt($scope.AditionalDayUnit)) + (parseInt($scope.additional.countAddhildSet) * parseInt($scope.cildSetUnit)) + (parseInt($scope.additional.countAddHours) * parseInt($scope.AdHoursUnit)) + (parseInt($scope.additional.AdditionalKM) * parseInt($scope.AdditionalKMRate));
         if ($scope.selectedProduct.promotionAmount == null)
             $scope.selectedProduct.promotionAmount = 0;
         $scope.totalSellingPrice = partPrice + $scope.total - $scope.selectedProduct.promotionAmount;
@@ -667,7 +668,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             ampm: false
         });
 
-      
+
 
         $('#inputGroupSuccessDate').datepicker({
             format: 'yyyy-mm-dd',
@@ -702,8 +703,8 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         location.reload();
     }
 
-    $scope.goToHistory = function(){
-        window.location = appUrl +'#/'+ 'booking/history';
+    $scope.goToHistory = function () {
+        window.location = appUrl + '#/' + 'booking/history';
     }
 
     $scope.MainLogin = function (login) {

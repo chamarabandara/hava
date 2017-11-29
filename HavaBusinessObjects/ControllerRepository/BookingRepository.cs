@@ -137,14 +137,12 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingPassengers)
                      .Where(a => a.Id == id).FirstOrDefault();
 
-                Utility utiliy = new Utility();
-                var body = this.BookingConfirmation(booking);
-                string[] toMail = new string[1];
-                string[] ccMail = new string[1];
+                string htmlBody = this.BookingConfirmation(booking);
+                Utility uty = new Utility();
+                string[] ccMails = new string[1];
+                ccMails[0] = "udayangana@alliontechnologies.com";
 
-                toMail[0] = "udayangana1986@hotmail.com";
-                ccMail[0] = "udayangana@alliontechnologies.com";
-                utiliy.SendMailToRecepients(toMail, ccMail, body, "Booking Confirmation - " + booking.BookingNo);
+                uty.SendMails("udayangana1986@hotmail.com", ccMails, htmlBody, "Booking Confirmation");
 
                 return Mapper.Map<Booking, BookingViewModel>(booking);
             }
@@ -177,7 +175,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 List<Booking> bookings = this.ObjContext.Bookings.ToList();
                 bookings = bookings.OrderByDescending(x => x.CreatedDate).ToList();
                 JArray returnArr = new JArray();
-                foreach (Booking booking in bookings)
+                foreach (Booking booking in bookings.OrderByDescending(a=>a.CreatedDate))
                 {
                     JObject bk = new JObject();
                     bk.Add("id", booking.Id);

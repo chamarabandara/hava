@@ -36,6 +36,8 @@ namespace HavaBusinessObjects.ViewModels
     public class PartnerChauffeurProductViewModel
     {
         public int id { get; set; }
+        public string productName { get; set; }
+        public int productId { get; set; }
         public ProductViewModel Product { get; set; }
         public bool isActive { get; set; }
         public decimal? HavaPrice { get; set; }
@@ -53,9 +55,10 @@ namespace HavaBusinessObjects.ViewModels
     public class PartnerProductViewModel
     {
         public int id { get; set; }
-        public int ProductId { get; set; }
+        public string productName { get; set; }
+        public int productId { get; set; }
         public ProductViewModel Product { get; set; }
-        public bool isActive { get; set; }
+        public bool? IsInclude { get; set; }
         public LocationDetailViewModel LocationDetail { get; set; }
         public decimal? HavaPrice { get; set; }
         public decimal? MarketPrice { get; set; }
