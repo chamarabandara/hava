@@ -452,6 +452,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             product.Add("MarketPrice", partProd.MarketPrice);
                             product.Add("PartnerSellingPrice", partProd.PartnerSellingPrice);
                             product.Add("Percentage", partProd.Percentage);
+                            product.Add("IsInclude", true);
 
                             mainProductArr.Add(product);
                         }
@@ -469,6 +470,7 @@ namespace HavaBusinessObjects.ControllerRepository
                             product.Add("MarketPrice", 0);
                             product.Add("PartnerSellingPrice", 0);
                             product.Add("Percentage", 0);
+                            product.Add("IsInclude", false);
 
                             mainProductArr.Add(product);
                         }
@@ -502,6 +504,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         product.Add("MarketPrice", partProd.MarketPrice);
                         product.Add("PartnerSellingPrice", partProd.PartnerSellingPrice);
                         product.Add("Percentage", partProd.Percentage);
+                        product.Add("IsInclude", true);
 
                         chaffeurProducts.Add(product);
                     }
@@ -518,6 +521,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         product.Add("MarketPrice", 0);
                         product.Add("PartnerSellingPrice", 0);
                         product.Add("Percentage", 0);
+                        product.Add("IsInclude", false);
 
                         chaffeurProducts.Add(product);
                     }
@@ -536,6 +540,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         product.Add("MarketPrice", 0);
                         product.Add("PartnerSellingPrice", 0);
                         product.Add("Percentage", 0);
+                        product.Add("IsInclude", false);
 
                         chaffeurProducts.Add(product);
                     }
@@ -563,6 +568,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         product.Add("MarketPrice", partProd.MarketPrice);
                         product.Add("PartnerSellingPrice", partProd.PartnerSellingPrice);
                         product.Add("Percentage", partProd.Percentage);
+                        product.Add("IsInclude", true);
 
                         product.Add("LocationDetails", productLocation);
 
@@ -583,6 +589,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         product.Add("MarketPrice", 0);
                         product.Add("PartnerSellingPrice", 0);
                         product.Add("Percentage", 0);
+                        product.Add("IsInclude", false);
 
                         product.Add("LocationDetails", productLocation);
 
@@ -605,6 +612,7 @@ namespace HavaBusinessObjects.ControllerRepository
                         product.Add("MarketPrice", 0);
                         product.Add("PartnerSellingPrice", 0);
                         product.Add("Percentage", 0);
+                        product.Add("IsInclude", false);
 
                         product.Add("LocationDetails", productLocation);
 
