@@ -443,9 +443,9 @@ namespace HavaBusinessObjects.ControllerRepository
                         {
                             JObject product = new JObject();
 
-                            product.Add("id", partProd.Id);
+                            product.Add("Id", partProd.Id);
                             product.Add("partnerId", objPartner.Id);
-                            product.Add("productId", partProd.ProductId);
+                            product.Add("ProductId", partProd.ProductId);
                             product.Add("Name", partProd.Product.Name);
                             product.Add("LocationId", partProd.LocationId);
                             product.Add("HavaPrice", partProd.HavaPrice);
@@ -461,9 +461,9 @@ namespace HavaBusinessObjects.ControllerRepository
                         {
                             JObject product = new JObject();
 
-                            product.Add("id", 0);
+                            product.Add("Id", 0);
                             product.Add("partnerId", objPartner.Id);
-                            product.Add("productId", notAddedPrd.Id);
+                            product.Add("ProductId", notAddedPrd.Id);
                             product.Add("Name", notAddedPrd.Name);
                             product.Add("LocationId", location.Id);
                             product.Add("HavaPrice", 0);
