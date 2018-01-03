@@ -9,4 +9,3 @@ E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\EntityFramework.xml
 E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\bin\EntityFramework.SqlServer.xml
 E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\obj\Debug\HavaBusiness.dll
 E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\obj\Debug\HavaBusiness.pdb
-E:\Udayangana\Per\Hava APP\Hava Dev\hava\HavaBusiness\obj\Debug\HavaBusiness.csprojResolveAssemblyReference.cache
