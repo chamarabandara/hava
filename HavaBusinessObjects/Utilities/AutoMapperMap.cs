@@ -18,7 +18,12 @@ namespace HavaBusinessObjects.Utilities
             //    .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.productVM))
             //    .MaxDepth(2)
             //    .ReverseMap();
-            CreateMap<ProductViewModel , Product>().ReverseMap();
+            CreateMap<ProductViewModel , Product>();
+            CreateMap<Product, ProductViewModel>()
+                .ForMember(dest => dest.productFeatures, opt => opt.MapFrom(src => src.ProductFeatures));
+
+            CreateMap<ProductFeature, ProductFeaturesViewMOdel>().ReverseMap();
+
             CreateMap<BookingTypeViewModel , BookingType>().ReverseMap();
             CreateMap<BookedProductViewModel, Product>().ReverseMap();
             CreateMap<BookingPayment, BookingPaymentViewModel>()
@@ -32,7 +37,8 @@ namespace HavaBusinessObjects.Utilities
             CreateMap<CountryViewModel, Country>().ReverseMap();
 
             CreateMap<BookingProductsViewModel , BookingProduct>().ReverseMap();
-            CreateMap<BookingSubProductViewModel, BookingSubProduct>().ReverseMap();
+            CreateMap<BookingSubProductViewModel, BookingSubProduct>()
+                .ReverseMap();
 
             CreateMap<BookingOption, BookingOptionViewModel>()
                 .ReverseMap()
@@ -49,7 +55,8 @@ namespace HavaBusinessObjects.Utilities
             CreateMap<BookingStatusViewModel , BookingStatu>().ReverseMap();
             CreateMap<Booking, BookingViewModel>()
                 .ForMember(dest => dest.DropLocation, opt => opt.MapFrom(src => src.LocationDetail))
-                .MaxDepth(3);
+               .ForMember(dest => dest.BookingSubProducts, opt => opt.MapFrom(src => src.BookingSubProducts))
+                .MaxDepth(4);
 
             CreateMap<BookingViewModel, Booking>()
                .ForMember(dest => dest.BookingStatusId, opt => opt.MapFrom(src => src.BookingStatu.Id))

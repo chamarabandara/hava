@@ -92,26 +92,39 @@ namespace HavaBusinessObjects.ControllerRepository
 
                     dbContextTransaction.Commit();
 
+                    //var newBooking = this.ObjContext.Bookings
+                    // .Include(x => x.Partner)
+                    // .Include(x => x.BookingStatu)
+                    // .Include(x => x.BookingType)
+                    // .Include(x => x.BookingSubProducts.Select(y => y.Product))
+                    // .Include(x => x.BookingOptions)
+                    // .Include(x => x.BookingProducts.Select(y => y.Product))
+                    // .Include(x => x.BookingPayments)
+                    // .Include(x => x.BookingPassengers)
+                    // .Where(a => a.Id == booking.Id).FirstOrDefault();
+
+
+                    //string htmlBody = this.BookingConfirmation(newBooking);
+                    //Utility uty = new Utility();
+                    //string[] ccMails = new string[1];
+                    //ccMails[0] = "udayangana@alliontechnologies.com";
+
+                    //uty.SendMails("udayangana1986@hotmail.com", ccMails, htmlBody, "Booking Confirmation");
+
                     var newBooking = this.ObjContext.Bookings
                      .Include(x => x.Partner)
                      .Include(x => x.BookingStatu)
                      .Include(x => x.BookingType)
-                     .Include(x => x.BookingSubProducts.Select(y => y.Product))
+                     .Include(x => x.BookingSubProducts)
                      .Include(x => x.BookingOptions)
-                     .Include(x => x.BookingProducts.Select(y => y.Product))
+                     .Include(x => x.BookingProducts)
                      .Include(x => x.BookingPayments)
                      .Include(x => x.BookingPassengers)
                      .Where(a => a.Id == booking.Id).FirstOrDefault();
 
-
-                    string htmlBody = this.BookingConfirmation(newBooking);
-                    Utility uty = new Utility();
-                    string[] ccMails = new string[1];
-                    ccMails[0] = "udayangana@alliontechnologies.com";
-
-                    uty.SendMails("udayangana1986@hotmail.com", ccMails, htmlBody, "Booking Confirmation");
-
-                    return Mapper.Map<Booking, BookingViewModel>(newBooking);
+                    var bbk = new BookingViewModel();
+                    bbk.Id = newBooking.Id;
+                    return bbk;
                 }
                 catch (Exception ex)
                 {
@@ -132,18 +145,13 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingOptions)
-                     .Include(x => x.BookingProducts.Select(y => y.Product))
                      .Include(x => x.BookingPayments)
                      .Include(x => x.BookingPassengers)
+                     .Include(x=>x.BookingProducts)
+                     .Include(x=>x.BookingSubProducts)
                      .Where(a => a.Id == id).FirstOrDefault();
 
-                string htmlBody = this.BookingConfirmation(booking);
-                Utility uty = new Utility();
-                string[] ccMails = new string[1];
-                ccMails[0] = "udayangana@alliontechnologies.com";
-
-                uty.SendMails("udayangana1986@hotmail.com", ccMails, htmlBody, "Booking Confirmation");
-
+                
                 return Mapper.Map<Booking, BookingViewModel>(booking);
             }
             catch (Exception ex)

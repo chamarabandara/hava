@@ -406,12 +406,14 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
         var BookingSubProducts = [];
         angular.forEach($scope.bookingSubProducts, function (v, k) {
+            debugger;
             BookingSubProducts.push({
                 'Id': v.id,
                 'HavaPrice': v.HavaPrice,
                 'MarketPrice': v.MarketPrice,
                 'Quantity': v.Quantity,
-                'Price': v.Price
+                'Price': v.Price,
+                'ProductId' : v.productId
             });
         });
         optionData.BookingSubProducts = BookingSubProducts;
