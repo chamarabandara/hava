@@ -16,7 +16,7 @@ partnerService.factory('HavaSiteService', ['$resource', function ($resource) {
         getPartnerIstest: { method: 'GET', url: appUrl + 'Partner/GetPartnerSite', params: { partnerId: '@partnerId', siteId: '@siteId' }, },
         getAppUser: { method: 'GET', url: appUrl + 'booking/GetAppUserName', isArray: false },
         getPartnerSubProducts: { method: 'GET', url: appUrl + 'booking/GetPartnerSubProducts', params: { partnerId: '@partnerId' } },
-
+        GetBookingDetails: { method: 'GET', url: appUrl + 'booking/GetById', params: { id: '@id' } }
     });
 }]);
 

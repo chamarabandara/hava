@@ -1,1 +1,293 @@
-﻿
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Booking Edit</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display: block;">
+                <br>
+                <form id="bookingForm" name="bookingForm" class="form-horizontal form-label-left" novalidate>
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Booking Details</a> </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Booking No
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.RefNo" name="name" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" >
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            From Date
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.PickupDate" name="code" required class="form-control col-md-7 col-xs-12" data-parsley-id="5">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            From Location 
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.PickupLocation" required class="form-control col-md-7 col-xs-12" data-parsley-id="5" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Promotion Code
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.PromotionCode" class="form-control col-md-7 col-xs-12" data-parsley-id="7" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Vehicle
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.BookingProducts[0].ProductName" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Booked Date
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.CreatedDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">To Date</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.ReturnDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            To Location 
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.DropLocation" class="form-control col-md-7 col-xs-12" data-parsley-id="7" >    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Pickup Time</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.PickupTime" required class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.BookingStatu.Name" required class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                           Grand Total
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.TotalCost" name="name" class="form-control col-md-7 col-xs-12" data-parsley-id="5">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"><a>Additional Services</a> </h4>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Fee</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click" ng-repeat="cData in model.BookingSubProducts">
+                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.Product.description">{{cData.Product.description}}</a><span ng-hide="cData.Product.description"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.MarketPrice">{{cData.MarketPrice}}</a><span ng-hide="cData.MarketPrice"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-show="cData.Quantity">{{cData.Quantity}}</a><span ng-hide="cData.Quantity"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-show="cData.Price">{{cData.Price}}</a><span ng-hide="cData.Price"><left>-</left></span></td>
+                                                    </tr>
+                                                    <tr class="odd gradeX" ng-hide="model.BookingSubProducts.length > 0">
+                                                        <td colspan="10">
+                                                            <center>No results found.</center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Additional Service </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Pickup Address
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control" rows="3" placeholder="" ng-model="model.address" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Note To Driver
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control" rows="3" placeholder="" ng-model="model.address" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Flight Details
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.CreatedDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title">Card Details </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Card Holder Name
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.BookingPayments[0].CardHolderName" class="form-control col-md-7 col-xs-12" data-parsley-id="7">                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Card Number
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.BookingPayments[0].CardNo" class="form-control col-md-7 col-xs-12" data-parsley-id="7">                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            CVV
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.BookingPayments[0].CVV" class="form-control col-md-7 col-xs-12" data-parsley-id="7">                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Card Type
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.BookingPayments[0].CardType" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Expiration Date
+                                        </label>
+                                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                            <input type="text" ng-model="model.BookingPayments[0].ExpireDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                            <input type="text" ng-model="model.BookingPayments[0].ExpireDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading relative">
+                                <h4 class="panel-title"><a>Passengers</a> </h4>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered " id="">
+                                                <thead>
+                                                    <tr>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Mobile No</th>
+                                                        <th>Email</th>
+                                                        <th>Country</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="click-row off-click" ng-repeat="cData in model.BookingPassenger">
+                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.FirstName">{{cData.FirstName}}</a><span ng-hide="cData.FirstName"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.LastName">{{cData.LastName}}</a><span ng-hide="cData.LastName"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-show="cData.Mobile">{{cData.Mobile}}</a><span ng-hide="cData.Mobile"><left>-</left></span></td>
+                                                        <td style="width:10%;"><a class="click-cell" ng-show="cData.Email">{{cData.Email}}</a><span ng-hide="cData.Email"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.Country.Name">{{cData.Country.Name}}</a><span ng-hide="cData.Country.Name"><left>-</left></span></td>
+                                                     </tr>
+                                                    <tr class="odd gradeX" ng-hide="model.Passengers.length > 0">
+                                                        <td colspan="10">
+                                                            <center>No results found.</center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button class="btn btn-primary" type="button" ui-sref="^.list">Cancel</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

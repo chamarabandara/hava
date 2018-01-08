@@ -420,10 +420,23 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
       .state('app.booking.list', {
           url: '/list',
           templateUrl: 'Booking/List',
-          controller: function ($scope, $stateParams, $controller) { $controller("BookingCtrl", { $scope: $scope }); },
+          controller: function ($scope, $stateParams, $controller) { $controller("BookingListCtrl", { $scope: $scope }); },
           resolve: {
               loadMyController: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
-                  return $ocLazyLoad.load('bookingControllers');
+                  return $ocLazyLoad.load('bookingHistoryControllers');
+              }],
+              loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                  return $ocLazyLoad.load(['siteService']);
+              }]
+          }
+      })
+      .state('app.booking.update', {
+          url: '/{id:int}/update',
+          templateUrl: 'Booking/Edit',
+          controller: function ($scope, $stateParams, $controller) { $controller("BookingEditCtrl", { $scope: $scope }); },
+          resolve: {
+              loadMyController: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                  return $ocLazyLoad.load('bookingHistoryControllers');
               }],
               loadMyService: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
                   return $ocLazyLoad.load(['siteService']);

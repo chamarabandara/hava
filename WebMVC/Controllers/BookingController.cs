@@ -457,6 +457,10 @@ namespace WebMVC.Controllers
         {
             return View();
         }
+        public ActionResult Edit()
+        {
+            return View();
+        }
 
         public JObject GetBookingList()
         {
