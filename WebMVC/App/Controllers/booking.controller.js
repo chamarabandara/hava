@@ -86,6 +86,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             $http.post(appUrl + '/Token', $.param(loginData)).
             success(function (data, status, headers, config) {
                 $scope.UserId = 0;
+                $scope.UserName = data.userName;
                 var expireTime = Date.now() + parseInt(data.refreshToken_timeout) * 60000;
                 localStorageService.set('accessToken', data.access_token);
                 localStorageService.set('refreshToken', data.refresh_token);
@@ -160,6 +161,15 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 $scope.search.pickupDate = $('#inputGroupSuccessDate2').val();
                 $scope.search.returnDate = $('#inputGroupSuccessDate3').val();
                 $scope.search.pickupTime = $('#timepicker2').val();
+                
+                $scope.search.returnPickupLocation = $('#searchTextField3').val();
+
+                var date2 = new Date($('#inputGroupSuccessDate3').val());
+                var date1 = new Date($('#inputGroupSuccessDate2').val());
+                var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                var summary = diffDays + " Days - " + (diffDays * 100) + " Kilometers free.";
+                document.getElementById("tripSummary").innerHTML = summary;
             }
             //if ($scope.isAirportTransfer)
 
@@ -213,7 +223,8 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     $scope.setBookingProduct = function (product) {
         debugger;
         $scope.selectedProduct = product;
-        $scope.totalSellingPrice = angular.copy($scope.selectedProduct.PartnerSellingPrice);
+        $scope.totalCost = angular.copy($scope.selectedProduct.PartnerSellingPrice);
+        $scope.prodPrice = angular.copy($scope.selectedProduct.PartnerSellingPrice);
 
         $scope.AditionalDayUnit = $scope.selectedProduct.AdditionaDayRate != null ? $scope.selectedProduct.AdditionaDayRate : 0;
         $scope.AdHoursUnit = $scope.selectedProduct.AdditionaHourRate != null ? $scope.selectedProduct.AdditionaHourRate : 0;
@@ -231,7 +242,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         var hrsTotal = (hrs * parseInt($scope.selectedProduct.AdditionaHourRate));
         var partPrice = parseInt(angular.copy($scope.selectedProduct.PartnerSellingPrice));
         var stTotal = ($scope.selectedProduct.ChildSeatRate != null) ? (st * parseInt($scope.selectedProduct.ChildSeatRate)) : 0;
-        $scope.totalSellingPrice = partPrice + hrsTotal + stTotal;
+        $scope.totalCost = partPrice + hrsTotal + stTotal;
     }
 
 
@@ -268,6 +279,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             HavaSiteService.createUser(data, function (data) {
                 if (data.data > 0) {
                     $scope.UserId = data.data;
+                    $scope.UserName = user.UserName;
                     $scope.navigateSteps(4);
                 } else {
 
@@ -286,6 +298,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
     }
 
     $scope.addPasengger = function (repData) {
+
         $scope.submittedRep = true;
         if (repData.FirstName != undefined && repData.FirstName != "")
             $scope.PassengerFirstNameRequired = false;
@@ -316,11 +329,16 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 });
                 $scope.pasenggers = {};
                 $scope.pasenggers = null;
-                repData = {};
+                repData.FirstName = "";
+                repData.Mobile = "";
+                repData.Email = "";
+                repData.LastName = "";
+                repData.Country = "";
             }
-
-
         }
+
+
+
         $scope.updateRep = false;
         $scope.updatePasengger = function (repData) {
             $scope.submittedRep = true;
@@ -356,6 +374,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
 
                 $scope.updateRep = false;
                 $scope.passengerGridData = gridData;
+
             }
             $scope.updateRep = false;
         }
@@ -442,6 +461,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                     "Id": 1
                 },
                 "UserId": $scope.UserId,
+                "UserName": $scope.UserName,
                 'BookingProducts': [$scope.selectedProduct],
                 "BookingStatu": {
                     "Id": 1,
@@ -456,6 +476,7 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                 "BookingOptions": [$scope.bookingOptionData],
                 "BookingPassenger": $scope.passengerGridData,
                 "BookingSubProducts": $scope.bookingOptionData.BookingSubProducts,
+                "ReturnPickupLocation": $scope.search.returnPickupLocation,
                 //"BookingPayments": [{
                 //    "CardHolderName": booking.CardHolderName,
                 //    "CardNo": booking.CardNo,
@@ -472,7 +493,8 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
                     "type": "Online",
                     "IsActive": true
                 },
-                "IsReturn": false
+                "IsReturn": false,
+                "TotalCost": $scope.totalCost
             }
 
             debugger;
@@ -516,8 +538,8 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             }
 
 
-            if ($scope.totalSellingPrice > 0)
-                $scope.selectedProduct.price = $scope.totalSellingPrice;
+            if ($scope.totalCost > 0)
+                $scope.selectedProduct.price = $scope.total;
 
             $scope.selectedProduct.AdditionalHours = $scope.additional.countAddHours;
             $scope.selectedProduct.NoOfChildSeats = $scope.additional.countAddhildSet;
@@ -648,7 +670,8 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         // $scope.total = (parseInt($scope.additional.countAddDay) * parseInt($scope.AditionalDayUnit)) + (parseInt($scope.additional.countAddhildSet) * parseInt($scope.cildSetUnit)) + (parseInt($scope.additional.countAddHours) * parseInt($scope.AdHoursUnit)) + (parseInt($scope.additional.AdditionalKM) * parseInt($scope.AdditionalKMRate));
         if ($scope.selectedProduct.promotionAmount == null)
             $scope.selectedProduct.promotionAmount = 0;
-        $scope.totalSellingPrice = partPrice + $scope.total - $scope.selectedProduct.promotionAmount;
+        $scope.totalCost = partPrice + $scope.total - $scope.selectedProduct.promotionAmount;
+        $scope.productPrice = partPrice - $scope.selectedProduct.promotionAmount;
     }
 
 
@@ -657,18 +680,18 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
         //    $("#datepicker").datepicker();
         //});
         var dateToday = new Date();
-        $('#timepicker').timepicker({
-            startDate: dateToday,
-            timeFormat: 'HH:mm:ss',
-            showSecond: true,
-            ampm: false
-        });
-        $('#timepicker2').timepicker({
-            timeFormat: 'HH:mm:ss',
-            startDate: dateToday,
-            showSecond: true,
-            ampm: false
-        });
+        //$('#timepicker').timepicker({
+        //    startDate: dateToday,
+        //    timeFormat: 'HH:mm:ss',
+        //    showSecond: true,
+        //    ampm: false
+        //});
+        //$('#timepicker2').timepicker({
+        //    timeFormat: 'HH:mm:ss',
+        //    startDate: dateToday,
+        //    showSecond: true,
+        //    ampm: false
+        //});
 
 
 
@@ -677,18 +700,23 @@ site.controller('BookingCreateCtrl', ['$scope', '$http', 'HavaSiteService', '$st
             startDate: dateToday,
             todayBtn: 'linked',
             autoclose: true,
+            minDate: new Date()
         });
+
         $('#inputGroupSuccessDate2').datepicker({
             format: 'yyyy-mm-dd',
             startDate: dateToday,
             todayBtn: 'linked',
             autoclose: true,
+            minDate: new Date()
         });
+
         $('#inputGroupSuccessDate3').datepicker({
             format: 'yyyy-mm-dd',
             startDate: dateToday,
             todayBtn: 'linked',
             autoclose: true,
+            minDate: new Date()
         });
     });
     //logout function

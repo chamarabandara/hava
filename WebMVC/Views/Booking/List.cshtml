@@ -46,6 +46,58 @@
             @*<div class="nav navbar-right panel_toolbox">
                     <button class="btn btn-primary" type="button" ui-sref="^.add">Create TSP</button>
                 </div>*@
+
+        </div>
+        <div>
+            <div>
+                @*<div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="ddpFrom" class="form-group">
+                                <div class="input-group input-append date date-picker">
+                                    <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;" ng-click="selectDate('inputGroupSuccessDate')"></i></span>
+                                    <input type="text" ng-class="{'has-error' : (!fromDate && submitted)}" class="form-control" id="inputGroupSuccessDate" aria-describedby="inputGroupSuccess1Status" ng-model="fromDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="ddpTo" class="form-group">
+                                <div class="input-group input-append date date-picker">
+                                    <span class="input-group-addon"><i class="fa fa-calendar" style="font-size: 168%;" ng-click="selectDate('inputGroupSuccessDate2')"></i></span>
+                                    <input type="text" ng-class="{'has-error' : (!toDate && submitted)}" class="form-control" id="inputGroupSuccessDate2" aria-describedby="inputGroupSuccess2Status" ng-model="toDate">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>*@
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="form-control" name="bstatus" ng-options="stat.name for stat in bookingStatus track by stat.id" ng-model="search.bstatus">
+                                    <option value="">-- Select a Status --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="form-control" name="partner" ng-options="stat.name for stat in partners track by stat.id" ng-model="search.partner">
+                                    <option value="">-- Select a partner --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="input-group input-append date date-picker">
+                                    <button class="btn btn-danger main-btn btn-block" ng-click="searchBookings(search)" type="button">Export</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="clearfix"></div>
         <table id="datatable-booking" class="table table-striped table-bordered dataTable no-footer">

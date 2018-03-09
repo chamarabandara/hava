@@ -173,7 +173,8 @@ bookingHistoryControllers.controller('BookingCtrl', ['$scope', '$http', 'HavaSit
     }
 }]);
 
-bookingHistoryControllers.controller('BookingListCtrl', ['$scope', '$http', 'HavaSiteService', '$stateParams', '$state', '$sce', '$window', '$timeout', function ($scope, $http, HavaSiteService, $stateParams, $state, $sce, $window, $timeout) {
+bookingHistoryControllers.controller('BookingListCtrl', ['$scope', '$http', 'HavaSiteService', '$stateParams', '$state', '$sce', '$window', '$timeout', '$injector', function ($scope, $http, HavaSiteService, $stateParams, $state, $sce, $window, $timeout, $injector) {
+    $scope.search = {};
 
     $scope.bindActionButtons = function (o) {
         var actionButtons = "";
@@ -187,6 +188,30 @@ bookingHistoryControllers.controller('BookingListCtrl', ['$scope', '$http', 'Hav
         actionButtons += '</div>';
         return actionButtons;
     }
+
+    
+    HavaSiteService.getAllPartners().$promise.then(
+                 function (result) {
+                     $scope.partners = result.data;
+                 });
+
+    HavaSiteService.getAllBookingStatus().$promise.then(
+                function (result) {
+                    $scope.bookingStatus = result.data;
+                });
+
+    $scope.selectDate = function (id) {
+        setTimeout(function () {
+            $('#' + id).trigger('focus');
+        }, 50);
+    }
+
+    $scope.searchBookings = function (model) {
+        debugger;
+        var url = appUrl + '/' + 'booking/ExportBooking?partnerId=' + (($scope.search.partner != undefined) ? $scope.search.partner.id : 0) + '&bookingStatus=' + (($scope.search.bstatus != undefined) ? $scope.search.bstatus.id : 0);
+        $window.open(url);
+        
+    };
 
     $('#datatable-booking').DataTable({
         //  "processing": true,
@@ -300,6 +325,21 @@ bookingHistoryControllers.controller('BookingListCtrl', ['$scope', '$http', 'Hav
                 $scope.action({ 'id': parseInt(id) }, view);
             }, 100);
         });
+
+        var dateToday = new Date();
+        //$('#inputGroupSuccessDate').datepicker({
+        //    format: 'yyyy-mm-dd',
+        //    startDate: dateToday,
+        //    todayBtn: 'linked',
+        //    autoclose: true,
+        //});
+
+        //$('#inputGroupSuccessDate2').datepicker({
+        //    format: 'yyyy-mm-dd',
+        //    startDate: dateToday,
+        //    todayBtn: 'linked',
+        //    autoclose: true,
+        //});
       
     });
     //logout function

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Net.Mail;
 using System.Web.UI.WebControls;
@@ -29,12 +30,20 @@ namespace HavaBusinessObjects.ControllerRepository
 
         public BookingViewModel Insert(BookingViewModel vm)
         {
+            HavaBusinessObjects.Utility _utility = new HavaBusinessObjects.Utility();
+
             Booking booking = Mapper.Map<BookingViewModel, Booking>(vm);
 
             using (var dbContextTransaction = this.ObjContext.Database.BeginTransaction())
             {
                 try
                 {
+                    var partner = this.ObjContext.Partners.Where(a => a.Id == vm.Partner.id).FirstOrDefault();
+                   string prefix = partner.Name.Substring(0, 3);
+                    var lastBook = this.ObjContext.Bookings.Where(a => a.PartnerId == vm.Partner.id).ToList();
+
+
+                    booking.BookingNo = prefix + "-" + (lastBook.Count() + 1).ToString();
                     booking.CreatedBy = vm.UserId;
                     booking.CreatedDate = DateTime.UtcNow;
                     booking.ModifiedBy = vm.UserId;
@@ -49,36 +58,36 @@ namespace HavaBusinessObjects.ControllerRepository
 
                     int bookingId = booking.Id;
 
-                    if (vm.BookingProducts != null && vm.BookingProducts.Count() > 0)
-                    {
-                        BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
-                        bookingProduct.BookingId = bookingId;
+                    //if (vm.BookingProducts != null && vm.BookingProducts.Count() > 0)
+                    //{
+                    //    BookingProduct bookingProduct = Mapper.Map<BookingProductsViewModel, BookingProduct>(vm.BookingProducts.FirstOrDefault());
+                    //    bookingProduct.BookingId = bookingId;
 
-                        this.ObjContext.BookingProducts.Add(bookingProduct);
-                        this.ObjContext.SaveChanges();
-                    }
+                    //    this.ObjContext.BookingProducts.Add(bookingProduct);
+                    //    this.ObjContext.SaveChanges();
+                    //}
 
-                    if (vm.BookingOptions != null && vm.BookingOptions.Count() > 0)
-                    {
-                        BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
+                    //if (vm.BookingOptions != null && vm.BookingOptions.Count() > 0)
+                    //{
+                    //    BookingOption bookingOption = Mapper.Map<BookingOptionViewModel, BookingOption>(vm.BookingOptions.FirstOrDefault());
 
-                        bookingOption.CreatedDate = DateTime.UtcNow;
-                        bookingOption.BookingId = bookingId;
+                    //    bookingOption.CreatedDate = DateTime.UtcNow;
+                    //    bookingOption.BookingId = bookingId;
 
-                        this.ObjContext.BookingOptions.Add(bookingOption);
-                        this.ObjContext.SaveChanges();
-                    }
+                    //    this.ObjContext.BookingOptions.Add(bookingOption);
+                    //    this.ObjContext.SaveChanges();
+                    //}
 
-                    if (vm.BookingPayments != null && vm.BookingPayments.Count() > 0)
-                    {
-                        BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
+                    //if (vm.BookingPayments != null && vm.BookingPayments.Count() > 0)
+                    //{
+                    //    BookingPayment bookingPayment = Mapper.Map<BookingPaymentViewModel, BookingPayment>(vm.BookingPayments.FirstOrDefault());
 
-                        bookingPayment.CreatedDate = DateTime.UtcNow;
-                        bookingPayment.BookingId = bookingId;
+                    //    bookingPayment.CreatedDate = DateTime.UtcNow;
+                    //    bookingPayment.BookingId = bookingId;
 
-                        this.ObjContext.BookingPayments.Add(bookingPayment);
-                        this.ObjContext.SaveChanges();
-                    }
+                    //    this.ObjContext.BookingPayments.Add(bookingPayment);
+                    //    this.ObjContext.SaveChanges();
+                    //}
 
                     if (vm.BookingPassenger != null && vm.BookingPassenger.Count() > 0)
                     {
@@ -113,18 +122,27 @@ namespace HavaBusinessObjects.ControllerRepository
 
                     var newBooking = this.ObjContext.Bookings
                      .Include(x => x.Partner)
+                     .Include(x => x.LocationDetail)
                      .Include(x => x.BookingStatu)
                      .Include(x => x.BookingType)
-                     .Include(x => x.BookingSubProducts)
+                     .Include(x => x.BookingSubProducts.Select(a => a.Product))
                      .Include(x => x.BookingOptions)
-                     .Include(x => x.BookingProducts)
+                     .Include(x => x.BookingProducts.Select(a => a.Product))
                      .Include(x => x.BookingPayments)
                      .Include(x => x.BookingPassengers)
                      .Where(a => a.Id == booking.Id).FirstOrDefault();
 
-                    var bbk = new BookingViewModel();
-                    bbk.Id = newBooking.Id;
-                    return bbk;
+                    var msgBody = this.BookingConfirmation(newBooking);
+
+                    string[] tomail = new string[1];
+                    tomail[0] = newBooking.BookingPassengers.FirstOrDefault().Email;
+
+                    string[] ccmail = new string[1];
+
+                    bool isSend = _utility.SendMails(newBooking.BookingPassengers.FirstOrDefault().Email, ccmail,msgBody, "Booking Confirmation - " + newBooking.BookingNo);
+
+
+                    return Mapper.Map<Booking, BookingViewModel>(booking);
                 }
                 catch (Exception ex)
                 {
@@ -145,13 +163,13 @@ namespace HavaBusinessObjects.ControllerRepository
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingType)
                      .Include(x => x.BookingOptions)
-                     .Include(x => x.BookingPayments)
+                     .Include(x => x.BookingPayments.Select(a => a.Common))
                      .Include(x => x.BookingPassengers)
-                     .Include(x=>x.BookingProducts)
-                     .Include(x=>x.BookingSubProducts)
+                     .Include(x => x.BookingProducts)
+                     .Include(x => x.BookingSubProducts)
                      .Where(a => a.Id == id).FirstOrDefault();
 
-                
+
                 return Mapper.Map<Booking, BookingViewModel>(booking);
             }
             catch (Exception ex)
@@ -183,11 +201,11 @@ namespace HavaBusinessObjects.ControllerRepository
                 List<Booking> bookings = this.ObjContext.Bookings.ToList();
                 bookings = bookings.OrderByDescending(x => x.CreatedDate).ToList();
                 JArray returnArr = new JArray();
-                foreach (Booking booking in bookings.OrderByDescending(a=>a.CreatedDate))
+                foreach (Booking booking in bookings.OrderByDescending(a => a.CreatedDate))
                 {
                     JObject bk = new JObject();
                     bk.Add("id", booking.Id);
-                    bk.Add("refNo", booking.RefNo);
+                    bk.Add("refNo", booking.BookingNo);
                     bk.Add("partner", booking.PartnerId != null ? booking.Partner.Name : string.Empty);
                     bk.Add("bookingType", booking.BookingTypeId != null ? booking.BookingType.type : string.Empty);
                     bk.Add("pickupDate", booking.PickupDate != null ? booking.PickupDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
@@ -220,7 +238,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 {
                     JObject bk = new JObject();
                     bk.Add("id", booking.Id);
-                    bk.Add("refNo", booking.RefNo);
+                    bk.Add("refNo", booking.BookingNo);
                     bk.Add("partner", booking.PartnerId != null ? booking.Partner.Name : string.Empty);
                     bk.Add("bookingType", booking.BookingTypeId != null ? booking.BookingType.type : string.Empty);
                     bk.Add("pickupDate", booking.PickupDate != null ? booking.PickupDate.Value.ToString("yyyy-MMM-dd") : string.Empty);
@@ -440,7 +458,7 @@ namespace HavaBusinessObjects.ControllerRepository
                 information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px;'>" + orderRow.Product.Name + "</td>";
                 information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px;'>" + orderRow.MarketPrice.Value.ToString("#,##0.00") + "</td>";
                 information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px;'>" + orderRow.Quantity.Value.ToString() + "</td>";
-                information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px; white-space: nowrap;'>" + orderRow.Price.Value.ToString("#,##0.00") + "</td>";
+                information += "<td bgcolor='#eeeeee' style='padding: 2px 5px 0 5px; background-color: #eeeeee; font-size: 12px; white-space: nowrap;'>" +  (orderRow.MarketPrice.Value * orderRow.Quantity.Value).ToString("#,##0.00") + "</td>";
 
                 information += "</tr>";
             }
@@ -452,6 +470,47 @@ namespace HavaBusinessObjects.ControllerRepository
             MailMessage msg = md.CreateMailMessage("test@domain.com", replacements, reportTemplate.HTMLBody, new System.Web.UI.Control());
 
             return msg.Body;
+        }
+
+        public List<BookingViewModel> ExportBooking(int? partnerId, int? bookingStatus)
+        {
+            try
+            {
+                if (partnerId == 0)
+                {
+                    partnerId = null;
+                }
+
+                if (bookingStatus == 0)
+                {
+                    bookingStatus = null;
+                }
+
+                var booking = this.ObjContext.Bookings
+                     .Include(x => x.LocationDetail)
+                     .Include(x => x.Partner)
+                     .Include(x => x.BookingStatu)
+                     .Include(x => x.BookingType)
+                     .Include(x => x.BookingType)
+                     .Include(x => x.BookingOptions)
+                     .Include(x => x.BookingPayments.Select(a => a.Common))
+                     .Include(x => x.BookingPassengers)
+                     .Include(x => x.BookingProducts)
+                     .Include(x => x.BookingSubProducts)
+                     .Where(a => //(EntityFunctions.TruncateTime(a.PickupDate) >= EntityFunctions.TruncateTime(filters.FromDate)) 
+                     //&& (EntityFunctions.TruncateTime(a.PickupDate) <= EntityFunctions.TruncateTime(filters.ToDate))
+                     //
+                     (!bookingStatus.HasValue || bookingStatus.Value == a.BookingStatusId) &&
+                     (!partnerId.HasValue || partnerId.Value == a.PartnerId))
+                     .ToList();
+
+
+                return Mapper.Map<List<Booking>, List<BookingViewModel>>(booking);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #region Dispose

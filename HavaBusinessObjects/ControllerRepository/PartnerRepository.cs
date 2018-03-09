@@ -645,6 +645,20 @@ namespace HavaBusinessObjects.ControllerRepository
         }
         #endregion
 
+        public List<Partner> GetAll()
+        {
+            try
+            {
+                var partners = this.ObjContext.Partners.ToList();
+                
+                return partners;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #region Update Partner
         /// <summary>
         /// Update Partner

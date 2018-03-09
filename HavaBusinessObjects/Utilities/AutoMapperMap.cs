@@ -27,6 +27,8 @@ namespace HavaBusinessObjects.Utilities
             CreateMap<BookingTypeViewModel , BookingType>().ReverseMap();
             CreateMap<BookedProductViewModel, Product>().ReverseMap();
             CreateMap<BookingPayment, BookingPaymentViewModel>()
+                .ForMember(dest => dest.CardTypeVM, opt => opt.MapFrom(src => src.Common))
+                .ForMember(dest => dest.CardType, opt => opt.MapFrom(src => src.Common.Id))
                  .ReverseMap();
 
             //CreateMap<BookingPaymentViewModel, BookingPayment>()
@@ -36,7 +38,9 @@ namespace HavaBusinessObjects.Utilities
             CreateMap<CommonViewModel, Common>().ReverseMap();
             CreateMap<CountryViewModel, Country>().ReverseMap();
 
-            CreateMap<BookingProductsViewModel , BookingProduct>().ReverseMap();
+            CreateMap<BookingProductsViewModel, BookingProduct>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.PartnerSellingPrice))
+                .ReverseMap();
             CreateMap<BookingSubProductViewModel, BookingSubProduct>()
                 .ReverseMap();
 
@@ -49,12 +53,13 @@ namespace HavaBusinessObjects.Utilities
                         .MaxDepth(2);
 
             CreateMap<BookingPassenger, BookingPassengerViewModel>()
-                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country))
+                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country1))
                         .MaxDepth(2);
 
             CreateMap<BookingStatusViewModel , BookingStatu>().ReverseMap();
             CreateMap<Booking, BookingViewModel>()
                 .ForMember(dest => dest.DropLocation, opt => opt.MapFrom(src => src.LocationDetail))
+                .ForMember(dest => dest.BookingPassenger, opt => opt.MapFrom(src => src.BookingPassengers))
                .ForMember(dest => dest.BookingSubProducts, opt => opt.MapFrom(src => src.BookingSubProducts))
                 .MaxDepth(4);
 

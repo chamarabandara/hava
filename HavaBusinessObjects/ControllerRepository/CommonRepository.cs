@@ -70,6 +70,30 @@ namespace HavaBusinessObjects.ControllerRepository
             }
         }
 
+        public JArray GetAllBookingStatus()
+        {
+            try
+            {
+                var bookings = this.ObjContext.BookingStatus.ToList();
+
+                JArray returnArr = new JArray();
+                foreach (BookingStatu item in bookings)
+                {
+                    JObject bk = new JObject();
+                    bk.Add("id", item.Id);
+                    bk.Add("name", item.Name);
+
+                    returnArr.Add(bk);
+                }
+                return returnArr;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #region Dispose
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

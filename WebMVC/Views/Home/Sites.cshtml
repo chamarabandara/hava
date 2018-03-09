@@ -155,7 +155,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                    <input type="text" class="form-control" id="timepicker" aria-describedby="timepicker" ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">
+                                                                                    <input type="time" class="form-control" id="timepicker" placeholder="00:00 PM" aria-describedby="timepicker" style="background-color: snow;"  ng-model="search.pickupTime" ng-class="{'has-error' : (!search.pickupTime && submitted)}">
                                                                                     @*<input type="text" class="" id="timepicker-jq" size="8" ng-model="search.pickupTime" data-time-format="HH:mm" data-time-type="number" ng-class="{'has-error' : (!search.pickupTime && submitted)}" data-autoclose="1" name="search.pickupTime" bs-timepicker>*@
                                                                                 </div>
                                                                             </div>
@@ -183,7 +183,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="fa fa-clock-o" style="font-size: 168%;"></i></span>
-                                                                                    <input type="text" class="form-control" id="timepicker2" aria-describedby="timepicker" ng-model="pickupTime2">
+                                                                                    <input type="time" class="form-control" id="timepicker2" style="background-color: snow;" aria-describedby="timepicker" ng-model="pickupTime2">
                                                                                 </div>
                                                                             </div>
                                                                             @*<div class="form-group">
@@ -678,8 +678,11 @@
                                 <label class="info-lbl half-label">{{search.pickupLocation}}</label>
                                 <label class="info-lbl half-label"><i class="fa fa-angle-double-right"></i> {{search.dropLocation.name}}</label>
                             </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 duration-label">
+                                <label class="info-lbl" id="tripSummary"></label>
+                            </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 destination-label">
-                                <label class="info-lbl">Duration:38 minutes – Distance: 33.6 km</label>
+                                <label class="info-lbl" id="tripSummary"></label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 destination-label">
                                 <label class="info-lbl">{{search.pickupDate}} {{search.pickupTime}}</label>
@@ -733,7 +736,7 @@
                         <div class="row option-price">
                             <label>
                                 Total Cost:</label>
-                                <span> RS {{totalSellingPrice}}</span>
+                                <span> RS {{totalCost}}</span>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-md-offset-2 col-lg-offset-2 form-section-reg">
                             <div class="row">
@@ -955,7 +958,7 @@
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <input class="form-control" ng-model="login.loginUsername" type="text" autocomplete="off" placeholder="Username" name="username" ng-keyup="Login(login)" />
+                                                        <input class="form-control" ng-model="login.loginUsername" type="text" autocomplete="off" placeholder="Username" name="username" />
                                                     </div>
                                                 </div>
                                               
@@ -968,7 +971,7 @@
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <input type="password" class="form-control" ng-model="login.loginPassword" autocomplete="off" placeholder="Password" name="password" ng-keyup="Login(login)"/>
+                                                        <input type="password" class="form-control" ng-model="login.loginPassword" autocomplete="off" placeholder="Password" name="password"/>
                                                     </div>
                                                 </div>
                                                 
@@ -981,7 +984,7 @@
                                         <a href="" style="padding-right:10px;" ng-show="loginForm" ng-click="gotoLogin(false)">Don't have an account?</a>
                                         <a href="" style="padding-right:10px;" ng-hide="loginForm" ng-click="gotoLogin(true)">go to login</a>
                                         <button type="button" ng-hide="loginForm" class="btn btn-primary" ng-click="createUser(user)" ng-class="{'disabled' : disabledButton}">Register</button>
-                                        <button type="button" ng-show="loginForm" class="btn btn-primary" ng-click="login(login)">Login</button>
+                                        <button type="button" ng-show="loginForm" class="btn btn-primary" ng-click="Login(login)">Login</button>
                                     </div>
                                 </div>
                             </div>
@@ -1128,7 +1131,6 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label class="col-lg-5 col-md-5 col-sm-6" for=""></label>
                                                         <div class="col-lg-7 col-md-7 col-sm-6">
                                                             <button class="btn btn-primary ng-cloak" type="button" ng-click="addPasengger(pasenggers)" ng-hide="updateRep">Save</button>
                                                             <button class="btn btn-primary ng-cloak" type="button" ng-click="updatePasengger(pasenggers)" ng-show="updateRep">Update</button>
@@ -1138,6 +1140,7 @@
                                                     <div class="form-group">
 
                                                     </div>
+                                                    <div></div>
                                                 </div>
                                             </div>
                                         </div>

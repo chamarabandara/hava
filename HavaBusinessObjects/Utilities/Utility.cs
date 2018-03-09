@@ -96,53 +96,33 @@ namespace HavaBusinessObjects
             //SmtpClient client = new SmtpClient("mail.pandarix.com");
             //If you need to authenticate
             string userName = ConfigurationManager.AppSettings["From_Mail"].ToString();
-            ////string password = ConfigurationManager.AppSettings["From_PWD"].ToString();
-
-            //////client.Credentials = new NetworkCredential(userName, password);
-
-            ////using (MailMessage mm = new MailMessage(userName, toMail))
-            ////{
-            ////    mm.Subject = mailSubject;
-            ////    mm.Body = mailBody;
-            ////    mm.IsBodyHtml = true;
-            ////    using (SmtpClient smtp = new SmtpClient())
-            ////    {
-            ////        smtp.Host = "pop.1and1.co.uk";
-            ////        smtp.EnableSsl = true;
-            ////        NetworkCredential NetworkCred = new NetworkCredential(userName, password);
-            ////        smtp.UseDefaultCredentials = true;
-            ////        smtp.Credentials = NetworkCred;
-            ////        smtp.Port = 587;
-            ////        smtp.Send(mm);
-            ////    }
-            ////}
-
-            using (SmtpClient smtpClient = new SmtpClient("auth.smpt.1and1.co.uk", 587))
-            {
-                smtpClient.EnableSsl = true;
-                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtpClient.UseDefaultCredentials = true;
-                smtpClient.Credentials = new NetworkCredential("hava@pandarix.com", "Hava1234567");
-
-                smtpClient.Send("hava@pandarix.com", toMail, mailSubject, mailBody);
-            }
-
-
-            MailMessage mail = new MailMessage();
-            SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Host = "auth.smpt.1and1.co.uk"; 
             
-            mail.To.Add(toMail);
 
-            mail.From = new MailAddress(userName);
-            mail.Subject = mailSubject;
-            mail.Body = mailBody;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
-            client.Send(mail);
+            try
+            {
+                MailMessage mails = new MailMessage();
+                //set the FROM address
+                mails.From = new MailAddress("andrew.hava@pandarix.com");
+                //set the RECIPIENTS
+                mails.To.Add(toMail);
+                mails.CC.Add("hava@pandarix.com");
+                //enter a SUBJECT
+                mails.Subject = mailSubject;
+                //Enter the message BODY
+                mails.Body = mailBody;
+                mails.IsBodyHtml = true;
+                //set the mail server (default should be auth.smtp.1and1.co.uk)
+                SmtpClient smtp = new SmtpClient("auth.smtp.1and1.co.uk");
+                //Enter your full e-mail address and password
+                smtp.Credentials = new NetworkCredential("andrew.hava@pandarix.com", "Andrew123456");
+                //send the message 
+                smtp.Send(mails);
+            }
+            catch(System.Net.Mail.SmtpException ex)
+            {
+                //TODO: LOG EXCEPTION AND DISPLAY FRIENDLY MESSAGE!
+            }
+            
 
             return true;
 

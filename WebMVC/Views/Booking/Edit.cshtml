@@ -53,7 +53,7 @@
                                             Vehicle
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" ng-model="model.BookingProducts[0].ProductName" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                            <input type="text" ng-model="model.BookingProducts[0].Description" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
                                         </div>
                                     </div>
                                 </div>
@@ -105,6 +105,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6 col-sm-6 margin-top">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            IS Chauffer
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" ng-model="model.IsChauffer" name="name" class="form-control col-md-7 col-xs-12" data-parsley-id="5">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                     </div>
 
@@ -129,12 +139,12 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class="click-row off-click" ng-repeat="cData in model.BookingSubProducts">
-                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.Product.description">{{cData.Product.description}}</a><span ng-hide="cData.Product.description"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.Description">{{cData.Description}}</a><span ng-hide="cData.Description"><left>-</left></span></td>
                                                         <td style="width:15%;"><a class="click-cell" ng-show="cData.MarketPrice">{{cData.MarketPrice}}</a><span ng-hide="cData.MarketPrice"><left>-</left></span></td>
                                                         <td style="width:10%;"><a class="click-cell" ng-show="cData.Quantity">{{cData.Quantity}}</a><span ng-hide="cData.Quantity"><left>-</left></span></td>
                                                         <td style="width:10%;"><a class="click-cell" ng-show="cData.Price">{{cData.Price}}</a><span ng-hide="cData.Price"><left>-</left></span></td>
                                                     </tr>
-                                                    <tr class="odd gradeX" ng-hide="model.BookingSubProducts.length > 0">
+                                                    <tr class="odd gradeX" ng-hide="model.BookingSubProducts.length == 0">
                                                         <td colspan="10">
                                                             <center>No results found.</center>
                                                         </td>
@@ -160,7 +170,7 @@
                                             Pickup Address
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="form-control" rows="3" placeholder="" ng-model="model.address" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
+                                            <textarea class="form-control" rows="3" placeholder="" ng-model="model.BookingOptions[0].PickupAddress" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -168,7 +178,7 @@
                                             Note To Driver
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="form-control" rows="3" placeholder="" ng-model="model.address" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
+                                            <textarea class="form-control" rows="3" placeholder="" ng-model="model.BookingOptions[0].NoteToDriver" name="address" required ng-class="{'parsley-error' : (partnerForm.address.$invalid && submitted)}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +188,7 @@
                                             Flight Details
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" ng-model="model.CreatedDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
+                                            <input type="text" ng-model="model.BookingOptions[0].FlightNo" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
                                         </div>
                                     </div>
                                 </div>
@@ -231,9 +241,7 @@
                                         <div class="col-md-3 col-sm-3 col-xs-6">
                                             <input type="text" ng-model="model.BookingPayments[0].ExpireDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
                                         </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-6">
-                                            <input type="text" ng-model="model.BookingPayments[0].ExpireDate" class="form-control col-md-7 col-xs-12" data-parsley-id="7">
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -264,9 +272,9 @@
                                                         <td style="width:15%;"><a class="click-cell" ng-show="cData.LastName">{{cData.LastName}}</a><span ng-hide="cData.LastName"><left>-</left></span></td>
                                                         <td style="width:10%;"><a class="click-cell" ng-show="cData.Mobile">{{cData.Mobile}}</a><span ng-hide="cData.Mobile"><left>-</left></span></td>
                                                         <td style="width:10%;"><a class="click-cell" ng-show="cData.Email">{{cData.Email}}</a><span ng-hide="cData.Email"><left>-</left></span></td>
-                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.Country.Name">{{cData.Country.Name}}</a><span ng-hide="cData.Country.Name"><left>-</left></span></td>
+                                                        <td style="width:15%;"><a class="click-cell" ng-show="cData.Country">{{cData.Country}}</a><span ng-hide="cData.Country"><left>-</left></span></td>
                                                      </tr>
-                                                    <tr class="odd gradeX" ng-hide="model.Passengers.length > 0">
+                                                    <tr class="odd gradeX" ng-hide="model.BookingPassenger.length > 0">
                                                         <td colspan="10">
                                                             <center>No results found.</center>
                                                         </td>

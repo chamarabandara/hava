@@ -9,6 +9,7 @@ namespace HavaBusinessObjects.ViewModels
     {
         public int Id { get; set; }
         public BookingTypeViewModel BookingType { get; set; }
+        public string BookingNo { get; set; }
         public System.DateTime? PickupDate { get; set; }
         public System.TimeSpan? PickupTime { get; set; }
         public string PickupLocation { get; set; }
@@ -26,8 +27,11 @@ namespace HavaBusinessObjects.ViewModels
         public bool? HasPromotions { get; set; }
         public bool UserConfirmed { get; set; }
         public int? UserId { get; set; }
+        public string UserName { get; set; }
         public bool IsReturn { get; set; }
         public bool IsAirportTransfer { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public decimal TotalCost { get; set; }
 
         public List<BookingProductsViewModel> BookingProducts { get; set; }
         public List<BookingSubProductViewModel> BookingSubProducts { get; set; }
@@ -60,6 +64,7 @@ namespace HavaBusinessObjects.ViewModels
         public string CardNo { get; set; }
         public int CardType { get; set; }
         public string CVV { get; set; }
+        public CommonViewModel CardTypeVM { get; set; }
     }
 
     public class BookingProductsViewModel
@@ -70,6 +75,7 @@ namespace HavaBusinessObjects.ViewModels
         public decimal? Price { get; set; }
         public decimal? PartnerPrice { get; set; }
         public decimal? MarketPrice { get; set; }
+        public decimal? PartnerSellingPrice { get; set; }
         public BookedProductViewModel Product { get; set; }
     }
 
@@ -116,5 +122,13 @@ namespace HavaBusinessObjects.ViewModels
         public string Name { get; set; }
     }
 
+
+
+    public class BookingFilter
+    {
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public int? PartnerId { get; set; }
+    }
 
 }
