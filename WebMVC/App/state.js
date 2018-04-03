@@ -334,7 +334,7 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '_START_REQ
       .state('app.product.update', {
           url: '/{id:int}/update',
           templateUrl: 'Product/Add',
-          controller: function ($scope, $stateParams, $controller) { $controller("PartnerCreateCtrl", { $scope: $scope }); },
+          controller: function ($scope, $stateParams, $controller) { $controller("ProductCreateCtrl", { $scope: $scope }); },
           resolve: {
               loadMyController: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
                   return $ocLazyLoad.load('productControllers');

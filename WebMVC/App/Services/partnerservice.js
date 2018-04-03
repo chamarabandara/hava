@@ -19,6 +19,7 @@ partnerService.factory('HavaPartnerService', ['$resource', function ($resource) 
         getMainProducts: { method: 'GET', url: appUrl + 'booking/GetMainProducts' },
         getSubProducts: { method: 'GET', url: appUrl + 'booking/GetSubProducts' },
         getAllLocations: { method: 'GET', url: appUrl + 'LocationDetails/GetAll' },
+        getProduct: { method: 'GET', url: appUrl + 'Product/GetProductById', params: { id: '@id' } },
     });
 }]);
 

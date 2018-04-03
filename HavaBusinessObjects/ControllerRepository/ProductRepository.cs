@@ -145,6 +145,30 @@ namespace HavaBusinessObjects.ControllerRepository
         }
         #endregion
 
+        public JObject GetProduct(int Id)
+        {
+            JObject returnObj = new JObject();
+            Product objProduct = new Product();
+            objProduct = this.ObjContext.Products.Find(Id);
+
+            if (objProduct != null)
+            {
+                returnObj.Add("id" , objProduct.Id);
+                returnObj.Add("code" , objProduct.Code);
+                returnObj.Add("name" , objProduct.Name);
+                returnObj.Add("description" , objProduct.Description);
+                returnObj.Add("isMainProduct" , objProduct.IsMainProduct);
+                returnObj.Add("maxLagguage" , objProduct.MaxLuggage);
+                returnObj.Add("maxPessenger" , objProduct.MaxPassengers);
+                returnObj.Add("isActive" ,true); // change this no is active flag in DB
+                returnObj.Add("productLogoImage" , objProduct.ProductImagePath);
+
+            }
+
+            return returnObj;
+        }
+
+
         #region Dispose
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

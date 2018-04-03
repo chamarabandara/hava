@@ -11,9 +11,24 @@
 *
 */
 
-var productControllers = angular.module('productControllers', ['ngCookies', 'partnerService', 'angularFileUpload','PartnerServiceLocal']);
+var productControllers = angular.module('productControllers', ['ngCookies', 'partnerService', 'angularFileUpload']);
 
-productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', '$upload','PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, $upload, PartnerServiceLocal) {
+productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', '$upload', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, $upload) {
+    if ($stateParams.id) {
+        HavaPartnerService.getProduct({ id: $stateParams.id }).$promise.then(
+                      function (result) {
+
+                          $scope.model = result;
+                          $scope.representativeGridData = result.representativeGridData;
+                          $scope.productGridData = result.productGridData;
+                          $scope.siteGridData = result.siteGridData;
+                          $scope.mainProductDetails = result.mainProductDetails;
+                          $scope.subProductDetails = result.subProducts;
+                          $scope.locationProducts = result.locationProducts;
+
+                      });
+    }
+
     $scope.create = function (product) {
         $scope.submitted = true;
         if ($scope.productForm.$invalid == false) {
@@ -135,7 +150,7 @@ productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPart
     }
 }]);
 
-productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'localStorageService', 'PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, localStorageService, PartnerServiceLocal) {
+productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'localStorageService',  function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, localStorageService) {
     $scope.model = {};
     $scope.submitted = false;
     $scope.create = function () {
@@ -198,11 +213,11 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
         },
 
         "aoColumns": [
-             {
-                 "data": "name", sWidth: "25%", "render": function (data, type, row, meta) {
-                     return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
-                 }
-             },
+             //{
+             //    "data": "name", sWidth: "25%", "render": function (data, type, row, meta) {
+             //        return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
+             //    }
+             //},
              {
                  "data": "code", sWidth: "25%", "render": function (data, type, row, meta) {
                      return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';

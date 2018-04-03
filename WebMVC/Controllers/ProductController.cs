@@ -57,6 +57,19 @@ namespace HavaWeb.Controllers
         }
         #endregion
 
+        public JObject GetProductById(int id)
+        {
+            try
+            {
+                ProductRepository productRepository = new ProductRepository();
+               return productRepository.GetProduct(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public JObject GetList()
         {
 
