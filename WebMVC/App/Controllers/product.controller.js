@@ -11,22 +11,26 @@
 *
 */
 
-var productControllers = angular.module('productControllers', ['ngCookies', 'partnerService', 'angularFileUpload']);
+var productControllers = angular.module('productControllers', ['ngCookies', 'partnerService', 'angularFileUpload','PartnerServiceLocal']);
 
-productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', '$upload', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, $upload) {
+productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', '$upload','PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, $upload, PartnerServiceLocal) {
     $scope.create = function (product) {
         $scope.submitted = true;
         if ($scope.productForm.$invalid == false) {
             if ($scope.productLogoImage && $scope.productLogoImage.length > 0) {
                 product.productLogoImage = angular.copy($scope.docFileLogo);
+                product.productImagePath = product.productLogoImage.documentPath
+
             } else {
                 product.productLogoImage = null;
+                product.productImagePath ='';
             }
             HavaPartnerService.createProduct(product).$promise.then(function (data) {
                 if (data.status == true) {
+                    // PartnerServiceLocal.infoMsg = "Product " + $scope.dealer.companyDetails.orgName + " has been saved successfully.";
+                    $state.go('app.product.list');
                 }
-                });
-           
+            });
         }
     }
     $scope.queue = [];
@@ -79,7 +83,7 @@ productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPart
         $scope.docFileLogo.name = $file.name;
         $scope.docFileLogo.size = $file.size;
         $scope.upload[index] = $upload.upload({
-            url: "api/File/UploadProductLogoImage", // webapi url
+            url: appUrl + "api/File/UploadProductLogoImage", // webapi url
             method: "POST",
             data: { ImportType: 'fileUpload', fileUploadObj: $scope.fileUploadObj },
             file: $file
@@ -131,7 +135,7 @@ productControllers.controller('ProductCreateCtrl', ['$scope', '$http', 'HavaPart
     }
 }]);
 
-productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'localStorageService', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, localStorageService) {
+productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartnerService', '$stateParams', '$state', '$sce', '$window', '$timeout', 'localStorageService', 'PartnerServiceLocal', function ($scope, $http, HavaPartnerService, $stateParams, $state, $sce, $window, $timeout, localStorageService, PartnerServiceLocal) {
     $scope.model = {};
     $scope.submitted = false;
     $scope.create = function () {
@@ -159,12 +163,12 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
     $scope.bindActionButtons = function (o) {
         var actionButtons = "";
         actionButtons = '<div class="ngCellText" ng-cell-text ng-class="col.colIndex()">';
-        var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
+        //var viewButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="view" title="View"><i class="fa fa-eye"></i></a>';
         var editButton = '<a data-dataId="' + o.id + '" class="link-action action-button"  data-view="edit" title="Edit"><i class="access-link fa fa-pencil-square-o"></i></a>';
-        var deleteButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
-        actionButtons += viewButton + editButton;
-        if (o.status != "Closed")
-            actionButtons += deleteButton;
+        //var deleteButton = '<a data-dataId="' + o.id + '" class="link-action action-button" data-view="delete" title="Delete"><i class="fa fa-trash"></i></a>';
+        actionButtons += editButton;
+        //if (o.status != "Closed")
+        //    actionButtons += deleteButton;
         actionButtons += '</div>';
         return actionButtons;
     }
@@ -214,13 +218,13 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
                      return '<a data-view="view" data-dataId="' + row.rId + '">' + ((data != null) ? data : '<center>-</center>') + '</a>';
                  }
              },
-            //{
-            //    "data": null,
-            //    "bSortable": false,
-            //    "mRender": function (o) {
-            //        return $scope.bindActionButtons(o);
-            //    }
-            //}
+            {
+                "data": null,
+                "bSortable": false,
+                "mRender": function (o) {
+                    return $scope.bindActionButtons(o);
+                }
+            }
         ]
     });
 
@@ -242,7 +246,6 @@ productControllers.controller('ProductListCtrl', ['$scope', '$http', 'HavaPartne
 
         }
     }
-
 
     angular.element(document).ready(function () {
         $('#claim-grid').on('click', '.search-cleardata', function (e) {

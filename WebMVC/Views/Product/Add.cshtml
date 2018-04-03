@@ -63,10 +63,20 @@
                                     </ul>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                    Is Active
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="js-switch" checked="checked" ng-model="model.isActive">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
-
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
                                     Is Main Product<span class="required">*</span>
@@ -77,6 +87,28 @@
                                             <input type="checkbox" class="js-switch" checked="checked" ng-model="model.isMainProduct">
                                         </label>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="model.isMainProduct">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Max Pessenger <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" ng-model="model.maxPessenger" name="maxPessenger" class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (model.isMainProduct && productForm.maxPessenger.$invalid && submitted)}">
+                                    <ul ng-show="model.isMainProduct && productForm.maxPessenger.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required" ng-show="model.isMainProduct && productForm.maxPessenger.$error.required">This value is required.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="model.isMainProduct">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Max Lagguage <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" ng-model="model.maxLagguage" name="maxLagguage" class="form-control col-md-7 col-xs-12" data-parsley-id="5" ng-class="{'parsley-error' : (model.isMainProduct && productForm.maxLagguage.$invalid && submitted)}">
+                                    <ul ng-show="model.isMainProduct && productForm.maxLagguage.$invalid && submitted" class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required" ng-show="model.isMainProduct && productForm.maxLagguage.$error.required">This value is required.</li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -145,8 +177,6 @@
                             </div>
 
                         </div>
-
-
                     </div>
 
                     <div class="ln_solid"></div>

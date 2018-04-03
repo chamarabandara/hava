@@ -12,9 +12,9 @@ namespace HavaBusinessObjects.ViewModels
         public string code { get; set; }
         public string name { get; set; }
         public bool? isMainProduct { get; set; }
-        public int? MaxPassengers { get; set; }
-        public int? MaxLuggage { get; set; }
-        public string ProductImagePath { get; set; }
+        public int? maxPessenger { get; set; }
+        public int? maxLagguage { get; set; }
+        public string productImagePath { get; set; }
         public ProductFeaturesViewMOdel productFeatures { get; set; }
         public ProductImageViewModel productLogoImage { get; set; }
 

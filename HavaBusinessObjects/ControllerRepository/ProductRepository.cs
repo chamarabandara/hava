@@ -92,6 +92,8 @@ namespace HavaBusinessObjects.ControllerRepository
                     objProduct.Name = productViewModel.name;
                     objProduct.Description = productViewModel.description;
                     objProduct.IsMainProduct = productViewModel.isMainProduct;
+                    objProduct.MaxLuggage = productViewModel.maxLagguage;
+                    objProduct.MaxPassengers = productViewModel.maxPessenger;
 
                     #region product logo image
                     if (productViewModel.productLogoImage != null && !string.IsNullOrEmpty(productViewModel.productLogoImage.documentPath))
